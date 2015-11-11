@@ -1,0 +1,7 @@
+platform :ios, '7.0'
+pod 'MJExtension'
+pod 'MJRefresh'
+pod 'SDWebImage', '~> 3.6'
+pod 'AFNetworking', '~> 2.5.3'
+pod 'JSONKit-NoWarning', '~> 1.1'
+pod 'JT3DScrollView', '~> 1.0'

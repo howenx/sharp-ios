@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeCell" id="KGk-i7-Jjw" customClass="MeCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_more_hui" translatesAutoresizingMaskIntoConstraints="NO" id="NKk-sz-Wx3">
+                        <rect key="frame" x="283" y="10" width="29" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="23" id="W7B-vH-xIy"/>
+                            <constraint firstAttribute="width" constant="29" id="mH4-f3-AWc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-XO-OFy">
+                        <rect key="frame" x="8" y="11" width="189" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="fYN-eE-xUC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="OSF-XO-OFy" firstAttribute="top" secondItem="NKk-sz-Wx3" secondAttribute="bottom" constant="-22" id="DkO-y1-VaN"/>
+                    <constraint firstItem="OSF-XO-OFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Yhx-zK-acy"/>
+                    <constraint firstItem="NKk-sz-Wx3" firstAttribute="leading" secondItem="OSF-XO-OFy" secondAttribute="trailing" constant="86" id="f9s-e8-ptM"/>
+                    <constraint firstAttribute="centerY" secondItem="OSF-XO-OFy" secondAttribute="centerY" id="vko-pK-jBP"/>
+                    <constraint firstAttribute="trailing" secondItem="NKk-sz-Wx3" secondAttribute="trailing" constant="8" id="zbV-KC-niX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLab" destination="OSF-XO-OFy" id="WDT-Mg-t06"/>
+            </connections>
+            <point key="canvasLocation" x="259" y="373"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_more_hui" width="53" height="53"/>
+    </resources>
+</document>
