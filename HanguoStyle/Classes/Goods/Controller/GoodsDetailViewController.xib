@@ -16,27 +16,61 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FtI-zk-Rvv">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="619"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="627"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8K1-YV-4gu" userLabel="底部view">
                     <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-pE-Kny">
-                            <rect key="frame" x="189" y="5" width="75" height="30"/>
-                            <state key="normal" title="加入购物车">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rW-8I-H9N">
-                            <rect key="frame" x="281" y="5" width="60" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rW-8I-H9N">
+                            <rect key="frame" x="296" y="5" width="65" height="30"/>
+                            <color key="backgroundColor" red="0.99607843139999996" green="0.38823529410000002" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="65" id="J6E-je-BnF"/>
+                                <constraint firstAttribute="height" constant="30" id="zxE-eD-ehY"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="立即购买">
+                                <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="buyNow:" destination="-1" eventType="touchUpInside" id="oBD-TI-eVP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-pE-Kny">
+                            <rect key="frame" x="213" y="5" width="75" height="30"/>
+                            <color key="backgroundColor" red="0.99607843139999996" green="0.38823529410000002" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="4gT-hf-QfX"/>
+                                <constraint firstAttribute="width" constant="75" id="st1-9w-dhO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="加入购物车">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="addToShoppingCart:" destination="-1" eventType="touchUpInside" id="Jns-cA-1fj"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="h7N-pE-Kny" secondAttribute="top" id="35G-il-oyp"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" constant="5" id="9cT-TF-cdM"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" constant="8" id="Mck-yo-160"/>
                         <constraint firstAttribute="height" constant="40" id="RqY-xi-y77"/>
+                        <constraint firstAttribute="trailing" secondItem="6rW-8I-H9N" secondAttribute="trailing" constant="14" id="fz3-bC-hax"/>
                     </constraints>
                 </view>
             </subviews>
@@ -44,7 +78,7 @@
             <constraints>
                 <constraint firstItem="FtI-zk-Rvv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Cqx-gN-Ohv"/>
                 <constraint firstAttribute="bottom" secondItem="8K1-YV-4gu" secondAttribute="bottom" id="LXB-i1-BgH"/>
-                <constraint firstItem="8K1-YV-4gu" firstAttribute="top" secondItem="FtI-zk-Rvv" secondAttribute="bottom" constant="8" id="NJ3-aa-6FE"/>
+                <constraint firstItem="8K1-YV-4gu" firstAttribute="top" secondItem="FtI-zk-Rvv" secondAttribute="bottom" id="NJ3-aa-6FE"/>
                 <constraint firstAttribute="trailing" secondItem="FtI-zk-Rvv" secondAttribute="trailing" id="OPh-TD-aSU"/>
                 <constraint firstItem="8K1-YV-4gu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RKF-RZ-x5z"/>
                 <constraint firstItem="FtI-zk-Rvv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="To2-EE-mqa"/>

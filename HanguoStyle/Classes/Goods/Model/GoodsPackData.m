@@ -7,7 +7,11 @@
 //
 
 #import "GoodsPackData.h"
-@implementation GoodsPackImageData
+@implementation ThemeData
+
+@end
+
+@implementation SliderData
 
 @end
 
@@ -18,26 +22,38 @@
     self = [super init];
     if (self) {
         
-        self.idCode = [node objectForKey:@"id"];
-        self.masterItemId = [node objectForKey:@"masterItemId"];
-        self.themeImg = [node objectForKey:@"themeImg"];
-        self.themeUrl = [node objectForKey:@"themeUrl"];
-        self.sortNu = [[node objectForKey:@"sortNu"] integerValue];
-
+        self.message = [node objectForKey:@"message"];
+        self.code = [[node objectForKey:@"code"]integerValue];
         
         
-        NSMutableArray * array = [NSMutableArray new];
+        NSMutableArray * arrayS = [NSMutableArray array];
         
-        NSArray * photos = [node objectForKey:@"photos"];
-        for (id photo in photos) {
-            GoodsPackImageData * imageData = [GoodsPackImageData new];
-            imageData.thumbUrl = [photo objectForKey:@"thumb_url"];
-            imageData.url = [photo objectForKey:@"mobile_large_url"];
+        NSArray * sliders = [node objectForKey:@"slider"];
+        for (id slider in sliders) {
+            SliderData * sliderData = [SliderData new];
+            sliderData.itemTarget = [slider objectForKey:@"itemTarget"];
+            sliderData.url = [slider objectForKey:@"url"];
             
-            [array addObject:imageData];
+            [arrayS addObject:sliderData];
         }
         
-        self.photoArray = array;
+        self.sliderArray = [arrayS copy];
+        
+        
+        NSMutableArray * arrayT = [NSMutableArray array];
+        
+        NSArray * themes = [node objectForKey:@"theme"];
+        for (id theme in themes) {
+            ThemeData * themeData = [ThemeData new];
+            themeData.idCode = [theme objectForKey:@"id"];
+            themeData.themeImg = [theme objectForKey:@"themeImg"];
+            themeData.themeUrl = [theme objectForKey:@"themeUrl"];
+            [arrayT addObject:themeData];
+        }
+        
+        self.themeArray = [arrayT copy];
+
+        
     }
     
     return self;

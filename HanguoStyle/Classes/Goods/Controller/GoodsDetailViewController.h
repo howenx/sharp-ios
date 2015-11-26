@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GoodsDetailData.h"
 @interface GoodsDetailViewController : UIViewController
-@property (nonatomic) NSMutableArray * data;
+//@property (nonatomic) NSMutableArray * data;
+@property (nonatomic,strong)NSString * url;
+@property (nonatomic,strong)GoodsDetailData * detailData;
 @end

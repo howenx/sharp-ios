@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ThreeViewData.h"
+
+#import "GoodsDetailData.h"
 @interface DetaileOneCell : UITableViewCell
 +(id)subjectCell;
-@property (nonatomic,strong)NSArray * scrollArr;
-@property (nonatomic, weak) ThreeViewData * data;
+
+@property (nonatomic, weak) GoodsDetailData * data;
 
 //收藏按钮
 @property (weak, nonatomic) IBOutlet UIButton *storeBtn;

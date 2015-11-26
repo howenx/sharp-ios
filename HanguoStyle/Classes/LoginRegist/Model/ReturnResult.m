@@ -16,6 +16,8 @@
         
         self.message = [node objectForKey:@"message"];
         self.result = [[node objectForKey:@"result"] boolValue];
+        self.token = [node objectForKey:@"token"];
+        self.expired = [[node objectForKey:@"expired"]integerValue];
     }
     return self;
 }

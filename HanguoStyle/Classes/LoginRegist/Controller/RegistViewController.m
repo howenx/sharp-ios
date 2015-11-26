@@ -133,11 +133,11 @@
 
         //创建数据模型对象,加入数据数组
         ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-        [self printAlert:returnResult.message];
+        [HSGlobal printAlert:returnResult.message];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self printAlert:@"请求出错"];
+        [HSGlobal printAlert:@"请求出错"];
     }];
 }
 
@@ -154,13 +154,13 @@
         
         //创建数据模型对象,加入数据数组
         ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-        [self printAlert:returnResult.message];
+        [HSGlobal printAlert:returnResult.message];
         if(returnResult.result){
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self printAlert:@"请求出错"];
+        [HSGlobal printAlert:@"请求出错"];
     }];
 
 }
@@ -171,24 +171,24 @@
     if(![self isUrl]){
         return false;
     }
-    if([@"" isEqualToString:GGTRIM(_pwd.text)]){
-        [self printAlert:@"请输入密码"];
+    if([NSString isBlankString:GGTRIM(_pwd.text)]){
+        [HSGlobal printAlert:@"请输入密码"];
         return false;
     }
 
-    if([@"" isEqualToString:GGTRIM(_identCode.text)]){
-        [self printAlert:@"请输入验证码"];
+    if([NSString isBlankString:GGTRIM(_identCode.text)]){
+        [HSGlobal printAlert:@"请输入验证码"];
         return false;
     }
     
     //校验密码长度
     if(_pwd.text.length<6 || _pwd.text.length>20){
-        [self printAlert:@"请输入6-12位的密码"];
+        [HSGlobal printAlert:@"请输入6-12位的密码"];
         return false;
     }
     //校验密码长度
     if(_identCode.text.length !=6){
-        [self printAlert:@"请输入六位短信密码"];
+        [HSGlobal printAlert:@"请输入六位短信密码"];
         return false;
     }
     return true;
@@ -198,26 +198,23 @@
 - (BOOL)isUrl
 {
     //校验空
-    if([@"" isEqualToString:GGTRIM(_phoneNum.text)]){
-        [self printAlert:@"请输入手机号码"];
+    if([NSString isBlankString:GGTRIM(_phoneNum.text)]){
+        [HSGlobal printAlert:@"请输入手机号码"];
         return false;
     }
     //校验密码长度
     if(GGTRIM(_phoneNum.text).length !=11){
-        [self printAlert:@"请输入11位手机号码"];
+        [HSGlobal printAlert:@"请输入11位手机号码"];
         return false;
     }
     
     NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if(![pred evaluateWithObject:GGTRIM(_phoneNum.text)]){
-        [self printAlert:@"请输入正确手机号码"];
+        [HSGlobal printAlert:@"请输入正确手机号码"];
         return false;
     }
     return 1;
 }
--(void)printAlert:(NSString *) message{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
-}
+
 @end

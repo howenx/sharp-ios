@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface PhotoAndTextView : UIView
--(UIView *) createPhotoTextView :(NSArray *)array ; 
+-(UIView *) createPhotoTextView :(NSArray *)array andNotice :(NSString *)notice ;
 @end

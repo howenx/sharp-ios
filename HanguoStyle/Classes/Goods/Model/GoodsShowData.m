@@ -27,19 +27,18 @@
         
         self.itemTitle = [node objectForKey:@"itemTitle"];
         self.itemPrice = [[node objectForKey:@"itemPrice"]floatValue];
-        self.itemCostPrice = [[node objectForKey:@"itemCostPrice"]floatValue];
+        self.itemSrcPrice = [[node objectForKey:@"itemSrcPrice"]floatValue];
         self.itemDiscount = [[node objectForKey:@"itemDiscount"]floatValue];
         
         
         self.itemSoldAmount = [node objectForKey:@"itemSoldAmount"];
-        self.isMasterItem = [[node objectForKey:@"isMasterItem"] boolValue];
+        self.orMasterItem = [[node objectForKey:@"orMasterItem"] boolValue];
         self.collectCount = [[node objectForKey:@"collectCount"] integerValue];
-        
+        self.state = [node objectForKey:@"state"];
         
         
         NSMutableArray * array = [NSMutableArray new];
-        NSLog(@"masterItemTag=%@",[node objectForKey:@"masterItemTag"]);
-        if(self.isMasterItem){
+        if(self.orMasterItem){
             NSArray * tags = [[node objectForKey:@"masterItemTag"] objectFromJSONString];
             for (id tag in tags) {
                 MasterItemTagData * tagData = [MasterItemTagData new];
@@ -53,7 +52,7 @@
             }
             
             self.masterItemTag = array;
-            self.masterItemImg = [node objectForKey:@"masterItemImg"];
+            self.itemMasterImg = [node objectForKey:@"itemMasterImg"];
         }
         
     }

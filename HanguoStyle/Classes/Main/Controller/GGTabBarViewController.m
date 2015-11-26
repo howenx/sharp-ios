@@ -12,11 +12,15 @@
 #import "GoodsViewController.h"
 #import "CartViewController.h"
 #import "MeViewController.h"
-
+#import "FMDatabase.h"
+#import "FMDatabaseQueue.h"
 #import "GGNavigationViewController.h"
+#import "HSGlobal.h"
 
 @interface GGTabBarViewController ()<GGTabBarDelegate>
-
+{
+    FMDatabase *database;
+}
 //自定义的TabBar
 @property (nonatomic,weak) GGTabBar * coustomTabBar;
 @end
@@ -25,11 +29,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    database = [HSGlobal shareDatabase];
     //1.初始化自定义tabBar
     [self setupTabBar];
     //2.初始所有化子控件
     [self setupAllChildViewControllers];
+    [self createCart];
+}
+-(void)createCart{
+    NSString *sql = @"create table if not exists Shopping_Cart (pid integer, cart_id integer, pid_amount integer, state text)";    
+    //执行sql
+    [database executeUpdate:sql];
+    [database commit];
+
 }
 //初始化自定义tabBar
 -(void)setupTabBar

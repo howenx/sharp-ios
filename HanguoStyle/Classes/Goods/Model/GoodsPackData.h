@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GoodsPackImageData : NSObject
+@interface ThemeData : NSObject
 
-@property (nonatomic) NSString * thumbUrl;
+@property (nonatomic) NSString * idCode;
+@property (nonatomic) NSString * themeImg;
+@property (nonatomic) NSString * themeUrl;
+
+@end
+
+
+@interface SliderData : NSObject
+
+@property (nonatomic) NSString * itemTarget;
 @property (nonatomic) NSString * url;
 
 @end
@@ -19,12 +28,13 @@
 
 
 @interface GoodsPackData : NSObject
-@property (nonatomic) NSString * idCode;
-@property (nonatomic) NSString * masterItemId;
-@property (nonatomic) NSString * themeImg;
-@property (nonatomic) NSString * themeUrl;
-@property (nonatomic) NSInteger sortNu;
-@property (nonatomic) NSArray * photoArray;
+
+@property (nonatomic) NSString * message;
+@property (nonatomic) NSInteger code;
+@property (nonatomic) NSArray * themeArray;
+@property (nonatomic) NSArray * sliderArray;
+
+
 
 - (GoodsPackData *) initWithJSONNode: (id) node;
 @end

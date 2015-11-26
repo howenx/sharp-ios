@@ -15,6 +15,7 @@
 #import "HeadView.h"
 #import "GoodsShowViewController.h"
 #import "MBProgressHUD.h"
+#import "Reachability.h"
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -38,6 +39,7 @@
     [super viewDidLoad];
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.navigationController.view addSubview:HUD];
+    [self.view bringSubviewToFront:HUD];
     
     HUD.delegate = self;
     HUD.labelText = @"Loading";
@@ -57,7 +59,7 @@
 }
 
 - (void)createHeadScrollView{
-    _scrollArr = _imageUrls;
+    _scrollArr = [_imageUrls mutableCopy];
     NSMutableArray * imageArr = [NSMutableArray array];
     HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
     hView.delegate = self;
@@ -65,12 +67,41 @@
     for (int i = 0; i < _scrollArr.count; i++)
     {
         UIImageView *imv = [[UIImageView alloc] init];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[i]]];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[i]).url]];
         imv.image = [UIImage imageWithData:data];
         [imageArr addObject:imv];
     }
     hView.imageViewAry = imageArr;
     _tableView.tableHeaderView = hView;
+    
+    
+    
+    
+    if(_scrollArr.count>1){
+        NSMutableArray * imageArr = [NSMutableArray array];
+        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
+        hView.delegate = self;
+        [hView shouldAutoShow:YES];
+        for (int i = 0; i < _scrollArr.count; i++)
+        {
+            UIImageView *imv = [[UIImageView alloc] init];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[i]).url]];
+            imv.image = [UIImage imageWithData:data];
+            [imageArr addObject:imv];
+        }
+        hView.imageViewAry = imageArr;
+        _tableView.tableHeaderView = hView;
+    }else if(_scrollArr.count == 1){
+        UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
+        UIImageView *imv = [[UIImageView alloc] initWithFrame:heView.frame];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[0]).url]];
+        imv.image = [UIImage imageWithData:data];
+        [heView addSubview: imv];
+        _tableView.tableHeaderView = heView;
+    }
+
+    
+    
 
 }
 - (void)didClickPage:(HeadView *)view atIndex:(NSInteger)index
@@ -83,6 +114,9 @@
     _addon++;
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
+    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
+
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
         
@@ -90,14 +124,16 @@
         if (!object) {
             return;
         }
-        
-        NSArray * dataArray = object[@"theme"];
-        for (id node in dataArray) {
-            GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:node];
-            [self.data addObject:data];
-        }
+        GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:object];
+        [self.data addObjectsFromArray:[data.themeArray mutableCopy]];
+//        self.data = [data.themeArray mutableCopy];
+//        NSArray * dataArray = object[@"theme"];
+//        for (id node in dataArray) {
+//            GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:node];
+//            [self.data addObject:data];
+//        }
         if(_imageUrls==nil){
-            _imageUrls = object[@"slider"];
+            _imageUrls = data.sliderArray;
             //headview
             [self createHeadScrollView];
         }
@@ -105,7 +141,8 @@
         [HUD hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.footer endRefreshing];
-        NSLog(@"Append Data Error");
+        [HUD hide:YES];
+        [HSGlobal printAlert:@"数据加载失败"];
     }];
 }
 
@@ -123,7 +160,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return GGUISCREENHEIGHT/4.4;//这个4.4 是因为后台传过来图片高度和宽度比例是300：730=0.41，然后0.41*iphone6屏幕宽度375（ip6和ip5的屏幕比例是差不多的，是1.775）等于153，再用ip6屏幕高度667/153= 4.4。
+    return (GGUISCREENWIDTH-10)/2.43;//因为后台传过来图片宽度和高度比例是730：300=2.43, 10是屏幕两边各有5个像素的宽度
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -138,7 +175,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //进入到商品展示页面
     
-    _pushUrl = ((GoodsPackData *)self.data[indexPath.section]).themeUrl;
+    _pushUrl = ((ThemeData *)self.data[indexPath.section]).themeUrl;
     [self pushGoodShowView];
 }
 -(void)pushGoodShowView {
@@ -157,8 +194,29 @@
     //下个页面要跳转的url
     gsViewController.url = _pushUrl;
     [self.navigationController pushViewController:gsViewController animated:YES];
-//    sleep(2);
+
     
+}
+
+// 判断是否联网
+-(BOOL)isConnectNetWork{
+    BOOL isExistenceNetwork = YES;
+    Reachability *r = [Reachability reachabilityWithHostName:@"www.baidu.com"];
+    switch ([r currentReachabilityStatus]) {
+        case NotReachable:
+            isExistenceNetwork=NO;
+            NSLog(@"没有网络");
+            break;
+        case ReachableViaWWAN:
+            isExistenceNetwork=YES;
+            NSLog(@"正在使用3G网络");
+            break;
+        case ReachableViaWiFi:
+            isExistenceNetwork=YES;
+            NSLog(@"正在使用wifi网络");
+            break;
+    }
+    return isExistenceNetwork;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

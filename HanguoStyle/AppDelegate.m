@@ -8,7 +8,11 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-@interface AppDelegate ()
+#import "LoginRefViewController.h"
+#import "GGTabBarViewController.h"
+#import "HSGlobal.h"
+#import "InitAppDelegate.h"
+@interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
 
@@ -17,21 +21,46 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定
+    NSLog(@"+++++++%@", NSHomeDirectory());
     application.statusBarHidden = NO;
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    InitAppDelegate * initDale = [InitAppDelegate new];
+    //判断用户token是否过期，或者将要过期
+    NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
+    if(expiredDate==nil){
+        GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+        self.window.rootViewController = tabBar;
+    }else{
+        NSString * loginFlag = [initDale intervalSinceNow:expiredDate];
+        if([@"2" isEqualToString:loginFlag]){//不需要重新登录
+            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+            self.window.rootViewController = tabBar;
+//            LoginViewController * login = [[LoginViewController alloc]init];
+//            self.window.rootViewController = login;
+        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录或者刷新登录
+//            LoginViewController * login = [[LoginViewController alloc]init];
+//            self.window.rootViewController = login;
+            //失效后第一次打开app删除购物车
+            NSString * haveLoseTokenOnce = [[NSUserDefaults standardUserDefaults]objectForKey:@"haveLoseTokenOnce"];
+            if([@"Y" isEqualToString:haveLoseTokenOnce]){
+                [[NSUserDefaults standardUserDefaults]setObject:@"N" forKey:@"haveLoseTokenOnce"];
+                [initDale deleteCart];
+            }
+            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+            self.window.rootViewController = tabBar;
+        }
+        else if([@"0" isEqualToString:loginFlag]){//需要刷新登录
+            LoginRefViewController * loginRef = [[LoginRefViewController alloc]init];
+            self.window.rootViewController = loginRef;
+        }
+    }
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-   
-    
-    LoginViewController * login = [[LoginViewController alloc]init];
-    self.window.rootViewController = login;
     [self.window makeKeyAndVisible];
     //判断滑动图是否出现过，第一次调用时“isScrollViewAppear” 这个key 对应的值是nil，会进入if中
-    if (![@"YES" isEqualToString:[userDefaults objectForKey:@"isScrollViewAppear"]]) {
+    if (![@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
         
         [self showScrollView];//显示滑动图
     }
@@ -114,7 +143,6 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"YES" forKey:@"isScrollViewAppear"];
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

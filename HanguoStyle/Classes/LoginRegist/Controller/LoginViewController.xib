@@ -40,13 +40,13 @@
                         <constraint firstAttribute="height" constant="26" id="rJz-GJ-0PG"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOr-SZ-Jdh">
                     <rect key="frame" x="17" y="152" width="55" height="26"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="    请输入手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OB1-Dj-ioM">
@@ -102,28 +102,16 @@
                         <action selector="registButton:" destination="-1" eventType="touchUpInside" id="alx-6o-SQe"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHu-Qj-BuZ">
-                    <rect key="frame" x="158" y="312" width="60" height="30"/>
-                    <state key="normal" title="随便看看">
-                        <color key="titleColor" red="0.99607843137254903" green="0.38823529411764707" blue="0.42352941176470588" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="toLookLook:" destination="-1" eventType="touchUpInside" id="gRm-YE-DZM"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="OB1-Dj-ioM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="80" id="0fh-xv-SqF"/>
                 <constraint firstItem="Adg-6W-acJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="31X-sk-mbC"/>
-                <constraint firstAttribute="centerX" secondItem="oHu-Qj-BuZ" secondAttribute="centerX" id="571-l3-hUN"/>
                 <constraint firstItem="aoC-84-CYB" firstAttribute="width" secondItem="Adg-6W-acJ" secondAttribute="width" id="6tN-NY-LUd"/>
                 <constraint firstItem="3CL-R5-1Dy" firstAttribute="leading" secondItem="OB1-Dj-ioM" secondAttribute="leading" id="6y3-lv-Y51"/>
                 <constraint firstAttribute="trailing" secondItem="aoC-84-CYB" secondAttribute="trailing" constant="18" id="7K9-wd-uZG"/>
                 <constraint firstItem="ytv-44-16d" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="9VQ-lk-sJt"/>
                 <constraint firstItem="3CL-R5-1Dy" firstAttribute="leading" secondItem="twR-4q-Ljw" secondAttribute="leading" id="FWm-e3-hhT"/>
-                <constraint firstItem="oHu-Qj-BuZ" firstAttribute="top" secondItem="Adg-6W-acJ" secondAttribute="bottom" constant="37" id="GBc-dF-nsz"/>
                 <constraint firstItem="Adg-6W-acJ" firstAttribute="top" secondItem="twR-4q-Ljw" secondAttribute="bottom" constant="35" id="GGn-Yr-IcS"/>
                 <constraint firstItem="ytv-44-16d" firstAttribute="top" secondItem="JuR-iV-Nhr" secondAttribute="bottom" constant="47" id="K3v-o8-xjq"/>
                 <constraint firstItem="rdD-ZU-bmQ" firstAttribute="leading" secondItem="twR-4q-Ljw" secondAttribute="leading" id="Lmh-Yt-2eT"/>

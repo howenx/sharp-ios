@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ThreeViewData.h"
-
+#import "GoodsDetailData.h"
 @protocol ThreeViewCellDelegate <NSObject>
 
 //回传数据的协议方法
@@ -18,7 +17,7 @@
 
 @interface ThreeViewCell : UITableViewCell
 +(id)subjectCell;
-@property (nonatomic, weak) ThreeViewData * data;
+@property (nonatomic, weak) GoodsDetailData * data;
 
 @property (nonatomic,assign) NSInteger pageNum;
 

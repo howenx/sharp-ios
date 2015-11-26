@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *costPriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *currentPriceLab;
 
+@property (nonatomic,strong)NSArray * scrollArr;
 
 @end
 @implementation DetaileOneCell
@@ -31,29 +32,48 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setData:(ThreeViewData *)data
+- (void)setData:(GoodsDetailData *)data
+
 {
-    _scrollArr =@[@"http://img3.douban.com/view/movie_poster_cover/lpst/public/p480747492.jpg",
-                  @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p1356576774.jpg",
-                  @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p510876400.jpg",
-                  @"http://x1.zhuti.com/down/2012/11/29-win7/3D-1.jpg"];
-    NSMutableArray * imageArr = [NSMutableArray array];
-    HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
-    [hView shouldAutoShow:YES];
-    for (int i = 0; i < _scrollArr.count; i++)
-    {
-        UIImageView *imv = [[UIImageView alloc] init];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[i]]];
-        imv.image = [UIImage imageWithData:data];
-        [imageArr addObject:imv];
+    int itemDiscountCount = 0;
+    for(SizeData * sizeData in data.sizeArray){
+        if(sizeData.orMasterInv){
+            _scrollArr = sizeData.itemPreviewImgs;
+            _costPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemSrcPrice];
+            _currentPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemPrice];
+            _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
+            itemDiscountCount = [[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] length] + 3;
+            
+            
+        }
     }
-    hView.imageViewAry = imageArr;
-    [_headView addSubview:hView];
+//    _scrollArr =@[@"http://img3.douban.com/view/movie_poster_cover/lpst/public/p480747492.jpg",
+//                  @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p1356576774.jpg"];
+    if(_scrollArr.count>1){
+        NSMutableArray * imageArr = [NSMutableArray array];
+        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
+        [hView shouldAutoShow:YES];
+        for (int i = 0; i < _scrollArr.count; i++)
+        {
+            UIImageView *imv = [[UIImageView alloc] init];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[i]]];
+            imv.image = [UIImage imageWithData:data];
+            [imageArr addObject:imv];
+        }
+        hView.imageViewAry = imageArr;
+        [_headView addSubview:hView];
+    }else if(_scrollArr.count == 1){
+        UIImageView *imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[0]]];
+        imv.image = [UIImage imageWithData:data];
+        [_headView addSubview: imv];
+    }
+
 
     
 
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
-    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,6)];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,itemDiscountCount)];
     _detailLab.attributedText = str;
     
     
@@ -68,13 +88,13 @@
     
     //设置收藏
     UIImage * image ;
-    if (data.isStore) {
+    if (data.orCollect) {
         image = [UIImage imageNamed:@"redStore"];
     }else{
         image = [UIImage imageNamed:@"grayStore"];
     }
     [self.storeBtn setImage:image forState:UIControlStateNormal];
-    [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)data.storeCount] forState:UIControlStateNormal];
+    [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)data.collectCount] forState:UIControlStateNormal];
     
 //    [self.storeBtn setImage:image withTitle:[NSString stringWithFormat:@"（%d)",data.storeCount] forState:UIControlStateNormal];
 }

@@ -13,4 +13,5 @@
 - (float) heightWithFont: (UIFont *)font withinWidth: (float)width;
 - (float) widthWithFont: (UIFont *)font;
 + (NSString *)md5:(NSString *)str;
++ (BOOL) isBlankString:(NSString *)string;
 @end

@@ -7,13 +7,31 @@
 //
 
 #import "PhotoAndTextView.h"
-
+#import "HSGlobal.h"
+#import "NSString+GG.h"
 @implementation PhotoAndTextView
 
--(UIView *) createPhotoTextView :(NSArray *)array {
+-(UIView *) createPhotoTextView :(NSArray *)array andNotice :(NSString *)notice  {
     
     CGRect rect = CGRectMake(5, 0, GGUISCREENWIDTH-10, 0);
-//    UIView * view = [[UIView alloc]init];
+    if(![NSString isBlankString:notice]){
+        UIView * noticeView = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]init];
+        label.textColor = GGColor(254, 99, 108);
+        label.font = [UIFont systemFontOfSize:11];
+        label.text = notice;
+        label.numberOfLines = 0;
+        CGSize size = [HSGlobal getSize:notice Font:11 Width:GGUISCREENWIDTH-20 Height:800];
+        label.frame = CGRectMake(10, 20, GGUISCREENWIDTH-20, size.height);
+        noticeView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, size.height + 40);
+        noticeView.backgroundColor = GGColor(250, 250, 250);
+        [noticeView addSubview:label];
+        [self addSubview:noticeView];
+        rect = CGRectMake(5, noticeView.frame.origin.y +noticeView.frame.size.height, GGUISCREENWIDTH-10, 0);
+        
+    }
+    
+
     for (int i = 0; i < array.count; i++)
     {
         UIImageView *imv = [[UIImageView alloc] init];
@@ -78,10 +96,6 @@
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    if(newImage == nil){
-        
-        NSLog(@"scale image fail");
-    }
     UIGraphicsEndImageContext();
     return newImage;
 }

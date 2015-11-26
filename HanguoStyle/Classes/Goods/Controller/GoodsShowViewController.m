@@ -13,6 +13,7 @@
 #import "GoodsDetailViewController.h"
 #import "MJRefresh.h"
 #import "AFNetworking.h"
+#import "HSGlobal.h"
 
 //section之间空隙，和item的空隙，这里都设置成5
 #define gap 5
@@ -28,6 +29,7 @@
     MBProgressHUD *HUD;
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic,strong) NSString * pushUrl;
 
 @end
 
@@ -37,16 +39,19 @@
     [super viewDidLoad];
     HUD = [[MBProgressHUD alloc] initWithView:self.view];
     [self.navigationController.view addSubview:HUD];
+    HUD.margin =10.f;
     
     HUD.delegate = self;
     HUD.labelText = @"Loading";
     [HUD show:YES];
+    
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAnimationData) name:@"ReloadAnimationData" object:nil];
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
     self.data  = [NSMutableArray array];
     [self headerRefresh];
-    self.hidesBottomBarWhenPushed=YES;
+    self.hidesBottomBarWhenPushed = YES;
+
     self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
 
 }
@@ -56,24 +61,32 @@
 }
 - (void) headerRefresh
 {
-    NSLog(@"++++++++++++%@",_url);
+    NSLog(@"showViewUrl  ++++++++++++%@",_url);
+    
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
+    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
+    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
     
     [manager GET:_url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.collectionView.header endRefreshing];
         [self.data removeAllObjects];
-        NSArray * dataArray = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+
+        NSArray * dataArray = [object objectForKey:@"themeList"];
+        NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSLog(@"message= %@",message);
 
         for (id node in dataArray) {
             GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
             [self.data addObject:data];
         }
-        
         [self.collectionView reloadData];
         [HUD hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.collectionView.header endRefreshing];
-        NSLog(@"Append Data Error");
+        [HUD hide:YES];
+        [HSGlobal printAlert:@"数据加载失败"];
+        
     }];
 }
 
@@ -142,7 +155,7 @@
         GoodsShowData *goodsShowData;
         if(indexPath.section == 0 ){
             goodsShowData = _data[indexPath.section];
-            goodsShowData.itemImg = goodsShowData.masterItemImg;
+            goodsShowData.itemImg = goodsShowData.itemMasterImg;
             
         }else{
             goodsShowData = _data[indexPath.item + indexPath.section];
@@ -177,15 +190,16 @@
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld组-----第%ld个",indexPath.section,(long)indexPath.item);
-    //进入到商品展示页面
-    [self pushGoodShowView:indexPath.item];
+    
+    //正常状态才能进入到详情页面
+    if([@"Y" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]){
+        _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
+        //进入到商品展示页面
+        [self pushGoodShowView:indexPath.item];
+    }
+    
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //进入到商品展示页面
-    [self pushGoodShowView:indexPath.section];
-}
 -(void)pushGoodShowView :(NSInteger)index{
 //    HUD = [[MBProgressHUD alloc] initWithView:self.view];
 //    [self.navigationController.view addSubview:HUD];
@@ -198,10 +212,12 @@
     
 }
 -(void)myTask {
+    self.hidesBottomBarWhenPushed=YES;
      GoodsDetailViewController* gdViewController = [[GoodsDetailViewController alloc]init];
-//    gsViewController.index = _sectionNum;
+    gdViewController.url = _pushUrl;
     [self.navigationController pushViewController:gdViewController animated:YES];
-//        sleep(10);
+    self.hidesBottomBarWhenPushed=NO;
+
     
 }
 

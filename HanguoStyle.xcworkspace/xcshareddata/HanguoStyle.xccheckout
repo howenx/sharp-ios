@@ -10,14 +10,14 @@
 	<string>HanguoStyle</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>7B1E5D359C78F945E506C101F5B8450C3F9CB223</key>
+		<key>976A4613E76E531B24D94896F3A5BBFB61532EA6</key>
 		<string>18:/home/git/repositories/style-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>HanguoStyle.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>7B1E5D359C78F945E506C101F5B8450C3F9CB223</key>
+		<key>976A4613E76E531B24D94896F3A5BBFB61532EA6</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7B1E5D359C78F945E506C101F5B8450C3F9CB223</string>
+	<string>976A4613E76E531B24D94896F3A5BBFB61532EA6</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7B1E5D359C78F945E506C101F5B8450C3F9CB223</string>
+			<string>976A4613E76E531B24D94896F3A5BBFB61532EA6</string>
 			<key>IDESourceControlWCCName</key>
 			<string>style-ios</string>
 		</dict>

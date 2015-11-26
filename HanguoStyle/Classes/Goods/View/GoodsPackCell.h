@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "GoodsPackData.h"
 @interface GoodsPackCell : UITableViewCell
-@property (nonatomic, weak) GoodsPackData * data;
-+(id)subjectCell;
+@property (nonatomic, weak) ThemeData * data;
+//+(id)subjectCell;
 @end

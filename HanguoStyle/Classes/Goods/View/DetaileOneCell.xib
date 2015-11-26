@@ -54,7 +54,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dt-co-oyw" userLabel="footView">
                         <rect key="frame" x="0.0" y="362" width="321" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[7.3折]时尚休闲环保帆布单肩包" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYK-I2-NW3" userLabel="明细">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYK-I2-NW3" userLabel="明细">
                                 <rect key="frame" x="10" y="10" width="300" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="3X1-GF-LZa"/>

@@ -13,10 +13,15 @@
 #import "LosePwdViewController.h"
 #import "ReturnResult.h"
 #import "HSGlobal.h"
-
+#import "NSString+GG.h"
+#import "FMDatabase.h"
+#import "FMDatabaseQueue.h"
+#import "ShoppingCart.h"
+#import "CartData.h"
 @interface LoginViewController ()<UITextFieldDelegate>
-
-- (IBAction)toLookLook:(UIButton *)sender;
+{
+    FMDatabase * database;
+}
 - (IBAction)loginButton:(UIButton *)sender;
 - (IBAction)registButton:(UIButton *)sender;
 - (IBAction)losePwd:(UIButton *)sender;
@@ -29,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    database = [HSGlobal shareDatabase];
     [self registerForKeyboardNotifications];
     _mobel.returnKeyType = UIReturnKeyDone;
     _pwd.returnKeyType = UIReturnKeyDone;
@@ -97,18 +103,13 @@
 }
 
 
-- (IBAction)toLookLook:(UIButton *)sender {
-    
-    //1.登陆成功,跳转到下主页面
-    GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-    [self presentViewController:tabBar animated:YES completion:nil];
-
-}
-
 - (IBAction)loginButton:(UIButton *)sender {
-//    if(![self check]){
-//        return;
-//    }
+    
+
+    if(![self check]){
+        
+        return;
+    }
     [self getData];
 }
 
@@ -127,36 +128,41 @@
 
 //发送注册数据
 -(void)getData{
+    NSString * urlString =[HSGlobal loginUrl];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //此处设置后返回的默认是NSData的数据
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-//    NSString * urlString =[HSGlobal loginUrl];
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    //此处设置后返回的默认是NSData的数据
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    [manager POST:urlString  parameters:@{@"name":GGTRIM(_mobel.text),@"password":GGTRIM(_pwd.text)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //转换为词典数据
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//        //创建数据模型对象,加入数据数组
-//        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-//
-//        if(returnResult.result){
-//            //1.登陆成功,跳转到下主页面
-//            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-//            [self presentViewController:tabBar animated:YES completion:nil];
-//     
-//        }else{
-//            [self printAlert:returnResult.message];
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//        [self printAlert:@"登陆失败"];
-//    }];
+    [manager POST:urlString  parameters:@{@"name":GGTRIM(_mobel.text),@"password":GGTRIM(_pwd.text)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //转换为词典数据
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        //创建数据模型对象,加入数据数组
+        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
 
-    /**
-     *  测试用
-     */
-    GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-    [self presentViewController:tabBar animated:YES completion:nil];
+        if(returnResult.result){
+            //把用户账号存到内存中
+            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+            [[NSUserDefaults standardUserDefaults]setObject:@"Y" forKey:@"haveLoseTokenOnce"];
+            //1.登陆成功,跳转到下主页面
+            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+            [self presentViewController:tabBar animated:YES completion:nil];
+            [self sendCart];
+     
+        }else{
+            [HSGlobal printAlert:returnResult.message];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [HSGlobal printAlert:@"登陆失败"];
+    }];
+
+//    /**
+//     *  测试用
+//     */
+//    GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+//    [self presentViewController:tabBar animated:YES completion:nil];
 }
 
 -(BOOL)check{
@@ -165,14 +171,14 @@
     if(![self isUrl]){
         return false;
     }
-    if([@"" isEqualToString:GGTRIM(_pwd.text)]){
-        [self printAlert:@"请输入密码"];
+    if([NSString isBlankString:GGTRIM(_pwd.text)]){
+        [HSGlobal printAlert:@"请输入密码"];
         return false;
     }
     
     //校验密码长度
     if(_pwd.text.length<6 || _pwd.text.length>20){
-        [self printAlert:@"请输入6-12位的密码"];
+        [HSGlobal printAlert:@"请输入6-12位的密码"];
         return false;
     }
     return true;
@@ -182,28 +188,115 @@
 - (BOOL)isUrl
 {
     //校验空
-    if([@"" isEqualToString:GGTRIM(_mobel.text)]){
-        [self printAlert:@"请输入手机号码"];
+    if([NSString isBlankString:GGTRIM(_mobel.text)]){
+        [HSGlobal printAlert:@"请输入手机号码"];
         return false;
     }
     //校验密码长度
     if(GGTRIM(_mobel.text).length !=11){
-        [self printAlert:@"请输入11位手机号码"];
+        [HSGlobal printAlert:@"请输入11位手机号码"];
         return false;
     }
     
     NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if(![pred evaluateWithObject:GGTRIM(_mobel.text)]){
-        [self printAlert:@"请输入正确手机号码"];
+        [HSGlobal printAlert:@"请输入正确手机号码"];
         return false;
     }
     return 1;
 }
+-(void)sendCart{
+  
+    
 
--(void)printAlert:(NSString *) message{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
+    
+    //开始添加事务
+    [database beginTransaction];
+    
+    FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
+    NSMutableArray * mutArray = [NSMutableArray array];
+    while ([rs next]){
+        
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid"]] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"cart_id"]] forKey:@"cartId"];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid_amount"]] forKey:@"amount"];
+        [myDict setObject:[rs stringForColumn:@"state"] forKey:@"state"];
+        [mutArray addObject:myDict];
+        
+    }
+
+    //提交事务
+    [database commit];
+    
+ 
+    if(mutArray.count >0){
+        NSString * urlString =[HSGlobal sendCartUrl];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        //此处设置后返回的默认是NSData的数据
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        manager.requestSerializer=[AFJSONRequestSerializer serializer];
+        NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
+        [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
+        
+        [manager POST:urlString  parameters:[mutArray copy] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
+            NSArray * dataArray = [object objectForKey:@"cartList"];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSLog(@"message= %@",message);
+            NSMutableArray * cartArray = [NSMutableArray array];
+            NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
+            for (id node in dataArray) {
+                CartData * data = [[CartData alloc] initWithJSONNode:node];
+                [cartArray addObject:data];
+            }
+            if(cartArray.count>0){
+    
+
+                [database beginTransaction];
+                
+                [database executeUpdate:@"DELETE FROM Shopping_Cart"];
+                FMResultSet * rs1 = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
+                NSLog(@"____________删除数据后start___________________");
+                while ([rs1 next]){
+                    NSLog(@"pid=%d",[rs1 intForColumn:@"pid"]);
+                    NSLog(@"cart_id=%d",[rs1 intForColumn:@"cart_id"]);
+                    NSLog(@"pid_amount=%d",[rs1 intForColumn:@"pid_amount"]);
+                    NSLog(@"state=%@",[rs1 stringForColumn:@"state"]);
+                    
+                }
+                NSLog(@"____________删除数据后end___________________");
+                NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state) values (?,?,?,?)";
+                
+                for (int i=0; i<cartArray.count; i++) {
+                    CartData * cData = cartArray[i];
+                    [database executeUpdate:sql,[NSNumber numberWithLong:cData.skuId],[NSNumber numberWithLong:cData.cartId],[NSNumber numberWithLong:cData.amount],cData.state];
+                }
+                
+                FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
+                while ([rs next]){
+                    NSLog(@"____________后台获取数据start___________________");
+                    NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
+                    NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
+                    NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
+                    NSLog(@"state=%@",[rs stringForColumn:@"state"]);
+                }
+                NSLog(@"____________后台获取数据end___________________");
+
+                //提交事务
+                [database commit];
+
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [HSGlobal printAlert:@"发送购物车数据失败"];
+        }];
+
+    }
+    
+    
 }
-
 @end

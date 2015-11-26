@@ -27,14 +27,15 @@
 
 @property (nonatomic) NSString * itemTitle;//商品标题
 @property (nonatomic) float  itemPrice;//商品价格
-@property (nonatomic) float  itemCostPrice;//商品原价
+@property (nonatomic) float  itemSrcPrice;//商品原价
 @property (nonatomic) float  itemDiscount;//商品折扣
 
 @property (nonatomic) NSString * itemSoldAmount;//商品销量
-@property (nonatomic) BOOL isMasterItem;//是否是主题主打宣传商品
+@property (nonatomic) BOOL orMasterItem;//是否是主题主打宣传商品
 @property (nonatomic) NSArray * masterItemTag;//如果是主打宣传商品，会需要tag json串
-@property (nonatomic) NSString * masterItemImg;//主打商品图片
+@property (nonatomic) NSString * itemMasterImg;//主打商品图片
 @property (nonatomic) NSInteger collectCount;//商品收藏数
+@property (nonatomic) NSString * state;//主打商品图片
 
 - (GoodsShowData *) initWithJSONNode: (id) node;
 @end

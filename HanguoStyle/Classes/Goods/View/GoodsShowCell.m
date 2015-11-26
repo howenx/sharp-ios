@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *describeLab;
 
+@property (weak, nonatomic) IBOutlet UILabel *saleOutLab;
 
 @property (weak, nonatomic) IBOutlet UILabel *moneyLab;
 
@@ -21,11 +22,11 @@
 @end
 @implementation GoodsShowCell
 
-+(id)subjectCell
-{
-    UINib * nib = [UINib nibWithNibName:@"GoodsShowCell" bundle:[NSBundle mainBundle]];
-    return [[nib instantiateWithOwner:self options:nil]lastObject];
-}
+//+(id)subjectCell
+//{
+//    UINib * nib = [UINib nibWithNibName:@"GoodsShowCell" bundle:[NSBundle mainBundle]];
+//    return [[nib instantiateWithOwner:self options:nil]lastObject];
+//}
 - (void)setData:(GoodsShowData *)data
 {
 
@@ -37,10 +38,13 @@
         [view removeFromSuperview];
     }
 
+    if([@"Y" isEqualToString: data.state]){
+        _saleOutLab.hidden = YES;
+    }
     [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg]];
     self.describeLab.text = data.itemTitle;
     self.moneyLab.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];
-    if(data.isMasterItem){
+    if(data.orMasterItem){
         for(MasterItemTagData *tagData in data.masterItemTag){
             [self drawRectFlag:tagData];
         }
@@ -92,6 +96,7 @@
     [_titleImageView addSubview:animationBG];
     
     
+    
     //添加label
     NSString * strContentLab;
     UIButton * _textView= [UIButton buttonWithType:UIButtonTypeSystem];
@@ -100,7 +105,6 @@
     CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
     strContentLab  = [@"   " stringByAppendingString:data.name];//这块赋值为了下面算textRealSize，为了下面的代码逻辑简单
     CGSize textRealSize =  [strContentLab boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]} context:nil].size;
-    NSLog(@"++++++h=%f,w=%f",textRealSize.height,textRealSize.width);
     
     
     //改变按钮的宽高

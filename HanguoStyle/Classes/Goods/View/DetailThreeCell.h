@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ThreeViewData.h"
+#import "GoodsDetailData.h"
 @protocol DetailThreeCellDelegate <NSObject>
 
 //回传cell高度
@@ -16,7 +16,7 @@
 @end
 
 @interface DetailThreeCell : UITableViewCell
-@property (nonatomic, weak) ThreeViewData * data;
+@property (nonatomic, weak) GoodsDetailData * data;
 @property (nonatomic, weak) id <DetailThreeCellDelegate> delegate;
 
 @end

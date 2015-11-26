@@ -16,15 +16,15 @@
 
 @end
 @implementation GoodsPackCell
-+(id)subjectCell
-{
-    UINib * nib = [UINib nibWithNibName:@"GoodsPackCell" bundle:[NSBundle mainBundle]];
-    return [[nib instantiateWithOwner:self options:nil]lastObject];
-}
+//+(id)subjectCell
+//{
+//    UINib * nib = [UINib nibWithNibName:@"GoodsPackCell" bundle:[NSBundle mainBundle]];
+//    return [[nib instantiateWithOwner:self options:nil]lastObject];
+//}
 - (void)awakeFromNib {
     // Initialization code
 }
-- (void)setData:(GoodsPackData *)data
+- (void)setData:(ThemeData *)data
 {
     [self.preImageView sd_setImageWithURL:[NSURL URLWithString:data.themeImg]];
     

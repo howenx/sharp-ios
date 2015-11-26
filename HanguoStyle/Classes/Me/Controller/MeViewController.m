@@ -10,7 +10,7 @@
 #import "MeCell.h"
 #import "MeData.h"
 #import "AddressViewController.h"
-@interface MeViewController ()
+@interface MeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

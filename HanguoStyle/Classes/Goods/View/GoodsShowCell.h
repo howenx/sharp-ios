@@ -11,5 +11,5 @@
 
 @interface GoodsShowCell : UICollectionViewCell
 @property (nonatomic, weak) GoodsShowData * data;
-+(id)subjectCell;
+//+(id)subjectCell;
 @end
