@@ -55,6 +55,9 @@
 		8077114D1BD4EB480078D8D1 /* GoodsShowData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8077114C1BD4EB480078D8D1 /* GoodsShowData.m */; };
 		8081D9C11BFC724F0098B2E2 /* LoginRefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C01BFC724F0098B2E2 /* LoginRefViewController.m */; };
 		8081D9C41BFC7F720098B2E2 /* GoodsParaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */; };
+		808627E61C11345300ED92AB /* AddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = 808627E51C11345300ED92AB /* AddressData.m */; };
+		808627EA1C115C7A00ED92AB /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 808627E81C115C7A00ED92AB /* AddressCell.m */; };
+		808627EB1C115C7A00ED92AB /* AddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808627E91C115C7A00ED92AB /* AddressCell.xib */; };
 		809D26DC1BCBA9A200C71445 /* GoodsPackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 809D26DA1BCBA9A200C71445 /* GoodsPackCell.m */; };
 		809D26DD1BCBA9A200C71445 /* GoodsPackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 809D26DB1BCBA9A200C71445 /* GoodsPackCell.xib */; };
 		809D26E01BCBB2E300C71445 /* GoodsPackData.m in Sources */ = {isa = PBXBuildFile; fileRef = 809D26DF1BCBB2E300C71445 /* GoodsPackData.m */; };
@@ -74,8 +77,12 @@
 		80E5C4531C01676C006A8A54 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C44C1C01676C006A8A54 /* FMDatabaseQueue.m */; };
 		80E5C4541C01676C006A8A54 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C44F1C01676C006A8A54 /* FMResultSet.m */; };
 		80E5C4571C01B11E006A8A54 /* ShoppingCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E5C4561C01B11E006A8A54 /* ShoppingCart.m */; };
+		80E66D8D1C0D83590014C55A /* MineData.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E66D8C1C0D83590014C55A /* MineData.m */; };
 		80E7F1421C0441C80087C608 /* CALayer+XibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E7F1411C0441C80087C608 /* CALayer+XibConfiguration.m */; };
 		80E7F1481C0460830087C608 /* CartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E7F1471C0460830087C608 /* CartData.m */; };
+		80ED26EB1C0E873400F75B14 /* UpdateUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80ED26E91C0E873400F75B14 /* UpdateUserInfoViewController.m */; };
+		80ED26EC1C0E873400F75B14 /* UpdateUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80ED26EA1C0E873400F75B14 /* UpdateUserInfoViewController.xib */; };
+		80F6D8D81C0C5A0400737EE1 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80F6D8D71C0C5A0400737EE1 /* Address.plist */; };
 		80FF44B11BD9C99C00966924 /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FF44AF1BD9C99C00966924 /* GoodsDetailViewController.m */; };
 		80FF44B21BD9C99C00966924 /* GoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80FF44B01BD9C99C00966924 /* GoodsDetailViewController.xib */; };
 		944AB0379DB243F0E9688CAF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D00DFAC7AB1D5C092084958 /* libPods.a */; };
@@ -179,6 +186,11 @@
 		8081D9C01BFC724F0098B2E2 /* LoginRefViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRefViewController.m; sourceTree = "<group>"; };
 		8081D9C21BFC7F720098B2E2 /* GoodsParaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsParaView.h; sourceTree = "<group>"; };
 		8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsParaView.m; sourceTree = "<group>"; };
+		808627E41C11345300ED92AB /* AddressData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressData.h; sourceTree = "<group>"; };
+		808627E51C11345300ED92AB /* AddressData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressData.m; sourceTree = "<group>"; };
+		808627E71C115C7A00ED92AB /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddressCell.h; path = HanguoStyle/Classes/Me/Model/AddressCell.h; sourceTree = SOURCE_ROOT; };
+		808627E81C115C7A00ED92AB /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddressCell.m; path = HanguoStyle/Classes/Me/Model/AddressCell.m; sourceTree = SOURCE_ROOT; };
+		808627E91C115C7A00ED92AB /* AddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddressCell.xib; path = HanguoStyle/Classes/Me/Model/AddressCell.xib; sourceTree = SOURCE_ROOT; };
 		809D26D91BCBA9A200C71445 /* GoodsPackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsPackCell.h; sourceTree = "<group>"; };
 		809D26DA1BCBA9A200C71445 /* GoodsPackCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsPackCell.m; sourceTree = "<group>"; wrapsLines = 1; };
 		809D26DB1BCBA9A200C71445 /* GoodsPackCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsPackCell.xib; sourceTree = "<group>"; };
@@ -213,10 +225,16 @@
 		80E5C44F1C01676C006A8A54 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		80E5C4551C01B11E006A8A54 /* ShoppingCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCart.h; sourceTree = "<group>"; };
 		80E5C4561C01B11E006A8A54 /* ShoppingCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCart.m; sourceTree = "<group>"; };
+		80E66D8B1C0D83590014C55A /* MineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineData.h; sourceTree = "<group>"; };
+		80E66D8C1C0D83590014C55A /* MineData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineData.m; sourceTree = "<group>"; };
 		80E7F1401C0441C80087C608 /* CALayer+XibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibConfiguration.h"; sourceTree = "<group>"; };
 		80E7F1411C0441C80087C608 /* CALayer+XibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibConfiguration.m"; sourceTree = "<group>"; };
 		80E7F1461C0460830087C608 /* CartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartData.h; sourceTree = "<group>"; };
 		80E7F1471C0460830087C608 /* CartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartData.m; sourceTree = "<group>"; };
+		80ED26E81C0E873400F75B14 /* UpdateUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateUserInfoViewController.h; sourceTree = "<group>"; };
+		80ED26E91C0E873400F75B14 /* UpdateUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateUserInfoViewController.m; sourceTree = "<group>"; };
+		80ED26EA1C0E873400F75B14 /* UpdateUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateUserInfoViewController.xib; sourceTree = "<group>"; };
+		80F6D8D71C0C5A0400737EE1 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		80FE2DE91BE08517009CE476 /* libJSONKit-NoWarning.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libJSONKit-NoWarning.a"; path = "Pods/../build/Debug-iphoneos/libJSONKit-NoWarning.a"; sourceTree = "<group>"; };
 		80FF44AE1BD9C99C00966924 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
 		80FF44AF1BD9C99C00966924 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; };
@@ -286,6 +304,7 @@
 		80014FF21BC7A2BC0078B2F5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				80F6D8D71C0C5A0400737EE1 /* Address.plist */,
 				80014FF31BC7A2BC0078B2F5 /* Info.plist */,
 				80014FF41BC7A2BC0078B2F5 /* main.m */,
 			);
@@ -559,6 +578,9 @@
 				80AFBDAA1BD8B1B4003D1308 /* AppendAddrViewController.h */,
 				80AFBDAB1BD8B1B4003D1308 /* AppendAddrViewController.m */,
 				80AFBDAC1BD8B1B4003D1308 /* AppendAddrViewController.xib */,
+				80ED26E81C0E873400F75B14 /* UpdateUserInfoViewController.h */,
+				80ED26E91C0E873400F75B14 /* UpdateUserInfoViewController.m */,
+				80ED26EA1C0E873400F75B14 /* UpdateUserInfoViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -566,8 +588,12 @@
 		8069E49B1BC7B18500742D8F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				80E66D8B1C0D83590014C55A /* MineData.h */,
+				80E66D8C1C0D83590014C55A /* MineData.m */,
 				80AE30A61BD78EDF008A2128 /* MeData.h */,
 				80AE30A71BD78EDF008A2128 /* MeData.m */,
+				808627E41C11345300ED92AB /* AddressData.h */,
+				808627E51C11345300ED92AB /* AddressData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -578,6 +604,9 @@
 				80AE30A11BD78A52008A2128 /* MeCell.h */,
 				80AE30A21BD78A52008A2128 /* MeCell.m */,
 				80AE30A31BD78A52008A2128 /* MeCell.xib */,
+				808627E71C115C7A00ED92AB /* AddressCell.h */,
+				808627E81C115C7A00ED92AB /* AddressCell.m */,
+				808627E91C115C7A00ED92AB /* AddressCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -744,6 +773,7 @@
 				8069E4C01BC7B20800742D8F /* GoodsViewController.xib in Resources */,
 				802EEFE11BDE370D00AC1EF1 /* ThreeViewCell.xib in Resources */,
 				80AFBDA91BD883F5003D1308 /* AddressViewController.xib in Resources */,
+				80F6D8D81C0C5A0400737EE1 /* Address.plist in Resources */,
 				8008B73E1C030FF1009B7D49 /* CartCell.xib in Resources */,
 				804BE22B1BE0CA71009ABF33 /* GoodsShowCell.xib in Resources */,
 				804BE2261BE0CA46009ABF33 /* GoodsShowViewController.xib in Resources */,
@@ -752,8 +782,10 @@
 				80AFBDAE1BD8B1B4003D1308 /* AppendAddrViewController.xib in Resources */,
 				80FF44B21BD9C99C00966924 /* GoodsDetailViewController.xib in Resources */,
 				8069E4BB1BC7B1EF00742D8F /* CartViewController.xib in Resources */,
+				808627EB1C115C7A00ED92AB /* AddressCell.xib in Resources */,
 				8069E4AB1BC7B18500742D8F /* LosePwdViewController.xib in Resources */,
 				809D26DD1BCBA9A200C71445 /* GoodsPackCell.xib in Resources */,
+				80ED26EC1C0E873400F75B14 /* UpdateUserInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +848,7 @@
 				80E5C4521C01676C006A8A54 /* FMDatabasePool.m in Sources */,
 				8081D9C11BFC724F0098B2E2 /* LoginRefViewController.m in Sources */,
 				8069E4AF1BC7B18500742D8F /* GGNavigationViewController.m in Sources */,
+				808627EA1C115C7A00ED92AB /* AddressCell.m in Sources */,
 				804BE22A1BE0CA71009ABF33 /* GoodsShowCell.m in Sources */,
 				80E7F1421C0441C80087C608 /* CALayer+XibConfiguration.m in Sources */,
 				8005E72C1BF197B60025B82F /* PhotoAndTextView.m in Sources */,
@@ -830,6 +863,8 @@
 				8069E4BF1BC7B20800742D8F /* GoodsViewController.m in Sources */,
 				80AFBDA81BD883F5003D1308 /* AddressViewController.m in Sources */,
 				800B56E71BCE2666002A3FE3 /* HeadView.m in Sources */,
+				80ED26EB1C0E873400F75B14 /* UpdateUserInfoViewController.m in Sources */,
+				808627E61C11345300ED92AB /* AddressData.m in Sources */,
 				80E5C4541C01676C006A8A54 /* FMResultSet.m in Sources */,
 				802EEFE01BDE370D00AC1EF1 /* ThreeViewCell.m in Sources */,
 				80AE30A41BD78A52008A2128 /* MeCell.m in Sources */,
@@ -851,6 +886,7 @@
 				80014FF51BC7A2BC0078B2F5 /* main.m in Sources */,
 				8069E4B51BC7B18500742D8F /* UIImage+GG.m in Sources */,
 				80E5C4531C01676C006A8A54 /* FMDatabaseQueue.m in Sources */,
+				80E66D8D1C0D83590014C55A /* MineData.m in Sources */,
 				80E5C4501C01676C006A8A54 /* FMDatabase.m in Sources */,
 				80D752551BEB128100B3A735 /* UIButton+GG.m in Sources */,
 				80E7F1481C0460830087C608 /* CartData.m in Sources */,

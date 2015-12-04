@@ -123,9 +123,7 @@
 
     NSString * urlString =[HSGlobal testingCodeUrl];
     NSString * msg = [NSString md5:[GGTRIM(_phoneNum.text) stringByAppendingString:@"hmm"]] ;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //此处设置后返回的默认是NSData的数据
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPRequestOperationManager *manager = [HSGlobal shareNoHeadRequestManager];
     
     [manager POST:urlString  parameters:@{@"phone":GGTRIM(_phoneNum.text),@"msg":msg} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
@@ -144,9 +142,7 @@
 //发送注册数据
 -(void)getData{
     NSString * urlString =[HSGlobal registUrl];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //此处设置后返回的默认是NSData的数据
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPRequestOperationManager *manager = [HSGlobal shareNoHeadRequestManager];
     
     [manager POST:urlString  parameters:@{@"phone":GGTRIM(_phoneNum.text),@"code":GGTRIM(_identCode.text),@"password":GGTRIM(_pwd.text)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据

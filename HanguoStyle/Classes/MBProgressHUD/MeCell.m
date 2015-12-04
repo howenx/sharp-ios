@@ -10,6 +10,7 @@
 @interface MeCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 
 @end
 @implementation MeCell
@@ -22,6 +23,7 @@
 - (void)setData:(MeData *)data
 {
     self.titleLab.text = data.title;
+    [self.titleImageView setImage:[UIImage imageNamed:data.iconImage ]];
     
 }
 - (void)awakeFromNib {

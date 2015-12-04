@@ -25,7 +25,7 @@
 - (void)setData:(CartData *)data{
     database = [HSGlobal shareDatabase];
     isLogin = [HSGlobal checkLogin];
-    isLogin = 0;
+//    isLogin = 0;
     cartData = data;
     [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:data.invImg]];
     self.title.text = data.invTitle;
@@ -37,8 +37,19 @@
     }else if([@"S" isEqualToString: data.state]){
         [self.stateBtn setTitle:@"失效" forState:UIControlStateNormal];
         [self.stateBtn setBackgroundColor:[UIColor grayColor]];
-        self.stateBtn.userInteractionEnabled=NO;
+        self.stateBtn.enabled=NO;
         self.stateBtn.alpha=0.4;
+        self.jianBtn.enabled=NO;
+        self.jianBtn.alpha=0.4;
+        self.jiaBtn.enabled=NO;
+        self.jiaBtn.alpha=0.4;
+    }
+    if(data.amount == 1){
+        self.jianBtn.enabled=NO;
+        self.jianBtn.alpha=0.4;
+    }else{
+        self.jianBtn.enabled=YES;
+        self.jianBtn.alpha=1;
     }
     [self.stateBtn addTarget:self action:@selector(stateBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.jianBtn addTarget:self action:@selector(jianBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -55,10 +66,14 @@
 {
     //登陆状态
     if(isLogin){
-    
-    
-    
-    
+        CartData * data  = [CartData new];
+        data =cartData;
+        if([@"I" isEqualToString: data.state]){//未选中
+            data.state = @"G";
+        }else if([@"G" isEqualToString: data.state]){//选中
+            data.state = @"I";
+        }
+        [self.delegate sendUpdateData:data];
     }else{
         
         ShoppingCart * sc = [[ShoppingCart alloc]init];
@@ -79,8 +94,10 @@
     //登陆状态
     if(isLogin){
         
-        
-        
+        CartData * data  = [CartData new];
+        data =cartData;
+        data.amount = data.amount-1;
+        [self.delegate sendUpdateData:data];
         
     }else{
         ShoppingCart * sc = [[ShoppingCart alloc]init];
@@ -97,8 +114,10 @@
     //登陆状态
     if(isLogin){
         
-        
-        
+        CartData * data  = [CartData new];
+        data =cartData;
+        data.amount = data.amount+1;
+        [self.delegate sendUpdateData:data];
         
     }else{
         ShoppingCart * sc = [[ShoppingCart alloc]init];
@@ -116,10 +135,7 @@
 {
     //登陆状态
     if(isLogin){
-        
-        
-        
-        
+        [self.delegate sendDelUrl:cartData.cartDelUrl];
     }else{
         [self delCart:cartData.skuId];
         [self.delegate loadDataNotify];

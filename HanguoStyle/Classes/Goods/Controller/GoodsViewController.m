@@ -34,15 +34,13 @@
 
 @implementation GoodsViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=NO;
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.navigationController.view addSubview:HUD];
-    [self.view bringSubviewToFront:HUD];
-    
-    HUD.delegate = self;
-    HUD.labelText = @"Loading";
+    HUD = [HSGlobal getHUD:self];
     [HUD show:YES];
     _addon = 1;
     self.tableView.delegate =self;
@@ -51,31 +49,11 @@
     [self footerRefresh];
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     self.data = [NSMutableArray array];
-    
-    
-    
-    
-    
 }
 
 - (void)createHeadScrollView{
+    
     _scrollArr = [_imageUrls mutableCopy];
-    NSMutableArray * imageArr = [NSMutableArray array];
-    HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
-    hView.delegate = self;
-    [hView shouldAutoShow:YES];
-    for (int i = 0; i < _scrollArr.count; i++)
-    {
-        UIImageView *imv = [[UIImageView alloc] init];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[i]).url]];
-        imv.image = [UIImage imageWithData:data];
-        [imageArr addObject:imv];
-    }
-    hView.imageViewAry = imageArr;
-    _tableView.tableHeaderView = hView;
-    
-    
-    
     
     if(_scrollArr.count>1){
         NSMutableArray * imageArr = [NSMutableArray array];
@@ -113,10 +91,7 @@
     NSString * url = [HSGlobal goodsPackMoreUrl: _addon];
     _addon++;
     
-    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
-
+    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
         
@@ -175,27 +150,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //进入到商品展示页面
     
-    _pushUrl = ((ThemeData *)self.data[indexPath.section]).themeUrl;
+    _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
     [self pushGoodShowView];
 }
 -(void)pushGoodShowView {
-//    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-//    [self.navigationController.view addSubview:HUD];
-//    
-//    HUD.delegate = self;
-//    HUD.labelText = @"Loading";
-//    
-//    [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-    [self myTask];
-}
--(void)myTask {
+
     GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
     gsViewController.navigationItem.title = @"商品展示";
     //下个页面要跳转的url
     gsViewController.url = _pushUrl;
     [self.navigationController pushViewController:gsViewController animated:YES];
-
-    
 }
 
 // 判断是否联网

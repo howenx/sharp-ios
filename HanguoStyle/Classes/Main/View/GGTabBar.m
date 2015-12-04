@@ -16,6 +16,7 @@
 
 -(void)addTabBarItem:(UITabBarItem *)item
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterCart) name:@"enterCart" object:nil];
     // 1.创建按钮
     GGButton *button = [[GGButton alloc] init];
     // 2.设置数据 ,设置图片
@@ -65,6 +66,10 @@
         button.tag = index;
     }
 }
-
+//从详情页面点击购物车跳到第二个tabbar（购物车）
+-(void)enterCart{
+    GGButton *cartButton =(GGButton*)[self viewWithTag:1];
+    [self buttonClick:cartButton];
+}
 
 @end

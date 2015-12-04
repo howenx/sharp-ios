@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "GoodsDetailData.h"
+@protocol GoodsDetailViewDelegate <NSObject>
+-(void)tabBarDelagateFromDetailFrom:(NSInteger)from to:(NSInteger)to;
+
+@end
 @interface GoodsDetailViewController : UIViewController
-//@property (nonatomic) NSMutableArray * data;
+
+@property (nonatomic)BOOL * isFromCart;
 @property (nonatomic,strong)NSString * url;
+@property (nonatomic,weak) id <GoodsDetailViewDelegate> delegate;
 @property (nonatomic,strong)GoodsDetailData * detailData;
 @end

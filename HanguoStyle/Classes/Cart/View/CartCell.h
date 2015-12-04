@@ -10,8 +10,12 @@
 #import "CartData.h"
 @protocol CartCellDelegate <NSObject>
 
-//通知重新刷新数据
+//登陆或者未登录状态通知重新刷新数据
 -(void)loadDataNotify;
+//登录状态回传更新数据
+-(void)sendUpdateData:(CartData *)data;
+//登陆状态回传删除链接
+-(void)sendDelUrl:(NSString *)url;
 
 @end
 @interface CartCell : UITableViewCell

@@ -23,5 +23,6 @@
 @property (nonatomic) NSString * invImg;//sku主图
 @property (nonatomic) NSString * invUrl;//用于方便前段获取库存跳转链接
 @property (nonatomic) NSString * invTitle;//sku标题
+@property (nonatomic) NSString * cartDelUrl;//sku标题
 - (CartData *) initWithJSONNode: (id) node;
 @end

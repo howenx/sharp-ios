@@ -28,6 +28,8 @@
         self.invImg = [node objectForKey:@"invImg"];
         self.invUrl = [node objectForKey:@"invUrl"];
         self.invTitle = [node objectForKey:@"invTitle"];
+        self.cartDelUrl = [node objectForKey:@"cartDelUrl"];
+        
     }
     
     return self;

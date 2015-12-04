@@ -30,6 +30,10 @@
  */
 - (CGFloat)y;
 
+
+@property (nonatomic) CGFloat right;
+@property (nonatomic) CGFloat bottom;
+
 /**
  设置width
  */

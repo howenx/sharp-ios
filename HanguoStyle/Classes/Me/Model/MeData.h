@@ -10,4 +10,5 @@
 
 @interface MeData : NSObject
 @property (nonatomic) NSString * title;
+@property (nonatomic) NSString * iconImage;
 @end

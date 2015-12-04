@@ -20,10 +20,17 @@
                             <constraint firstAttribute="width" constant="29" id="mH4-f3-AWc"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSF-XO-OFy">
-                        <rect key="frame" x="8" y="11" width="189" height="21"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qpi-ct-tX8">
+                        <rect key="frame" x="15" y="7" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="21" id="fYN-eE-xUC"/>
+                            <constraint firstAttribute="height" constant="30" id="Ttq-a6-cLa"/>
+                            <constraint firstAttribute="width" constant="30" id="hdh-0g-W7C"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyD-cD-zzE">
+                        <rect key="frame" x="72" y="11" width="195" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="w0G-6A-m0r"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -31,17 +38,20 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="OSF-XO-OFy" firstAttribute="top" secondItem="NKk-sz-Wx3" secondAttribute="bottom" constant="-22" id="DkO-y1-VaN"/>
-                    <constraint firstItem="OSF-XO-OFy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Yhx-zK-acy"/>
-                    <constraint firstItem="NKk-sz-Wx3" firstAttribute="leading" secondItem="OSF-XO-OFy" secondAttribute="trailing" constant="86" id="f9s-e8-ptM"/>
-                    <constraint firstAttribute="centerY" secondItem="OSF-XO-OFy" secondAttribute="centerY" id="vko-pK-jBP"/>
+                    <constraint firstItem="xyD-cD-zzE" firstAttribute="leading" secondItem="qpi-ct-tX8" secondAttribute="trailing" constant="27" id="9fq-0o-1aH"/>
+                    <constraint firstAttribute="centerY" secondItem="NKk-sz-Wx3" secondAttribute="centerY" id="Cmv-bz-ThS"/>
+                    <constraint firstItem="NKk-sz-Wx3" firstAttribute="leading" secondItem="xyD-cD-zzE" secondAttribute="trailing" constant="16" id="TsY-mu-Yed"/>
+                    <constraint firstItem="qpi-ct-tX8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="X1I-2s-2uv"/>
+                    <constraint firstAttribute="centerY" secondItem="qpi-ct-tX8" secondAttribute="centerY" id="kVZ-xR-WKX"/>
+                    <constraint firstAttribute="centerY" secondItem="xyD-cD-zzE" secondAttribute="centerY" id="p2l-Jw-xL5"/>
                     <constraint firstAttribute="trailing" secondItem="NKk-sz-Wx3" secondAttribute="trailing" constant="8" id="zbV-KC-niX"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="titleLab" destination="OSF-XO-OFy" id="WDT-Mg-t06"/>
+                <outlet property="titleImageView" destination="qpi-ct-tX8" id="Rf2-rv-wCC"/>
+                <outlet property="titleLab" destination="xyD-cD-zzE" id="1vZ-hH-w1U"/>
             </connections>
-            <point key="canvasLocation" x="259" y="373"/>
+            <point key="canvasLocation" x="259" y="366"/>
         </tableViewCell>
     </objects>
     <resources>

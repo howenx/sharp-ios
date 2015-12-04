@@ -31,12 +31,7 @@
 -(void)getData{
     
     NSString * urlString =[HSGlobal refreshToken];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
-    
-    //此处设置后返回的默认是NSData的数据
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPRequestOperationManager *manager = [HSGlobal shareRequestManager];
     NSString * oldToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
     [manager POST:urlString  parameters:@{@"token":oldToken} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
@@ -49,7 +44,6 @@
             [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
-            NSLog(@"%ld",(long)returnResult.expired);
             //1.登陆成功,跳转到下主页面
             GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
             [self presentViewController:tabBar animated:YES completion:nil];

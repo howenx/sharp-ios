@@ -24,19 +24,19 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US ￥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHO-Hg-BQc" userLabel="price">
-                        <rect key="frame" x="8" y="179" width="40" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHO-Hg-BQc" userLabel="price">
+                        <rect key="frame" x="8" y="179" width="20" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="0DK-23-cv9"/>
-                            <constraint firstAttribute="width" constant="40" id="X5J-EZ-kun"/>
-                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="iGL-iW-jAJ"/>
+                            <constraint firstAttribute="width" constant="20" id="X5J-EZ-kun"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="iGL-iW-jAJ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.90560752470000005" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="33333" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieO-vz-WmO" userLabel="money">
-                        <rect key="frame" x="50" y="179" width="87" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieO-vz-WmO" userLabel="money">
+                        <rect key="frame" x="30" y="179" width="87" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="CeM-RX-INS"/>
                             <constraint firstAttribute="width" constant="87" id="Ebr-Aa-w4a"/>

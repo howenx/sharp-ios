@@ -18,6 +18,8 @@
 #import "FMDatabaseQueue.h"
 #import "ShoppingCart.h"
 #import "CartData.h"
+#import "CartViewController.h"
+
 @interface GoodsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ThreeViewCellDelegate,MBProgressHUDDelegate,DetailTwoCellDelegate,DetailThreeCellDelegate>
 {
 
@@ -65,28 +67,35 @@
 
 - (IBAction)buyNow:(UIButton *)sender;
 
+- (IBAction)enterShoppingCart:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIButton *cartButton;
+
 @property (nonatomic) BOOL globleIsStore;
 @property (nonatomic,assign) NSInteger globleStoreCount;
 @end
 
 @implementation GoodsDetailViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationController.navigationBar setAlpha:0.2];
-    isLogin = [HSGlobal checkLogin];
-    isLogin = 0;
+    
+    
     database = [HSGlobal shareDatabase];
-    HUD = [[MBProgressHUD alloc]  initWithView:self.view];
-    [self.navigationController.view addSubview:HUD];
+    HUD = [HSGlobal getHUD:self];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hidesBottomBarWhenPushed = NO;
     self.navigationItem.title = @"商品详情";
-    HUD.delegate = self;
-    HUD.labelText = @"Loading";
+
     [HUD show:YES];
     
-    
+    if(_isFromCart){
+        _cartButton.hidden = YES;
+    }else{
+        _cartButton.hidden = NO;
+    }
+    isLogin = [HSGlobal checkLogin];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self prepareDataSource];
@@ -104,9 +113,7 @@
     
     NSLog(@"detailViewUrl  ++++++++++++%@",_url);
     
-    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
+    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
     numberOfSection = 3;
     [manager GET:_url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
@@ -408,170 +415,143 @@
 
 
 - (IBAction)addToShoppingCart:(UIButton *)sender {
-    
     NSString * sizeId;
     for(SizeData * sizeData in _detailData.sizeArray){
         if(sizeData.orMasterInv){
             sizeId = sizeData.sizeId;
-            
         }
     }
-    //登陆状态
     if(isLogin){
-        [self sendCart:sizeId.integerValue];
-    }else{
-    
-    }
-//    [database executeUpdate:@"DELETE FROM Shopping_Cart "];
-    NSLog(@"---------事务开始");
-    
-    //开始添加事务
-    [database beginTransaction];
-    
-    
-    FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart where pid = ?",[NSNumber numberWithInt:[sizeId intValue]]];
-    //购物车如果存在这件商品，就更新数量
-    while ([rs next]){
+        NSMutableArray * mutArray = [NSMutableArray array];
+        
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithInt:[sizeId intValue]] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInt:0] forKey:@"cartId"];
+        [myDict setObject:[NSNumber numberWithInt:1] forKey:@"amount"];
+        [myDict setObject:@"I" forKey:@"state"];
+        [mutArray addObject:myDict];
+        [self requestData:[mutArray copy]];
 
-        int amount = [rs intForColumn:@"pid_amount"] ;
-        BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ?",[NSNumber numberWithInt:amount+1],[NSNumber numberWithInt:[sizeId intValue]]];
-        if (isUpdateOK) {
+    }else{
+        NSLog(@"---------事务开始");
+        
+        //开始添加事务
+        [database beginTransaction];
+        FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart where pid = ?",[NSNumber numberWithInt:[sizeId intValue]]];
+        //购物车如果存在这件商品，就更新数量
+        while ([rs next]){
+            
+            int amount = [rs intForColumn:@"pid_amount"] ;
+            BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ?",[NSNumber numberWithInt:amount+1],[NSNumber numberWithInt:[sizeId intValue]]];
+            if (isUpdateOK) {
+                FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
+                while ([rs next]){
+                    NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
+                    NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
+                    NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
+                    NSLog(@"state=%@",[rs stringForColumn:@"state"]);
+                    NSLog(@"--------------------------");
+                }
+                
+            }
+            [database commit];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.labelText = @"成功添加购物车";
+            hud.margin = 10.f;
+            //        hud.yOffset = 150.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
+            
+            return;
+        }
+        
+        
+        
+        
+        NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state) values (?,?,?,?)";
+        
+        //插入
+        BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"I"];
+        
+        if (isInsertOK)
+        {
             FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
             while ([rs next]){
                 NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
                 NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
                 NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
                 NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-                NSLog(@"--------------------------");
+                NSLog(@"_______________________________");
             }
-
+            
         }
+        
+        
+        //提交事务
         [database commit];
-        return;
+        
+        NSLog(@"---------事务结束");
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"成功添加购物车";
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.margin = 10.f;
+        //    hud.yOffset = 150.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
     }
+}
+-(void)requestData:(NSArray *) array{
     
-    
-    
-    
-    NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state) values (?,?,?,?)";
-    
-    //插入
-    BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"I"];
-    
-    if (isInsertOK)
-    {
-        FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-        while ([rs next]){
-            NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
-            NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
-            NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
-            NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-            NSLog(@"_______________________________");
+    NSString * urlString;
+    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
+    urlString =[HSGlobal sendCartUrl];
+    if(array.count <=0){
+        array = nil;
+    }
+    [manager POST:urlString  parameters:array success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        if([@"成功" isEqualToString:message ]){
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"成功添加购物车";
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            //    hud.yOffset = 150.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
+        }else{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"添加购物车失败";
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            //    hud.yOffset = 150.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
         }
-
-    }
-
-
-    //提交事务
-    [database commit];
-
-    NSLog(@"---------事务结束");
-
-}
--(void)sendCart :(NSInteger)pid{
-    
-    
-    
-    
-    //开始添加事务
-    [database beginTransaction];
-    
-
-    NSMutableArray * mutArray = [NSMutableArray array];
-
         
-        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
-        [myDict setObject:[NSNumber numberWithLong:pid] forKey:@"skuId"];
-        [myDict setObject:[NSNumber numberWithInt:0] forKey:@"cartId"];
-        [myDict setObject:[NSNumber numberWithInt:1] forKey:@"amount"];
-        [myDict setObject:@"I" forKey:@"state"];
-        [mutArray addObject:myDict];
-
-    
-    //提交事务
-    [database commit];
-    
-    
-    if(mutArray.count >0){
-        NSString * urlString =[HSGlobal sendCartUrl];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        //此处设置后返回的默认是NSData的数据
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.requestSerializer=[AFJSONRequestSerializer serializer];
-        NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-        [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
         
-        [manager POST:urlString  parameters:[mutArray copy] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
-            
-            NSArray * dataArray = [object objectForKey:@"cartList"];
-            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
-            NSLog(@"message= %@",message);
-            NSMutableArray * cartArray = [NSMutableArray array];
-            NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
-            for (id node in dataArray) {
-                CartData * data = [[CartData alloc] initWithJSONNode:node];
-                [cartArray addObject:data];
-            }
-            if(cartArray.count>0){
-                
-                
-                [database beginTransaction];
-                
-                [database executeUpdate:@"DELETE FROM Shopping_Cart"];
-                FMResultSet * rs1 = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-                NSLog(@"____________删除数据后start___________________");
-                while ([rs1 next]){
-                    NSLog(@"pid=%d",[rs1 intForColumn:@"pid"]);
-                    NSLog(@"cart_id=%d",[rs1 intForColumn:@"cart_id"]);
-                    NSLog(@"pid_amount=%d",[rs1 intForColumn:@"pid_amount"]);
-                    NSLog(@"state=%@",[rs1 stringForColumn:@"state"]);
-                    
-                }
-                NSLog(@"____________删除数据后end___________________");
-                NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state) values (?,?,?,?)";
-                
-                for (int i=0; i<cartArray.count; i++) {
-                    CartData * cData = cartArray[i];
-                    [database executeUpdate:sql,[NSNumber numberWithLong:cData.skuId],[NSNumber numberWithLong:cData.cartId],[NSNumber numberWithLong:cData.amount],cData.state];
-                }
-                
-                FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-                while ([rs next]){
-                    NSLog(@"____________后台获取数据start___________________");
-                    NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
-                    NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
-                    NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
-                    NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-                }
-                NSLog(@"____________后台获取数据end___________________");
-                
-                //提交事务
-                [database commit];
-                
-            }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-            [HSGlobal printAlert:@"发送购物车数据失败"];
-        }];
-        
-    }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [HSGlobal printAlert:@"添加失败"];
+    }];
     
     
 }
-
 - (IBAction)buyNow:(UIButton *)sender {
+}
+
+- (IBAction)enterShoppingCart:(UIButton *)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"enterCart" object:nil];
+//    [self.delegate tabBarDelagateFromDetailFrom:0 to:1];
+//    CartViewController *  cContro = [[CartViewController alloc]init];
+//    self.hidesBottomBarWhenPushed=NO;
+//    [self.navigationController pushViewController:cContro animated:YES];
+//    self.hidesBottomBarWhenPushed=YES;
 }
 
 @end

@@ -29,20 +29,17 @@
     MBProgressHUD *HUD;
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic,strong) NSString * pushUrl;
+
 
 @end
 
 @implementation GoodsShowViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    self.tabBarController.tabBar.hidden=NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.navigationController.view addSubview:HUD];
-    HUD.margin =10.f;
-    
-    HUD.delegate = self;
-    HUD.labelText = @"Loading";
+    HUD = [HSGlobal getHUD:self];
     [HUD show:YES];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAnimationData) name:@"ReloadAnimationData" object:nil];
@@ -63,9 +60,7 @@
 {
     NSLog(@"showViewUrl  ++++++++++++%@",_url);
     
-    AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
-    NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-    [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
+    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
     
     [manager GET:_url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.collectionView.header endRefreshing];
@@ -193,36 +188,16 @@
     
     //正常状态才能进入到详情页面
     if([@"Y" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]){
-        _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
+        NSString * _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
         //进入到商品展示页面
-        [self pushGoodShowView:indexPath.item];
+        self.hidesBottomBarWhenPushed=YES;
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = _pushUrl;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
     }
     
 }
-
--(void)pushGoodShowView :(NSInteger)index{
-//    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-//    [self.navigationController.view addSubview:HUD];
-//    
-//    HUD.delegate = self;
-//    HUD.labelText = @"Loading";
-//    
-//    [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
-    [self myTask];
-    
-}
--(void)myTask {
-    self.hidesBottomBarWhenPushed=YES;
-     GoodsDetailViewController* gdViewController = [[GoodsDetailViewController alloc]init];
-    gdViewController.url = _pushUrl;
-    [self.navigationController pushViewController:gdViewController animated:YES];
-    self.hidesBottomBarWhenPushed=NO;
-
-    
-}
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

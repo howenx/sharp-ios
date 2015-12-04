@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"登录";
     database = [HSGlobal shareDatabase];
     [self registerForKeyboardNotifications];
     _mobel.returnKeyType = UIReturnKeyDone;
@@ -129,9 +130,7 @@
 //发送注册数据
 -(void)getData{
     NSString * urlString =[HSGlobal loginUrl];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //此处设置后返回的默认是NSData的数据
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    AFHTTPRequestOperationManager *manager = [HSGlobal shareNoHeadRequestManager];
     
     [manager POST:urlString  parameters:@{@"name":GGTRIM(_mobel.text),@"password":GGTRIM(_pwd.text)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
@@ -233,12 +232,8 @@
  
     if(mutArray.count >0){
         NSString * urlString =[HSGlobal sendCartUrl];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        //此处设置后返回的默认是NSData的数据
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.requestSerializer=[AFJSONRequestSerializer serializer];
-        NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-        [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
+        AFHTTPRequestOperationManager *manager = [HSGlobal shareRequestManager];
+    
         
         [manager POST:urlString  parameters:[mutArray copy] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];

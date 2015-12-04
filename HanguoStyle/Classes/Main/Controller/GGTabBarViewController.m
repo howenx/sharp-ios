@@ -16,7 +16,7 @@
 #import "FMDatabaseQueue.h"
 #import "GGNavigationViewController.h"
 #import "HSGlobal.h"
-
+#import "GoodsDetailViewController.h"
 @interface GGTabBarViewController ()<GGTabBarDelegate>
 {
     FMDatabase *database;
@@ -36,6 +36,7 @@
     [self setupAllChildViewControllers];
     [self createCart];
 }
+
 -(void)createCart{
     NSString *sql = @"create table if not exists Shopping_Cart (pid integer, cart_id integer, pid_amount integer, state text)";    
     //执行sql
@@ -148,5 +149,4 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadAnimationData" object:nil];
     }
 }
-
 @end

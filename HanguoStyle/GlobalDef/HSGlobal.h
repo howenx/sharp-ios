@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
 #import "FMDatabaseQueue.h"
-@interface HSGlobal : NSObject
+#import "AFNetworking.h"
+#import "MBProgressHUD.h"
+@interface HSGlobal : NSObject <MBProgressHUDDelegate>
 
 + (NSString *) goodsPackMoreUrl: (NSInteger)addon;
 + (NSString *) testingCodeUrl;
@@ -21,10 +23,17 @@
 + (NSString *) refreshToken;
 + (NSString *) getCartUrl;
 + (NSString *) getCartByPidUrl;
++ (NSString *) mineUrl;
++ (NSString *) updateUserInfo;
++ (NSString *) getAddressListInfo;
++ (NSString *) updateAddressInfo;
 //提示框
 +(void)printAlert:(NSString *) message;
 //根据文字获取大小
 +(CGSize)getSize:(NSString *)str Font:(float)sizeofstr Width:(float)width Height:(float)height;
 +(BOOL)checkLogin;
 +(FMDatabase *)shareDatabase;
++(AFHTTPRequestOperationManager *)shareRequestManager;
++(AFHTTPRequestOperationManager *)shareNoHeadRequestManager;
++(MBProgressHUD *)getHUD :(UIViewController *)controller;
 @end
