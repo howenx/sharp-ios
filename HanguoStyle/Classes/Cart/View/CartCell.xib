@@ -124,23 +124,23 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVT-Lx-oIx" userLabel="line">
-                        <rect key="frame" x="0.0" y="119" width="320" height="1"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Oh-gP-BFj" userLabel="line">
+                        <rect key="frame" x="10" y="119" width="300" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="1" id="zda-Al-ZyA"/>
+                            <constraint firstAttribute="height" constant="1" id="IWq-Xo-qWG"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="zsE-qN-m5q" firstAttribute="top" secondItem="kY4-N8-STc" secondAttribute="bottom" constant="9" id="0s0-45-8zg"/>
                     <constraint firstItem="f6I-e0-VA3" firstAttribute="top" secondItem="smU-hv-RUo" secondAttribute="top" id="5sF-67-yLL"/>
+                    <constraint firstAttribute="bottom" secondItem="0Oh-gP-BFj" secondAttribute="bottom" constant="-1" id="7qf-B9-3Hq"/>
                     <constraint firstItem="kY4-N8-STc" firstAttribute="leading" secondItem="zsE-qN-m5q" secondAttribute="leading" id="8ry-yF-MdO"/>
                     <constraint firstItem="f6I-e0-VA3" firstAttribute="bottom" secondItem="iJe-9S-GTb" secondAttribute="bottom" id="BcD-ZX-unu"/>
                     <constraint firstItem="j0v-eA-paT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Flg-PC-SiH"/>
+                    <constraint firstItem="0Oh-gP-BFj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Lfv-Gz-eeW"/>
                     <constraint firstItem="kY4-N8-STc" firstAttribute="leading" secondItem="7AD-6L-ZsD" secondAttribute="trailing" constant="8" id="NF3-hM-PcS"/>
-                    <constraint firstAttribute="trailing" secondItem="pVT-Lx-oIx" secondAttribute="trailing" id="Prd-aL-dPX"/>
-                    <constraint firstItem="pVT-Lx-oIx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SHT-Yv-TVJ"/>
                     <constraint firstAttribute="centerY" secondItem="7AD-6L-ZsD" secondAttribute="centerY" id="Tzo-gd-GuR"/>
                     <constraint firstAttribute="trailing" secondItem="kY4-N8-STc" secondAttribute="trailing" constant="8" id="YpQ-XL-TIq"/>
                     <constraint firstItem="f6I-e0-VA3" firstAttribute="leading" secondItem="JHI-we-9q2" secondAttribute="trailing" constant="-1" id="dUp-0P-PdA"/>
@@ -150,9 +150,9 @@
                     <constraint firstItem="7AD-6L-ZsD" firstAttribute="leading" secondItem="j0v-eA-paT" secondAttribute="trailing" constant="8" id="qah-rT-8Nr"/>
                     <constraint firstItem="smU-hv-RUo" firstAttribute="leading" secondItem="f6I-e0-VA3" secondAttribute="trailing" constant="-1" id="rts-GX-qWI"/>
                     <constraint firstAttribute="centerY" secondItem="j0v-eA-paT" secondAttribute="centerY" id="sdG-nC-Rgs"/>
-                    <constraint firstAttribute="bottom" secondItem="pVT-Lx-oIx" secondAttribute="bottom" constant="-1" id="tHM-dq-pru"/>
                     <constraint firstItem="JHI-we-9q2" firstAttribute="bottom" secondItem="7AD-6L-ZsD" secondAttribute="bottom" id="vs6-jx-XLP"/>
                     <constraint firstItem="JHI-we-9q2" firstAttribute="top" secondItem="f6I-e0-VA3" secondAttribute="top" id="wrL-2j-Gfj"/>
+                    <constraint firstAttribute="trailing" secondItem="0Oh-gP-BFj" secondAttribute="trailing" constant="10" id="x76-M1-foL"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

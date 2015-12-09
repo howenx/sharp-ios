@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface CartData : NSObject
+@interface CartDetailData : NSObject
 @property (nonatomic) NSInteger cartId;
 @property (nonatomic) NSInteger skuId;//库存id
 @property (nonatomic) NSInteger amount;//购物车数量
@@ -24,5 +23,15 @@
 @property (nonatomic) NSString * invUrl;//用于方便前段获取库存跳转链接
 @property (nonatomic) NSString * invTitle;//sku标题
 @property (nonatomic) NSString * cartDelUrl;//sku标题
+@property (nonatomic) NSString * postalTaxRate;//行邮税
+@property (nonatomic) NSString * invCustoms;//保税区
+
+@end
+@interface CartData : NSObject
 - (CartData *) initWithJSONNode: (id) node;
+
+
+@property (nonatomic) NSString * invCustoms;
+@property (nonatomic) NSString * invArea;
+@property (nonatomic) NSMutableArray * cartDetailArray;
 @end

@@ -54,8 +54,10 @@
     [self getPickerData];
     [self initView];
     [self registerForKeyboardNotifications];
+    [self setPageData:_data];
     
 }
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -244,7 +246,7 @@
     province = [self.provinceArray objectAtIndex:[self.myPicker selectedRowInComponent:0]];
     city = [self.cityArray objectAtIndex:[self.myPicker selectedRowInComponent:1]];
     town = [self.townArray objectAtIndex:[self.myPicker selectedRowInComponent:2]];
-    _areaAddrLab.text = [NSString stringWithFormat:@"%@   %@   %@", province, city,town];
+    _areaAddrLab.text = [NSString stringWithFormat:@"%@ %@ %@", province, city,town];
     [self hideMyPicker];
 }
 
@@ -282,14 +284,20 @@
     [deliveryCityDict setObject:@"" forKey:@"area_code"];
     [deliveryCityDict setObject:@"" forKey:@"city_code"];
     [deliveryCityDict setObject:[addrDict objectForKey:province] forKey:@"province_code"];
-    
-    
+    NSString * strDict = [self dictionaryToJson:deliveryCityDict];
+    NSString * url;
     NSMutableDictionary * myDict = [NSMutableDictionary dictionary];
+    if (_data == nil) {
+//        [myDict setObject:@"" forKey:@"addId"];
+        url = [HSGlobal AddAddressInfo];
+    }else{
+        [myDict setObject:_data.addId forKey:@"addId"];
+        url = [HSGlobal updateAddressInfo];
+    }
     [myDict setObject:_phoneLab.text forKey:@"tel"];
     [myDict setObject:_nameLab.text forKey:@"name"];
-    [myDict setObject:deliveryCityDict forKey:@"deliveryCity"];
+    [myDict setObject:strDict forKey:@"deliveryCity"];
     [myDict setObject:_detailAddrLab.text forKey:@"deliveryDetail"];
-
     if(_defaultSwitch.isOn){
 //        NSNumber *boolNumber = [NSNumber numberWithBool:YES];
         [myDict setObject:@(true) forKey:@"orDefault"];
@@ -299,11 +307,10 @@
     
     [myDict setObject:_idNumber.text forKey:@"idCardNum"];
     
-    NSString * url = [HSGlobal updateAddressInfo];
-    
     AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
     
     [manager POST:url parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
@@ -331,7 +338,17 @@
  
     
 }
+-(NSString*)dictionaryToJson:(NSDictionary *)dic
 
+{
+    
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+}
 //验证手机号
 - (BOOL)isPhone
 {
@@ -390,7 +407,7 @@
     
     int year =0;
     switch (length) {
-        case15:
+        case 15:
             year = [value substringWithRange:NSMakeRange(6,2)].intValue +1900;
             
             if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
@@ -412,7 +429,7 @@
             }else {
                 return NO;
             }
-        case18:
+        case 18:
             
             year = [value substringWithRange:NSMakeRange(6,4)].intValue;
             if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
@@ -450,6 +467,21 @@
     }
 }
 
+- (void)setPageData:(AddressData *)data{
+    
+    _nameLab.text = data.name;
+    _phoneLab.text = data.tel;
+    _areaAddrLab.text = data.deliveryCity;
+     NSArray * strArr = [ _areaAddrLab.text componentsSeparatedByString:@" "];// 以空格分割成数组，依次读取数组中的元素
+    if(strArr.count == 3){
+        province = strArr[0];
+        city = strArr[1];
+        town = strArr[2];
+    }
+    _detailAddrLab.text = data.deliveryDetail;
+    _idNumber.text = data.idCardNum;
+    [_defaultSwitch setOn: data.orDefault];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

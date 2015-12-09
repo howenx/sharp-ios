@@ -13,5 +13,6 @@
 @property (nonatomic) NSString * photo;
 @property (nonatomic) NSString * realYn;
 @property (nonatomic) NSString * phoneNum;
+@property (nonatomic) NSString * gender;
 - (MineData *) initWithJSONNode: (id) node;
 @end

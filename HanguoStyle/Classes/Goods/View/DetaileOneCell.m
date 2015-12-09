@@ -14,6 +14,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLab;
 @property (weak, nonatomic) IBOutlet UILabel *costPriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *currentPriceLab;
+@property (weak, nonatomic) IBOutlet UILabel *weightLab;
+@property (weak, nonatomic) IBOutlet UILabel *postalTaxRateLab;
+@property (weak, nonatomic) IBOutlet UILabel *areaLab;
 
 @property (nonatomic,strong)NSArray * scrollArr;
 
@@ -44,7 +47,10 @@
             _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
             itemDiscountCount = [[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] length] + 3;
             
-            
+            self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invArea];
+            self.weightLab.text = [NSString stringWithFormat:@"重量：%@g",sizeData.invWeight];
+            self.postalTaxRateLab.text = [NSString stringWithFormat:@"税率：%@",sizeData.postalTaxRate];
+            self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:@"%"];
         }
     }
 //    _scrollArr =@[@"http://img3.douban.com/view/movie_poster_cover/lpst/public/p480747492.jpg",
@@ -95,7 +101,5 @@
     }
     [self.storeBtn setImage:image forState:UIControlStateNormal];
     [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)data.collectCount] forState:UIControlStateNormal];
-    
-//    [self.storeBtn setImage:image withTitle:[NSString stringWithFormat:@"（%d)",data.storeCount] forState:UIControlStateNormal];
 }
 @end

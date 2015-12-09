@@ -38,6 +38,11 @@
 @property (nonatomic) BOOL       orMasterInv;//是否是主sku
 @property (nonatomic) NSString * invUrl;//加入购物车跳转的url
 @property (nonatomic) NSString * state;//状态，D下架，Y正常
+
+@property (nonatomic) NSString * invArea;//邮递方式（韩国直邮）
+@property (nonatomic) NSString * invWeight;//重量
+@property (nonatomic) NSString * postalTaxRate;//税率,百分比
+
 @end
 
 

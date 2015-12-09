@@ -27,6 +27,9 @@
 + (NSString *) updateUserInfo;
 + (NSString *) getAddressListInfo;
 + (NSString *) updateAddressInfo;
++ (NSString *) delAddressInfo;
++ (NSString *) AddAddressInfo;
++ (NSString *) checkAddCartAmount;
 //提示框
 +(void)printAlert:(NSString *) message;
 //根据文字获取大小

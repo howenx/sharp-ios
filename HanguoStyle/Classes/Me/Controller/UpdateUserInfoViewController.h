@@ -12,5 +12,6 @@
 @end
 @interface UpdateUserInfoViewController : UIViewController
 @property(nonatomic) NSString * userName;
+@property(nonatomic) NSString * gender;
 @property(nonatomic,weak) id <UpdateUserInfoDelegate> delegate;
 @end

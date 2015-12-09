@@ -9,15 +9,27 @@
 #import "HSGlobal.h"
 
 @implementation HSGlobal
-//增加修改收货地址 的地址
+//删除收货地址 的地址
++ (NSString *) delAddressInfo{
+    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/del"];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//修改收货地址 的地址
 + (NSString *) updateAddressInfo{
-    NSString * url = [NSString stringWithFormat:@"172.28.3.18:9004/api/address/list"];
+    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/update"];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//新增收货地址 的地址
++ (NSString *) AddAddressInfo{
+    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/add"];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 //查询收货地址列表的地址
 + (NSString *) getAddressListInfo{
-    NSString * url = [NSString stringWithFormat:@"172.28.3.18:9004/api/address/list"];
+    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/list"];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -30,6 +42,14 @@
 //我的的地址
 + (NSString *) mineUrl{
     NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/user/get/info"];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+// 添加购物车校验数量（未登陆状态）
++ (NSString *) checkAddCartAmount
+{
+    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9003/client/cart/verify/amount/"];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -183,9 +203,9 @@
 +(AFHTTPRequestOperationManager *)shareNoHeadRequestManager{
     static AFHTTPRequestOperationManager * manager = nil;
     if (!manager) {
+        manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         manager.requestSerializer=[AFJSONRequestSerializer serializer];
-        manager = [AFHTTPRequestOperationManager manager];
     }
     return manager;
 }

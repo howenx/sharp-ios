@@ -14,7 +14,7 @@
 #import "FMDatabaseQueue.h"
 @implementation CartCell
 {
-    CartData * cartData;
+    CartDetailData * cartDetailData;
     BOOL isLogin;
     FMDatabase *database;
     
@@ -22,11 +22,10 @@
 - (void)awakeFromNib {
     // Initialization code
 }
-- (void)setData:(CartData *)data{
+- (void)setData:(CartDetailData *)data{
     database = [HSGlobal shareDatabase];
     isLogin = [HSGlobal checkLogin];
-//    isLogin = 0;
-    cartData = data;
+    cartDetailData = data;
     [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:data.invImg]];
     self.title.text = data.invTitle;
     self.price.text = [NSString stringWithFormat:@"￥%.2f",data.itemPrice];
@@ -64,82 +63,82 @@
 //登陆状态下做选中或者修改或者删除操作，发给后台一条数据，用后台再次传过的data刷新页面。
 - (void) stateBtnClicked: (UIButton *) button
 {
-    //登陆状态
-    if(isLogin){
-        CartData * data  = [CartData new];
-        data =cartData;
-        if([@"I" isEqualToString: data.state]){//未选中
-            data.state = @"G";
-        }else if([@"G" isEqualToString: data.state]){//选中
-            data.state = @"I";
-        }
-        [self.delegate sendUpdateData:data];
-    }else{
-        
-        ShoppingCart * sc = [[ShoppingCart alloc]init];
-        if([@"I" isEqualToString: cartData.state]){//未选中
-            sc.state = @"G";
-        }else if([@"G" isEqualToString: cartData.state]){//选中
-            sc.state = @"I";
-        }
-        sc.pid = cartData.skuId;
-        sc.cartId = cartData.cartId;
-        sc.amount = cartData.amount;
-        [self updataCart:sc];
-        [self.delegate loadDataNotify];
-    }
+//    //登陆状态
+//    if(isLogin){
+//        CartData * data  = [CartData new];
+//        data =cartData;
+//        if([@"I" isEqualToString: data.state]){//未选中
+//            data.state = @"G";
+//        }else if([@"G" isEqualToString: data.state]){//选中
+//            data.state = @"I";
+//        }
+//        [self.delegate sendUpdateData:data];
+//    }else{
+//        
+//        ShoppingCart * sc = [[ShoppingCart alloc]init];
+//        if([@"I" isEqualToString: cartData.state]){//未选中
+//            sc.state = @"G";
+//        }else if([@"G" isEqualToString: cartData.state]){//选中
+//            sc.state = @"I";
+//        }
+//        sc.pid = cartData.skuId;
+//        sc.cartId = cartData.cartId;
+//        sc.amount = cartData.amount;
+//        [self updataCart:sc];
+//        [self.delegate loadDataNotify];
+//    }
 }
 - (void) jianBtnClicked: (UIButton *) button
 {
-    //登陆状态
-    if(isLogin){
-        
-        CartData * data  = [CartData new];
-        data =cartData;
-        data.amount = data.amount-1;
-        [self.delegate sendUpdateData:data];
-        
-    }else{
-        ShoppingCart * sc = [[ShoppingCart alloc]init];
-        sc.pid = cartData.skuId;
-        sc.cartId = cartData.cartId;
-        sc.amount = cartData.amount - 1;
-        sc.state = cartData.state;
-        [self updataCart:sc];
-        [self.delegate loadDataNotify];
-    }
+//    //登陆状态
+//    if(isLogin){
+//        
+//        CartData * data  = [CartData new];
+//        data =cartData;
+//        data.amount = data.amount-1;
+//        [self.delegate sendUpdateData:data];
+//        
+//    }else{
+//        ShoppingCart * sc = [[ShoppingCart alloc]init];
+//        sc.pid = cartData.skuId;
+//        sc.cartId = cartData.cartId;
+//        sc.amount = cartData.amount - 1;
+//        sc.state = cartData.state;
+//        [self updataCart:sc];
+//        [self.delegate loadDataNotify];
+//    }
 }
 - (void) jiaBtnClicked: (UIButton *) button
 {
-    //登陆状态
-    if(isLogin){
-        
-        CartData * data  = [CartData new];
-        data =cartData;
-        data.amount = data.amount+1;
-        [self.delegate sendUpdateData:data];
-        
-    }else{
-        ShoppingCart * sc = [[ShoppingCart alloc]init];
-        sc.pid = cartData.skuId;
-        sc.cartId = cartData.cartId;
-        sc.amount = cartData.amount + 1;
-        sc.state = cartData.state;
-        [self updataCart:sc];
-        [self.delegate loadDataNotify];
-    }
+//    //登陆状态
+//    if(isLogin){
+//        
+//        CartData * data  = [CartData new];
+//        data =cartData;
+//        data.amount = data.amount+1;
+//        [self.delegate sendUpdateData:data];
+//        
+//    }else{
+//        ShoppingCart * sc = [[ShoppingCart alloc]init];
+//        sc.pid = cartData.skuId;
+//        sc.cartId = cartData.cartId;
+//        sc.amount = cartData.amount + 1;
+//        sc.state = cartData.state;
+//        [self updataCart:sc];
+//        [self.delegate loadDataNotify];
+//    }
 }
 
 
 - (void) delBtnClicked: (UIButton *) button
 {
-    //登陆状态
-    if(isLogin){
-        [self.delegate sendDelUrl:cartData.cartDelUrl];
-    }else{
-        [self delCart:cartData.skuId];
-        [self.delegate loadDataNotify];
-    }
+//    //登陆状态
+//    if(isLogin){
+//        [self.delegate sendDelUrl:cartData.cartDelUrl];
+//    }else{
+//        [self delCart:cartData.skuId];
+//        [self.delegate loadDataNotify];
+//    }
 }
 -(void)delCart :(NSInteger) pid{
     [database beginTransaction];

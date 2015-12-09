@@ -416,6 +416,7 @@
 
 - (IBAction)addToShoppingCart:(UIButton *)sender {
     NSString * sizeId;
+    
     for(SizeData * sizeData in _detailData.sizeArray){
         if(sizeData.orMasterInv){
             sizeId = sizeData.sizeId;
@@ -440,30 +441,43 @@
         FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart where pid = ?",[NSNumber numberWithInt:[sizeId intValue]]];
         //购物车如果存在这件商品，就更新数量
         while ([rs next]){
-            
             int amount = [rs intForColumn:@"pid_amount"] ;
-            BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ?",[NSNumber numberWithInt:amount+1],[NSNumber numberWithInt:[sizeId intValue]]];
-            if (isUpdateOK) {
-                FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-                while ([rs next]){
-                    NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
-                    NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
-                    NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
-                    NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-                    NSLog(@"--------------------------");
+            NSString * checkUrl = [HSGlobal checkAddCartAmount];
+            checkUrl = [NSString stringWithFormat:@"%@/%d/%d",checkUrl,[sizeId intValue],amount+1];
+            AFHTTPRequestOperationManager * manager = [HSGlobal shareNoHeadRequestManager];
+
+            [manager GET:checkUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+                NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                NSString * returnMsg ;
+                if(code == 200){
+                    BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ?",[NSNumber numberWithInt:amount+1],[NSNumber numberWithInt:[sizeId intValue]]];
+                    
+                    if (isUpdateOK) {
+                        returnMsg = @"成功添加购物车";
+                    }else{
+                        returnMsg = @"保存数据库失败";
+                    }
+                    [database commit];
+                    
+                }else{
+                    returnMsg = @"添加购物车失败";
                 }
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.labelText = returnMsg;
+                hud.margin = 10.f;
+                //        hud.yOffset = 150.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+
                 
-            }
-            [database commit];
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelFont = [UIFont systemFontOfSize:11];
-            hud.labelText = @"成功添加购物车";
-            hud.margin = 10.f;
-            //        hud.yOffset = 150.f;
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:1];
-            
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [HSGlobal printAlert:@"添加失败"];
+            }];
             return;
         }
         
@@ -485,7 +499,6 @@
                 NSLog(@"state=%@",[rs stringForColumn:@"state"]);
                 NSLog(@"_______________________________");
             }
-            
         }
         
         
@@ -498,7 +511,6 @@
         hud.labelText = @"成功添加购物车";
         hud.labelFont = [UIFont systemFontOfSize:11];
         hud.margin = 10.f;
-        //    hud.yOffset = 150.f;
         hud.removeFromSuperViewOnHide = YES;
         [hud hide:YES afterDelay:1];
     }
@@ -514,7 +526,8 @@
     [manager POST:urlString  parameters:array success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
-        if([@"成功" isEqualToString:message ]){
+        NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        if(code == 200){
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = @"成功添加购物车";

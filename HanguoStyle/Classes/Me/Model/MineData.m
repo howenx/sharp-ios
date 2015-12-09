@@ -17,6 +17,7 @@
         self.photo = [node objectForKey:@"photo"];
         self.realYn = [node objectForKey:@"realYn"];
         self.phoneNum = [node objectForKey:@"phoneNum"];
+        self.gender = [node objectForKey:@"gender"];
     }
     return self;
 }

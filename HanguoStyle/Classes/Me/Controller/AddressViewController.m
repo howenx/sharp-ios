@@ -13,6 +13,7 @@
 #import "HSGlobal.h"
 #import "MBProgressHUD.h"
 #import "AddressData.h"
+#import "AddressCell.h"
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate>
 {
 
@@ -23,13 +24,16 @@
 @end
 
 @implementation AddressViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [self headerRefresh];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title=@"收货地址";
     
     HUD = [HSGlobal getHUD:self];
     [HUD show:YES];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView registerNib:[UINib nibWithNibName:@"AddressCell" bundle:nil] forCellReuseIdentifier:@"AddressCell"];
     self.data = [NSMutableArray array];
     [self headerRefresh];
@@ -59,7 +63,7 @@
         [self.tableView.header endRefreshing];
         [self.data removeAllObjects];
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
-        
+        NSLog(@"%@",object);
         NSArray * dataArray = [object objectForKey:@"address"];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
@@ -96,41 +100,77 @@
 {
     return self.data.count;
 }
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    GoodsPackCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsPackCell" forIndexPath:indexPath];
-//    cell.data = self.data[indexPath.section];
-//    
-//    
-//    return cell;
-//}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    AddressCell * cell = [tableView dequeueReusableCellWithIdentifier:@"AddressCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.data = self.data[indexPath.row];
+    
+    
+    return cell;
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return (GGUISCREENWIDTH-10)/2.43;//因为后台传过来图片宽度和高度比例是730：300=2.43, 10是屏幕两边各有5个像素的宽度
+    return 105;
 }
 
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    //进入到商品展示页面
-//    
-//    NSString * _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
-//    [self pushGoodShowView];
-//}
-//-(void)pushGoodShowView {
-//    
-//    GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
-//    gsViewController.navigationItem.title = @"商品展示";
-//    //下个页面要跳转的url
-//    gsViewController.url = _pushUrl;
-//    [self.navigationController pushViewController:gsViewController animated:YES];
-//}
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        NSLog(@"%d", indexPath.row);
-//        //        [self.myArray removeObjectAtIndex:[indexPath row]];
-//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
-//    }
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //进入到商品展示页面
+    AppendAddrViewController * gsViewController = [[AppendAddrViewController alloc]init];
+    gsViewController.data =self.data[indexPath.row];
+    [self.navigationController pushViewController:gsViewController animated:YES];
+    
+
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        AddressData * data1 = self.data[indexPath.row];
+        
+        
+        NSMutableDictionary * myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:data1.addId  forKey:@"addId"];
+        if(data1.orDefault){
+            [myDict setObject:@(true) forKey:@"orDefault"];
+        }else{
+            [myDict setObject:@(false) forKey:@"orDefault"];
+        }
+
+        NSString * url = [HSGlobal delAddressInfo];
+        
+        AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
+        [manager POST:url parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSLog(@"message = %@",message);
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            //    hud.yOffset = 150.f;
+            hud.removeFromSuperViewOnHide = YES;
+            if(200 == code){
+                hud.labelText = @"删除成功";
+                [self.data removeObjectAtIndex:[indexPath row]];
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
+            }else{
+                hud.labelText = @"删除失败";
+                [hud hide:YES afterDelay:1];
+            }
+            
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [HSGlobal printAlert:@"删除失败"];
+            
+        }];
+        
+        
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

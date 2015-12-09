@@ -144,10 +144,10 @@
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
             [[NSUserDefaults standardUserDefaults]setObject:@"Y" forKey:@"haveLoseTokenOnce"];
-            //1.登陆成功,跳转到下主页面
-            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-            [self presentViewController:tabBar animated:YES completion:nil];
             [self sendCart];
+            //1.登陆成功,跳转到下主页面
+            [self.navigationController popViewControllerAnimated:YES];
+            
      
         }else{
             [HSGlobal printAlert:returnResult.message];
@@ -207,9 +207,7 @@
 }
 -(void)sendCart{
   
-    
 
-    
     //开始添加事务
     [database beginTransaction];
     
@@ -240,51 +238,22 @@
             
             NSArray * dataArray = [object objectForKey:@"cartList"];
             NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
             NSLog(@"message= %@",message);
-            NSMutableArray * cartArray = [NSMutableArray array];
-            NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
-            for (id node in dataArray) {
-                CartData * data = [[CartData alloc] initWithJSONNode:node];
-                [cartArray addObject:data];
-            }
-            if(cartArray.count>0){
-    
-
+            if(code == 200){
                 [database beginTransaction];
-                
                 [database executeUpdate:@"DELETE FROM Shopping_Cart"];
-                FMResultSet * rs1 = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-                NSLog(@"____________删除数据后start___________________");
-                while ([rs1 next]){
-                    NSLog(@"pid=%d",[rs1 intForColumn:@"pid"]);
-                    NSLog(@"cart_id=%d",[rs1 intForColumn:@"cart_id"]);
-                    NSLog(@"pid_amount=%d",[rs1 intForColumn:@"pid_amount"]);
-                    NSLog(@"state=%@",[rs1 stringForColumn:@"state"]);
-                    
-                }
-                NSLog(@"____________删除数据后end___________________");
-                NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state) values (?,?,?,?)";
-                
-                for (int i=0; i<cartArray.count; i++) {
-                    CartData * cData = cartArray[i];
-                    [database executeUpdate:sql,[NSNumber numberWithLong:cData.skuId],[NSNumber numberWithLong:cData.cartId],[NSNumber numberWithLong:cData.amount],cData.state];
-                }
-                
-                FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-                while ([rs next]){
-                    NSLog(@"____________后台获取数据start___________________");
-                    NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
-                    NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
-                    NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
-                    NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-                }
-                NSLog(@"____________后台获取数据end___________________");
-
-                //提交事务
                 [database commit];
+            }else{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = @"发送本地购物车失败";
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
 
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
             }
-            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
             [HSGlobal printAlert:@"发送购物车数据失败"];

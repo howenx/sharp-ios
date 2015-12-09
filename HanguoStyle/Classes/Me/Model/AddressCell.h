@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AddressData.h"
 @interface AddressCell : UITableViewCell
-
+@property (nonatomic, weak) AddressData * data;
 @end

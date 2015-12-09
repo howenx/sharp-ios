@@ -15,6 +15,7 @@
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import "UpdateUserInfoViewController.h"
+#import "LoginViewController.h"
 @interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate>
 {
     MineData * mineData;
@@ -27,18 +28,27 @@
 @end
 
 @implementation MeViewController
+
 - (void)viewWillAppear:(BOOL)animated{
-    [self footerRefresh];
+    BOOL isLogin = [HSGlobal checkLogin];
+    if(isLogin){
+        HUD = [HSGlobal getHUD:self];
+        [HUD show:YES];
+        self.tableView.delegate =self;
+        self.tableView.dataSource = self;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.data = [NSMutableArray array];
+        [self setTableViewDataSource];
+        [self footerRefresh];
+    }else{
+        LoginViewController * login = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:login animated:NO];
+    }
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    HUD = [HSGlobal getHUD:self];
-    [HUD show:YES];
-    self.tableView.delegate =self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.data = [NSMutableArray array];
-    [self setTableViewDataSource];
+    
 }
 - (void) footerRefresh
 {
@@ -58,7 +68,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [HUD hide:YES];
         [HSGlobal printAlert:@"数据加载失败"];
-        
     }];
 }
 
@@ -82,6 +91,19 @@
     [photoBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [photoBtn.layer setMasksToBounds:YES];
     [photoBtn.layer setCornerRadius:40.0];
+    
+    UIImageView * genderImageView = [[UIImageView alloc]initWithFrame:CGRectMake(50, 25, 30, 30)];
+    if([@"M" isEqualToString: mineData.gender]){
+        genderImageView.image = [UIImage imageNamed:@"icon_nan"];
+    }else if([@"F" isEqualToString: mineData.gender]){
+        genderImageView.image = [UIImage imageNamed:@"icon_nv"];
+    }
+    
+    
+    [photoBtn addSubview:genderImageView];
+    
+    
+    
     [headView addSubview:photoBtn];
     
     //设置身份证绑定
@@ -118,14 +140,18 @@
     
     
 }
--(void)sfzBtnClick{
-    
-}
+
 -(void)photoBtnClick{
     
     UpdateUserInfoViewController * updateUserController = [[UpdateUserInfoViewController alloc]init];
     updateUserController.delegate = self;
     updateUserController.userName = mineData.name;
+    if([@"M" isEqualToString:mineData.gender]){
+        updateUserController.gender = @"男";
+    }else if([@"F" isEqualToString:mineData.gender]){
+        updateUserController.gender = @"女";
+    }
+    
     [self.navigationController pushViewController:updateUserController animated:YES];
     
 }
@@ -137,6 +163,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MeCell *cell  = [MeCell subjectCell];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.data = self.data[indexPath.section];
     
     return cell;

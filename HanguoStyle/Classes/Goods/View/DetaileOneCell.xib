@@ -83,17 +83,53 @@
                                 <color key="textColor" red="0.99607843139999996" green="0.38823529410000002" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重量：2000g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcz-rN-j9i">
+                                <rect key="frame" x="10" y="39" width="100" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="W4d-pR-vQC"/>
+                                    <constraint firstAttribute="height" constant="15" id="Wo8-Yo-fc2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="税率：50%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sp-IU-ddA">
+                                <rect key="frame" x="118" y="39" width="100" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="01p-WT-8FD"/>
+                                    <constraint firstAttribute="height" constant="15" id="XUw-Zg-zsk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮寄方式： 韩国直邮" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeN-Yk-x9p">
+                                <rect key="frame" x="10" y="57" width="200" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="ryg-YB-Edo"/>
+                                    <constraint firstAttribute="height" constant="15" id="wAB-YP-xX3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RDh-iP-rqe" secondAttribute="trailing" constant="11" id="5c8-sg-ATT"/>
                             <constraint firstAttribute="trailing" secondItem="AYK-I2-NW3" secondAttribute="trailing" constant="11" id="DdZ-SF-wrE"/>
+                            <constraint firstItem="7Sp-IU-ddA" firstAttribute="leading" secondItem="lcz-rN-j9i" secondAttribute="trailing" constant="8" id="K6t-47-0Z2"/>
                             <constraint firstAttribute="trailing" secondItem="Ep1-he-MpT" secondAttribute="trailing" constant="11" id="KVj-U8-3Pa"/>
+                            <constraint firstItem="yeN-Yk-x9p" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="M4l-S3-oqe"/>
+                            <constraint firstItem="lcz-rN-j9i" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="XWv-RE-bNN"/>
                             <constraint firstItem="Ep1-he-MpT" firstAttribute="top" secondItem="RDh-iP-rqe" secondAttribute="bottom" constant="3" id="Xme-FT-Y6a"/>
+                            <constraint firstItem="lcz-rN-j9i" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="bGW-Il-uqz"/>
                             <constraint firstAttribute="height" constant="80" id="db0-xQ-xRE"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="e5M-yX-cbU"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="10" id="hiy-xq-vZQ"/>
+                            <constraint firstItem="7Sp-IU-ddA" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="hlj-Fn-5rw"/>
                             <constraint firstItem="RDh-iP-rqe" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="lED-Rm-CeB"/>
+                            <constraint firstItem="yeN-Yk-x9p" firstAttribute="top" secondItem="7Sp-IU-ddA" secondAttribute="bottom" constant="3" id="lL6-b5-wbX"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -116,12 +152,15 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="areaLab" destination="yeN-Yk-x9p" id="YTw-VN-9kx"/>
                 <outlet property="costPriceLab" destination="RDh-iP-rqe" id="EMn-Gj-CMx"/>
                 <outlet property="currentPriceLab" destination="Ep1-he-MpT" id="3Hr-uF-Xoq"/>
                 <outlet property="detailLab" destination="AYK-I2-NW3" id="Ilt-A6-3tV"/>
                 <outlet property="headView" destination="0Xz-WP-F0N" id="Np9-tE-b5Y"/>
+                <outlet property="postalTaxRateLab" destination="7Sp-IU-ddA" id="o2y-nH-hwC"/>
                 <outlet property="shareBtn" destination="cHa-aF-rid" id="eHF-za-ZSx"/>
                 <outlet property="storeBtn" destination="uUw-pc-ExG" id="LPj-zh-jQi"/>
+                <outlet property="weightLab" destination="lcz-rN-j9i" id="dRj-JR-I8N"/>
             </connections>
             <point key="canvasLocation" x="478.5" y="473"/>
         </tableViewCell>

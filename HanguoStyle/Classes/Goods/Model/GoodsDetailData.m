@@ -65,6 +65,9 @@
             sizeData.orMasterInv = [[tag objectForKey:@"orMasterInv"]boolValue];
             sizeData.invUrl = [tag objectForKey:@"invUrl"];
             sizeData.state = [tag objectForKey:@"state"];
+            sizeData.invArea = [tag objectForKey:@"invArea"];
+            sizeData.invWeight = [tag objectForKey:@"invWeight"];
+            sizeData.postalTaxRate = [tag objectForKey:@"postalTaxRate"];
             [self.sizeArray addObject:sizeData];
         }
 

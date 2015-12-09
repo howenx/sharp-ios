@@ -38,6 +38,7 @@
 }
 
 -(void)createCart{
+    [database beginTransaction];
     NSString *sql = @"create table if not exists Shopping_Cart (pid integer, cart_id integer, pid_amount integer, state text)";    
     //执行sql
     [database executeUpdate:sql];
