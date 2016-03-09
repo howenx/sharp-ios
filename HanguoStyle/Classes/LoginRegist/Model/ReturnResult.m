@@ -14,8 +14,8 @@
     self = [super init];
     if (self) {
         
-        self.message = [node objectForKey:@"message"];
-        self.result = [[node objectForKey:@"result"] boolValue];
+        self.message = [[node objectForKey:@"message"] objectForKey:@"message"];
+        self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
         self.token = [node objectForKey:@"token"];
         self.expired = [[node objectForKey:@"expired"]integerValue];
     }

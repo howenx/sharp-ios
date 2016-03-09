@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 
 @interface GoodsParaView : UIView
 -(void)createParaView:(NSDictionary *)dict;

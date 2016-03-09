@@ -8,55 +8,56 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
 		</dict>
 		<key>JSONKit-NoWarning.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>13</integer>
 		</dict>
 		<key>JT3DScrollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>15</integer>
 		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>17</integer>
 		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>19</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>21</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>23</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1F6B54F297D5C204693EA475C0A20492</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2C0F3078D6CAD5BD55C8F95F0B014528</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5352D432641F0656C90741034E32F31E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>56DDF0699ECCD328367B1094C280A386</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -66,27 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EC06C4164FC73A7CAF30707A7058BB1</key>
+		<key>879E82949339B44BC30E1692CF017040</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D1F89550ECE47356BBC2585E93630B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AC6AF20D89280B6441BAC80E1888C1DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D8AE651B41EB6F15D09859B17C57B263</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F652099681B11312861BED3B7331F222</key>
+		<key>D02E07F43246D47B9DE875D03397A918</key>
 		<dict>
 			<key>primary</key>
 			<true/>

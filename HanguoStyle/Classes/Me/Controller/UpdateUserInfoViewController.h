@@ -6,12 +6,14 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 @protocol  UpdateUserInfoDelegate <NSObject>
--(void)backIcon:(UIImage *)image;
+-(void)backIcon:(UIImage *)image andName :(NSString *)name andSex :(NSString *)sex;
 @end
-@interface UpdateUserInfoViewController : UIViewController
+@interface UpdateUserInfoViewController : BaseViewController
 @property(nonatomic) NSString * userName;
 @property(nonatomic) NSString * gender;
+@property(nonatomic) UIImage * comeImage;
+
 @property(nonatomic,weak) id <UpdateUserInfoDelegate> delegate;
 @end

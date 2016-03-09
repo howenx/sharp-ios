@@ -8,13 +8,12 @@
 
 #import "DetaileOneCell.h"
 #import "HeadView.h"
-#import "UIButton+GG.h"
 @interface DetaileOneCell ()<HeadViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UILabel *detailLab;
 @property (weak, nonatomic) IBOutlet UILabel *costPriceLab;
 @property (weak, nonatomic) IBOutlet UILabel *currentPriceLab;
-@property (weak, nonatomic) IBOutlet UILabel *weightLab;
+//@property (weak, nonatomic) IBOutlet UILabel *weightLab;
 @property (weak, nonatomic) IBOutlet UILabel *postalTaxRateLab;
 @property (weak, nonatomic) IBOutlet UILabel *areaLab;
 
@@ -44,33 +43,56 @@
             _scrollArr = sizeData.itemPreviewImgs;
             _costPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemSrcPrice];
             _currentPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemPrice];
-            _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
-            itemDiscountCount = [[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] length] + 3;
+            if([[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] isEqualToString:@"0.0"]){
+                 _detailLab.text = sizeData.invTitle;
+            }else{
+                _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
+                NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
+                [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,itemDiscountCount)];
+                _detailLab.attributedText = str;
+            }
             
-            self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invArea];
-            self.weightLab.text = [NSString stringWithFormat:@"重量：%@g",sizeData.invWeight];
+            itemDiscountCount = (int)[[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] length] + 3;
+            
+            self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invAreaNm];
             self.postalTaxRateLab.text = [NSString stringWithFormat:@"税率：%@",sizeData.postalTaxRate];
             self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:@"%"];
+            
+            
+            
+            //设置收藏
+            UIImage * image ;
+            if (sizeData.collectId == 0) {
+                image = [UIImage imageNamed:@"grayStore"];
+            }else{
+                image = [UIImage imageNamed:@"redStore"];
+            }
+            [self.storeBtn setImage:image forState:UIControlStateNormal];
+            [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)sizeData.collectCount] forState:UIControlStateNormal];
+  
         }
     }
-//    _scrollArr =@[@"http://img3.douban.com/view/movie_poster_cover/lpst/public/p480747492.jpg",
-//                  @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p1356576774.jpg"];
+
     if(_scrollArr.count>1){
+        
         NSMutableArray * imageArr = [NSMutableArray array];
+//        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, ((itemPreviewImgsData *)_scrollArr[0]).height * GGUISCREENWIDTH/((itemPreviewImgsData *)_scrollArr[0]).width)];
         HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
-        [hView shouldAutoShow:YES];
+        hView.delegate =self;
+        [hView shouldAutoShow:NO];
         for (int i = 0; i < _scrollArr.count; i++)
         {
             UIImageView *imv = [[UIImageView alloc] init];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[i]]];
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url]];
             imv.image = [UIImage imageWithData:data];
             [imageArr addObject:imv];
         }
         hView.imageViewAry = imageArr;
+        hView.scrollView.scrollsToTop = NO;
         [_headView addSubview:hView];
     }else if(_scrollArr.count == 1){
         UIImageView *imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_scrollArr[0]]];
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[0]).url]];
         imv.image = [UIImage imageWithData:data];
         [_headView addSubview: imv];
     }
@@ -78,9 +100,7 @@
 
     
 
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
-    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,itemDiscountCount)];
-    _detailLab.attributedText = str;
+    
     
     
     //设置原价上面删除线
@@ -92,14 +112,10 @@
     [_costPriceLab setAttributedText:attri];
     
     
-    //设置收藏
-    UIImage * image ;
-    if (data.orCollect) {
-        image = [UIImage imageNamed:@"redStore"];
-    }else{
-        image = [UIImage imageNamed:@"grayStore"];
-    }
-    [self.storeBtn setImage:image forState:UIControlStateNormal];
-    [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)data.collectCount] forState:UIControlStateNormal];
+}
+-(void)touchPage:(NSInteger)index{
+
+    [self.delegate touchPage:index andImageArray:_scrollArr];
+    
 }
 @end

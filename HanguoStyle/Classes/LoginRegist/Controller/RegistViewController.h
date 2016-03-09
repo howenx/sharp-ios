@@ -6,8 +6,7 @@
 //  Copyright (c) 2015年 ThirdGroup. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface RegistViewController : UIViewController
-
+#import "BaseViewController.h"
+@interface RegistViewController : BaseViewController
+@property(nonatomic,copy) NSString * phone;
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 KG. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 #import "GoodsDetailData.h"
 @protocol ThreeViewCellDelegate <NSObject>
 

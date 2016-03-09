@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GGTabBarViewController : UITabBarController
-
+//- (void)setBadge:(NSString *)badgeValue;
 @end

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface MeViewController : UIViewController
+#import "BaseViewController.h"
+@interface MeViewController : BaseViewController
 @property (nonatomic) NSMutableArray * data;
 @end

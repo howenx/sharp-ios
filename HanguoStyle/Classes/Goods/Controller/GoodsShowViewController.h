@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface GoodsShowViewController : UIViewController
+#import "BaseViewController.h"
+@interface GoodsShowViewController : BaseViewController
 @property (nonatomic) NSMutableArray * data;
 @property (nonatomic,strong)NSString * url;
 

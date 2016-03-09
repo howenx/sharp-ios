@@ -10,4 +10,7 @@
 
 @interface GGButton : UIButton
 @property(nonatomic,strong) UITabBarItem * item ;
+@property(nonatomic,strong) NSString * controller ;
+@property(nonatomic,strong) UILabel * cntLabel ;
+
 @end

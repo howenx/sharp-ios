@@ -6,16 +6,21 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+
 #import "GoodsDetailData.h"
+#import "BaseViewController.h"
 @protocol GoodsDetailViewDelegate <NSObject>
 -(void)tabBarDelagateFromDetailFrom:(NSInteger)from to:(NSInteger)to;
 
 @end
-@interface GoodsDetailViewController : UIViewController
+@interface GoodsDetailViewController : BaseViewController
 
-@property (nonatomic)BOOL * isFromCart;
+@property (nonatomic)BOOL isFromCart;
+@property (nonatomic)BOOL isFromMiPwd;
 @property (nonatomic,strong)NSString * url;
 @property (nonatomic,weak) id <GoodsDetailViewDelegate> delegate;
 @property (nonatomic,strong)GoodsDetailData * detailData;
+
+
+@property (nonatomic, strong) NSMutableArray *photos;
 @end

@@ -6,10 +6,15 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 #import "GoodsShowData.h"
+@protocol GoodsShowCellDelegate <NSObject>
 
+//标签url
+-(void)flagUrl:(NSString *)url;
+
+@end
 @interface GoodsShowCell : UICollectionViewCell
 @property (nonatomic, weak) GoodsShowData * data;
-//+(id)subjectCell;
+@property(nonatomic,weak) id <GoodsShowCellDelegate> delegate;
 @end

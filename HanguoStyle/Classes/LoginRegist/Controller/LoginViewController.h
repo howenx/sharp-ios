@@ -6,8 +6,11 @@
 //  Copyright (c) 2015年 qf. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
-
+#import "BaseViewController.h"
+@protocol  LoginViewDelegate <NSObject>
+-(void)backMe;
+@end
+@interface LoginViewController : BaseViewController
+@property(nonatomic,weak) id <LoginViewDelegate> delegate;
 @end

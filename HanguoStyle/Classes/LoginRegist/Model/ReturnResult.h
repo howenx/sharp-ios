@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface ReturnResult : NSObject
-@property (nonatomic) BOOL result;
+
 @property (copy,nonatomic) NSString * message;
+@property (nonatomic) NSInteger  code;
 @property (copy,nonatomic) NSString * token;
 @property (assign,nonatomic) NSInteger expired;
 

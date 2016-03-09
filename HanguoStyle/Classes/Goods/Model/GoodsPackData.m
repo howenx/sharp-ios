@@ -7,6 +7,7 @@
 //
 
 #import "GoodsPackData.h"
+#import <JSONKit.h>
 @implementation ThemeData
 
 @end
@@ -22,9 +23,9 @@
     self = [super init];
     if (self) {
         
-        self.message = [node objectForKey:@"message"];
-        self.code = [[node objectForKey:@"code"]integerValue];
-        
+        self.message = [[node objectForKey:@"message"] objectForKey:@"message"];
+        self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        self.pageCount = [[node objectForKey:@"page_count"] integerValue];
         
         NSMutableArray * arrayS = [NSMutableArray array];
         
@@ -33,6 +34,11 @@
             SliderData * sliderData = [SliderData new];
             sliderData.itemTarget = [slider objectForKey:@"itemTarget"];
             sliderData.url = [slider objectForKey:@"url"];
+            sliderData.targetType = [slider objectForKey:@"targetType"];
+            NSDictionary * tagDict = [[slider objectForKey:@"url"] objectFromJSONString];
+            sliderData.url = [tagDict objectForKey:@"url"];
+            sliderData.width = [[tagDict objectForKey:@"width"]floatValue];
+            sliderData.height = [[tagDict objectForKey:@"height"]floatValue];
             
             [arrayS addObject:sliderData];
         }
@@ -48,6 +54,10 @@
             themeData.idCode = [theme objectForKey:@"id"];
             themeData.themeImg = [theme objectForKey:@"themeImg"];
             themeData.themeUrl = [theme objectForKey:@"themeUrl"];
+            NSDictionary * tagDict = [[theme objectForKey:@"themeImg"] objectFromJSONString];
+            themeData.themeImg = [tagDict objectForKey:@"url"];
+            themeData.width = [[tagDict objectForKey:@"width"]floatValue];
+            themeData.height = [[tagDict objectForKey:@"height"]floatValue];
             [arrayT addObject:themeData];
         }
         

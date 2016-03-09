@@ -10,13 +10,16 @@
 
 @interface AddressData : NSObject
 
-@property (nonatomic) NSString * addId;//
-@property (nonatomic) NSString * tel;//
-@property (nonatomic) NSString * name;//
-@property (nonatomic) NSString * deliveryCity;//
-@property (nonatomic) NSString * deliveryDetail;//
-@property (nonatomic) NSInteger userId;//
-@property (nonatomic) BOOL orDefault;//
-@property (nonatomic) NSString * idCardNum;//
+@property (nonatomic) NSString * addId;
+@property (nonatomic) NSString * tel;
+@property (nonatomic) NSString * name;
+@property (nonatomic) NSString * deliveryCity;
+@property (nonatomic) NSString * deliveryDetail;
+@property (nonatomic) NSInteger userId;
+@property (nonatomic) BOOL orDefault;
+@property (nonatomic) NSString * idCardNum;
+
+
+@property (nonatomic) BOOL  isOrderDefault;
 - (AddressData *) initWithJSONNode: (id) node;
 @end

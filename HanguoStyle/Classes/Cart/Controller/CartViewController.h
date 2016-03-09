@@ -6,8 +6,7 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface CartViewController : UIViewController
+#import "BaseViewController.h"
+@interface CartViewController : BaseViewController
 @property (nonatomic) NSMutableArray * data;
 @end

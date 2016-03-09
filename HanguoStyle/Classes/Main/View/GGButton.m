@@ -19,7 +19,7 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont systemFontOfSize:11];
         [self setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
-        [self setTitleColor: GGColor(218, 72, 130)  forState:UIControlStateSelected];
+        [self setTitleColor: GGMainColor  forState:UIControlStateSelected];
         
     }
     return self;
@@ -38,6 +38,11 @@
     
     [self setImage:self.item.image forState:UIControlStateNormal];
     [self setImage:self.item.selectedImage forState:UIControlStateSelected];
+    if ([_controller isEqualToString:@"cust"]) {
+        [self setBadge];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getCustBadgeValue:) name:@"CustBadgeValue" object:nil];
+    }
+    
 }
 
 -(CGRect)imageRectForContentRect:(CGRect)contentRect
@@ -56,5 +61,27 @@
     CGFloat h = contentRect.size.height - y;
     return  CGRectMake(x, y, w, h);
 }
+-(void)setBadge{
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6+10 , 0, 15, 15)];
+    _cntLabel.textColor = [UIColor redColor];
+    _cntLabel.textAlignment = NSTextAlignmentCenter;
+    _cntLabel.font = [UIFont boldSystemFontOfSize:11];
+    _cntLabel.backgroundColor = [UIColor whiteColor];
+    _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
+    _cntLabel.layer.masksToBounds = YES;
+    _cntLabel.layer.borderWidth = 1.0f;
+    _cntLabel.layer.borderColor = [UIColor redColor].CGColor;
+    _cntLabel.hidden = YES;
+    [self addSubview:_cntLabel];
 
+}
+-(void)getCustBadgeValue:(NSNotification *)noti{
+    NSString * value = noti.userInfo[@"badgeValue"];
+    if([@"" isEqualToString:value]){
+        _cntLabel.hidden = YES;
+    }else{
+        _cntLabel.hidden = NO;
+        _cntLabel.text = value;
+    }
+}
 @end

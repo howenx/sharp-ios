@@ -14,11 +14,13 @@
 @end
 @implementation GGTabBar
 
--(void)addTabBarItem:(UITabBarItem *)item
+-(void)addTabBarItem:(UITabBarItem *)item andController:(NSString *)controller
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterCart) name:@"enterCart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToTabbar:) name:@"jumpToTabbar" object:nil];
+
     // 1.创建按钮
     GGButton *button = [[GGButton alloc] init];
+    button.controller = controller;
     // 2.设置数据 ,设置图片
     button.item = item;
     [self addSubview:button];
@@ -63,12 +65,19 @@
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
         
         // 3.绑定tag
-        button.tag = index;
+        button.tag = 10000 + index;
     }
 }
 //从详情页面点击购物车跳到第二个tabbar（购物车）
--(void)enterCart{
-    GGButton *cartButton =(GGButton*)[self viewWithTag:1];
+-(void)jumpToTabbar:(NSNotification *)noti{
+    NSString * value = noti.userInfo[@"jumpKey"];
+    GGButton * cartButton;
+    if([@"cart" isEqualToString:value]){
+        cartButton =(GGButton*)[self viewWithTag:10001];
+    }else if([@"home" isEqualToString:value]){
+        cartButton =(GGButton*)[self viewWithTag:10000];
+    }
+    
     [self buttonClick:cartButton];
 }
 

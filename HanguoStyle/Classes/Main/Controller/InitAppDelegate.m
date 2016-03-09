@@ -10,13 +10,6 @@
 
 @implementation InitAppDelegate
 
--(void)deleteCart{
-    database = [HSGlobal shareDatabase];
-    [database beginTransaction];
-    
-    [database executeUpdate:@"DELETE FROM Shopping_Cart"];
-    [database commit];
-}
 - (NSString *)intervalSinceNow: (NSDate *) theDate
 {
     

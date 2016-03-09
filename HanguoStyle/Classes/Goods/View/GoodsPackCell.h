@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 #import "GoodsPackData.h"
 @interface GoodsPackCell : UITableViewCell
 @property (nonatomic, weak) ThemeData * data;

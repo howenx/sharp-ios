@@ -10,8 +10,10 @@
 #import "PhotoAndTextView.h"
 #import "GoodsParaView.h"
 
-@interface ThreeViewCell()<UIScrollViewDelegate>
-
+@interface ThreeViewCell()<UIScrollViewDelegate,UIWebViewDelegate>
+{
+    UIWebView * twWebView;
+}
 
 
 @end
@@ -26,28 +28,46 @@
 }
 - (void)setData:(GoodsDetailData *)data
 {
+    _data = data;
     //设置scrollview
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, 3000);
+    _scrollView.bounces = NO;
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 3, 0);
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.backgroundColor = [UIColor whiteColor];
-    
+    _scrollView.scrollsToTop = NO;
+    _scrollView.userInteractionEnabled = YES;
+    _scrollView.minimumZoomScale=1;
+    _scrollView.maximumZoomScale=2.0;
+    [_scrollView setZoomScale:1.0];
     if (_pageNum == 0) {
         
-        NSArray * arr =data.itemDetailImgs;
-//        NSArray * arr =@[@"http://img3.douban.com/view/movie_poster_cover/lpst/public/p480747492.jpg",
-//                      @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p1356576774.jpg",
-//                      @"http://img3.douban.com/view/movie_poster_cover/lpst/public/p510876400.jpg",
-//                      @"http://x1.zhuti.com/down/2012/11/29-win7/3D-1.jpg"];
+//        NSArray * arr =data.itemDetailImgs;
+//        PhotoAndTextView * ptv = [[PhotoAndTextView alloc]init];
+//        [ptv createPhotoTextView:arr andNotice:data.itemNotice];
+//        UIPinchGestureRecognizer * pinch =  [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchingTap:)];
+//        [_scrollView addGestureRecognizer:pinch];
         
-        PhotoAndTextView * ptv = [[PhotoAndTextView alloc]init];
-        [ptv createPhotoTextView:arr andNotice:data.itemNotice];
-         _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, ptv.frame.size.height);
-        [_scrollView addSubview:ptv];
-        [self.delegate getFourCellH:ptv.frame.size.height];
+        
+        
+//        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//        [twWebView addGestureRecognizer:pan];
+//        
+//        
+//        UIPanGestureRecognizer *pan1 = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//        [_scrollView addGestureRecognizer:pan1];
+        
+//        twWebView.scalesPageToFit = YES
+
+        twWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 1000)];
+        
+        twWebView.scrollView.scrollsToTop = NO;
+        twWebView.delegate = self;
+        twWebView.userInteractionEnabled = NO;
+        [twWebView loadHTMLString:data.itemDetailImgs baseURL:nil];       
     }
     
     
@@ -74,6 +94,44 @@
     
 }
 
+
+//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+//
+//{
+//    return twWebView;
+//    
+//}
+//-(void)pinchingTap:(UIPinchGestureRecognizer*)gesture{
+////    twWebView.userInteractionEnabled = YES;
+////    CGRect zoomRect = [self zoomRectForScale:gesture.scale withCenter:[gesture locationInView:gesture.view]];
+////    [(UIScrollView * )gesture.view.superview zoomToRect:zoomRect animated:YES];
+//    NSLog(@"-----------%f",gesture.scale);
+////    gesture.view.transform = CGAffineTransformScale(gesture.view.transform, gesture.scale, gesture.scale);
+////    gesture.scale = 1;
+//    [UIView animateWithDuration:gesture.velocity animations:^{
+//        
+//        //self.imageView.transform = CGAffineTransformMakeScale(pinchGesture.scale, pinchGesture.scale);
+//        
+//        gesture.view.transform = CGAffineTransformScale(gesture.view.transform, gesture.scale, gesture.scale);
+//        //为了防止在缩放时,图片缩放过快,将缩放比例置1
+//        gesture.scale = 1;
+//        
+//    }];
+//    
+//}
+//-(void)handlePan:(UIPinchGestureRecognizer*)gesture{
+//    twWebView.userInteractionEnabled = NO;
+//}
+//
+//- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center
+//{
+//    CGRect zoomRect;
+//    zoomRect.size.height=self.contentView.frame.size.height/ scale;
+//    zoomRect.size.width=self.contentView.frame.size.width/ scale;
+//    zoomRect.origin.x= center.x- (zoomRect.size.width/2.0);
+//    zoomRect.origin.y= center.y- (zoomRect.size.height/2.0);
+//    return zoomRect;
+//}
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 
     if(scrollView.contentOffset.x/GGUISCREENWIDTH != _pageNum){
@@ -84,7 +142,16 @@
     [super setSelected:selected animated:animated];
 
 }
-
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    CGFloat height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] floatValue];
+    CGRect frame = twWebView.frame;
+    twWebView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
+    
+    
+    _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, height);
+    [_scrollView addSubview:twWebView];
+    [self.delegate getFourCellH:height];
+}
 
 
 @end

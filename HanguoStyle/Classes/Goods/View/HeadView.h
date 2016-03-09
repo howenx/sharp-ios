@@ -6,11 +6,13 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 @class HeadView;
 @protocol HeadViewDelegate <NSObject>
 @optional
 - (void)didClickPage:(HeadView *)view atIndex:(NSInteger)index;
+
+- (void)touchPage:(NSInteger)index;
 
 @end
 @interface HeadView : UIView <UIScrollViewDelegate>

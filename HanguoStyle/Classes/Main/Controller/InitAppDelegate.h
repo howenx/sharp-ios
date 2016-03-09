@@ -11,9 +11,6 @@
 #import "FMDatabaseQueue.h"
 #import "HSGlobal.h"
 @interface InitAppDelegate : NSObject
-{
-    FMDatabase * database;
-}
--(void)deleteCart;
+
 - (NSString *)intervalSinceNow: (NSDate *) theDate;
 @end

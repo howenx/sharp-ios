@@ -8,76 +8,152 @@
 
 #import "HSGlobal.h"
 
+
+
+//#define SERVERY1 @"http://172.28.3.18:9003"
+//#define SERVERY2 @"http://172.28.3.18:9001"
+//#define SERVERY3 @"http://172.28.3.18:9004"
+//#define SERVERY4 @"http://172.28.3.18:9005"
+
+#define SERVERY1 @"https://shopping.hanmimei.com"
+#define SERVERY2 @"https://api.hanmimei.com"
+#define SERVERY3 @"https://id.hanmimei.com"
+#define SERVERY4 @"https://promotion.hanmimei.com"
+
+
+//#define SERVERY1 @"http://172.28.3.51:9003"
+//#define SERVERY2 @"http://172.28.3.51:9001"
+//#define SERVERY3 @"http://172.28.3.51:9004"
+//#define SERVERY4 @"http://172.28.3.51:9005"
+
 @implementation HSGlobal
-//删除收货地址 的地址
-+ (NSString *) delAddressInfo{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/del"];
+
+
+
+//接到商品分享口令时，拼接口令前面的地址
++ (NSString *) shareGoodsHeaderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@",SERVERY2];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-//修改收货地址 的地址
-+ (NSString *) updateAddressInfo{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/update"];
+//接到团购分享口令时，拼接口令前面的地址
++ (NSString *) shareTuanHeaderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@",SERVERY4];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-//新增收货地址 的地址
-+ (NSString *) AddAddressInfo{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/add"];
-    
-    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-//查询收货地址列表的地址
-+ (NSString *) getAddressListInfo{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/address/list"];
-    
-    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-//更新基本信息（用户名和头像）的地址
-+ (NSString *) updateUserInfo{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/user/update"];
-    
-    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-//我的的地址
-+ (NSString *) mineUrl{
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.51:9004/api/user/get/info"];
+//拼购
++ (NSString *) pinListUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/promotion/pin/activity/list",SERVERY4];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
+// 优惠券
++ (NSString *) couponUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/coupons/list",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+// 取消订单
++ (NSString *) cancelOrderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/cancel/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+// 删除订单
++ (NSString *) delOrderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/del/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+// 判断订单是否过期
++ (NSString *) checkOrderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/verify/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+// 我的订单接口
++ (NSString *) myOrderUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+// 查询购物车商品数量接口
++ (NSString *) queryCustNum
+{
+    NSString * url = [NSString stringWithFormat:@"%@/comm/cart/amount",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+// 去支付给后台发订单数据接口
++ (NSString *) payUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/pay/order/get/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+// 去支付给后台发订单数据接口
++ (NSString *) sendOrderInfo
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/submit",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+// 去结算给后台发送购物车数据接口
++ (NSString *) sendCartToOrder
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/settle",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 // 添加购物车校验数量（未登陆状态）
 + (NSString *) checkAddCartAmount
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9003/client/cart/verify/amount/"];
+    NSString * url = [NSString stringWithFormat:@"%@/client/cart/verify/amount",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 // 获取购物车数据地址（未登陆状态）
 + (NSString *) getCartByPidUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9003/client/cart/get/sku/list"];
+    NSString * url = [NSString stringWithFormat:@"%@/client/cart/get/sku/list",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-// 获取购物车数据地址（登陆状态）
-+ (NSString *) getCartUrl
+
+//详情页面加入购物车地址（登陆状态）
++ (NSString *) addToCartUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9003/client/cart/list"];
+    NSString * url = [NSString stringWithFormat:@"%@/client/cart",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-//发送购物车数据地址
+//获取购物车数据地址（登陆状态）
 + (NSString *) sendCartUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9003/client/cart"];
+    NSString * url = [NSString stringWithFormat:@"%@/client/cart/list",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 //主页地址
 + (NSString *) goodsPackMoreUrl: (NSInteger)addon
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9001/index/%ld",(long)addon];
+    NSString * url = [NSString stringWithFormat:@"%@/index/%ld",SERVERY2,(long)addon];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -85,7 +161,7 @@
 //获取验证码地址
 + (NSString *) testingCodeUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9004/api/send_code"];
+    NSString * url = [NSString stringWithFormat:@"%@/api/send_code",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -93,7 +169,7 @@
 //注册地址
 + (NSString *) registUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9004/api/reg"];
+    NSString * url = [NSString stringWithFormat:@"%@/api/reg",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -101,7 +177,7 @@
 //登陆地址
 + (NSString *) loginUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9004/api/login_user_name"];
+    NSString * url = [NSString stringWithFormat:@"%@/api/login_user_name",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -109,113 +185,102 @@
 //刷新token
 + (NSString *) refreshToken
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9004/api/refresh_token"];
+    NSString * url = [NSString stringWithFormat:@"%@/api/refresh_token",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 //重置密码地址
 + (NSString *) resetPwdUrl
 {
-    NSString * url = [NSString stringWithFormat:@"http://172.28.3.18:9004/api/reset_password"];
+    NSString * url = [NSString stringWithFormat:@"%@/api/reset_password",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-//打印
-+(void)printAlert:(NSString *) message{
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert show];
-}
-//获取一段文字占得大小
-+(CGSize)getSize:(NSString *)str Font:(float)sizeofstr Width:(float)width Height:(float)height
+//登录获取验证码
++ (NSString *) verifyCodeUrl
 {
-    CGSize size;
-    if ([[[UIDevice currentDevice] systemVersion]floatValue] >= 7.0) {
-        size = [str boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:sizeofstr]} context:nil].size;
-    }
-    else
-    {
-        size = [str sizeWithFont:[UIFont systemFontOfSize:sizeofstr]constrainedToSize:CGSizeMake(width, height)];
-    }
-    return size;
+    NSString * url = [NSString stringWithFormat:@"%@/getImageCodes/%u",SERVERY3,arc4random() % 10000000];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
-+(BOOL)checkLogin{
-    //判断用户token是否过期，或者将要过期
-    NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
-    if(expiredDate==nil){
-        return NO;
-    }else{
-        NSString * loginFlag = [self intervalSinceNow:expiredDate];
-        if([@"2" isEqualToString:loginFlag]){//不需要重新登录
-            return YES;
-        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录或者刷新登录
-           return NO;
-        }
-        else if([@"0" isEqualToString:loginFlag]){//需要刷新登录
-            return YES;
-        }
-    }
-    
-    return NO;
-}
-+ (NSString *)intervalSinceNow: (NSDate *) theDate
+
+//注册的时候校验是否已经注册地址
++ (NSString *) checkRegist
 {
+    NSString * url = [NSString stringWithFormat:@"%@/reg/verify",SERVERY3];
     
-    NSTimeInterval late=[theDate timeIntervalSince1970]*1;
-    
-    
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval now = [dat timeIntervalSince1970]*1;
-    
-    
-    NSTimeInterval cha = late - now;
-    
-    if (cha/86400 < 1 && cha/86400 > 0)//86400 = 60*60*24 代表一天
-    {
-        return @"0";//表示需要调用刷新登陆接口
-    }else if(cha/86400 <= 0){
-        return @"1";//表示需要调用重新登陆接口
-    }else{
-        return @"2";//表示不需要重新登陆
-    }
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-+(FMDatabase *)shareDatabase{
-    static FMDatabase * database = nil;
-    if (!database) {
-        NSString *doucmentpath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-        NSString * dataPath =  [doucmentpath stringByAppendingPathComponent:@"data.db"];
-        database = [FMDatabase databaseWithPath:dataPath];
-        [database open];
-    }
-    return database;
+//找回密码时候校验是否已经注册地址
++ (NSString *) checkRegistWhenLose
+{
+    NSString * url = [NSString stringWithFormat:@"%@/reset/verify",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-+(AFHTTPRequestOperationManager *)shareRequestManager{
-    static AFHTTPRequestOperationManager * manager = nil;
-    if (!manager) {
-        manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.requestSerializer=[AFJSONRequestSerializer serializer];
-        NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
-        [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
-    }
-    return manager;
+
+
+
+
+
+//删除收货地址 的地址
++ (NSString *) delAddressInfo{
+    NSString * url = [NSString stringWithFormat:@"%@/api/address/del",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-+(AFHTTPRequestOperationManager *)shareNoHeadRequestManager{
-    static AFHTTPRequestOperationManager * manager = nil;
-    if (!manager) {
-        manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.requestSerializer=[AFJSONRequestSerializer serializer];
-    }
-    return manager;
+//修改收货地址 的地址
++ (NSString *) updateAddressInfo{
+    NSString * url = [NSString stringWithFormat:@"%@/api/address/update",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-+(MBProgressHUD *)getHUD :(UIViewController *)controller{
-    MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:controller.view];
-    [controller.navigationController.view addSubview:HUD];
-    HUD.margin =10.f;
-    controller.tabBarController.tabBar.hidden=NO;
-    HUD.delegate = controller;
-    HUD.labelText = @"Loading";
-    return HUD;
+//新增收货地址 的地址
++ (NSString *) AddAddressInfo{
+    NSString * url = [NSString stringWithFormat:@"%@/api/address/add",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
+//查询收货地址列表的地址
++ (NSString *) getAddressListInfo{
+    NSString * url = [NSString stringWithFormat:@"%@/api/address/list",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//更新基本信息（用户名和头像）的地址
++ (NSString *) updateUserInfo{
+    NSString * url = [NSString stringWithFormat:@"%@/api/user/update",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//我的的地址
++ (NSString *) mineUrl{
+    NSString * url = [NSString stringWithFormat:@"%@/api/user/get/info",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//收藏地址
++ (NSString *) collectUrl{
+    NSString * url = [NSString stringWithFormat:@"%@/client/collect/submit/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+//取消收藏地址
++ (NSString *) unCollectUrl{
+    NSString * url = [NSString stringWithFormat:@"%@/client/collect/del/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+//收藏列表地址
++ (NSString *) collectListUrl{
+    NSString * url = [NSString stringWithFormat:@"%@/client/collect/get/collect/list",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+
+
 @end

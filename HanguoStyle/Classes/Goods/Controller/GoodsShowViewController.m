@@ -9,78 +9,167 @@
 #import "GoodsShowViewController.h"
 #import "GoodsShowCell.h"
 #import "GoodsShowData.h"
-#import "MBProgressHUD.h"
 #import "GoodsDetailViewController.h"
-#import "MJRefresh.h"
-#import "AFNetworking.h"
-#import "HSGlobal.h"
+#import "PinGoodsDetailViewController.h"
 
 //section之间空隙，和item的空隙，这里都设置成5
 #define gap 5
 
-//描述label的高度
-#define detailLabH 20
 
-//价格lable的高度
-#define priceLabH 21
 
-@interface GoodsShowViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,MBProgressHUDDelegate>
+@interface GoodsShowViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,MBProgressHUDDelegate,GoodsShowCellDelegate>
 {
-    MBProgressHUD *HUD;
+    NSInteger _cnt;
+    BOOL isLogin;
+    
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
-
+@property (nonatomic) UILabel * cntLabel;
 
 @end
 
 @implementation GoodsShowViewController
 - (void)viewWillAppear:(BOOL)animated{
-    self.tabBarController.tabBar.hidden=NO;
+    self.tabBarController.tabBar.hidden=YES;
+    [self queryCustNum];
+    [self headerRefresh];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    HUD = [HSGlobal getHUD:self];
-    [HUD show:YES];
+    _collectionView.scrollsToTop = YES;
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAnimationData) name:@"ReloadAnimationData" object:nil];
+
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
+    _collectionView.backgroundColor = GGColor(240, 240, 240);
     self.data  = [NSMutableArray array];
-    [self headerRefresh];
     self.hidesBottomBarWhenPushed = YES;
-
     self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    [self makeCustNumLab];
 
 }
+-(void)makeCustNumLab{
+    
+    //右上角添加按钮
+    UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    rightButton.titleLabel.font=[UIFont systemFontOfSize:12];
+    [rightButton setImage:[UIImage imageNamed:@"gs_tab"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(enterCust)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 , 0, 15, 15)];
+    _cntLabel.textColor = [UIColor redColor];
+    _cntLabel.textAlignment = NSTextAlignmentCenter;
+    _cntLabel.font = [UIFont boldSystemFontOfSize:11];
+    _cntLabel.backgroundColor = [UIColor whiteColor];
+    _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
+    _cntLabel.layer.masksToBounds = YES;
+    _cntLabel.layer.borderWidth = 1.0f;
+    _cntLabel.layer.borderColor = [UIColor redColor].CGColor;
 
--(void)reloadAnimationData{
-    [self headerRefresh];
+    if (_cnt == 0) {
+        _cntLabel.hidden = YES;
+    }
+    
+    [rightButton addSubview:_cntLabel];
+
 }
+-(void)enterCust{
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"cart",@"jumpKey", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
+}
+-(void)queryCustNum{
+    isLogin = [PublicMethod checkLogin];
+    if(!isLogin){
+        FMDatabase * database = [PublicMethod shareDatabase];
+        FMResultSet * rs = [database executeQuery:@"SELECT SUM(pid_amount) as amount FROM Shopping_Cart "];
+        //购物车如果存在这件商品，就更新数量
+        while ([rs next]){
+            _cnt = [rs intForColumn:@"amount"] ;
+            if (_cnt == 0) {
+                _cntLabel.hidden = YES;
+            }else{
+                _cntLabel.hidden = NO;
+                _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
+            }
+            
+        }
+    }else{
+        NSString * url = [HSGlobal queryCustNum];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            
+            if(code == 200){
+                _cnt = [[object objectForKey:@"cartNum"]integerValue];
+                if (_cnt == 0) {
+                    _cntLabel.hidden = YES;
+                }else{
+                    _cntLabel.hidden = NO;
+                    _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
+                }
+                
+            }
+         
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"数据加载失败"];
+            
+        }];
+    }
+}
+
+
+
 - (void) headerRefresh
 {
-    NSLog(@"showViewUrl  ++++++++++++%@",_url);
     
-    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
-    
+    AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager GET:_url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.collectionView.header endRefreshing];
-        [self.data removeAllObjects];
+        
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
-
-        NSArray * dataArray = [object objectForKey:@"themeList"];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSLog(@"message= %@",message);
-
-        for (id node in dataArray) {
-            GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
-            [self.data addObject:data];
+        if(code == 200){
+            [self.data removeAllObjects];
+            NSDictionary * themeDict = [NSDictionary dictionaryWithObjectsAndKeys:[[object objectForKey:@"themeList"] objectForKey:@"themeImg"],@"itemImg",[[object objectForKey:@"themeList"] objectForKey:@"masterItemTag"],@"masterItemTag",@"Y",@"state",nil];
+            
+            NSArray * dataArray = [[object objectForKey:@"themeList"]objectForKey:@"themeItemList"];
+            GoodsShowData * data1 = [[GoodsShowData alloc] initWithJSONNode:themeDict];
+            [self.data addObject:data1];
+            
+            for (id node in dataArray) {
+                GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
+                [self.data addObject:data];
+            }
+            [self.collectionView reloadData];
+        }else{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = message;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
         }
-        [self.collectionView reloadData];
-        [HUD hide:YES];
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.collectionView.header endRefreshing];
-        [HUD hide:YES];
-        [HSGlobal printAlert:@"数据加载失败"];
+        [GiFHUD dismiss];
+        [PublicMethod printAlert:@"数据加载失败"];
         
     }];
 }
@@ -106,7 +195,7 @@
         
         
         //创建一个collectionView
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
         _collectionView.backgroundColor = GGColor(240, 240, 240);
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -150,10 +239,10 @@
         GoodsShowData *goodsShowData;
         if(indexPath.section == 0 ){
             goodsShowData = _data[indexPath.section];
-            goodsShowData.itemImg = goodsShowData.itemMasterImg;
+            cell.delegate = self;
             
         }else{
-            goodsShowData = _data[indexPath.item + indexPath.section];
+            goodsShowData = _data[indexPath.section + indexPath.item];
         }
         
         //赋值
@@ -173,37 +262,56 @@
     //第0组
     if (indexPath.section == 0)
     {
-        return CGSizeMake(GGUISCREENWIDTH-gap*2, ((GGUISCREENWIDTH-gap*2)/2) + detailLabH + priceLabH);
+        return CGSizeMake(GGUISCREENWIDTH-gap*2, ((GoodsShowData*)_data[indexPath.section]).height*(GGUISCREENWIDTH-gap*2)/((GoodsShowData*)_data[indexPath.section]).width);
     }
     else //其他组
     {
-        return CGSizeMake((GGUISCREENWIDTH-gap*3)/2, ((GGUISCREENWIDTH-gap*3)/2) + detailLabH + priceLabH);
-    }}
+        return CGSizeMake((GGUISCREENWIDTH-gap*3)/2, (GGUISCREENWIDTH-gap*3)/2);
+    }
+}
 
 /**
  点击了某个item会调用
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    //正常状态才能进入到详情页面
-    if([@"Y" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]){
-        NSString * _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
-        //进入到商品展示页面
-        self.hidesBottomBarWhenPushed=YES;
-        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-        gdViewController.url = _pushUrl;
-        [self.navigationController pushViewController:gdViewController animated:YES];
-        self.hidesBottomBarWhenPushed=NO;
+    if(indexPath.section == 1){
+        //正常状态才能进入到详情页面
+//        if([@"Y" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]||[@"P" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]){
+            NSString * _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
+            NSString * itemType = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemType;
+            //进入到商品展示页面
+            self.hidesBottomBarWhenPushed=YES;
+            if ([@"pin" isEqualToString:itemType]) {
+                PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+                pinViewController.url = _pushUrl;
+                [self.navigationController pushViewController:pinViewController animated:YES];
+            }else{
+                GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+                gdViewController.url = _pushUrl;
+                [self.navigationController pushViewController:gdViewController animated:YES];
+            }
+            self.hidesBottomBarWhenPushed=NO;
+//        }
+       
     }
     
 }
-
+-(void)flagUrl:(NSString *)url{
+    self.hidesBottomBarWhenPushed=YES;
+    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+    gdViewController.url = url;
+    [self.navigationController pushViewController:gdViewController animated:YES];
+    self.hidesBottomBarWhenPushed=NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)backController{
+    [self headerRefresh];
+    [self queryCustNum];
+}
 
 @end

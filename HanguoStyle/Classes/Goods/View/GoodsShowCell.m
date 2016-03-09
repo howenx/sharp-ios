@@ -7,7 +7,7 @@
 //
 
 #import "GoodsShowCell.h"
-#import "UIImageView+WebCache.h"
+
 
 @interface GoodsShowCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
@@ -17,19 +17,26 @@
 @property (weak, nonatomic) IBOutlet UILabel *saleOutLab;
 
 @property (weak, nonatomic) IBOutlet UILabel *moneyLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *moneyFlagConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageAndTitleConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleAndMoneyConstraint;
+
+
+@property (weak, nonatomic) IBOutlet UIView *pinFlagView;
+@property (weak, nonatomic) IBOutlet UILabel *pinTimeLab;
+
+
 
 //@property (nonatomic ,strong) UIButton * textView;
 @end
 @implementation GoodsShowCell
 
-//+(id)subjectCell
-//{
-//    UINib * nib = [UINib nibWithNibName:@"GoodsShowCell" bundle:[NSBundle mainBundle]];
-//    return [[nib instantiateWithOwner:self options:nil]lastObject];
-//}
+
 - (void)setData:(GoodsShowData *)data
 {
 
+    _data = data;
 //    for(int i = 0; i < self.titleImageView.subviews.count;i++){
 //        [[ self.titleImageView.subviews objectAtIndex:i] removeFromSuperview];   
 //    }
@@ -38,26 +45,78 @@
         [view removeFromSuperview];
     }
 
-    if([@"Y" isEqualToString: data.state]){
+
+    if([data.itemType isEqualToString:@"pin"]){
         _saleOutLab.hidden = YES;
+        _pinFlagView.hidden = NO;
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _pinFlagView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _pinFlagView.layer.mask = maskLayer;
+        //在售
+        if([@"Y" isEqualToString: data.state]){
+            //2016-01-30 17:16:55
+            int month= [[data.endAt substringWithRange:NSMakeRange(5,2)] intValue];
+            int day= [[data.endAt substringWithRange:NSMakeRange(8,2)] intValue];
+            int hour= [[data.endAt substringWithRange:NSMakeRange(11,2)] intValue];
+            int minute= [[data.endAt substringWithRange:NSMakeRange(14,2)] intValue];
+            
+            NSString * strTime = [NSString stringWithFormat:@"截止到%d月%d日 %d:%d",month,day,hour,minute];
+            _pinTimeLab.text  = strTime;
+        }else if([@"P" isEqualToString: data.state]){//预售
+            int month= [[data.startAt substringWithRange:NSMakeRange(5,2)] intValue];
+            int day= [[data.startAt substringWithRange:NSMakeRange(8,2)] intValue];
+            int hour= [[data.startAt substringWithRange:NSMakeRange(11,2)] intValue];
+            int minute= [[data.startAt substringWithRange:NSMakeRange(14,2)] intValue];
+            
+            NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
+            _pinTimeLab.text  = strTime;
+        }else{
+            NSString * strTime = @"已结束";
+            _pinTimeLab.text  = strTime;
+        }
+    }else{
+        if([@"Y" isEqualToString: data.state]||[@"P" isEqualToString: data.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+            _saleOutLab.hidden = YES;
+        }else{
+            _saleOutLab.hidden = NO;
+        }
+        
+        _pinFlagView.hidden = YES;
     }
+    
     [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg]];
     self.describeLab.text = data.itemTitle;
     self.moneyLab.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];
-    if(data.orMasterItem){
-        for(MasterItemTagData *tagData in data.masterItemTag){
-            [self drawRectFlag:tagData];
+    if(data.itemTitle ==nil || [@""isEqualToString: data.itemTitle]){
+        _titleConstraint.constant = 0;
+        _moneyFlagConstraint.constant = 0;
+        _imageAndTitleConstraint.constant = 0;
+        _titleAndMoneyConstraint.constant = 0;
+    }else{
+        _titleConstraint.constant = 30;
+        _moneyFlagConstraint.constant = 21;
+        _imageAndTitleConstraint.constant = 2;
+        _titleAndMoneyConstraint.constant = 2;
+    }
+    _titleImageView.userInteractionEnabled = YES;
+    if(data.masterItemTag!=nil){
+        for(int i = 0;i<data.masterItemTag.count;i++){
+            MasterItemTagData * tagData = data.masterItemTag[i];
+            [self drawRectFlag:tagData andIndex:i ];
+            
         }
     }
 }
     
--(void)drawRectFlag:(MasterItemTagData *)data{
+-(void)drawRectFlag:(MasterItemTagData *)data andIndex:(NSInteger) index{
 
     CGRect rect = CGRectMake(self.bounds.size.width * data.left , self.bounds.size.width/2 * data.top, 8, 8);
     
    
     UIButton * animationBG = [UIButton buttonWithType:UIButtonTypeSystem];
-    animationBG.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.width/2);
+    animationBG.frame = CGRectMake(0, 0, 8, 8);
     //    [super drawRect:rect];
     //    [KColor(22, 163, 130) setFill];
     UIRectFill(rect);
@@ -99,9 +158,9 @@
     
     //添加label
     NSString * strContentLab;
-    UIButton * _textView= [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    
+    UIButton * _textView= [UIButton buttonWithType:UIButtonTypeCustom];
+    _textView.tag = 45000+index;
+    [_textView addTarget:self action:@selector(theButtonClick:)  forControlEvents:UIControlEventTouchUpInside];
     CGSize textMaxSize = CGSizeMake(150, MAXFLOAT);
     strContentLab  = [@"   " stringByAppendingString:data.name];//这块赋值为了下面算textRealSize，为了下面的代码逻辑简单
     CGSize textRealSize =  [strContentLab boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]} context:nil].size;
@@ -124,12 +183,15 @@
     _textView.titleLabel.font = [UIFont systemFontOfSize: 11];
     _textView.titleLabel.numberOfLines = 1;//自动换行
     [_textView setTitleColor:[UIColor whiteColor]forState:UIControlStateNormal];
-    //    _textView.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     [_textView setTitle:strContentLab forState:UIControlStateNormal];
-    
-    
-    [_titleImageView addSubview:_textView];
 
+
+    [_titleImageView addSubview:_textView];
+    
+}
+-(void)theButtonClick:(UIButton *) btn{
+    MasterItemTagData * tagData = _data.masterItemTag[btn.tag-45000] ;
+    [self.delegate flagUrl:tagData.url];
     
 }
 -(UIImage *)resizeWithImage:(NSString *)imageName

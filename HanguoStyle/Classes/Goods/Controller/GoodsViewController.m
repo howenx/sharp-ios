@@ -7,25 +7,21 @@
 //
 
 #import "GoodsViewController.h"
-#import "MJRefresh.h"
-#import "AFNetworking.h"
-#import "HSGlobal.h"
 #import "GoodsPackData.h"
 #import "GoodsPackCell.h"
 #import "HeadView.h"
 #import "GoodsShowViewController.h"
-#import "MBProgressHUD.h"
-#import "Reachability.h"
+#import "GoodsDetailViewController.h"
+#import "GGTabBarViewController.h"
+
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
-
-    MBProgressHUD *HUD;
+    NSInteger totalPageCount;
+    NSInteger _cnt;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic)  UIScrollView *headScrollView;
-@property (weak, nonatomic)  UIPageControl *pageControl;
 @property (nonatomic,strong) NSString * pushUrl;
 
 @property (nonatomic,assign) NSInteger addon;
@@ -33,15 +29,16 @@
 @end
 
 @implementation GoodsViewController
-
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
 }
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    HUD = [HSGlobal getHUD:self];
-    [HUD show:YES];
+    _tableView.scrollsToTop = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _addon = 1;
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
@@ -49,15 +46,73 @@
     [self footerRefresh];
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     self.data = [NSMutableArray array];
+    [self queryCustNum];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadRootPage) name:@"ReloadRootPage" object:nil];
 }
+-(void)ReloadRootPage{
+    self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    _addon = 1;
+    totalPageCount = 0;
+    self.tableView.contentOffset = CGPointMake(0, 0);
+    
+    [self footerRefresh];
+}
+
+-(void)queryCustNum{
+
+    BOOL isLogin = [PublicMethod checkLogin];
+    
+    if(!isLogin){
+        FMDatabase * database = [PublicMethod shareDatabase];
+        FMResultSet * rs = [database executeQuery:@"SELECT SUM(pid_amount) as amount FROM Shopping_Cart "];
+        //购物车如果存在这件商品，就更新数量
+        while ([rs next]){
+            _cnt = [rs intForColumn:@"amount"] ;
+            if (_cnt != 0) {
+                
+                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)_cnt],@"badgeValue", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CustBadgeValue" object:nil userInfo:dict];
+            }
+            
+        }
+    }else{
+        NSString * url = [HSGlobal queryCustNum];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        if(manager == nil){
+            return;
+        }
+        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            
+            if(code == 200){
+                _cnt = [[object objectForKey:@"cartNum"]integerValue];
+                if (_cnt != 0) {
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)_cnt],@"badgeValue", nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"CustBadgeValue" object:nil userInfo:dict];
+                }
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"数据加载失败"];
+            
+        }];
+    }
+}
+
 
 - (void)createHeadScrollView{
     
     _scrollArr = [_imageUrls mutableCopy];
     
     if(_scrollArr.count>1){
+        
+        
         NSMutableArray * imageArr = [NSMutableArray array];
-        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
+        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, ((SliderData *)_scrollArr[0]).height *GGUISCREENWIDTH/((SliderData *)_scrollArr[0]).width)];
         hView.delegate = self;
         [hView shouldAutoShow:YES];
         for (int i = 0; i < _scrollArr.count; i++)
@@ -68,9 +123,11 @@
             [imageArr addObject:imv];
         }
         hView.imageViewAry = imageArr;
+        
+        hView.scrollView.scrollsToTop = NO;
         _tableView.tableHeaderView = hView;
     }else if(_scrollArr.count == 1){
-        UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH/3.2)];
+        UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH,  ((SliderData *)_scrollArr[0]).height *GGUISCREENWIDTH/((SliderData *)_scrollArr[0]).width)];
         UIImageView *imv = [[UIImageView alloc] initWithFrame:heView.frame];
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[0]).url]];
         imv.image = [UIImage imageWithData:data];
@@ -84,40 +141,77 @@
 }
 - (void)didClickPage:(HeadView *)view atIndex:(NSInteger)index
 {
-    NSLog(@"点击滚动视图");
+    
+    SliderData * sliderData = _imageUrls[index];
+    if([sliderData.targetType isEqualToString:@"D"]){
+        self.hidesBottomBarWhenPushed=YES;
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = sliderData.itemTarget;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
+    }else if([sliderData.targetType isEqualToString:@"T"]){
+        self.hidesBottomBarWhenPushed=YES;
+        GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
+        gsViewController.navigationItem.title = @"商品展示";
+        //下个页面要跳转的url
+        gsViewController.url = sliderData.itemTarget;
+        [self.navigationController pushViewController:gsViewController animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
+    }
+
 }
 - (void) footerRefresh
 {
+    if(_addon >= totalPageCount && totalPageCount != 0){
+        [self.tableView.footer removeFromSuperview];
+    }
     NSString * url = [HSGlobal goodsPackMoreUrl: _addon];
     _addon++;
     
-    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
+    AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
-        
+        if(_addon == 2){
+            [self.data removeAllObjects];
+        }
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         if (!object) {
             return;
         }
         GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:object];
-        [self.data addObjectsFromArray:[data.themeArray mutableCopy]];
-//        self.data = [data.themeArray mutableCopy];
-//        NSArray * dataArray = object[@"theme"];
-//        for (id node in dataArray) {
-//            GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:node];
-//            [self.data addObject:data];
-//        }
-        if(_imageUrls==nil){
-            _imageUrls = data.sliderArray;
-            //headview
-            [self createHeadScrollView];
+        if(data.code == 200){
+            totalPageCount = data.pageCount;
+            [self.data addObjectsFromArray:[data.themeArray mutableCopy]];
+            
+            if(_imageUrls==nil){
+                _imageUrls = data.sliderArray;
+                //headview
+                [self createHeadScrollView];
+            }
+            [self.tableView reloadData];
+        }else{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = data.message;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
         }
-        [self.tableView reloadData];
-        [HUD hide:YES];
+        
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.footer endRefreshing];
-        [HUD hide:YES];
-        [HSGlobal printAlert:@"数据加载失败"];
+        [GiFHUD dismiss];
+        [PublicMethod printAlert:@"数据加载失败"];
     }];
 }
 
@@ -135,15 +229,17 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return (GGUISCREENWIDTH-10)/2.43;//因为后台传过来图片宽度和高度比例是730：300=2.43, 10是屏幕两边各有5个像素的宽度
+    return ((ThemeData * )self.data[indexPath.section]).height*GGUISCREENWIDTH/((ThemeData * )self.data[indexPath.section]).width;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.data.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{    return 5;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{    UIView *headerView = [[UIView alloc] init];
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor =  GGColor(240, 240, 240);
     return headerView;
 }
@@ -162,39 +258,12 @@
     [self.navigationController pushViewController:gsViewController animated:YES];
 }
 
-// 判断是否联网
--(BOOL)isConnectNetWork{
-    BOOL isExistenceNetwork = YES;
-    Reachability *r = [Reachability reachabilityWithHostName:@"www.baidu.com"];
-    switch ([r currentReachabilityStatus]) {
-        case NotReachable:
-            isExistenceNetwork=NO;
-            NSLog(@"没有网络");
-            break;
-        case ReachableViaWWAN:
-            isExistenceNetwork=YES;
-            NSLog(@"正在使用3G网络");
-            break;
-        case ReachableViaWiFi:
-            isExistenceNetwork=YES;
-            NSLog(@"正在使用wifi网络");
-            break;
-    }
-    return isExistenceNetwork;
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)backController{
+    [self ReloadRootPage];
+    [self queryCustNum];
 }
-*/
-
 @end

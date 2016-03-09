@@ -7,7 +7,6 @@
 //
 
 #import "GoodsPackCell.h"
-#import "UIImageView+WebCache.h"
 
 
 @interface GoodsPackCell()

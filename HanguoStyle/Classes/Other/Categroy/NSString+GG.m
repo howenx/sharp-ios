@@ -7,7 +7,8 @@
 //
 #import <CommonCrypto/CommonDigest.h>
 #import "NSString+GG.h"
-
+#define NUMBERS @"0123456789"
+#define kAlphaNum  @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 @implementation NSString (GG)
 
 - (float) heightWithFont: (UIFont *)font withinWidth: (float)width
@@ -41,7 +42,9 @@
             result[12], result[13], result[14], result[15]
             ]; 
 }
-
+//+ (BOOL) isEmptyString:(NSString *)string {
+//
+//}
 
 + (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
@@ -55,4 +58,36 @@
     }
     return NO;
 }
++ (BOOL) isNSNull:(NSString *)string {
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    return NO;
+}
+//校验只能输入汉字，字母，数字
++ (BOOL)isNumAndLetterAndChinese:(NSString *)string
+
+{
+    NSString *regex = @"[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]*";
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    
+    return [pred evaluateWithObject:string];
+}
++ (BOOL) isNum:(NSString *)string{
+    NSCharacterSet*cs;
+    cs = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS] invertedSet];
+    NSString * filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return [string isEqualToString:filtered];
+}
++ (BOOL)isNumAndLetter:(NSString *)string
+
+{
+
+    NSCharacterSet*cs;
+    cs = [[NSCharacterSet characterSetWithCharactersInString:kAlphaNum] invertedSet];
+    NSString * filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+    return [string isEqualToString:filtered];
+}
+
 @end

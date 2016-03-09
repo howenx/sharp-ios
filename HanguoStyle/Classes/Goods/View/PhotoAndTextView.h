@@ -6,8 +6,11 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 
 @interface PhotoAndTextView : UIView
 -(UIView *) createPhotoTextView :(NSArray *)array andNotice :(NSString *)notice ;
+
+
+-(UIImage *) imageCompressForWidth:(UIImage *)sourceImage targetWidth:(CGFloat)defineWidth;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "DetailThreeCell.h"
-#import "HSGlobal.h"
+
 @interface DetailThreeCell ()
 @property (nonatomic,strong)NSArray * nameArray;
 @end
@@ -27,7 +27,7 @@
         label.font = [UIFont systemFontOfSize:12];
         label.text = array[i];
         label.numberOfLines = 0;
-        CGSize size  = [HSGlobal getSize:array[i] Font:12 Width:GGUISCREENWIDTH-20 Height:100];
+        CGSize size  = [PublicMethod getSize:array[i] Font:12 Width:GGUISCREENWIDTH-20 Height:100];
         label.frame = CGRectMake(rect.origin.x, rect.origin.y + rect.size.height + 10, size.width, size.height);
         rect = label.frame;
         [self.contentView addSubview:label];

@@ -8,20 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "FMDatabase.h"
-#import "FMDatabaseQueue.h"
-#import "AFNetworking.h"
-#import "MBProgressHUD.h"
-@interface HSGlobal : NSObject <MBProgressHUDDelegate>
+
+@interface HSGlobal : NSObject
 
 + (NSString *) goodsPackMoreUrl: (NSInteger)addon;
 + (NSString *) testingCodeUrl;
 + (NSString *) registUrl;
 + (NSString *) loginUrl;
++ (NSString *) addToCartUrl;
 + (NSString *) sendCartUrl;
 + (NSString *) resetPwdUrl;
 + (NSString *) refreshToken;
-+ (NSString *) getCartUrl;
+//+ (NSString *) getCartUrl;
 + (NSString *) getCartByPidUrl;
 + (NSString *) mineUrl;
 + (NSString *) updateUserInfo;
@@ -30,13 +28,22 @@
 + (NSString *) delAddressInfo;
 + (NSString *) AddAddressInfo;
 + (NSString *) checkAddCartAmount;
-//提示框
-+(void)printAlert:(NSString *) message;
-//根据文字获取大小
-+(CGSize)getSize:(NSString *)str Font:(float)sizeofstr Width:(float)width Height:(float)height;
-+(BOOL)checkLogin;
-+(FMDatabase *)shareDatabase;
-+(AFHTTPRequestOperationManager *)shareRequestManager;
-+(AFHTTPRequestOperationManager *)shareNoHeadRequestManager;
-+(MBProgressHUD *)getHUD :(UIViewController *)controller;
++ (NSString *) sendCartToOrder;
++ (NSString *) sendOrderInfo;
++ (NSString *) payUrl;
++ (NSString *) myOrderUrl;
++ (NSString *) checkOrderUrl;
++ (NSString *) cancelOrderUrl;
++ (NSString *) delOrderUrl;
++ (NSString *) queryCustNum;
++ (NSString *) verifyCodeUrl;
++ (NSString *) checkRegist;
++ (NSString *) checkRegistWhenLose;
++ (NSString *) couponUrl;
++ (NSString *) collectUrl;
++ (NSString *) unCollectUrl;
++ (NSString *) collectListUrl;
++ (NSString *) pinListUrl;
++ (NSString *) shareTuanHeaderUrl;
++ (NSString *) shareGoodsHeaderUrl;
 @end

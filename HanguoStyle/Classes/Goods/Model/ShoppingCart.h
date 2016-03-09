@@ -13,4 +13,6 @@
 @property (nonatomic) NSInteger cartId;//购物车id
 @property (nonatomic) NSInteger  amount;//数量
 @property (nonatomic) NSString * state;//
+@property (nonatomic) NSString * skuType;//
+@property (nonatomic) long skuTypeId;//
 @end

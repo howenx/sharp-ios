@@ -7,7 +7,7 @@
 //
 
 #import "DetailTwoCell.h"
-#import "HSGlobal.h"
+
 @interface DetailTwoCell()
 {
     NSString * _sizeName;
@@ -77,7 +77,7 @@
             [button setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
             [button.layer setBorderColor:[UIColor redColor].CGColor];
         }
-        CGSize size  = [HSGlobal getSize:name Font:11 Width:GGUISCREENWIDTH-20-20 Height:20];
+        CGSize size  = [PublicMethod getSize:name Font:11 Width:GGUISCREENWIDTH-20-20 Height:20];
         
         if(rect.origin.x + rect.size.width + size.width + 20 + 20 > GGUISCREENWIDTH){
             button.frame = CGRectMake(10, rect.origin.y + rect.size.height +10, size.width+20, size.height+10);
@@ -92,7 +92,9 @@
     return mutArray;
 }
 -(void)theButtonClick:(UIButton *) btn{
-
+    if(![PublicMethod isConnectionAvailable]){
+        return;
+    }
     if(ceil(_sizeBtnTag/1000) == ceil(btn.tag/1000)){
         NSString * sizeString =  btn.titleLabel.text;
         if([_sizeName isEqualToString:sizeString]){

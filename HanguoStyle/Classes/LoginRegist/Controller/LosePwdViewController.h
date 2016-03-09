@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 ThirdGroup. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-@interface LosePwdViewController : UIViewController
-
+#import "BaseViewController.h"
+@interface LosePwdViewController : BaseViewController
+@property(nonatomic,copy) NSString * phone;
 @end

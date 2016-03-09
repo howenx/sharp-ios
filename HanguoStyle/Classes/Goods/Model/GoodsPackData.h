@@ -12,6 +12,8 @@
 
 @property (nonatomic) NSString * idCode;
 @property (nonatomic) NSString * themeImg;
+@property (nonatomic) float width;
+@property (nonatomic) float height;
 @property (nonatomic) NSString * themeUrl;
 
 @end
@@ -21,6 +23,10 @@
 
 @property (nonatomic) NSString * itemTarget;
 @property (nonatomic) NSString * url;
+@property (nonatomic) float width;
+@property (nonatomic) float height;
+@property (nonatomic) NSString * targetType;
+
 
 @end
 
@@ -33,6 +39,7 @@
 @property (nonatomic) NSInteger code;
 @property (nonatomic) NSArray * themeArray;
 @property (nonatomic) NSArray * sliderArray;
+@property (nonatomic) NSInteger pageCount;
 
 
 

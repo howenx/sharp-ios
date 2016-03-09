@@ -17,6 +17,7 @@
 #import "GGNavigationViewController.h"
 #import "HSGlobal.h"
 #import "GoodsDetailViewController.h"
+#import "PublicMethod.h"
 @interface GGTabBarViewController ()<GGTabBarDelegate>
 {
     FMDatabase *database;
@@ -29,17 +30,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    database = [HSGlobal shareDatabase];
+    database = [PublicMethod shareDatabase];
     //1.初始化自定义tabBar
     [self setupTabBar];
     //2.初始所有化子控件
     [self setupAllChildViewControllers];
     [self createCart];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeTabBarButton) name:@"PopViewControllerNotification" object:nil];
 }
 
 -(void)createCart{
     [database beginTransaction];
-    NSString *sql = @"create table if not exists Shopping_Cart (pid integer, cart_id integer, pid_amount integer, state text)";    
+    NSString *sql = @"create table if not exists Shopping_Cart (pid integer, cart_id integer, pid_amount integer, state text,sku_type text ,sku_type_id integer)";    
     //执行sql
     [database executeUpdate:sql];
     [database commit];
@@ -60,7 +62,7 @@
 {
     //1.精选商品
     GoodsViewController * gContro = [[GoodsViewController alloc]init];
-//    homeContro.tabBarItem.badgeValue = @"21";
+//    gContro.tabBarItem.badgeValue = @"21";
     [self setupChildViewController:gContro title:@"首页" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];
@@ -84,7 +86,7 @@
 
     UINavigationBar * navgationBar  = [UINavigationBar appearance];
     //导航栏颜色
-    [navgationBar setBarTintColor:GGColor(254, 99, 108)];
+    [navgationBar setBarTintColor:GGMainColor];
     //    [navgationBar setBackgroundImage:[UIImage imageNamed:@"navBackground"] forBarMetrics:UIBarMetricsDefault];
     // 字体的属性
     NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15],NSForegroundColorAttributeName :[UIColor whiteColor]};
@@ -126,28 +128,39 @@
     [controller.navigationItem setTitle: @"韩秘美"];//这个要设置到controller.title后面才生效
     controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self addChildViewController:nav];
+    //为下面购物车tabbar的显示的数量用的
+    if([title isEqualToString:@"购物车"]){
+        //添加tabBar
+        [self.coustomTabBar addTabBarItem:controller.tabBarItem andController:@"cust"];
+    }else{
+        [self.coustomTabBar addTabBarItem:controller.tabBarItem andController:@""];}
     
-    //添加tabBar
-    [self.coustomTabBar addTabBarItem:controller.tabBarItem];
-}
+    }
+
 //删除原来的TbaBar
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    for (UIView * child in  self.tabBar.subviews) {
-        if ([child isKindOfClass:[UIControl  class]]) {
-            [child removeFromSuperview];
-        }
-    }
+    [self removeTabBarButton];
 }
 
 #pragma mark - GGTabBarDelegate
 -(void)tabBarDelagate:(GGTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to
 {
-    self.selectedIndex = to;
-    if(to == 0){
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadAnimationData" object:nil];
+    self.selectedIndex = to - 10000;
+    if(to-10000 == 0){
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadRootPage" object:nil];
+    }
+    
+}
+
+-(void) removeTabBarButton {
+    // 删除系统自动生成的UITabBarButton
+    for (UIView *child in self.tabBar.subviews) {
+        if ([child isKindOfClass:[UIControl class]]) {
+            [child removeFromSuperview];
+        }
     }
 }
 @end

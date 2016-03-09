@@ -6,9 +6,16 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 
 #import "GoodsDetailData.h"
+
+@protocol DetaileOneCellDelegate <NSObject>
+
+- (void)touchPage:(NSInteger)index andImageArray :(NSArray *) imageArray;
+
+@end
+
 @interface DetaileOneCell : UITableViewCell
 +(id)subjectCell;
 
@@ -18,4 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *storeBtn;
 //分享按钮
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;
+
+@property (nonatomic, weak) id <DetaileOneCellDelegate> delegate;
 @end

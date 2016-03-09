@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIButton (GG)
-- (void) setImage:(UIImage *)image withTitle:(NSString *)title forState:(UIControlState)stateType;
+
 @end

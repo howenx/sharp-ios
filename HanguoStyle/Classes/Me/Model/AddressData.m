@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         
-        self.addId = [node objectForKey:@"addId"];
+        self.addId = [[node objectForKey:@"addId"]stringValue];
         self.tel = [node objectForKey:@"tel"];
         self.name = [node objectForKey:@"name"];
         self.deliveryCity = [node objectForKey:@"deliveryCity"];

@@ -7,9 +7,6 @@
 //
 
 #import "AppendAddrViewController.h"
-#import "UIView+frame.h"
-#import "HSGlobal.h"
-#import "NSString+GG.h"
 @interface AppendAddrViewController ()<UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate>
 
 {
@@ -44,7 +41,11 @@
     [super viewDidLoad];
 //    _myPicker.delegate = self;
 //    _myPicker.dataSource = self;
-    self.navigationItem.title=@"添加收货地址";
+    self.navigationItem.title=@"收货地址";
+    _nameLab.tag = 20000;
+    _phoneLab.tag = 20002;
+    _detailAddrLab.tag = 20003;
+    _idNumber.tag = 20004;
     _areaAddrLab.tag = 20001;
     _nameLab.delegate = self;
     _phoneLab.delegate = self;
@@ -124,10 +125,85 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.maskView.alpha = 0.3;
             self.pickerBgView.frame = CGRectMake(0, 100, self.pickerBgView.width, self.pickerBgView.height);
-            self.pickerBgView.bottom = GGUISCREENHEIGHT - 49;
+            self.pickerBgView.bottom = GGUISCREENHEIGHT;
         }];
 
     }
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    BOOL canChange = YES;
+    if(textField.tag == 20000 ){
+        if([@"" isEqualToString:string]){
+            canChange = YES;
+        }else{
+            canChange = [NSString isNumAndLetterAndChinese:string];
+            if(!canChange){
+                [self showHud:@"收货人姓名为数字、字母、汉字组合"];
+            }
+            if(_nameLab.text.length +string.length >15){
+                canChange = NO;
+                [self showHud:@"收货人姓名最多15位"];
+            }
+        }
+        return canChange;
+    }else if(textField.tag == 20003 ){
+        if([@"" isEqualToString:string]){
+            canChange = YES;
+        }else{
+            canChange = [NSString isNumAndLetterAndChinese:string];
+            if(!canChange){
+                [self showHud:@"详细地址为数字、字母、汉字组合"];
+            }
+            if(_detailAddrLab.text.length+string.length >50){
+                canChange = NO;
+                [self showHud:@"详细地址最多50位"];
+            }
+        }
+        return canChange;
+    }else if(textField.tag == 20002){
+        if([@"" isEqualToString:string]){
+            canChange = YES;
+        }else{
+            canChange = [NSString isNum:string];
+            if(!canChange){
+                [self showHud:@"联系电话为数字"];
+            }
+            if(_phoneLab.text.length+string.length >11){
+                canChange = NO;
+                [self showHud:@"联系电话为11位"];
+            }
+        }
+        return canChange;
+        
+    } else if(textField.tag == 20004){
+        if([@"" isEqualToString:string]){
+            canChange = YES;
+        }else{
+            canChange = [NSString isNumAndLetter:string];
+            if(!canChange){
+                [self showHud:@"身份证为数字、字母组合"];
+            }
+            if(_idNumber.text.length+string.length >18){
+                canChange = NO;
+                [self showHud:@"身份证最多18位"];
+            }
+        }
+        return canChange;
+        
+    }
+    return canChange;
+    
+}
+-(void)showHud:(NSString *) message{
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelFont = [UIFont systemFontOfSize:11];
+    hud.margin = 10.f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:1];
+    
+    hud.labelText = message;
 }
 #pragma mark - init view
 - (void)initView {
@@ -253,26 +329,42 @@
 
 
 - (IBAction)saveAddress:(UIButton *)sender {
-   
-    
-    BOOL validIdNumber = [self validateIDCardNumber:_idNumber.text];
+    if(![PublicMethod isConnectionAvailable]){
+        return;
+    }
     if([NSString isBlankString:GGTRIM(_nameLab.text)]){
-        [HSGlobal printAlert:@"请输入姓名"];
+        [self showHud:@"请输入收货人姓名"];
+        return;
+    }
+    if(_nameLab.text.length>15 || _nameLab.text.length<2 ){
+
+        [self showHud:@"收货人姓名：2—15个字符限制"];
         return;
     }
     if(![self isPhone]){
         return;
     }
+    NSString * idNum;
+    if ([NSString isBlankString:_idNumber.text]) {
+        idNum =_data.idCardNum;
+    }else{
+        idNum =_idNumber.text;
+    }
+    BOOL validIdNumber = [self validateIDCardNumber:idNum];
     if(!validIdNumber){
-        [HSGlobal printAlert:@"身份证不正确"];
+        [self showHud:@"身份证不正确"];
         return;
     }
     if([NSString isBlankString:GGTRIM(_areaAddrLab.text)]){
-        [HSGlobal printAlert:@"请输入所在区域"];
+        [self showHud:@"请输入所在区域"];
         return;
     }
     if([NSString isBlankString:GGTRIM(_detailAddrLab.text)]){
-        [HSGlobal printAlert:@"请输入详细地址"];
+        [self showHud:@"请输入详细地址"];
+        return;
+    }
+    if(_detailAddrLab.text.length>50 || _detailAddrLab.text.length<5 ){
+        [self showHud:@"详细地址：5—50个字符限制"];
         return;
     }
      NSDictionary * addrDict = [NSDictionary dictionaryWithObjectsAndKeys:@"BJ",@"北京市",@"TJ",@"天津市",@"HE",@"河北省",@"SX",@"山西省",@"NM",@"内蒙古",@"LN",@"辽宁省",@"JL",@"吉林省",@"HL",@"黑龙江省",@"SH",@"上海市",@"JS",@"江苏省",@"ZJ",@"浙江省",@"AH",@"安徽省",@"FJ",@"福建省",@"JX",@"江西省",@"SD",@"山东省",@"HA",@"河南省",@"HB",@"湖北省",@"HN",@"湖南省",@"GD",@"广东省",@"GX",@"广西省",@"HI",@"海南省",@"CQ",@"重庆市",@"SC",@"四川省",@"GZ",@"贵州省",@"YN",@"云南省",@"XZ",@"西藏",@"SN",@"陕西省",@"GS",@"甘肃省",@"QH",@"青海省",@"NX",@"宁夏",@"XJ",@"新疆",@"HK",@"香港",@"MO",@"澳门",@"TW",@"台湾省", nil];
@@ -291,10 +383,15 @@
 //        [myDict setObject:@"" forKey:@"addId"];
         url = [HSGlobal AddAddressInfo];
     }else{
-        [myDict setObject:_data.addId forKey:@"addId"];
+        [myDict setObject:[NSNumber numberWithFloat:[_data.addId floatValue]] forKey:@"addId"];
         url = [HSGlobal updateAddressInfo];
     }
-    [myDict setObject:_phoneLab.text forKey:@"tel"];
+    if ([NSString isBlankString:_phoneLab.text]) {
+        [myDict setObject:_data.tel forKey:@"tel"];
+    }else{
+        [myDict setObject:_phoneLab.text forKey:@"tel"];
+    }
+
     [myDict setObject:_nameLab.text forKey:@"name"];
     [myDict setObject:strDict forKey:@"deliveryCity"];
     [myDict setObject:_detailAddrLab.text forKey:@"deliveryDetail"];
@@ -304,10 +401,11 @@
     }else{
         [myDict setObject:@(false) forKey:@"orDefault"];
     }
+
+    [myDict setObject:idNum forKey:@"idCardNum"];
     
-    [myDict setObject:_idNumber.text forKey:@"idCardNum"];
     
-    AFHTTPRequestOperationManager * manager = [HSGlobal shareRequestManager];
+    AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
     
     [manager POST:url parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -315,24 +413,17 @@
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
         NSLog(@"message = %@",message);
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        
-        hud.labelFont = [UIFont systemFontOfSize:11];
-        hud.margin = 10.f;
-        //    hud.yOffset = 150.f;
-        hud.removeFromSuperViewOnHide = YES;
         if(200 == code){
-            hud.labelText = @"保存成功";
+
+            [self showHud:@"保存成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            hud.labelText = @"保存失败";
-            [hud hide:YES afterDelay:1];
+            [self showHud:@"保存失败"];
         }
 
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [HSGlobal printAlert:@"数据加载失败"];
+        [self showHud:@"数据加载失败"];
         
     }];
  
@@ -352,21 +443,27 @@
 //验证手机号
 - (BOOL)isPhone
 {
+    NSString * phoneNum;
+    if ([NSString isBlankString:_phoneLab.text]) {
+        phoneNum =_data.tel;
+    }else{
+        phoneNum =_phoneLab.text;
+    }
+    
     //校验空
-    if([NSString isBlankString:GGTRIM(_phoneLab.text)]){
-        [HSGlobal printAlert:@"请输入手机号码"];
+    if([NSString isBlankString:phoneNum]){
+        [self showHud:@"请输入手机号码"];
         return false;
     }
     //校验密码长度
-    if(GGTRIM(_phoneLab.text).length !=11){
-        [HSGlobal printAlert:@"请输入11位手机号码"];
+    if(phoneNum.length !=11){
+        [self showHud:@"请输入11位手机号码"];
         return false;
     }
-    
-    NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSString * regex = @"[1][345678]\\d{9}";//@"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$"
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    if(![pred evaluateWithObject:GGTRIM(_phoneLab.text)]){
-        [HSGlobal printAlert:@"请输入正确手机号码"];
+    if(![pred evaluateWithObject:phoneNum]){
+        [self showHud:@"请输入正确的手机号码"];
         return false;
     }
     return 1;
@@ -470,7 +567,12 @@
 - (void)setPageData:(AddressData *)data{
     
     _nameLab.text = data.name;
-    _phoneLab.text = data.tel;
+    if(![NSString isBlankString:data.tel]){
+        _phoneLab.placeholder = [NSString stringWithFormat:@"%@****%@",[data.tel substringToIndex:3],[data.tel substringFromIndex:8]];
+    }
+    
+
+//    _phoneLab.text = data.tel;
     _areaAddrLab.text = data.deliveryCity;
      NSArray * strArr = [ _areaAddrLab.text componentsSeparatedByString:@" "];// 以空格分割成数组，依次读取数组中的元素
     if(strArr.count == 3){
@@ -479,8 +581,17 @@
         town = strArr[2];
     }
     _detailAddrLab.text = data.deliveryDetail;
-    _idNumber.text = data.idCardNum;
+    if(![NSString isBlankString:data.idCardNum]){
+        _idNumber.placeholder = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
+    }
+    
+//    _idNumber.text = data.idCardNum;
     [_defaultSwitch setOn: data.orDefault];
+    if(data.orDefault){
+        _defaultSwitch.enabled = NO;
+    }else{
+        _defaultSwitch.enabled = YES;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

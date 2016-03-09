@@ -21,6 +21,8 @@
     NSTimer *_autoScrollTimer;
     
     UITapGestureRecognizer *_tap;
+    
+    BOOL isAutoScroll;
 }
 
 @end
@@ -40,7 +42,7 @@
         _scrollView.contentSize = CGSizeMake(_viewWidth * 3, 0);
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
-        _scrollView.backgroundColor = [UIColor blackColor];
+        _scrollView.backgroundColor = [UIColor whiteColor];
         [self addSubview:_scrollView];
         
         //设置分页
@@ -62,7 +64,10 @@
 -(void)handleTap:(UITapGestureRecognizer*)sender
 {
     if ([_delegate respondsToSelector:@selector(didClickPage:atIndex:)]) {
-        [_delegate didClickPage:self atIndex:_currentPage+1];
+        [_delegate didClickPage:self atIndex:_currentPage];
+    }
+    if ([_delegate respondsToSelector:@selector(touchPage:)]) {
+        [_delegate touchPage:_currentPage];
     }
 }
 
@@ -121,11 +126,13 @@
 #pragma mark scrollview停止滑动
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    //手动滑动时候暂停自动替换
-    [_autoScrollTimer invalidate];
-    _autoScrollTimer = nil;
-    _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(autoShowNextImage) userInfo:nil repeats:YES];
-    
+    if(isAutoScroll){
+        //手动滑动时候暂停自动替换
+        [_autoScrollTimer invalidate];
+        _autoScrollTimer = nil;
+        _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(autoShowNextImage) userInfo:nil repeats:YES];
+    }
+
     //得到当前页数
     float x = _scrollView.contentOffset.x;
     
@@ -152,17 +159,13 @@
 #pragma mark 自动滚动
 -(void)shouldAutoShow:(BOOL)shouldStart
 {
+    isAutoScroll = shouldStart;
     if (shouldStart)  //开启自动翻页
     {
         if (!_autoScrollTimer) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(autoShowNextImage) userInfo:nil repeats:YES];
             });
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.00001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                _autoScrollTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(autoShowNextImage) userInfo:nil repeats:YES];
-//            });
-            
-            
         }
     }
     else   //关闭自动翻页

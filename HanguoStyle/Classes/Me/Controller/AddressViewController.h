@@ -6,8 +6,14 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface AddressViewController : UIViewController
-
+#import "AddressData.h"
+#import "BaseViewController.h"
+@protocol AddressViewControllerDelegate <NSObject>
+//回传给订单页面的地址信息
+-(void)backAddressData:(AddressData *)addressData;
+@end
+@interface AddressViewController : BaseViewController
+@property (weak,nonatomic) id <AddressViewControllerDelegate> delegate;
+@property(nonatomic) NSString * addId;
+@property(nonatomic) NSString * comeFrom;
 @end

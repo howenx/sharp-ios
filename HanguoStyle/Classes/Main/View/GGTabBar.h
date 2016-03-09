@@ -15,6 +15,6 @@
 @end
 
 @interface GGTabBar : UIView
--(void)addTabBarItem:(UITabBarItem *)item;
+-(void)addTabBarItem:(UITabBarItem *)item andController:(NSString* )controller;
 @property (nonatomic,weak)id<GGTabBarDelegate> delegate;
 @end

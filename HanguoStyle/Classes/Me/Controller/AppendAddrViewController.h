@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "AddressData.h"
-@interface AppendAddrViewController : UIViewController
+#import "BaseViewController.h"
+@interface AppendAddrViewController : BaseViewController
 @property (nonatomic, weak) AddressData * data;
 @end

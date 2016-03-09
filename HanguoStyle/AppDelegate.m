@@ -12,14 +12,34 @@
 #import "GGTabBarViewController.h"
 #import "HSGlobal.h"
 #import "InitAppDelegate.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialSinaHandler.h"
+#import "MiPwdView.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
 
 @implementation AppDelegate
-
-
+-(void) umConfig{
+    [UMSocialData setAppKey:@"567bb26867e58e3f670002fd"];
+    [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler setQQWithAppId:@"1104059047" appKey:@"aetDfVl3ae47GrkD" url:@"http://www.drama.wang"];
+    
+    [UMSocialSinaHandler openSSOWithRedirectURL:nil];
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self umConfig];
+    
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定
     NSLog(@"+++++++%@", NSHomeDirectory());
     application.statusBarHidden = NO;
@@ -27,6 +47,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
+
     InitAppDelegate * initDale = [InitAppDelegate new];
     //判断用户token是否过期，或者将要过期
     NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
@@ -40,15 +61,15 @@
             self.window.rootViewController = tabBar;
 //            LoginViewController * login = [[LoginViewController alloc]init];
 //            self.window.rootViewController = login;
-        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录或者刷新登录
+        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录
 //            LoginViewController * login = [[LoginViewController alloc]init];
 //            self.window.rootViewController = login;
             //失效后第一次打开app删除购物车
-            NSString * haveLoseTokenOnce = [[NSUserDefaults standardUserDefaults]objectForKey:@"haveLoseTokenOnce"];
-            if([@"Y" isEqualToString:haveLoseTokenOnce]){
-                [[NSUserDefaults standardUserDefaults]setObject:@"N" forKey:@"haveLoseTokenOnce"];
-                [initDale deleteCart];
-            }
+//            NSString * haveLoseTokenOnce = [[NSUserDefaults standardUserDefaults]objectForKey:@"haveLoseTokenOnce"];
+//            if([@"Y" isEqualToString:haveLoseTokenOnce]){
+//                [[NSUserDefaults standardUserDefaults]setObject:@"N" forKey:@"haveLoseTokenOnce"];
+//                [initDale deleteCart];
+//            }
             GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
             self.window.rootViewController = tabBar;
         }
@@ -59,12 +80,11 @@
     }
     
     [self.window makeKeyAndVisible];
-    //判断滑动图是否出现过，第一次调用时“isScrollViewAppear” 这个key 对应的值是nil，会进入if中
+        //判断滑动图是否出现过，第一次调用时“isScrollViewAppear” 这个key 对应的值是nil，会进入if中
     if (![@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
         
         [self showScrollView];//显示滑动图
     }
-    
     return YES;
 }
 -(void) showScrollView{
@@ -95,7 +115,7 @@
     }
     
     //初始化 UIPageControl 和 _scrollView 显示在 同一个页面中
-    UIPageControl *pageConteol = [[UIPageControl alloc] initWithFrame:CGRectMake(140, self.window.frame.size.height - 60, 50, 40)];
+    UIPageControl *pageConteol = [[UIPageControl alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-50)/2, GGUISCREENHEIGHT - 60, 50, 40)];
     pageConteol.numberOfPages = 4;//设置pageConteol 的page 和 _scrollView 上的图片一样多
     pageConteol.tag = 201;
     
@@ -143,7 +163,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:@"YES" forKey:@"isScrollViewAppear"];
 }
-
+//设置app只能竖屏
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -157,13 +181,18 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
-
+//当应用程序全新启动，或者在后台转到前台，完全激活时，都会调用这个方法
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+    NSString * str = pboard.string;
+    if(str.length>9 && [[str substringToIndex:9]isEqualToString:@"KAKAO-HMM"]){
+        [[MiPwdView alloc]initWithDetail:str];
+    }
+    pboard.string = @"";
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 @end

@@ -6,9 +6,8 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface GoodsViewController : UIViewController
+#import "BaseViewController.h"
+@interface GoodsViewController : BaseViewController
 @property (nonatomic) NSURL * url;
 @property (nonatomic) NSMutableArray * data;
 @property (nonatomic,strong)NSMutableArray * scrollArr;

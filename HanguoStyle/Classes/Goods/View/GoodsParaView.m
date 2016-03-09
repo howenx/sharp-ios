@@ -7,7 +7,7 @@
 //
 
 #import "GoodsParaView.h"
-#import "UIView+frame.h"
+
 //view 的高度
 #define gap 40
 @implementation GoodsParaView
@@ -44,7 +44,7 @@
     valueLabel.font = [UIFont systemFontOfSize:10];
     valueLabel.numberOfLines = 1;
     valueLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    valueLabel.textColor = GGColor(254, 99, 108);
+    valueLabel.textColor = GGMainColor;
     valueLabel.text = value;
     [view addSubview:valueLabel];
     

@@ -17,10 +17,12 @@
     if (self) {
         
         
+        self.invAreaNm = [node objectForKey:@"invAreaNm"];
         self.invArea = [node objectForKey:@"invArea"];
         self.invCustoms = [node objectForKey:@"invCustoms"];
+        self.postalStandard = [[node objectForKey:@"postalStandard"]floatValue];
         self.cartDetailArray = [NSMutableArray array];
-        
+        self.selectPostalTaxRate = 0;
         
         NSArray * tags = [node objectForKey:@"carts"];
         for (id tag in tags) {
@@ -32,8 +34,8 @@
             detailData.itemSize = [tag objectForKey:@"itemSize"];
             detailData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
             detailData.state = [tag objectForKey:@"state"];
-            detailData.shipFee = [[tag objectForKey:@"shipFee"]integerValue];
             detailData.invArea = [tag objectForKey:@"invArea"];
+            detailData.invAreaNm = [node objectForKey:@"invAreaNm"];
             detailData.restrictAmount = [[tag objectForKey:@"restrictAmount"]integerValue];
             detailData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
             detailData.invImg = [tag objectForKey:@"invImg"];
@@ -42,6 +44,15 @@
             detailData.cartDelUrl = [tag objectForKey:@"cartDelUrl"];
             detailData.invCustoms = [tag objectForKey:@"invCustoms"];
             detailData.postalTaxRate = [tag objectForKey:@"postalTaxRate"];
+            detailData.skuType = [tag objectForKey:@"skuType"];
+            
+            detailData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
+            
+            
+            
+            if([detailData.state isEqualToString:@"G"]){
+                self.selectPostalTaxRate = self.selectPostalTaxRate + detailData.itemPrice * detailData.amount * [detailData.postalTaxRate intValue] * 0.01;
+            }
             [self.cartDetailArray addObject:detailData];
         }
     }

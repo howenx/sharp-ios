@@ -14,4 +14,8 @@
 - (float) widthWithFont: (UIFont *)font;
 + (NSString *)md5:(NSString *)str;
 + (BOOL) isBlankString:(NSString *)string;
++ (BOOL) isNumAndLetterAndChinese:(NSString *)string;
++ (BOOL) isNum:(NSString *)string;
++ (BOOL)isNumAndLetter:(NSString *)string;
++ (BOOL) isNSNull:(NSString *)string;
 @end

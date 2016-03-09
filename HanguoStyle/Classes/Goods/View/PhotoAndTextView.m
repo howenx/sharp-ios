@@ -7,8 +7,7 @@
 //
 
 #import "PhotoAndTextView.h"
-#import "HSGlobal.h"
-#import "NSString+GG.h"
+
 @implementation PhotoAndTextView
 
 -(UIView *) createPhotoTextView :(NSArray *)array andNotice :(NSString *)notice  {
@@ -17,11 +16,11 @@
     if(![NSString isBlankString:notice]){
         UIView * noticeView = [[UIView alloc]init];
         UILabel * label = [[UILabel alloc]init];
-        label.textColor = GGColor(254, 99, 108);
+        label.textColor = GGMainColor;
         label.font = [UIFont systemFontOfSize:11];
         label.text = notice;
         label.numberOfLines = 0;
-        CGSize size = [HSGlobal getSize:notice Font:11 Width:GGUISCREENWIDTH-20 Height:800];
+        CGSize size = [PublicMethod getSize:notice Font:11 Width:GGUISCREENWIDTH-20 Height:800];
         label.frame = CGRectMake(10, 20, GGUISCREENWIDTH-20, size.height);
         noticeView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, size.height + 40);
         noticeView.backgroundColor = GGColor(250, 250, 250);

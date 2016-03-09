@@ -6,16 +6,23 @@
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseView.h"
 #import "CartData.h"
 @protocol CartCellDelegate <NSObject>
 
 //登陆或者未登录状态通知重新刷新数据
 -(void)loadDataNotify;
 //登录状态回传更新数据
--(void)sendUpdateData:(CartDetailData *)data;
+-(void)sendUpdateData:(CartDetailData *)data andJJFlag :(NSString *) jjFlag;
+
+//点击选中按钮回传数据
+-(void)sendSelectData:(CartDetailData *)data;
 //登陆状态回传删除链接
--(void)sendDelUrl:(NSString *)url;
+-(void)sendDelUrl:(CartDetailData *)data;
+
+//点击图片和title时候回调controller，跳到详情页面
+
+-(void)enterDetail:(NSString *)url;
 
 @end
 @interface CartCell : UITableViewCell
@@ -37,5 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *delBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *amountLab;
+
+@property (weak, nonatomic) IBOutlet UILabel *colorAndSizeLab;
 @property (nonatomic, weak) CartDetailData * data;
 @end
