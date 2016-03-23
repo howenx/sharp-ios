@@ -56,10 +56,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tableView.scrollsToTop = YES;
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
     self.navigationItem.title = @"支付";
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self loadBasic];
+    [self createFootView];
+
+    
+}
+
+
+-(void) loadBasic{
     bottom = 0;
     couponBottom = 0;
     rowTwoH = 100;
@@ -72,10 +78,12 @@
     _couponId= @"";
     payTypeId = @"JD";
     sendTimeId = 1;
+    isTimeEdit = NO;
+    isPayTypeEdit = NO;
+    isCouponEdit = NO;
     
-    [self createFootView];
-    [GiFHUD dismiss];
-    
+
+
 }
 -(void) createFootView{
     _payLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH/2, _footView.height)];
@@ -110,8 +118,7 @@
         [hud hide:YES afterDelay:1];
         return;
     }
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
+    
     NSMutableDictionary * lastDict = [NSMutableDictionary dictionary];
     [lastDict setObject: _mutArray forKey:@"settleDTOs"];
     [lastDict setObject: [NSNumber numberWithInt:self.orderData.addressData.addId.intValue] forKey:@"addressId"];
@@ -125,6 +132,14 @@
     
     NSString * urlString =[HSGlobal sendOrderInfo];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager POST:urlString  parameters:lastDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         
@@ -135,6 +150,7 @@
         if(code == 200){
            long orderId = [[object objectForKey:@"orderId"]longValue];
             PayViewController * pay = [[PayViewController alloc]init];
+            pay.payType = _orderType;
             pay.orderId = orderId;
             
             [self.navigationController pushViewController:pay animated:YES];
@@ -147,7 +163,7 @@
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:1];
         }
-         [GiFHUD dismiss];
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [GiFHUD dismiss];
         NSLog(@"Error: %@", error);
@@ -315,7 +331,8 @@
 //代理方法
 -(void)backAddressData:(AddressData *)addressData{
     self.orderData.addressData = addressData;
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self updatePageData];
+
 }
 
 -(void)sendTimeFlag:(NSString *)timeFlag{
@@ -340,4 +357,79 @@
         _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]-[couponFlag floatValue]];
     }
 }
+
+
+- (void)updatePageData {
+
+        
+        NSMutableDictionary * lastDict = [NSMutableDictionary dictionary];
+        [lastDict setObject: _mutArray forKey:@"settleDTOs"];
+        [lastDict setObject: [NSNumber numberWithInt:self.orderData.addressData.addId.intValue] forKey:@"addressId"];
+        [lastDict setObject: @"" forKey:@"couponId"];
+        [lastDict setObject: @"" forKey:@"clientIp"];
+        [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+        [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
+        [lastDict setObject: @"" forKey:@"orderDesc"];
+        [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
+        [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
+
+            NSString * urlString =[HSGlobal sendCartToOrder];
+            AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+            
+            if (manager ==nil) {
+                return;
+            }
+            [GiFHUD setGifWithImageName:@"hmm.gif"];
+            [GiFHUD show];
+            [manager POST:urlString  parameters:lastDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                
+                NSDictionary * settleDict = [object objectForKey:@"settle"];
+                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+                NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                NSLog(@"message= %@",message);
+                if(code == 200){
+                    OrderData * orderData1 = [[OrderData alloc]initWithJSONNode:settleDict];
+                    for(int i=0; i<orderData1.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1
+                        for(int j = 0; j < _orderData.singleCustomsArray.count;j++){
+                            if([((OrderDetailData *)_orderData.singleCustomsArray[j]).invAreaNm isEqualToString:((OrderDetailData *)orderData1.singleCustomsArray[i]).invAreaNm]){
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).invCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).invCustoms;
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).portalSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).portalSingleCustomsFee;
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).shipSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).shipSingleCustomsFee;
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factPortalFeeSingleCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factPortalFeeSingleCustoms;
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).singleCustomsSumFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).singleCustomsSumFee;
+                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factSingleCustomsShipFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factSingleCustomsShipFee;
+
+                            }
+                        }
+                    }
+                    _orderData.shipFee = orderData1.shipFee;
+                    _orderData.factPortalFee = orderData1.factPortalFee;
+                    _orderData.portalFee = orderData1.portalFee;
+                    _orderData.factShipFee = orderData1.factShipFee;
+                    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]];
+                    [self loadBasic];
+                    [_tableView reloadData];
+                    
+
+                }else{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelText = message;
+                    hud.labelFont = [UIFont systemFontOfSize:11];
+                    hud.margin = 10.f;
+                    hud.removeFromSuperViewOnHide = YES;
+                    [hud hide:YES afterDelay:1];
+                }
+                [GiFHUD dismiss];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [GiFHUD dismiss];
+                NSLog(@"Error: %@", error);
+                [PublicMethod printAlert:@"下订单失败"];
+            }];
+
+}
+
+
+
 @end

@@ -132,7 +132,7 @@
     }
     NSString * urlString =[HSGlobal checkRegist];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneLab.text,@"phone",nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneLab.text,@"phone",@"-1",@"code",nil];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];

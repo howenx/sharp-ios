@@ -74,7 +74,7 @@
 @property (nonatomic) NSString * postalStandard;
 @property (nonatomic) NSString * invAreaNm;
 @property (nonatomic) NSInteger collectCount;
-@property (nonatomic) NSInteger  browseCount;
+//@property (nonatomic) NSInteger  browseCount;
 @property (nonatomic) NSInteger  soldAmount;//已售
 @property (nonatomic) NSString * invImg;
 @property (nonatomic) NSString * invPrice;

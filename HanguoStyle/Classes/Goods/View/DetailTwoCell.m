@@ -37,7 +37,7 @@
     
     //绘制脚步view
     UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, lastSizeBtn.frame.origin.y + lastSizeBtn.frame.size.height + 10, GGUISCREENWIDTH, 8)];
-    footView.backgroundColor = GGColor(234, 234, 234);
+    footView.backgroundColor = GGColor(240, 240, 240);
     [self.contentView addSubview:footView];
     
     if([self.delegate respondsToSelector:@selector(getTwoCellH:)]){
@@ -74,8 +74,10 @@
         //当进入页面选中的颜色或者尺寸和列表里面相同的时候就把这个按钮变红
         if(((SizeData *)array[i]).orMasterInv){
             _sizeName = ((SizeData *)array[i]).itemSize;
-            [button setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
-            [button.layer setBorderColor:[UIColor redColor].CGColor];
+            if([state isEqualToString:@"Y"]){//非正常状态，按钮不让点击
+                [button setTitleColor:GGMainColor forState:UIControlStateNormal];
+                [button.layer setBorderColor:GGMainColor.CGColor];
+            }
         }
         CGSize size  = [PublicMethod getSize:name Font:11 Width:GGUISCREENWIDTH-20-20 Height:20];
         

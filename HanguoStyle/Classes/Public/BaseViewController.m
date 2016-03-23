@@ -13,7 +13,9 @@
 @end
 
 @implementation BaseViewController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [self.navigationController.navigationBar setAlpha:1];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

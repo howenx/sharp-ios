@@ -10,6 +10,8 @@
 #import "UIBarButtonItem+GG.h"
 #import "MyOrderViewController.h"
 #import "PinDetailViewController.h"
+#import "ChooseTeamViewController.h"
+
 @interface PayViewController ()<UIAlertViewDelegate,UIWebViewDelegate>
 {
     UIWebView * webView;
@@ -30,13 +32,14 @@
     [GiFHUD dismiss];
 }
 -(void)backViewController{
-    if([self.payType isEqualToString:@"normal"]){
+    if([self.payType isEqualToString:@"item"]){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认要离开收银台" message:@"下单后24小时订单将被取消，请尽快完成支付" delegate:self cancelButtonTitle:@"继续支付" otherButtonTitles:@"确定离开", nil];
         
         [alertView show];
     }else{
-//        [webView goBack];
-        [self.navigationController popViewControllerAnimated:YES];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认要离开收银台" message:@"便宜商品不多了，三思而后离开哦" delegate:self cancelButtonTitle:@"继续支付" otherButtonTitles:@"确定离开", nil];
+        [alertView show];
+        
     }
     
     
@@ -44,8 +47,22 @@
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        MyOrderViewController * myOrder = [[MyOrderViewController alloc]init];
-        [self.navigationController pushViewController:myOrder animated:YES];
+        if([self.payType isEqualToString:@"item"]){
+            MyOrderViewController * myOrder = [[MyOrderViewController alloc]init];
+            [self.navigationController pushViewController:myOrder animated:YES];
+        }else{
+            for (UIViewController *temp in self.navigationController.viewControllers) {
+                if ([temp isKindOfClass:[ChooseTeamViewController class]]) {
+                    [self.navigationController popToViewController:temp animated:YES];
+                    break;
+                }else if ([temp isKindOfClass:[PinDetailViewController class]]){
+                    [self.navigationController popToViewController:temp animated:YES];
+                     break;
+                }
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+        }
+        
     }
 }
 -(void)createWebView{
@@ -57,7 +74,7 @@
     NSString * userToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
     [mutableRequest addValue:userToken forHTTPHeaderField:@"id-token"];
-    //3.把值覆给request
+    //3.把值覆给request4
     request = [mutableRequest copy];
     [self.view addSubview: webView];
     [webView loadRequest:request];
@@ -82,11 +99,15 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         return false;
     }
-    NSArray *components = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"|"];
-    if ([components count] >1  && [(NSString *)[components objectAtIndex:0] isEqualToString:@"/openPinOrder/"]) {
-        NSString * url = (NSString *)[components objectAtIndex:1];
+    if ([[[request URL] absoluteString] rangeOfString:@"promotion/pin"].location != NSNotFound) {
+    
+//    }
+//    NSArray *components = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"|"];
+//    if ([components count] >1  && [(NSString *)[components objectAtIndex:1] isEqualToString:@"openPinOrder"]) {
+        NSString * url = [[request URL] absoluteString];
         PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
         detailVC.url = url;
+        detailVC.isFrom = @"PayViewController";
         [self.navigationController pushViewController:detailVC animated:YES];
         return false;
     }

@@ -64,22 +64,22 @@ NSString *kReachabilityChangedNotification = @"kNetworkReachabilityChangedNotifi
 
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment)
 {
-#if kShouldPrintReachabilityFlags
-
-    NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
-          (flags & kSCNetworkReachabilityFlagsIsWWAN)				? 'W' : '-',
-          (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
-
-          (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)  ? 'C' : '-',
-          (flags & kSCNetworkReachabilityFlagsInterventionRequired) ? 'i' : '-',
-          (flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-',
-          (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
-          (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-',
-          comment
-          );
-#endif
+//#if kShouldPrintReachabilityFlags
+//
+//    NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
+//          (flags & kSCNetworkReachabilityFlagsIsWWAN)				? 'W' : '-',
+//          (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
+//
+//          (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
+//          (flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
+//          (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic)  ? 'C' : '-',
+//          (flags & kSCNetworkReachabilityFlagsInterventionRequired) ? 'i' : '-',
+//          (flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-',
+//          (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
+//          (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-',
+//          comment
+//          );
+//#endif
 }
 
 

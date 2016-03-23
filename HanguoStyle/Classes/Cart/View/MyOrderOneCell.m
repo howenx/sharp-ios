@@ -86,7 +86,7 @@
     
     if([self.contentView viewWithTag:50004] == nil){
         
-        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 70, 0, 50, 50)];
+        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 90, 0, 50, 50)];
         orderStatusLab.font = [UIFont systemFontOfSize:12];
         orderStatusLab.textAlignment = NSTextAlignmentRight;
         orderStatusLab.textColor = [UIColor grayColor];
@@ -121,6 +121,7 @@
         
         //向右箭头
         nextImageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH - 20,15,10,20)];
+        nextImageView.contentMode = UIViewContentModeScaleAspectFit;
         UIImage *image = [UIImage imageNamed:@"icon_more_hui"];
         nextImageView.image = image;
         nextImageView.tag = 50005;
@@ -142,6 +143,7 @@
     if([self.contentView viewWithTag:50007] == nil){
         titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10,10,80,80)];
         titleImageView.tag = 50007;
+        titleImageView.contentMode = UIViewContentModeScaleAspectFit;
         CALayer *layer = [titleImageView layer];
         layer.borderColor = GGColor(240, 240, 240).CGColor;
         layer.borderWidth = 1.0f;

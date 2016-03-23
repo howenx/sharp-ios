@@ -14,6 +14,7 @@
 @property (nonatomic) NSInteger  code;
 @property (copy,nonatomic) NSString * token;
 @property (assign,nonatomic) NSInteger expired;
+@property (nonatomic) NSString * alias;//用户别名，推送用
 
 - (ReturnResult *) initWithJSONNode: (id) node;
 @end

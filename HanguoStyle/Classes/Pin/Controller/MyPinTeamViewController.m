@@ -23,6 +23,7 @@
 @implementation MyPinTeamViewController
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=YES;
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

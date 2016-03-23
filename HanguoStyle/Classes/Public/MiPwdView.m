@@ -55,6 +55,7 @@
         [view addSubview:titleLab];
         
         imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 50, 70, 90)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [view addSubview:imageView];
         [self addSubview:view];
         
@@ -131,20 +132,18 @@
 //        
 //    }
 //    NSLog(@"---------%@",currController);
-    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-    gdViewController.isFromMiPwd = YES;
+
     NSArray  * array= [detailStr componentsSeparatedByString:@","];
     
     if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
         //进入普通商品详情页
         GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-        gdViewController.isFromMiPwd = YES;
-        gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+        gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail/item%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
         [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
     }else if ([detailStr rangeOfString:@"<P>"].location != NSNotFound) {
         //进入拼购商品详情页
         PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-        pinViewController.url = [NSString stringWithFormat:@"%@/comm/pin/detail%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+        pinViewController.url = [NSString stringWithFormat:@"%@/comm/detail/pin%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
 
         [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
     }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
@@ -201,11 +200,11 @@
         if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
             //进入普通商品详情页
 
-            url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+            url = [NSString stringWithFormat:@"%@/comm/detail/item%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
 
         }else if ([detailStr rangeOfString:@"<P>"].location != NSNotFound) {
             //进入拼购商品详情页
-            url = [NSString stringWithFormat:@"%@/comm/pin/detail%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+            url = [NSString stringWithFormat:@"%@/comm/detail/pin%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
 
         }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
             //进入拼团详情页

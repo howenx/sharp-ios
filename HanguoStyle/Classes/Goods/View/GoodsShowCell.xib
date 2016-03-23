@@ -33,7 +33,7 @@
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="iGL-iW-jAJ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieO-vz-WmO" userLabel="money">
@@ -43,7 +43,7 @@
                             <constraint firstAttribute="width" constant="87" id="Ebr-Aa-w4a"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已售完" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVa-Qk-vxJ">
@@ -78,7 +78,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="rU7-ZT-hiV" firstAttribute="leading" secondItem="WVP-ps-J3I" secondAttribute="leading" constant="2" id="IuC-iB-odU"/>
                             <constraint firstItem="5pe-WY-D7B" firstAttribute="top" secondItem="WVP-ps-J3I" secondAttribute="top" constant="4" id="Jk4-dC-bP4"/>

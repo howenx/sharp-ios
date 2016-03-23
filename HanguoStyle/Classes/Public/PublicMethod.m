@@ -44,7 +44,7 @@
         NSString * loginFlag = [self intervalSinceNow:expiredDate];
         if([@"2" isEqualToString:loginFlag]){//不需要重新登录
             return YES;
-        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录或者刷新登录
+        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录
             return NO;
         }
         else if([@"0" isEqualToString:loginFlag]){//需要刷新登录

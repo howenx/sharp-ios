@@ -17,6 +17,12 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaHandler.h"
 #import "MiPwdView.h"
+#import "JPUSHService.h"
+#import "GoodsShowViewController.h"
+#import "GoodsDetailViewController.h"
+#import "PinGoodsDetailViewController.h"
+#import "PinDetailViewController.h"
+#import "GoodsViewController.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -70,6 +76,8 @@
 //                [[NSUserDefaults standardUserDefaults]setObject:@"N" forKey:@"haveLoseTokenOnce"];
 //                [initDale deleteCart];
 //            }
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
             GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
             self.window.rootViewController = tabBar;
         }
@@ -85,8 +93,41 @@
         
         [self showScrollView];//显示滑动图
     }
+    
+    
+    
+    
+    //*****************极光推送*******************
+    // Required
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [JPUSHService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
+                                                          UIUserNotificationTypeSound |
+                                                          UIUserNotificationTypeAlert)
+                                              categories:nil];
+    } else {
+        //categories 必须为nil
+        [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                          UIRemoteNotificationTypeSound |
+                                                          UIRemoteNotificationTypeAlert)
+                                              categories:nil];
+    }
+#else
+    //categories 必须为nil
+    [JPUSHService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                   UIRemoteNotificationTypeSound |
+                                                   UIRemoteNotificationTypeAlert)
+                                       categories:nil];
+#endif
+    // Required
+    [JPUSHService setupWithOption:launchOptions appKey:@"a81748f2ead4ab0faef89329" channel:@"Publish channel" apsForProduction:0];
+     //*****************极光推送*******************
+
     return YES;
 }
+
+
 -(void) showScrollView{
     
     UIScrollView *_scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -191,8 +232,113 @@
     pboard.string = @"";
 
 }
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    // Required
+    [JPUSHService registerDeviceToken:deviceToken];
+}
 
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    
+    //Optional
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    // Required,For systems with less than or equal to iOS6
+     NSLog(@"收到通知:%@", [self logDic:userInfo]);
+    [JPUSHService handleRemoteNotification:userInfo];
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // IOS 7 Support Required
+     NSLog(@"收到通知:%@", [self logDic:userInfo]);
+    [JPUSHService handleRemoteNotification:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+    NSString * targetType = [userInfo objectForKey:@"targetType"];
+    NSString * url = [userInfo objectForKey:@"url"];
+     UIViewController * controller = [self getCurrentVC];
+    if([targetType isEqualToString:@"T"]){//主题
+        GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
+        gsViewController.navigationItem.title = @"商品展示";
+        //下个页面要跳转的url
+        gsViewController.url = url;
+        [(UINavigationController *)controller pushViewController:gsViewController animated:YES];
+    }else if([targetType isEqualToString:@"D"]){//普通商品详细页面
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = url;
+        [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
+    }else if([targetType isEqualToString:@"P"]){//拼购商品详细页面
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = url;
+        [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
+    }else if([targetType isEqualToString:@"V"]){//拼购结果页面
+        PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
+        detailVC.url = url;
+        [(UINavigationController *)controller pushViewController:detailVC animated:YES];
+    }else if([targetType isEqualToString:@"A"]){//活动页面
+        GoodsViewController * gContro = [[GoodsViewController alloc]init];
+        [(UINavigationController *)controller pushViewController:gContro animated:YES];
+    } else if([targetType isEqualToString:@"U"]){//一个促销活动的链接
+        GoodsViewController * gContro = [[GoodsViewController alloc]init];
+        [(UINavigationController *)controller pushViewController:gContro animated:YES];
+    }
+
+
+}
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+- (NSString *)logDic:(NSDictionary *)dic {
+    if (![dic count]) {
+        return nil;
+    }
+    NSString *tempStr1 =
+    [[dic description] stringByReplacingOccurrencesOfString:@"\\u"
+                                                 withString:@"\\U"];
+    NSString *tempStr2 =
+    [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 =
+    [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *str =
+    [NSPropertyListSerialization propertyListFromData:tempData
+                                     mutabilityOption:NSPropertyListImmutable
+                                               format:NULL
+                                     errorDescription:NULL];
+    return str;
+}
+
+//获取当前屏幕显示的viewcontroller
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *result = nil;
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    UIView *frontView = [[window subviews] objectAtIndex:0];
+    id nextResponder = [frontView nextResponder];
+    
+    if ([nextResponder isKindOfClass:[UIViewController class]])
+        result = nextResponder;
+    else
+        result = window.rootViewController;
+    
+    UITabBarController *tab = (UITabBarController *)result;
+    return tab.selectedViewController;
 }
 @end

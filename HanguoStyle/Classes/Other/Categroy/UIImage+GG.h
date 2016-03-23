@@ -14,4 +14,7 @@
  *  返回一张自由拉伸的图片
  */
 + (UIImage *)resizedImageWithName:(NSString *)name;
+
+//UIColor 转UIImage
++ (UIImage*) createImageWithColor: (UIColor*) color;
 @end

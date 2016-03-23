@@ -15,6 +15,7 @@
 #import "CartData.h"
 #import "ToRegistViewController.h"
 #import "ToLosePwdViewController.h"
+
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     FMDatabase * database;
@@ -37,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBarController.tabBar.hidden=YES;
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.navigationItem.title = @"登录";
     database = [PublicMethod shareDatabase];
     [self registerForKeyboardNotifications];
@@ -288,7 +290,7 @@
 -(void)getData{
     NSString * urlString =[HSGlobal loginUrl];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"name",_pwd.text,@"password",sendCode,@"code",nil];
+     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",nil];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -296,6 +298,9 @@
         ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
 
         if(returnResult.code == 200){
+//           //给极光发送别名
+            [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+
             //把用户账号存到内存中
             [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];

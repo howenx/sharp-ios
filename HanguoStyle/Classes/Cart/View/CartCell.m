@@ -45,6 +45,7 @@
     self.jiaBtn.enabled=YES;
     self.stateBtn.alpha=1;
     self.jiaBtn.alpha=1;
+    self.stateBtn.imageEdgeInsets = UIEdgeInsetsMake(50,5,50,5);
     if([@"I" isEqualToString: data.state]){//未选中
         [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
     }else if([@"G" isEqualToString: data.state]){//选中
@@ -215,6 +216,7 @@
         NSString * checkUrl = [HSGlobal checkAddCartAmount];
         checkUrl = [NSString stringWithFormat:@"%@/%ld/%ld",checkUrl,(long)_data.skuId,amount+1];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
+        
         [GiFHUD setGifWithImageName:@"hmm.gif"];
         [GiFHUD show];
         

@@ -13,6 +13,7 @@
 #import "PayViewController.h"
 #import "MyOrderMoreCell.h"
 #import "OrderDetailViewController.h"
+#import "GoodsDetailViewController.h"
 @interface MyOrderViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,MyOrderOneCellDelegate,MyOrderMoreCellDelegate>
 {
     long selectOrderId;//被选中进到详情页的订单
@@ -34,6 +35,7 @@
 @implementation MyOrderViewController
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=YES;
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     [self requestData];
 }
 - (void)viewDidLoad {
@@ -306,7 +308,12 @@
     [super didReceiveMemoryWarning];
 }
 -(void)backViewController{
-    
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[GoodsDetailViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+    }
     [self.navigationController popToRootViewControllerAnimated:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
 }
@@ -368,8 +375,14 @@
 -(void)checkOrder:(MyOrderData *)orderData{
     NSString * urlString =  [NSString stringWithFormat:@"%@%ld",[HSGlobal checkOrderUrl],orderData.orderInfo.orderId];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-    
-
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
 
     [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
@@ -380,6 +393,7 @@
         if(code == 200){
             PayViewController * pay = [[PayViewController alloc]init];
             pay.orderId = orderData.orderInfo.orderId;
+            pay.payType = @"item";
             [self.navigationController pushViewController:pay animated:YES];
             
         }else{
@@ -392,7 +406,7 @@
             [hud hide:YES afterDelay:1];
             [self requestData];
         }
-        
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         [GiFHUD dismiss];

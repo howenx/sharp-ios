@@ -23,7 +23,7 @@
 //        self.themeId = [node objectForKey:@"themeId"];
         self.itemId = [node objectForKey:@"itemId"];
         self.itemUrl = [node objectForKey:@"itemUrl"];
-        self.itemUrlAndroid = [node objectForKey:@"itemUrlAndroid"];
+
         NSDictionary * imageDict = [[node objectForKey:@"itemImg"] objectFromJSONString];
         self.itemImg = [imageDict objectForKey:@"url"];
         self.width = [[imageDict objectForKey:@"width"]floatValue];

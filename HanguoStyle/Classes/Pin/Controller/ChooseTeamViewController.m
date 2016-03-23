@@ -124,7 +124,7 @@
             _pinTieredId = ((PinTieredPricesData *)pinArray[i]).pinTieredId;
             _pinPrice = ((PinTieredPricesData *)pinArray[i]).price;
             //团长优惠券为0的时候，页面不显示团长优惠
-            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0) {
+            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0 || ((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0) {
                 _chooseHeight = 20;
             }
             
@@ -163,7 +163,7 @@
             tjImageView.image = [UIImage imageNamed:@"icon_tuijian"];
             
             [teamView addSubview:tjImageView];
-            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0){
+            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0 ||((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0){
                 //惠文字图片
                 UIImageView * huiImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,32, 15, 15)];
                 huiImageView.image = [UIImage imageNamed:@"hmm_hui"];
@@ -175,7 +175,14 @@
                 masterCouponLabel.font = [UIFont systemFontOfSize:11];
                 masterCouponLabel.textColor = [UIColor grayColor];
                 masterCouponLabel.numberOfLines = 1;
-                masterCouponLabel.text = [NSString stringWithFormat:@"团长特惠：赠%.f元优惠券",((PinTieredPricesData *)pinArray[i]).masterCoupon];
+                NSString * masterTHStr=@"团长特惠：";
+                if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0){
+                    masterTHStr = [NSString stringWithFormat:@"%@赠%.f元优惠券 ",masterTHStr,((PinTieredPricesData *)pinArray[i]).masterCoupon];
+                }
+                if (((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0){
+                    masterTHStr = [NSString stringWithFormat:@"%@开团立减%.f元",masterTHStr,((PinTieredPricesData *)pinArray[i]).masterMinPrice];
+                }
+                masterCouponLabel.text = masterTHStr;
                 
                 [teamView addSubview:masterCouponLabel];
             }
@@ -264,7 +271,7 @@
             _pinPrice = ((PinTieredPricesData *)pinArray[i]).price;
             [_sureButton setTitle:[NSString stringWithFormat:@"立即开团(%@元/%ld人)",price,(long)personNum] forState:UIControlStateNormal];
             
-            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0){
+            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0 || ((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0){
                 _chooseHeight = 20;
             }
             
@@ -306,7 +313,7 @@
                 
                 [teamView addSubview:tjImageView];
             }
-            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0){
+            if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0 || ((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0){
                 //惠文字图片
                 UIImageView * huiImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,32, 15, 15)];
                 huiImageView.image = [UIImage imageNamed:@"hmm_hui"];
@@ -318,7 +325,14 @@
                 masterCouponLabel.font = [UIFont systemFontOfSize:11];
                 masterCouponLabel.textColor = [UIColor grayColor];
                 masterCouponLabel.numberOfLines = 1;
-                masterCouponLabel.text = [NSString stringWithFormat:@"团长特惠：赠%.f元优惠券",((PinTieredPricesData *)pinArray[i]).masterCoupon];
+                NSString * masterTHStr=@"团长特惠：";
+                if (((PinTieredPricesData *)pinArray[i]).masterCoupon != 0){
+                    masterTHStr = [NSString stringWithFormat:@"%@赠%.f元优惠券 ",masterTHStr,((PinTieredPricesData *)pinArray[i]).masterCoupon];
+                }
+                if (((PinTieredPricesData *)pinArray[i]).masterMinPrice != 0){
+                    masterTHStr = [NSString stringWithFormat:@"%@开团立减%.f元",masterTHStr,((PinTieredPricesData *)pinArray[i]).masterMinPrice];
+                }
+                masterCouponLabel.text = masterTHStr;
                 
                 [teamView addSubview:masterCouponLabel];
 
@@ -438,7 +452,7 @@
             }
             
             OrderViewController * order = [[OrderViewController alloc]init];
-            order.pinType = _data.skuType;
+            order.orderType = _data.skuType;
             order.orderData = orderData;
             order.mutArray = mutArray;
             order.buyNow = 1;

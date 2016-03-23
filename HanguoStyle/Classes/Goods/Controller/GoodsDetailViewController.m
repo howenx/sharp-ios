@@ -23,6 +23,7 @@
 #import "MWPhotoBrowser.h"
 #import "RecommendGoodsView.h"
 
+
 @interface GoodsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ThreeViewCellDelegate,MBProgressHUDDelegate,DetailTwoCellDelegate,DetailThreeCellDelegate,DetaileOneCellDelegate,MWPhotoBrowserDelegate>
 {
 
@@ -104,14 +105,10 @@
     self.navigationItem.title = @"商品详情";
 
     
-    if(_isFromMiPwd){
-        _cartButton.hidden = YES;
-        _cntLabel.hidden = YES;
-    }else{
-        _cartButton.hidden = NO;
-        _cntLabel.hidden = NO;
-        [self makeCartUI];
-    }
+
+    _cartButton.hidden = NO;
+    _cntLabel.hidden = NO;
+    [self makeCartUI];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self prepareDataSource];
@@ -168,6 +165,9 @@
         NSString * url = [HSGlobal queryCustNum];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
         if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
             return;
         }
         [GiFHUD setGifWithImageName:@"hmm.gif"];
@@ -258,13 +258,20 @@
     oneViewAlreadyLoad = true;
     twoViewAlreadyLoad = true;
     threeViewAlreadyLoad = true;
-    if(![_detailData.state isEqualToString:@"Y"]){
+    NSString* status = @"other" ;
+    for(SizeData * sizeData in _detailData.sizeArray){
+        if([sizeData.state isEqualToString:@"Y"]){
+            status = @"Y";
+        }
+    }
+
+    if(![status isEqualToString:@"Y"]){
         _buyNowButton.enabled = NO;
         _addCartButton.enabled = NO;
         _buyNowButton.alpha = 0.4;
         _addCartButton.alpha = 0.4;
-    }
-    if(![_detailData.state isEqualToString:@"Y"] && ![_detailData.state isEqualToString:@"P"]){
+        
+        
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 60, GGUISCREENWIDTH, 20) ;
         otherPinGoodsBtn.backgroundColor = GGMainColor;
@@ -510,9 +517,9 @@
             break;
         }
     }
-    NSArray  * array= [copyUrl componentsSeparatedByString:@"comm/detail"];
+    NSArray  * array= [copyUrl componentsSeparatedByString:@"comm/detail/item"];
     if(array.count == 2){
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【 %@】,%@, —🔑 M令 🔑",_detailData.itemTitle,array[1]];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【 %@】,%@,－🔑 M令 🔑",_detailData.itemTitle,array[1]];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
@@ -526,7 +533,7 @@
 {
     if((section==3 && numberOfSection == 4) || (section ==2 && numberOfSection == 3)){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = [UIColor whiteColor];
+        barView.backgroundColor = GGColor(240, 240, 240);
         //    barView.backgroundColor = [UIColor whiteColor];
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
@@ -611,6 +618,7 @@
     }
     if(indexPath.section == 1){
         return twoCellHeight;
+        
     }
 
     if(indexPath.section == 2 && numberOfSection == 4){
@@ -751,7 +759,10 @@
             NSString * checkUrl = [HSGlobal checkAddCartAmount];
             checkUrl = [NSString stringWithFormat:@"%@/%d/%d",checkUrl,[sizeId intValue],amount+1];
             AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
-            if (manager ==nil) {
+            if(manager == nil){
+                NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+                noNetView.delegate = self;
+                [self.view addSubview:noNetView];
                 return;
             }
             [GiFHUD setGifWithImageName:@"hmm.gif"];
@@ -834,7 +845,10 @@
     
     NSString * urlString;
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-    if (manager ==nil) {
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
         return;
     }
     [GiFHUD setGifWithImageName:@"hmm.gif"];
@@ -951,7 +965,7 @@
                 NSLog(@"message= %@",message);
                 if(code == 200){
                     OrderData * orderData = [[OrderData alloc]initWithJSONNode:settleDict];
-                    for(int i=0; i<orderData.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1
+                    for(int i=0; i<orderData.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1,singleCustomsArray代表多个保税区
 
                         OrderDetailData * odData = orderData.singleCustomsArray[i];
                         CartDetailData * cdData =[[CartDetailData alloc]init];
@@ -964,7 +978,7 @@
                     }
                     
                     OrderViewController * order = [[OrderViewController alloc]init];
-                    order.pinType = @"item";
+                    order.orderType = @"item";
                     order.orderData = orderData;
                     order.mutArray = mutArray;
                     order.buyNow = 1;
@@ -993,13 +1007,19 @@
 }
 
 - (IBAction)enterShoppingCart:(UIButton *)sender {
-    if(_isFromCart){
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
-    }else{
+    BOOL orJumpTab = NO;
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[CartViewController class]]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+            orJumpTab = YES;
+            break;
+        }
+    }
+    
+    if(!orJumpTab){
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"cart",@"jumpKey", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
-
     }
 }
 -(void)startAnimation
@@ -1033,22 +1053,22 @@
     animation.path = _path.CGPath;
     animation.rotationMode = kCAAnimationRotateAuto;
     CABasicAnimation *expandAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    expandAnimation.duration = 0.5f;
+    expandAnimation.duration = 0.3f;
     expandAnimation.fromValue = [NSNumber numberWithFloat:1];
     expandAnimation.toValue = [NSNumber numberWithFloat:2.0f];
     expandAnimation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     
     CABasicAnimation *narrowAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    narrowAnimation.beginTime = 0.5;
+    narrowAnimation.beginTime = 0.3;
     narrowAnimation.fromValue = [NSNumber numberWithFloat:2.0f];
-    narrowAnimation.duration = 1.5f;
+    narrowAnimation.duration = 0.3f;
     narrowAnimation.toValue = [NSNumber numberWithFloat:0.5f];
     
     narrowAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     
     CAAnimationGroup *groups = [CAAnimationGroup animation];
     groups.animations = @[animation,expandAnimation,narrowAnimation];
-    groups.duration = 2.0f;
+    groups.duration = 0.6f;
     groups.removedOnCompletion=NO;
     groups.fillMode=kCAFillModeForwards;
     groups.delegate = self;
@@ -1067,12 +1087,12 @@
             _cntLabel.hidden = NO;
         }
         CATransition *animation = [CATransition animation];
-        animation.duration = 0.25f;
+        animation.duration = 0.2f;
         _cntLabel.text = [NSString stringWithFormat:@"%ld",(long)_cnt];
         [_cntLabel.layer addAnimation:animation forKey:nil];
         
         CABasicAnimation *shakeAnimation = [CABasicAnimation animationWithKeyPath:@"transform.translation.y"];
-        shakeAnimation.duration = 0.25f;
+        shakeAnimation.duration = 0.2f;
         shakeAnimation.fromValue = [NSNumber numberWithFloat:-5];
         shakeAnimation.toValue = [NSNumber numberWithFloat:5];
         shakeAnimation.autoreverses = YES;

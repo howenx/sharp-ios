@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     _scrollView.scrollsToTop = NO;
     self.navigationItem.title = @"优惠券";

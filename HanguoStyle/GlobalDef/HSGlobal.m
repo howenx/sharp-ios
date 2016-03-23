@@ -8,17 +8,25 @@
 
 #import "HSGlobal.h"
 
+//#define SERVERY1 @"http://172.28.3.78:9003"
+//#define SERVERY2 @"http://172.28.3.78:9001"
+//#define SERVERY3 @"http://172.28.3.78:9004"
+//#define SERVERY4 @"http://172.28.3.78:9005"
 
+//#define SERVERY1 @"http://172.28.3.66:9003"
+//#define SERVERY2 @"http://172.28.3.66:9001"
+//#define SERVERY3 @"http://172.28.3.66:9004"
+//#define SERVERY4 @"http://172.28.3.66:9005"
 
-//#define SERVERY1 @"http://172.28.3.18:9003"
-//#define SERVERY2 @"http://172.28.3.18:9001"
-//#define SERVERY3 @"http://172.28.3.18:9004"
-//#define SERVERY4 @"http://172.28.3.18:9005"
+#define SERVERY1 @"http://172.28.3.18:9003"
+#define SERVERY2 @"http://172.28.3.18:9001"
+#define SERVERY3 @"http://172.28.3.18:9004"
+#define SERVERY4 @"http://172.28.3.18:9005"
 
-#define SERVERY1 @"https://shopping.hanmimei.com"
-#define SERVERY2 @"https://api.hanmimei.com"
-#define SERVERY3 @"https://id.hanmimei.com"
-#define SERVERY4 @"https://promotion.hanmimei.com"
+//#define SERVERY1 @"https://shopping.hanmimei.com"
+//#define SERVERY2 @"https://api.hanmimei.com"
+//#define SERVERY3 @"https://id.hanmimei.com"
+//#define SERVERY4 @"https://promotion.hanmimei.com"
 
 
 //#define SERVERY1 @"http://172.28.3.51:9003"
@@ -177,7 +185,7 @@
 //登陆地址
 + (NSString *) loginUrl
 {
-    NSString * url = [NSString stringWithFormat:@"%@/api/login_user_name",SERVERY3];
+    NSString * url = [NSString stringWithFormat:@"%@/api/login_phone_num",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -205,17 +213,10 @@
 }
 
 
-//注册的时候校验是否已经注册地址
+//注册和找回密码的时候校验是否已经注册地址
 + (NSString *) checkRegist
 {
-    NSString * url = [NSString stringWithFormat:@"%@/reg/verify",SERVERY3];
-    
-    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-//找回密码时候校验是否已经注册地址
-+ (NSString *) checkRegistWhenLose
-{
-    NSString * url = [NSString stringWithFormat:@"%@/reset/verify",SERVERY3];
+    NSString * url = [NSString stringWithFormat:@"%@/api/verify",SERVERY3];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
@@ -262,7 +263,7 @@
 }
 //收藏地址
 + (NSString *) collectUrl{
-    NSString * url = [NSString stringWithFormat:@"%@/client/collect/submit/",SERVERY1];
+    NSString * url = [NSString stringWithFormat:@"%@/client/collect/submit",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }

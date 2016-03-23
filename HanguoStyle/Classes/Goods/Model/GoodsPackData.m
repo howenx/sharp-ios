@@ -58,6 +58,7 @@
             themeData.themeImg = [tagDict objectForKey:@"url"];
             themeData.width = [[tagDict objectForKey:@"width"]floatValue];
             themeData.height = [[tagDict objectForKey:@"height"]floatValue];
+            themeData.type = [theme objectForKey:@"type"];
             [arrayT addObject:themeData];
         }
         

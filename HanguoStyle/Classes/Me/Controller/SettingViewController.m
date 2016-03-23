@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"设置";
     self.view.backgroundColor = GGColor(240, 240, 240);
@@ -57,8 +58,8 @@
     if(![PublicMethod isConnectionAvailable]){
         return;
     }
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"expired"];
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"userToken"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
 //    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"haveLoseTokenOnce"];
     [self.delegate backMeFromSetting];
     [self.navigationController popViewControllerAnimated:YES];

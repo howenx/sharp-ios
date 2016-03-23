@@ -86,8 +86,11 @@
             }
             
             sizeData.shareUrl = [tag objectForKey:@"shareUrl"];
-            sizeData.collectCount = [[tag objectForKey:@"collectCount"]integerValue];
-            sizeData.browseCount = [[tag objectForKey:@"browseCount"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"collectCount"]]){
+                 sizeData.collectCount = [[tag objectForKey:@"collectCount"]integerValue];
+            }
+           
+//            sizeData.browseCount = [[tag objectForKey:@"browseCount"]integerValue];
             sizeData.skuType = [tag objectForKey:@"skuType"];
             sizeData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
             sizeData.startAt = [tag objectForKey:@"startAt"];
@@ -99,7 +102,7 @@
             [self.sizeArray addObject:sizeData];
         }
         self.pushArray = [NSMutableArray array];
-        if(![self.state isEqualToString:@"Y"] && ![self.state isEqualToString:@"P"] ){
+//        if(![self.state isEqualToString:@"Y"] && ![self.state isEqualToString:@"P"] ){
             if (![NSString isNSNull:[node objectForKey:@"push"]]) {
                 NSArray * pushArray = [node objectForKey:@"push"];
                 for(id tag in pushArray){
@@ -108,7 +111,7 @@
                 }
             }
             
-        }
+//        }
 
     }
     return self;

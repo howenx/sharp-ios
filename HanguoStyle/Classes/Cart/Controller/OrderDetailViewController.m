@@ -58,9 +58,7 @@
 }
 //删除或者取消按钮触发方法
 -(void)delOrCancelOrder{
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
-    NSString * urlString;
+        NSString * urlString;
     if(delOrCancelFlag == 1){
         urlString =  [NSString stringWithFormat:@"%@%ld",[HSGlobal delOrderUrl],_orderData.orderInfo.orderId];
     }else if(delOrCancelFlag == 2){
@@ -68,7 +66,15 @@
     }
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
     
-    
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
+
     [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
@@ -466,8 +472,15 @@
     }
     NSString * urlString =  [NSString stringWithFormat:@"%@%ld",[HSGlobal checkOrderUrl],_orderData.orderInfo.orderId];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-    
-    
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
+
     [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
 
@@ -476,6 +489,7 @@
         NSLog(@"message= %@",message);
         if(code == 200){
             PayViewController * pay = [[PayViewController alloc]init];
+            pay.payType = @"item";
             pay.orderId = _orderData.orderInfo.orderId;
             [self.navigationController pushViewController:pay animated:YES];
             
@@ -488,7 +502,7 @@
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:1];
         }
-        
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         [GiFHUD dismiss];

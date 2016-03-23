@@ -69,16 +69,16 @@
                                 <constraint firstAttribute="width" constant="87" id="iwD-Se-mIb"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fp6-zz-uOv">
-                            <rect key="frame" x="10" y="44" width="20" height="22"/>
+                            <rect key="frame" x="10" y="44" width="20" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="36Y-PR-25u"/>
-                                <constraint firstAttribute="height" constant="22" id="u3u-DR-ENo"/>
+                                <constraint firstAttribute="height" constant="20" id="u3u-DR-ENo"/>
                             </constraints>
-                            <state key="normal" image="unselected">
+                            <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -102,12 +102,12 @@
                                 <constraint firstAttribute="width" constant="120" id="TOE-3S-Qu4"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zd2-Lu-uY9">
                             <rect key="frame" x="298" y="48" width="67" height="30"/>
-                            <color key="backgroundColor" red="0.8980392157" green="0.38431372549999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="67" id="AAM-ZQ-wKj"/>
                                 <constraint firstAttribute="height" constant="30" id="aWT-bZ-53t"/>
@@ -182,7 +182,4 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
         </view>
     </objects>
-    <resources>
-        <image name="unselected" width="20" height="20"/>
-    </resources>
 </document>

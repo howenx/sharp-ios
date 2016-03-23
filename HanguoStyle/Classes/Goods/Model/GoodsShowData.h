@@ -40,7 +40,6 @@
 @property (nonatomic) NSInteger collectCount;//商品收藏数
 @property (nonatomic) NSString * state;  // 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
 
-@property (nonatomic) NSString * itemUrlAndroid;//下面图文详情改为webview时，跳的地址
 
 
 @property (nonatomic) NSString * itemType;  //"pin" "item"

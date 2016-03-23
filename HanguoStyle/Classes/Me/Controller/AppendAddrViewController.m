@@ -406,7 +406,14 @@
     
     
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-    
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager POST:url parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
@@ -421,8 +428,9 @@
             [self showHud:@"保存失败"];
         }
 
-
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
         [self showHud:@"数据加载失败"];
         
     }];

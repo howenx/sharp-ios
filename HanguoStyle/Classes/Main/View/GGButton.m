@@ -5,7 +5,7 @@
 //  Created by qianfeng on 15/8/16.
 //  Copyright (c) 2015年 ThirdGroup. All rights reserved.
 //
-#define IWabBarHight 0.6
+#define IWabBarHight 0.4 
 #import "GGButton.h"
 
 @implementation GGButton
@@ -48,7 +48,7 @@
 -(CGRect)imageRectForContentRect:(CGRect)contentRect
 {
     CGFloat x = 0;
-    CGFloat y = 3;
+    CGFloat y = 8;
     CGFloat w = contentRect.size.width;
     CGFloat h = contentRect.size.height * IWabBarHight;
     return  CGRectMake(x, y, w, h);
@@ -62,7 +62,7 @@
     return  CGRectMake(x, y, w, h);
 }
 -(void)setBadge{
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6+10 , 0, 15, 15)];
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6+8 , 2, 15, 15)];
     _cntLabel.textColor = [UIColor redColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont boldSystemFontOfSize:11];

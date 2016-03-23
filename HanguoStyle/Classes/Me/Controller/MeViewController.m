@@ -17,6 +17,7 @@
 #import "MyOrderViewController.h"
 #import "CouponViewController.h"
 #import "MyPinTeamViewController.h"
+#import "MyStoreController.h"
 @interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate,LoginViewDelegate,SettingDelegate>
 {
     MineData * mineData;
@@ -25,7 +26,7 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIButton * titleBtn;
-@property (nonatomic) UIButton * photoBtn;
+@property (nonatomic) UIImageView * photoBtn;
 @property (nonatomic) UIImage *image;
 @property (nonatomic) UIImageView * genderImageView;
 
@@ -35,6 +36,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
+    [self.navigationController setNavigationBarHidden:YES animated:TRUE];
+
     //下面这段逻辑是当上一次进到我的页面的时候是未登录，然后在购物车页面登陆，再次点击我的页面，让他进入到登陆状态
     
     if(!agoIsLogin){
@@ -47,6 +50,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"我的信息";
     [self progessIn];
     
@@ -85,10 +89,13 @@
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSDictionary * node = [object objectForKey:@"userInfo"];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSLog(@"message= %@",message);
-        mineData = [[MineData alloc] initWithJSONNode:node];
+        if(code == 200){
+            mineData = [[MineData alloc] initWithJSONNode:node];
+            [self.tableView reloadData];
+        }
         [self createHeadView];
-        [self.tableView reloadData];
         [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [GiFHUD dismiss];
@@ -98,23 +105,28 @@
 
 
 - (void)createHeadView{
-    UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 170)];
+    UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 200)];
     headView.backgroundColor = GGMainColor;
     //设置头像
-    _photoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _photoBtn.frame = CGRectMake(GGUISCREENWIDTH/2-80/2, 30, 80, 80);
+    _photoBtn = [[UIImageView alloc]init];
+    _photoBtn.frame = CGRectMake(GGUISCREENWIDTH/2-80/2, 60, 80, 80);
 
     
     BOOL isLogin = [PublicMethod checkLogin];
     
     if(isLogin){
-        NSData * data = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:mineData.photo]];
-        _image = [[UIImage alloc]initWithData:data];
+
+//        [_photoBtn sd_setImageWithURL:[NSURL URLWithString:mineData.photo]];
+        [_photoBtn sd_setImageWithURL:[NSURL URLWithString:mineData.photo] placeholderImage:[UIImage imageNamed:@"icon_default_header"]];
+
     }else{
         _image =[UIImage imageNamed:@"icon_default_header"];
+        [_photoBtn setImage:_image];
     }
-    [_photoBtn setImage:_image forState:UIControlStateNormal];
-    [_photoBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    //添加单击手势
+    _photoBtn.userInteractionEnabled=YES;
+    [_photoBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoBtnClick)]];
+
     [_photoBtn.layer setMasksToBounds:YES];
     [_photoBtn.layer setCornerRadius:40.0];
     
@@ -123,7 +135,7 @@
     
     
     UIButton * settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    settingBtn.frame = CGRectMake(GGUISCREENWIDTH-40, 20, 20, 20);
+    settingBtn.frame = CGRectMake(GGUISCREENWIDTH-40, 50, 20, 20);
     [settingBtn setImage:[UIImage imageNamed:@"icon_set"] forState:UIControlStateNormal];
     [settingBtn addTarget:self action:@selector(settingBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:settingBtn];
@@ -140,7 +152,7 @@
     CGSize textRealSize =  [name boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0f]} context:nil].size;
     
     _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _titleBtn.frame = CGRectMake((GGUISCREENWIDTH-textRealSize.width)/2, 130, textRealSize.width, 20);
+    _titleBtn.frame = CGRectMake((GGUISCREENWIDTH-textRealSize.width)/2, 160, textRealSize.width, 20);
     [_titleBtn setTitle:name  forState:UIControlStateNormal];
     [_titleBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
     _titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
@@ -150,7 +162,7 @@
     
     
     if(isLogin){
-        _genderImageView = [[UIImageView alloc]initWithFrame:CGRectMake(_titleBtn.x+_titleBtn.width+10, 130, 20, 20)];
+        _genderImageView = [[UIImageView alloc]initWithFrame:CGRectMake(_titleBtn.x+_titleBtn.width+10, 160, 15, 15)];
         if([@"M" isEqualToString: mineData.gender]){
             _genderImageView.image = [UIImage imageNamed:@"icon_nan"];
         }else if([@"F" isEqualToString: mineData.gender]){
@@ -159,12 +171,10 @@
         [headView addSubview:_genderImageView];
     }
     
-  
+    [self.view addSubview:headView];
     //设置名字
-    _tableView.tableHeaderView = headView;
-    
-    
-    
+//    _tableView.tableHeaderView = headView;
+  
 }
 -(void)settingBtnClick{
     if(![PublicMethod isConnectionAvailable]){
@@ -184,6 +194,7 @@
         UpdateUserInfoViewController * updateUserController = [[UpdateUserInfoViewController alloc]init];
         updateUserController.delegate = self;
         updateUserController.userName = mineData.name;
+        _image = _photoBtn.image;
         updateUserController.comeImage = _image;
         if([@"M" isEqualToString:mineData.gender]){
             updateUserController.gender = @"男";
@@ -195,7 +206,7 @@
     }else{
         LoginViewController * login = [[LoginViewController alloc]init];
         login.delegate =self;
-        [self.navigationController pushViewController:login animated:NO];
+        [self.navigationController pushViewController:login animated:YES];
     }
     
     
@@ -253,10 +264,14 @@
         [self.navigationController pushViewController:pinOrder animated:YES];
     }
     if(index == 2){
+        MyStoreController * myStore = [[MyStoreController alloc]init];
+        [self.navigationController pushViewController:myStore animated:YES];
+    }
+    if(index == 3){
         CouponViewController * coupon = [[CouponViewController alloc]init];
         [self.navigationController pushViewController:coupon animated:YES];
     }
-    if(index == 3){
+    if(index == 4){
         AddressViewController * adViewController = [[AddressViewController alloc]init];
         [self.navigationController pushViewController:adViewController animated:YES];
     }
@@ -270,32 +285,30 @@
     
     MeData * meData1 = [[MeData alloc]init];
     meData1.title = @"我的拼团";
-    meData1.iconImage = @"icon_dingdan";
+    meData1.iconImage = @"icon_pintuan";
     [_data addObject:meData1];
     
+    
     MeData * meData2 = [[MeData alloc]init];
-    meData2.title = @"优惠券";
-    meData2.iconImage = @"icon_youhuiquan";
+    meData2.title = @"我的收藏";
+    meData2.iconImage = @"icon_collection";
     [_data addObject:meData2];
     
-//    MeData * meData2 = [[MeData alloc]init];
-//    meData2.title = @"补填身份证";
-//    meData2.iconImage = @"icon_shenfenzheng";
-//    [_data addObject:meData2];
-    
     MeData * meData3 = [[MeData alloc]init];
-    meData3.title = @"管理收货地址";
-    meData3.iconImage = @"icon_address";
+    meData3.title = @"优惠券";
+    meData3.iconImage = @"icon_coupon";
     [_data addObject:meData3];
     
-//    MeData * meData4 = [[MeData alloc]init];
-//    meData4.title = @"关于身份证";
-//    meData4.iconImage = @"icon_about";
-//    [_data addObject:meData4];
+
+    MeData * meData4 = [[MeData alloc]init];
+    meData4.title = @"管理收货地址";
+    meData4.iconImage = @"icon_address1";
+    [_data addObject:meData4];
+
 }
 -(void)backIcon:(UIImage *)image andName:(NSString *)name andSex:(NSString *)sex{
 
-    [_photoBtn setImage:image forState:UIControlStateNormal];
+    [_photoBtn setImage:image];
     
     
     
@@ -303,11 +316,12 @@
     
     CGSize textRealSize =  [name boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0f]} context:nil].size;
     
-    _titleBtn.frame = CGRectMake((GGUISCREENWIDTH-textRealSize.width)/2, 130, textRealSize.width, 20);
+
+    _titleBtn.frame = CGRectMake((GGUISCREENWIDTH-textRealSize.width)/2, 160, textRealSize.width, 20);
     [_titleBtn setTitle:name forState:UIControlStateNormal];
     _image = image;
     
-    _genderImageView.frame = CGRectMake(_titleBtn.x+_titleBtn.width+10, 130, 20, 20);
+    _genderImageView.frame = CGRectMake(_titleBtn.x+_titleBtn.width+10, 160, 20, 20);
     if([@"男" isEqualToString: sex]){
         _genderImageView.image = [UIImage imageNamed:@"icon_nan"];
         mineData.gender = @"M";

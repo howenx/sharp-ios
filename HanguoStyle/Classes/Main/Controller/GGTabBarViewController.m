@@ -18,6 +18,7 @@
 #import "HSGlobal.h"
 #import "GoodsDetailViewController.h"
 #import "PublicMethod.h"
+#import "UIImage+GG.h"
 @interface GGTabBarViewController ()<GGTabBarDelegate>
 {
     FMDatabase *database;
@@ -86,8 +87,13 @@
 
     UINavigationBar * navgationBar  = [UINavigationBar appearance];
     //导航栏颜色
-    [navgationBar setBarTintColor:GGMainColor];
-    //    [navgationBar setBackgroundImage:[UIImage imageNamed:@"navBackground"] forBarMetrics:UIBarMetricsDefault];
+//    controller.edgesForExtendedLayout = UIRectEdgeTop;
+//    controller.edgesForExtendedLayout = UIRectEdgeNone;
+    navgationBar.translucent = YES;
+
+    [navgationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
+    
+//    navgationBar.barTintColor=GGMainColor;
     // 字体的属性
     NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15],NSForegroundColorAttributeName :[UIColor whiteColor]};
     [navgationBar setTitleTextAttributes:dict];
@@ -114,7 +120,7 @@
     //4.屏幕的宽度
     
     statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,20);
-    statusbar.backgroundColor = [UIColor whiteColor];
+    statusbar.backgroundColor = GGMainColor;
     [nav.navigationBar addSubview:statusbar];
   
     

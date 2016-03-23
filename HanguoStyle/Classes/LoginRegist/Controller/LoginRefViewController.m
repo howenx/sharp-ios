@@ -7,7 +7,7 @@
 //
 
 #import "LoginRefViewController.h"
-#import "ReturnResult.h"
+#import "RefTokenData.h"
 #import "GGTabBarViewController.h"
 #import "LoginViewController.h"
 @interface LoginRefViewController ()
@@ -35,12 +35,12 @@
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         //创建数据模型对象,加入数据数组
-        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+        RefTokenData * refTokenData = [[RefTokenData alloc]initWithJSONNode:dict];
         
-        if(returnResult.code == 200){
+        if(refTokenData.result){
             //把用户账号存到内存中
-            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
-            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults]setObject:refTokenData.token forKey:@"userToken"];
+            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:refTokenData.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
             //1.登陆成功,跳转到下主页面
             GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];

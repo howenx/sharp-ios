@@ -19,6 +19,7 @@
 #import "GiFHUD.h"
 #import "NSString+GG.h"
 #import "NoNetView.h"
+#import "JPUSHService.h"
 @interface BaseViewController : UIViewController<NoNetViewDelegate>
 
 @end

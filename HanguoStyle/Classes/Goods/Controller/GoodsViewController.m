@@ -13,7 +13,7 @@
 #import "GoodsShowViewController.h"
 #import "GoodsDetailViewController.h"
 #import "GGTabBarViewController.h"
-
+#import "GoodsShowH5ViewController.h"
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -79,6 +79,9 @@
         NSString * url = [HSGlobal queryCustNum];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
         if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
             return;
         }
         [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -245,9 +248,17 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //进入到商品展示页面
-    
     _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
-    [self pushGoodShowView];
+    if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"ordinary"]){
+        [self pushGoodShowView];
+    }else if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"h5"]){
+        [self pushH5GoodShowView];
+    }
+}
+-(void)pushH5GoodShowView {
+    GoodsShowH5ViewController * showContr = [[GoodsShowH5ViewController alloc]init];
+    showContr.url = _pushUrl;
+    [self.navigationController pushViewController:showContr animated:YES];
 }
 -(void)pushGoodShowView {
 

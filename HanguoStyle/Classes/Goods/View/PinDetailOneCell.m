@@ -81,10 +81,15 @@
         UIImageView *imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH)];
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((ItemPreviewImgsData *)_scrollArr[0]).url]];
         imv.image = [UIImage imageWithData:data];
+        imv.userInteractionEnabled = YES;
+        [imv addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchImageUpInside:)]];
         [_headView addSubview: imv];
     }
   
     
+}
+-(void) touchImageUpInside:(UITapGestureRecognizer *)recognizer{
+    [self touchPage:0];
 }
 -(void)touchPage:(NSInteger)index{
     

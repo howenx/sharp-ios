@@ -16,8 +16,9 @@
         
         self.message = [[node objectForKey:@"message"] objectForKey:@"message"];
         self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
-        self.token = [node objectForKey:@"token"];
-        self.expired = [[node objectForKey:@"expired"]integerValue];
+        self.token = [[node objectForKey:@"result"] objectForKey:@"token"];
+        self.expired = [[[node objectForKey:@"result"]objectForKey:@"expired"]integerValue];
+        self.alias = [NSString stringWithFormat:@"%ld",[[[node objectForKey:@"result"]objectForKey:@"id"]longValue]];
     }
     return self;
 }

@@ -11,7 +11,7 @@
 #import "GoodsShowData.h"
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
-
+#import "CartViewController.h"
 //section之间空隙，和item的空隙，这里都设置成5
 #define gap 5
 
@@ -53,7 +53,7 @@
     //右上角添加按钮
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     rightButton.titleLabel.font=[UIFont systemFontOfSize:12];
-    [rightButton setImage:[UIImage imageNamed:@"gs_tab"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"shopping_cart_top"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(enterCust)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -75,8 +75,20 @@
 
 }
 -(void)enterCust{
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"cart",@"jumpKey", nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
+    BOOL orJumpTab = NO;
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[CartViewController class]]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+            orJumpTab = YES;
+            break;
+        }
+    }
+    
+    if(!orJumpTab){
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"cart",@"jumpKey", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
+    }
 }
 -(void)queryCustNum{
     isLogin = [PublicMethod checkLogin];
@@ -97,6 +109,12 @@
     }else{
         NSString * url = [HSGlobal queryCustNum];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
+            return;
+        }
         [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
             NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];

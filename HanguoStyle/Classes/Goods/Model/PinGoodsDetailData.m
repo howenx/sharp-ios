@@ -61,8 +61,10 @@
         self.postalTaxRate = [stockDict objectForKey:@"postalTaxRate"];
         self.postalStandard = [stockDict objectForKey:@"postalStandard"];
         self.invAreaNm = [stockDict objectForKey:@"invAreaNm"];
-        self.collectCount = [[stockDict objectForKey:@"collectCount"]integerValue];
-        self.browseCount = [[stockDict objectForKey:@"browseCount"]integerValue];
+        if(![NSString isNSNull:[stockDict objectForKey:@"collectCount"]]){
+            self.collectCount = [[stockDict objectForKey:@"collectCount"]integerValue];
+        }
+//        self.browseCount = [[stockDict objectForKey:@"browseCount"]integerValue];
         self.soldAmount = [[stockDict objectForKey:@"soldAmount"]integerValue];
         self.invImg = [[[stockDict objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
         self.invPrice = [stockDict objectForKey:@"invPrice"];
@@ -112,7 +114,7 @@
         
         
         self.pushArray = [NSMutableArray array];
-        if(![self.status isEqualToString:@"Y"] && ![self.status isEqualToString:@"P"] ){
+//        if(![self.status isEqualToString:@"Y"] && ![self.status isEqualToString:@"P"] ){
             if (![NSString isNSNull:[node objectForKey:@"push"]]) {
                 NSArray * pushArray = [node objectForKey:@"push"];
                 for(id tag in pushArray){
@@ -121,7 +123,7 @@
                 }
             }
 
-        }
+//        }
     }
     return self;
 }

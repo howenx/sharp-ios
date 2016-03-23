@@ -24,7 +24,7 @@
     UIButton *btn = [[UIButton alloc] init];
     [btn setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:highImage] forState:UIControlStateHighlighted];
-    btn.imageView.contentMode = UIViewContentModeLeft;
+    btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     //    btn.backgroundColor = [UIColor blackColor];
     btn.size =  CGSizeMake(20, 20);
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];

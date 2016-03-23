@@ -9,6 +9,7 @@
 #import "ThreeViewCell.h"
 #import "PhotoAndTextView.h"
 #import "GoodsParaView.h"
+#import "BestSaleView.h"
 
 @interface ThreeViewCell()<UIScrollViewDelegate,UIWebViewDelegate>
 {
@@ -82,12 +83,13 @@
 
     }
     if (_pageNum == 2) {
-        UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH*2, 0, GGUISCREENWIDTH, 10000)];
-        view3.backgroundColor = [UIColor lightGrayColor];
-         _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, view3.frame.size.height);
-        [_scrollView addSubview:view3];
+        BestSaleView * bestSale = [[BestSaleView alloc]init];
+        [bestSale createBestSale:data.pushArray];
+
+         _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, bestSale.frame.size.height);
+        [_scrollView addSubview:bestSale];
         _scrollView.contentOffset = CGPointMake(GGUISCREENWIDTH*2, 0);
-        [self.delegate getFourCellH:view3.frame.size.height];
+        [self.delegate getFourCellH:bestSale.frame.size.height];
     }
     
    [self.contentView addSubview:_scrollView];

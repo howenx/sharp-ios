@@ -439,7 +439,6 @@
 //    //进入到商品展示页面
 //    self.hidesBottomBarWhenPushed=YES;
 //    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-//    gdViewController.isFromCart = YES;
 //    gdViewController.url = _pushUrl;
 //    [self.navigationController pushViewController:gdViewController animated:YES];
 //    self.hidesBottomBarWhenPushed=NO;
@@ -782,7 +781,7 @@
                 }
                 
                 OrderViewController * order = [[OrderViewController alloc]init];
-                order.pinType = @"item";
+                order.orderType = @"item";
                 order.orderData = orderData;
                 order.mutArray = mutArray;
                 order.buyNow = 2;
@@ -822,7 +821,6 @@
     //进入到商品展示页面
     self.hidesBottomBarWhenPushed=YES;
     GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-    gdViewController.isFromCart = YES;
     gdViewController.url = url;
     [self.navigationController pushViewController:gdViewController animated:YES];
     self.hidesBottomBarWhenPushed=NO;

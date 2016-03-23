@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSString * idCode;
 @property (nonatomic) NSString * themeImg;
+@property (nonatomic) NSString * type;
 @property (nonatomic) float width;
 @property (nonatomic) float height;
 @property (nonatomic) NSString * themeUrl;

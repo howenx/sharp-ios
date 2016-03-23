@@ -38,7 +38,6 @@
 + (NSString *) queryCustNum;
 + (NSString *) verifyCodeUrl;
 + (NSString *) checkRegist;
-+ (NSString *) checkRegistWhenLose;
 + (NSString *) couponUrl;
 + (NSString *) collectUrl;
 + (NSString *) unCollectUrl;

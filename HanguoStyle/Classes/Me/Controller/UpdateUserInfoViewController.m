@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"基本信息";
     [self createView];
@@ -56,14 +57,15 @@
 //    [self.view addSubview:button];
     
     
-    _smallimage = [[UIImageView alloc] initWithFrame: CGRectMake(GGUISCREENWIDTH-60, 64+5, 30, 30)] ;
+    _smallimage = [[UIImageView alloc] initWithFrame: CGRectMake(GGUISCREENWIDTH-70, 64+5, 30, 30)] ;
     _smallimage.image = _comeImage;
     _smallimage.tag = 10002;
     _smallimage.userInteractionEnabled = YES;
     [_smallimage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
     [self.view addSubview:_smallimage];
     
-    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 64+7, 25, 25)];
+    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 73, 20, 20)];
+    jianImageView1.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView1.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView1.tag = 10003;
     jianImageView1.userInteractionEnabled = YES;
@@ -84,7 +86,7 @@
     
     
     
-    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 117, GGUISCREENWIDTH-130, 30)];
+    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 117, GGUISCREENWIDTH-130, 30)];
     _nameLab.tag = 10006;
     _nameLab.textAlignment = NSTextAlignmentRight;
     _nameLab.text = self.userName;
@@ -93,7 +95,8 @@
     [_nameLab addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
 
     [self.view addSubview:_nameLab];
-    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 119, 25, 25)];
+    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 121, 20, 20)];
+    jianImageView0.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView0.tag = 10004;
     jianImageView0.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView0.userInteractionEnabled = YES;
@@ -114,15 +117,17 @@
     [self.view addSubview:sexLabelTitle];
     
 
-    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-50, 170, 20, 20)];
+    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 170, 20, 20)];
     [_gLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
+    _gLabel.font = [UIFont systemFontOfSize:15];
     _gLabel.tag = 10008;
     _gLabel.text = self.gender;
     _gLabel.userInteractionEnabled = YES;
     [self.view addSubview:_gLabel];
 
     
-    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 170, 25, 25)];
+    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 172, 20, 20)];
+    jianImageView.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView.tag = 10009;
     jianImageView.userInteractionEnabled = YES;
@@ -176,11 +181,17 @@
     if(![PublicMethod isConnectionAvailable]){
         return;
     }
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
+    
     NSString * urlString =[HSGlobal updateUserInfo];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     NSString * genderFlag ;
     if([@"男" isEqualToString :_gLabel.text]){
         genderFlag = @"M";

@@ -8,6 +8,7 @@
 
 #import "MyOrderData.h"
 #import "NSString+GG.h"
+#import <JSONKit.h>
 @implementation OrderInfo
 
 @end
@@ -71,8 +72,8 @@
             detailData.amount = [[tag objectForKey:@"amount"]integerValue];
             detailData.price = [tag objectForKey:@"price"];
             detailData.skuTitle = [tag objectForKey:@"skuTitle"];
-            detailData.invImg = [tag objectForKey:@"invImg"];
-            detailData.invUrl = [tag objectForKey:@"invAndroidUrl"];
+            detailData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
+            detailData.invUrl = [tag objectForKey:@"invUrl"];
             detailData.itemColor = [tag objectForKey:@"itemColor"];
             detailData.itemSize = [tag objectForKey:@"itemSize"];
 

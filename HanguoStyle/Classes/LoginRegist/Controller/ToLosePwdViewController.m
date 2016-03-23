@@ -281,7 +281,7 @@
 }
 
 -(void)checkRegist{
-    NSString * urlString =[HSGlobal checkRegistWhenLose];
+    NSString * urlString =[HSGlobal checkRegist];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneLab.text,@"phone",sendCode,@"code",nil];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -348,6 +348,7 @@
     for (UIViewController *temp in self.navigationController.viewControllers) {
         if ([temp isKindOfClass:[LoginViewController class]]) {
             [self.navigationController popToViewController:temp animated:YES];
+            break;
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];

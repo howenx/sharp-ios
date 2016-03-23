@@ -14,5 +14,5 @@
 @property(nonatomic) NSString * realityPay;
 @property(nonatomic) NSMutableArray * mutArray;
 @property(nonatomic) int buyNow;//支付方式
-@property(nonatomic) NSString * pinType;
+@property(nonatomic) NSString * orderType;
 @end

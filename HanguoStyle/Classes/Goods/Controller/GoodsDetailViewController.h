@@ -15,8 +15,6 @@
 @end
 @interface GoodsDetailViewController : BaseViewController
 
-@property (nonatomic)BOOL isFromCart;
-@property (nonatomic)BOOL isFromMiPwd;
 @property (nonatomic,strong)NSString * url;
 @property (nonatomic,weak) id <GoodsDetailViewDelegate> delegate;
 @property (nonatomic,strong)GoodsDetailData * detailData;

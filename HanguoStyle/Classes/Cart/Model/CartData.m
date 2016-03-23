@@ -7,6 +7,7 @@
 //
 
 #import "CartData.h"
+#import <JSONKit.h>
 @implementation CartDetailData
 
 @end
@@ -38,7 +39,7 @@
             detailData.invAreaNm = [node objectForKey:@"invAreaNm"];
             detailData.restrictAmount = [[tag objectForKey:@"restrictAmount"]integerValue];
             detailData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
-            detailData.invImg = [tag objectForKey:@"invImg"];
+            detailData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
             detailData.invUrl = [tag objectForKey:@"invUrl"];
             detailData.invTitle = [tag objectForKey:@"invTitle"];
             detailData.cartDelUrl = [tag objectForKey:@"cartDelUrl"];

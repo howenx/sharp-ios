@@ -43,7 +43,7 @@
 
 @property (nonatomic) NSString * shareUrl;//分享的地址
 @property (nonatomic) NSInteger  collectCount;//收藏数
-@property (nonatomic) NSInteger  browseCount;//
+//@property (nonatomic) NSInteger  browseCount;//
 @property (nonatomic) NSString * skuType;
 @property (nonatomic) long skuTypeId;
 @property (nonatomic) NSString * startAt;

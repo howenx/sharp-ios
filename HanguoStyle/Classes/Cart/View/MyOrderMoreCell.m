@@ -88,7 +88,7 @@
     
     if([self.contentView viewWithTag:50004] == nil){
         
-        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 70, 0, 50, 50)];
+        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 90, 0, 50, 50)];
         orderStatusLab.font = [UIFont systemFontOfSize:12];
         orderStatusLab.textAlignment = NSTextAlignmentRight;
         orderStatusLab.textColor = [UIColor grayColor];
@@ -123,6 +123,7 @@
         
         //向右箭头
         nextImageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH - 20,15,10,20)];
+        nextImageView.contentMode = UIViewContentModeScaleAspectFit;
         UIImage *image = [UIImage imageNamed:@"icon_more_hui"];
         nextImageView.image = image;
         nextImageView.tag = 50005;
@@ -158,6 +159,7 @@
     
     for (int i = 0; i<_data.skuArray.count; i++) {
         UIImageView * titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(i*80,0,75,75)];
+        titleImageView.contentMode = UIViewContentModeScaleAspectFit;
         [titleImageView sd_setImageWithURL:[NSURL URLWithString:((SkuData *)data.skuArray[i]).invImg]];
         
         

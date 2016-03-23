@@ -34,11 +34,17 @@
     
 }
 -(void)saveButtonClick{
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
+    
     NSString * urlString =[HSGlobal updateUserInfo];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
-    
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     if(_nameTextField.text == nil ||[@"" isEqualToString:_nameTextField.text]){
         _nameTextField.text =_comeName;
     }

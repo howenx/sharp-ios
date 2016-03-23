@@ -13,6 +13,9 @@
 #import "OrderData.h"
 #import "CartData.h"
 #import "OrderViewController.h"
+#import "ChooseTeamViewController.h"
+#import "UIBarButtonItem+GG.h"
+#import "MyPinTeamViewController.h"
 @interface PinDetailViewController ()<UIScrollViewDelegate>
 {
     float statusH;//上面拼购状态高度
@@ -25,6 +28,7 @@
     float onePhotoH;
     long secondsCountDown;
     UILabel * surplusTimeLab;//倒计时
+    BOOL alreadyBack;
 
 }
 @property(nonatomic)PinDetailData * data;
@@ -42,8 +46,29 @@
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"组团详情";
     onePhotoH = (GGUISCREENWIDTH-60)/5 +10;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
     
 }
+-(void)backViewController{
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[ChooseTeamViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+            alreadyBack = YES;
+            break;
+        }
+        if ([temp isKindOfClass:[MyPinTeamViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+            alreadyBack = YES;
+            break;
+        }
+    }
+    if(!alreadyBack){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+}
+
 - (void) createView{
     // 商品 为y状态 ，拼团中
     if([_data.status isEqualToString:@"Y"]){
@@ -430,7 +455,7 @@
 //    }
     NSArray  * array= [_url componentsSeparatedByString:@"promotion/pin/activity"];
     if(array.count == 2){
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@, —🔑 M令 🔑",_data.pinTitle,array[1]];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@,－🔑 M令 🔑",_data.pinTitle,array[1]];
         shareView.shareFrom = @"T";
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
@@ -512,7 +537,7 @@
             }
             
             OrderViewController * order = [[OrderViewController alloc]init];
-            order.pinType = _data.skuType;
+            order.orderType = _data.skuType;
             order.orderData = orderData;
             order.mutArray = mutArray;
             order.buyNow = 1;

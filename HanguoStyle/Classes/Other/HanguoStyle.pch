@@ -13,7 +13,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 //1.获得颜色的方法
 #define GGColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-#define GGMainColor [UIColor colorWithRed:(229)/255.0 green:(98)/255.0 blue:(84)/255.0 alpha:1.0]
+#define GGMainColor [UIColor colorWithRed:(255)/255.0 green:(83)/255.0 blue:(89)/255.0 alpha:1.0]
 
 // 2.自定义Log
 #ifdef DEBUG
