@@ -15,4 +15,5 @@
 @property(nonatomic) NSMutableArray * mutArray;
 @property(nonatomic) int buyNow;//支付方式
 @property(nonatomic) NSString * orderType;
+@property(nonatomic) long pinActiveId;
 @end

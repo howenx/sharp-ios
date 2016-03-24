@@ -129,6 +129,8 @@
     [lastDict setObject: @"" forKey:@"orderDesc"];
     [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
     [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
+    [lastDict setObject: [NSNumber numberWithLong:_pinActiveId] forKey:@"pinActiveId"];
+    
     
     NSString * urlString =[HSGlobal sendOrderInfo];
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
