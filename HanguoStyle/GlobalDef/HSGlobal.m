@@ -7,7 +7,7 @@
 //
 
 #import "HSGlobal.h"
-
+//wayne
 //#define SERVERY1 @"http://172.28.3.78:9003"
 //#define SERVERY2 @"http://172.28.3.78:9001"
 //#define SERVERY3 @"http://172.28.3.78:9004"
