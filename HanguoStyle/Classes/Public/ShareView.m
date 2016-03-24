@@ -86,7 +86,7 @@
         UIButton * mklButton = [UIButton buttonWithType:UIButtonTypeCustom];
         mklButton.frame = CGRectMake(10, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20);
         
-        [mklButton setBackgroundImage:[UIImage imageNamed:@"weibo"] forState:UIControlStateNormal];
+        [mklButton setBackgroundImage:[UIImage imageNamed:@"mimeiPwd"] forState:UIControlStateNormal];
         [mklButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         mklButton.tag = 100005;
         [shareView addSubview:mklButton];
@@ -182,7 +182,7 @@
     
     UIButton * cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelBtn.frame = CGRectMake((self.frame.size.width-300)/2,shareView.frame.size.height-50, 300, 40);
-    [cancelBtn setImage:[UIImage imageNamed:@"64"] forState:UIControlStateNormal];
+    [cancelBtn setImage:[UIImage imageNamed:@"cancle"] forState:UIControlStateNormal];
 
     
     [cancelBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];

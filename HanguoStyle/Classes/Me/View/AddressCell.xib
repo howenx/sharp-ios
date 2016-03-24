@@ -45,10 +45,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="g2Y-zy-g85">
-                        <rect key="frame" x="8" y="10" width="20" height="20"/>
+                        <rect key="frame" x="8" y="10" width="16" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="cZR-p9-DNU"/>
-                            <constraint firstAttribute="width" constant="20" id="eBW-2c-YzB"/>
+                            <constraint firstAttribute="height" constant="21" id="cZR-p9-DNU"/>
+                            <constraint firstAttribute="width" constant="16" id="eBW-2c-YzB"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12345678910" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emj-3p-jab">
