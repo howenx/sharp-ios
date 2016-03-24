@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GGNavigationViewController : UINavigationController
+@interface GGNavigationViewController : UINavigationController<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
 @end

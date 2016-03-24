@@ -38,6 +38,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    __weak GGNavigationViewController *weakSelf = self;
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+        self.interactivePopGestureRecognizer.delegate = weakSelf;
+        self.delegate = weakSelf;
+    }
 }
 
 //
@@ -50,6 +56,11 @@
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+        self.interactivePopGestureRecognizer.enabled = NO;
+    }
+    
     if (self.childViewControllers.count >0 ) {
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem
                                                            itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(back)];
@@ -65,6 +76,10 @@
     [self popViewControllerAnimated:YES];
 }
 
-
+-(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
+        self.interactivePopGestureRecognizer.enabled = YES;
+}
 
 @end
