@@ -116,12 +116,12 @@
     //    设置该UIView的frame.origin 为{0,-20},
     //    设置该UIView的背景色为你希望的statusBar的颜色，
     //    在navigationBar上addSubView该UIView即可。
-    UIView * statusbar = [[UIView alloc]init];
-    //4.屏幕的宽度
-    
-    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,20);
-    statusbar.backgroundColor = GGMainColor;
-    [nav.navigationBar addSubview:statusbar];
+//    UIView * statusbar = [[UIView alloc]init];
+//    //4.屏幕的宽度
+//    
+//    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,20);
+//    statusbar.backgroundColor = GGMainColor;
+//    [nav.navigationBar addSubview:statusbar];
   
     
     //2.设置导航控制器按钮皮肤属性
