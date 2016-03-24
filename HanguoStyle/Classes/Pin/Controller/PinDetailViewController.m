@@ -63,10 +63,9 @@
         }
     }
     if(!alreadyBack){
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
     }
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
 }
 
 - (void) createView{
@@ -542,6 +541,7 @@
             order.mutArray = mutArray;
             order.buyNow = 1;
             order.realityPay = _data.pinPrice;
+            order.pinActiveId = _data.pinActiveId;
             [self.navigationController pushViewController:order animated:YES];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

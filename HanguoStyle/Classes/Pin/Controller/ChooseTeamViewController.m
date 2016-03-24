@@ -422,6 +422,8 @@
     [lastDict setObject: @"" forKey:@"orderDesc"];
     [lastDict setObject: @"JD" forKey:@"payMethod"];
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"buyNow"];//立即支付
+    [lastDict setObject: [NSNumber numberWithLong:0] forKey:@"pinActiveId"];//表示开团
+    
     NSString * urlString =[HSGlobal sendCartToOrder];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
     
@@ -457,6 +459,7 @@
             order.mutArray = mutArray;
             order.buyNow = 1;
             order.realityPay = _pinPrice;
+            order.pinActiveId = 0;
             [self.navigationController pushViewController:order animated:YES];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

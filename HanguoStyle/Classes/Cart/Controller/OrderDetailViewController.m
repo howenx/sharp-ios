@@ -262,6 +262,7 @@
         SkuData * skuData = _orderData.skuArray[i];
         CGFloat hei = 40 + i * 80 ;
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, hei + 5, 70, 70)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [imageView sd_setImageWithURL:[NSURL URLWithString:skuData.invImg]];
         imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         imageView.layer.borderWidth = 1.0f;
