@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _collectionView.scrollsToTop = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
