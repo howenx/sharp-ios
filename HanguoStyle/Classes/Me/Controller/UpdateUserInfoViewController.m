@@ -237,7 +237,7 @@
                      delegate:self
                      cancelButtonTitle:@"取消"
                      destructiveButtonTitle:nil
-                     otherButtonTitles:  @"从手机相册获取",nil];
+                     otherButtonTitles:  @"从手机相册获取",@"照相机",nil];
     myActionSheet.tag = 1;
     [myActionSheet showInView:self.view];
 }
@@ -255,6 +255,9 @@
         {
             case 0:  //打开本地相册
                 [self LocalPhoto];
+                break;
+            case 1:
+                [self takePhoto];
                 break;
         }
 
@@ -279,6 +282,14 @@
     }
 }
 
+-(void)takePhoto
+{
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
 
 //打开本地相册
 -(void)LocalPhoto
@@ -297,22 +308,23 @@
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 {
-    
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
-    
     //当选择的类型是图片
-    if ([type isEqualToString:@"public.image"])
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(__bridge NSString *)kUTTypeImage])
     {
         //先把图片转成NSData
-        _localImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+//        _localImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        _localImage = [info objectForKey:UIImagePickerControllerEditedImage];;
+        
+        UIImage *smallImage =[self scaleFromImage:_localImage toSize:CGSizeMake(80.0f, 80.0f)];
+        
         NSData *data;
-        if (UIImagePNGRepresentation(_localImage) == nil)
+        if (UIImagePNGRepresentation(smallImage) == nil)
         {
-            data = UIImageJPEGRepresentation(_localImage, 1.0);
+            data = UIImageJPEGRepresentation(smallImage, 1.0);
         }
         else
         {
-            data = UIImagePNGRepresentation(_localImage);
+            data = UIImagePNGRepresentation(smallImage);
         }
         //base64 的转码
         encodeImage = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
@@ -321,7 +333,7 @@
         //类似微薄选择图后的效果
         
         
-        _smallimage.image = _localImage;
+        _smallimage.image = smallImage;
         [self saveButtonClick];
         
     }
@@ -349,4 +361,15 @@
     _nameLab.text = name;
     [self.delegate backIcon:_smallimage.image andName:_nameLab.text andSex:_gLabel.text];
 }
+
+- (UIImage *) scaleFromImage: (UIImage *) image toSize: (CGSize) size
+{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
 @end
