@@ -51,13 +51,13 @@
 -(void)makeCustNumLab{
     
     //右上角添加按钮
-    UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,22,22)];
     rightButton.titleLabel.font=[UIFont systemFontOfSize:12];
     [rightButton setImage:[UIImage imageNamed:@"shopping_cart_top"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(enterCust)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 , 0, 15, 15)];
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(17 , -5, 15, 15)];
     _cntLabel.textColor = [UIColor redColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont boldSystemFontOfSize:11];

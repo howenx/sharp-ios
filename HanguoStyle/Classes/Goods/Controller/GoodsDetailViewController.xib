@@ -109,6 +109,6 @@
         </view>
     </objects>
     <resources>
-        <image name="gs_tab_selected.png" width="74" height="71"/>
+        <image name="gs_tab_selected.png" width="48" height="46"/>
     </resources>
 </document>
