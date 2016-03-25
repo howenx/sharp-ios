@@ -28,7 +28,7 @@
     [aboutBtn setTitle:@"关于我们" forState:UIControlStateNormal];
     aboutBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [aboutBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [aboutBtn setImage:[UIImage imageNamed:@"icon_about"] forState:UIControlStateNormal];
+    [aboutBtn setImage:[UIImage imageNamed:@"about_us"] forState:UIControlStateNormal];
     
     [self.view addSubview:aboutBtn];
     

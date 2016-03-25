@@ -22,6 +22,8 @@
     PhotoAndTextView * ptv = [[PhotoAndTextView alloc]init];
     UIImage * image = [ptv imageCompressForWidth:[UIImage imageNamed:@"pingou_liucheng.png"] targetWidth:GGUISCREENWIDTH];
     UIImageView *imv = [[UIImageView alloc] init];
+    NSLog(@"image.size.width= %f",image.size.width);
+    NSLog(@"image.size.height= %f ",image.size.height);
     imv.frame =  CGRectMake(0,0, image.size.width, image.size.height);
     imv.image = image;
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
