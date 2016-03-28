@@ -468,8 +468,8 @@
         [self showHud:@"请输入11位手机号码"];
         return false;
     }
-    NSString * regex = @"[1][345678]\\d{9}";//@"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$"
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+//    NSString * regex = @"[1][345678]\\d{9}";//@"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$"
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", REGEX];
     if(![pred evaluateWithObject:phoneNum]){
         [self showHud:@"请输入正确的手机号码"];
         return false;

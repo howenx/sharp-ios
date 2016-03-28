@@ -20,6 +20,7 @@
 #import "NSString+GG.h"
 #import "NoNetView.h"
 #import "JPUSHService.h"
+#import <SDImageCache.h>
 @interface BaseViewController : UIViewController<NoNetViewDelegate>
 
 @end

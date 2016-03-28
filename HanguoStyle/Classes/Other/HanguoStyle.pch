@@ -33,4 +33,11 @@
 
 //6.去字符串左右两边空格
 #define GGTRIM(str) [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+
+#define kSAAPPVERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define kSABUILDVERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
+#define kSAAPPName [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"]
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define REGEX  @"[1][345678]\\d{9}"
 #endif

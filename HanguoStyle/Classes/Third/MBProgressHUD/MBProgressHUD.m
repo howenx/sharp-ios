@@ -37,7 +37,7 @@
 		attributes:@{NSFontAttributeName:font} context:nil].size : CGSizeZero;
 #else
 	#define MB_MULTILINE_TEXTSIZE(text, font, maxSize, mode) [text length] > 0 ? [text \
-		sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSizeZero;
+		sizeWithFont:font constrainedToSize:maxSize lineBreakMode:mode] : CGSize2Zero;
 #endif
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_7_0
