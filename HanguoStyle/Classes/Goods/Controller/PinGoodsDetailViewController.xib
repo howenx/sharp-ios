@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinGoodsDetailViewController">
+            <connections>
+                <outlet property="footView" destination="xYa-6B-crT" id="1VO-xq-ep6"/>
+                <outlet property="openTeamButton" destination="T0W-nT-HET" id="vza-fY-M64"/>
+                <outlet property="singleBuyButton" destination="xrg-IF-cFC" id="oYK-IN-fAS"/>
+                <outlet property="tableView" destination="BJU-qi-jHP" id="2kt-eg-x32"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BJU-qi-jHP">
+                    <rect key="frame" x="0.0" y="64" width="375" height="553"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYa-6B-crT">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57h-Ev-6jb">
+                            <rect key="frame" x="20" y="15" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="kBF-cM-W8D"/>
+                                <constraint firstAttribute="width" constant="20" id="maO-n4-jod"/>
+                            </constraints>
+                            <state key="normal" image="grayStore.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0W-nT-HET">
+                            <rect key="frame" x="61" y="0.0" width="157" height="50"/>
+                            <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="O1d-CE-dcp"/>
+                            </constraints>
+                            <state key="normal" title="立即开团">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="organizeTeam:" destination="-1" eventType="touchUpInside" id="jD6-e0-okT"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrg-IF-cFC">
+                            <rect key="frame" x="218" y="0.0" width="157" height="50"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="AP3-sE-qPA"/>
+                            </constraints>
+                            <state key="normal" title="单独购买">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="singleBuy:" destination="-1" eventType="touchUpInside" id="Jcz-eZ-7Bh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="57h-Ev-6jb" firstAttribute="leading" secondItem="xYa-6B-crT" secondAttribute="leading" constant="20" id="6Sq-62-eIr"/>
+                        <constraint firstItem="xrg-IF-cFC" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="BKa-lf-HGh"/>
+                        <constraint firstItem="xrg-IF-cFC" firstAttribute="leading" secondItem="T0W-nT-HET" secondAttribute="trailing" id="VFH-w1-GJI"/>
+                        <constraint firstAttribute="trailing" secondItem="xrg-IF-cFC" secondAttribute="trailing" id="Z7D-f0-IpN"/>
+                        <constraint firstItem="T0W-nT-HET" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="ZnF-ZR-oL7"/>
+                        <constraint firstItem="T0W-nT-HET" firstAttribute="leading" secondItem="57h-Ev-6jb" secondAttribute="trailing" constant="21" id="gAY-El-Urz"/>
+                        <constraint firstAttribute="height" constant="50" id="rB4-qm-hJ6"/>
+                        <constraint firstAttribute="centerY" secondItem="57h-Ev-6jb" secondAttribute="centerY" id="tSH-3e-EN1"/>
+                        <constraint firstItem="T0W-nT-HET" firstAttribute="width" secondItem="xrg-IF-cFC" secondAttribute="width" id="uMd-KR-kqh"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="xYa-6B-crT" secondAttribute="trailing" id="27t-6G-RsM"/>
+                <constraint firstItem="xYa-6B-crT" firstAttribute="top" secondItem="BJU-qi-jHP" secondAttribute="bottom" id="8u8-0b-hOg"/>
+                <constraint firstItem="BJU-qi-jHP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FDb-Tl-JFd"/>
+                <constraint firstAttribute="trailing" secondItem="BJU-qi-jHP" secondAttribute="trailing" id="H12-RG-gMH"/>
+                <constraint firstAttribute="bottom" secondItem="xYa-6B-crT" secondAttribute="bottom" id="lfU-7K-gpp"/>
+                <constraint firstItem="xYa-6B-crT" firstAttribute="top" secondItem="BJU-qi-jHP" secondAttribute="bottom" id="sc9-AS-O2h"/>
+                <constraint firstItem="xYa-6B-crT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wht-Iy-9Ym"/>
+                <constraint firstItem="BJU-qi-jHP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="x2h-Ht-WaX"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="grayStore.png" width="132" height="120"/>
+    </resources>
+</document>
