@@ -21,12 +21,12 @@
     [self createWebView];
 }
 -(void)createWebView{
-    UITextField  * fieldText = [[UITextField alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)
-                       ];
-    
-    fieldText.placeholder = @"请输入您宝贵的意见吧~";
-    
-    [self.view addSubview:fieldText];
+//    UITextField  * fieldText = [[UITextField alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)
+//                       ];
+//    
+//    fieldText.placeholder = @"请输入您宝贵的意见吧~";
+//    
+//    [self.view addSubview:fieldText];
 
 }
 

@@ -319,6 +319,7 @@
 		B0034E291CA906EB00798659 /* clean@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0034E261CA906EB00798659 /* clean@2x.png */; };
 		B0034E2A1CA906EB00798659 /* clean@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0034E271CA906EB00798659 /* clean@3x.png */; };
 		B0034E2D1CA91C2700798659 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0034E2C1CA91C2700798659 /* FeedbackViewController.m */; };
+		B0034E331CA921DA00798659 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0034E321CA921DA00798659 /* PlaceholderTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -787,6 +788,8 @@
 		B0034E271CA906EB00798659 /* clean@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clean@3x.png"; path = "setting/clean@3x.png"; sourceTree = "<group>"; };
 		B0034E2B1CA91C2700798659 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		B0034E2C1CA91C2700798659 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		B0034E311CA921DA00798659 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaceholderTextView.h; path = PlaceholderTextView/PlaceholderTextView.h; sourceTree = "<group>"; };
+		B0034E321CA921DA00798659 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaceholderTextView.m; path = PlaceholderTextView/PlaceholderTextView.m; sourceTree = "<group>"; };
 		DC98376C6BF25B4E123C6D31 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1463,6 +1466,7 @@
 		807F63201C3CB53100345BFE /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				B0034E301CA921C600798659 /* PlaceholderTextView */,
 				8009D6C51C97D88200FA5BE2 /* JPush */,
 				80108A761C60751F00B20C64 /* MWPhotoBrowser */,
 				80108A6F1C60750A00B20C64 /* DACircularProgress */,
@@ -1708,6 +1712,15 @@
 				B0034E151CA9062E00798659 /* System-update@3x.png */,
 			);
 			name = setting;
+			sourceTree = "<group>";
+		};
+		B0034E301CA921C600798659 /* PlaceholderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				B0034E311CA921DA00798659 /* PlaceholderTextView.h */,
+				B0034E321CA921DA00798659 /* PlaceholderTextView.m */,
+			);
+			name = PlaceholderTextView;
 			sourceTree = "<group>";
 		};
 		E889E0F4FA31A41124C10C27 /* Frameworks */ = {
@@ -2116,6 +2129,7 @@
 				807F63391C3CB53100345BFE /* FMResultSet.m in Sources */,
 				80AFBDA81BD883F5003D1308 /* AddressViewController.m in Sources */,
 				80108A941C60751F00B20C64 /* UIImage+MWPhotoBrowser.m in Sources */,
+				B0034E331CA921DA00798659 /* PlaceholderTextView.m in Sources */,
 				80EA5EE11C844D75000ABCE9 /* MyPinTeamCell.m in Sources */,
 				80E8749A1C2151130084FD8C /* OrderCartCell.m in Sources */,
 				800B56E71BCE2666002A3FE3 /* HeadView.m in Sources */,
