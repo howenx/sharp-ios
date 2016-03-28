@@ -186,9 +186,6 @@
             [self.data removeAllObjects];
         }
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
-        if (!object) {
-            return;
-        }
         GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:object];
         if(data.code == 200){
             totalPageCount = data.pageCount;

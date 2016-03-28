@@ -37,7 +37,6 @@
 @implementation HSGlobal
 
 
-
 //接到商品分享口令时，拼接口令前面的地址
 + (NSString *) shareGoodsHeaderUrl
 {

@@ -17,7 +17,7 @@
 #import "MyOrderViewController.h"
 #import "CouponViewController.h"
 #import "MyPinTeamViewController.h"
-#import "MyStoreController.h"
+#import "CollectViewController.h"
 @interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate,LoginViewDelegate,SettingDelegate>
 {
     MineData * mineData;
@@ -264,8 +264,8 @@
         [self.navigationController pushViewController:pinOrder animated:YES];
     }
     if(index == 2){
-        MyStoreController * myStore = [[MyStoreController alloc]init];
-        [self.navigationController pushViewController:myStore animated:YES];
+        CollectViewController * collect = [[CollectViewController alloc]init];
+        [self.navigationController pushViewController:collect animated:YES];
     }
     if(index == 3){
         CouponViewController * coupon = [[CouponViewController alloc]init];

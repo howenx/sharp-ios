@@ -26,6 +26,7 @@
     [self createSettingView];
 }
 -(void)createSettingView{
+<<<<<<< HEAD
 
     tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT) style:UITableViewStylePlain];
     //    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -40,6 +41,14 @@
     
     
     
+=======
+    ResetButton   * aboutBtn = [ResetButton buttonWithType:UIButtonTypeCustom];
+    aboutBtn.frame = CGRectMake(10, 64, GGUISCREENWIDTH, 40);
+    [aboutBtn setTitle:@"关于我们" forState:UIControlStateNormal];
+    aboutBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [aboutBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [aboutBtn setImage:[UIImage imageNamed:@"about_us"] forState:UIControlStateNormal];
+>>>>>>> 10f53d2066dc4c0f012484952343c904ff8a6761
     
     
     UIView * footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 50)];
