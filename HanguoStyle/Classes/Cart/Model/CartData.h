@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 @interface CartDetailData : NSObject
 @property (nonatomic) NSInteger cartId;
-@property (nonatomic) NSInteger skuId;//库存id
+@property (nonatomic) long skuId;//库存id
 @property (nonatomic) NSInteger amount;//购物车数量
 @property (nonatomic) NSString * itemColor;//颜色
 @property (nonatomic) NSString * itemSize;//尺码

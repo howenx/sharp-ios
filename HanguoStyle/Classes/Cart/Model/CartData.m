@@ -29,7 +29,7 @@
         for (id tag in tags) {
             CartDetailData * detailData = [[CartDetailData alloc]init];
             detailData.cartId = [[tag objectForKey:@"cartId"]integerValue];
-            detailData.skuId = [[tag objectForKey:@"skuId"]integerValue];
+            detailData.skuId = [[tag objectForKey:@"skuId"]longValue];
             detailData.amount = [[tag objectForKey:@"amount"]integerValue];
             detailData.itemColor = [tag objectForKey:@"itemColor"];
             detailData.itemSize = [tag objectForKey:@"itemSize"];

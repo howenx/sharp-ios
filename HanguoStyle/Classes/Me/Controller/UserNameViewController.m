@@ -101,7 +101,7 @@
             [self showHud:@"昵称为数字、字母、汉字组合"];
         }
         
-        if(_nameTextField.text.length+string.length+string.length >12){
+        if(_nameTextField.text.length+string.length >12){
             canChange = NO;
             [self showHud:@"昵称最多12位"];
         }

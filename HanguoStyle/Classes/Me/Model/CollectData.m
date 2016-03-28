@@ -7,25 +7,32 @@
 //
 
 #import "CollectData.h"
-
+#import <JSONKit.h>
 @implementation CollectData
 - (CollectData *) initWithJSONNode: (id) node
 {
     
     self = [super init];
     if (self) {
+
         
-//        self.addId = [[node objectForKey:@"addId"]stringValue];
-//        self.tel = [node objectForKey:@"tel"];
-//        self.name = [node objectForKey:@"name"];
-//        self.deliveryCity = [node objectForKey:@"deliveryCity"];
-//        
-//        self.deliveryDetail = [node objectForKey:@"deliveryDetail"];
-//        self.orDefault = [[node objectForKey:@"orDefault"] boolValue];
-//        self.userId = [[node objectForKey:@"userId"] integerValue];
-//        self.idCardNum = [node objectForKey:@"idCardNum"];
+        self.collectId = [[node objectForKey:@"collectId"]longValue];
+        self.createAt = [[node objectForKey:@"createAt"]longValue];
+        self.skuType = [node objectForKey:@"skuType"];
+        self.skuTypeId = [[node objectForKey:@"skuTypeId"]longValue];
+        
+        id tag = [node objectForKey:@"cartSkuDto"];
+        
+        self.price = [tag objectForKey:@"price"];
+        self.itemColor = [tag objectForKey:@"itemColor"];
+        self.amount = [[tag objectForKey:@"amount"]integerValue];
+        self.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
+        self.invUrl = [tag objectForKey:@"invUrl"];
+        self.skuTitle = [tag objectForKey:@"skuTitle"];
+        self.itemSize = [tag objectForKey:@"itemSize"];
+        self.skuId = [[tag objectForKey:@"skuId"]longValue];
+        
     }
     return self;
 }
-
 @end

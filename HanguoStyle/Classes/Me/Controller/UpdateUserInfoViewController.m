@@ -198,7 +198,7 @@
     }else if([@"女" isEqualToString :_gLabel.text]){
         genderFlag = @"F";
     }
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_nameLab.text,@"nickname",genderFlag,@"gender",encodeImage,@"photoUrl",nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:genderFlag,@"gender",encodeImage,@"photoUrl",nil];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"] integerValue];

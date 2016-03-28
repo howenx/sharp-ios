@@ -8,7 +8,8 @@
 
 #import "CollectViewController.h"
 #import "CollectData.h"
-@interface CollectViewController ()
+#import "CollectCell.h"
+@interface CollectViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -20,9 +21,12 @@
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     _tableView.scrollsToTop = YES;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.navigationItem.title = @"我的收藏";
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    [_tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
     
     self.data  = [NSMutableArray array];
     [self headerRefresh];
@@ -49,14 +53,13 @@
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         
         if(code == 200){
-//            NSArray * dataArray = [object objectForKey:@"collectList"];
-//            for (id node in dataArray) {
-////                CollectData * data = [[CollectData alloc] initWithJSONNode:node];
-//                [self.data addObject:data];
-//            }
+            NSArray * dataArray = [object objectForKey:@"collectList"];
+            for (id node in dataArray) {
+                CollectData * data = [[CollectData alloc] initWithJSONNode:node];
+                [self.data addObject:data];
+            }
 
-
-//            [self.tableView reloadData];
+            [self.tableView reloadData];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
@@ -79,7 +82,35 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CollectCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CollectCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.data = self.data[indexPath.section];
+    
+    
+    return cell;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 200;
+}
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.data.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor =  GGColor(240, 240, 240);
+    return headerView;
+}
 -(void)backController{
     [self headerRefresh];
 }
