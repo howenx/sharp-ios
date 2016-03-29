@@ -376,8 +376,8 @@
         return false;
     }
     
-    NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
-    NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+//    NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", telRegex];
     if(![pred evaluateWithObject:GGTRIM(_mobel.text)]){
 //        [HSGlobal printAlert:@"请输入正确手机号码"];
         [self showHud:@"请输入正确手机号码"];
