@@ -33,4 +33,33 @@
 
 //6.去字符串左右两边空格
 #define GGTRIM(str) [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#pragma mark ====================== 系统控件的高度，宽度
+#define SCREEN_WIDTH    ([UIScreen mainScreen].bounds.size.width)   //屏幕窗口的宽
+#define SCREEN_HEIGHT   ([UIScreen mainScreen].bounds.size.height)  //屏幕窗口的高
+#define NAVBAR_HEIGHT   44    //导航条的高
+#define TABBAR_HEIGHT   49    //tabbar的高
+#define STATUS_HEIGHT   20    //状态条的高
+#define MAIN_COLOR 0x28FF28  //主体颜色
+
+#define MAIN_BG_COLOR 0x2d2d2d //背景色
+#define MAIN_BG_SELECTED 0xeb8a39 //选中色
+#define MAIN_BG_NAVBAR 0x595959 //导航条的颜色
+#define MAIN_FONT_LIGHT @"HelveticaNeue-Light"
+
+#define MAIN_FONT_BOLD @"HelveticaNeue-Bold"
+
+#define STR_EQ(a, b) [a isEqualToString:b]
+#define STR_IS_EMPTY(a) (a == nil || STR_EQ(a, @""))
+#define PosXFromView(view, space) (view.frame.size.width+view.frame.origin.x+space)
+#define PosYFromView(view, space) (view.frame.size.height+view.frame.origin.y+space)
+
+#define kSAAPPVERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define kSABUILDVERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
+#define kSAAPPName [[[NSBundle mainBundle] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"]
+#define kSAAPPBUNDLEID [[NSBundle mainBundle] bundleIdentifier]
+
+#define telRegex @"[1][345678]\\d{9}"
 #endif

@@ -12,4 +12,5 @@
 @end
 @interface SettingViewController : BaseViewController
 @property(nonatomic,weak) id <SettingDelegate> delegate;
+@property (nonatomic ,strong)UITableView * tableView;
 @end
