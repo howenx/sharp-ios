@@ -10,6 +10,9 @@
 #import "CouponData.h"
 #import "MyCouponCell.h"
 @interface CouponViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+{
+    UILabel * emptyLab;
+}
 @property (nonatomic) UIScrollView * scrollView;
 @property (nonatomic) UIView * lineView;
 
@@ -33,7 +36,13 @@
     [self createScrollView];
     _data = [NSMutableArray array];
     [self createTableView];
+    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
+    emptyLab.textAlignment = NSTextAlignmentCenter;
+    emptyLab.textColor = [UIColor grayColor];
+    emptyLab.font = [UIFont systemFontOfSize:15];
+    emptyLab.text =@"暂无优惠券";
     [self requestData];
+    
 
 }
 -(void)requestData{
@@ -74,10 +83,31 @@
                 [self.tableView reloadData];
                 if (_pageNum == 0) {
                     [_totalView addSubview:_tableView];
+                    [_totalView addSubview:emptyLab];
+                    if(self.data.count == 0){
+                        emptyLab.hidden = NO;
+                    }else{
+                        emptyLab.hidden = YES;
+                    }
+
                 }else if(_pageNum == 1){
                     [_obligationView addSubview:_tableView];
+                    [_obligationView addSubview:emptyLab];
+                    if(self.data.count == 0){
+                        emptyLab.hidden = NO;
+                    }else{
+                        emptyLab.hidden = YES;
+                    }
+
                 }else if(_pageNum == 2){
                     [_receiptGoodsView addSubview:_tableView];
+                    [_receiptGoodsView addSubview:emptyLab];
+                    if(self.data.count == 0){
+                        emptyLab.hidden = NO;
+                    }else{
+                        emptyLab.hidden = YES;
+                    }
+
                 }
                 
             

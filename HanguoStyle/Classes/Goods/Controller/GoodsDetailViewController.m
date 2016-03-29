@@ -418,6 +418,9 @@
         _globleIsStore = !_globleIsStore;
         AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
         if (_globleIsStore) {
+            if(![PublicMethod isConnectionAvailable]){
+                return;
+            }
             NSString * urlString =[HSGlobal collectUrl];
             
             NSDictionary * dict;

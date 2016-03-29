@@ -67,7 +67,7 @@
             }else{
                 image = [UIImage imageNamed:@"redStore"];
             }
-            self.storeBtn.imageEdgeInsets = UIEdgeInsetsMake(10,GGUISCREENWIDTH/4-20,10,GGUISCREENWIDTH/4-5);
+            self.storeBtn.imageEdgeInsets = UIEdgeInsetsMake(10,GGUISCREENWIDTH/4-30,10,GGUISCREENWIDTH/4);
             [self.storeBtn setImage:image forState:UIControlStateNormal];
             [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)sizeData.collectCount] forState:UIControlStateNormal];
   

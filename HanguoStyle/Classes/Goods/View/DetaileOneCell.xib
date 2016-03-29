@@ -155,6 +155,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="share.png" width="20" height="20"/>
+        <image name="share.png" width="17" height="20"/>
     </resources>
 </document>
