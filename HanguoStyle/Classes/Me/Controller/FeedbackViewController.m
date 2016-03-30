@@ -22,7 +22,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"意见反馈";
     
-    UIImage *searchimage=[UIImage imageNamed:@"redStore"];
+    UIImage *searchimage=[UIImage imageNamed:@"icon_save"];
     UIBarButtonItem *barbtn=[[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStyleDone target:self action:@selector(saveButton:)];
     barbtn.image=searchimage;
     self.navigationItem.rightBarButtonItem=barbtn;
@@ -50,6 +50,10 @@
 {
     
     if ([view.text isEqualToString:@"请输入您宝贵的意见吧~"] || [view.text isEqualToString:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"内容不能为空." message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        
                 return;
            }else{
 
