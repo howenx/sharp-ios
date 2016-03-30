@@ -86,7 +86,8 @@
         _pinFlagView.hidden = YES;
     }
     
-    [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg]];
+    [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg] placeholderImage:[UIImage imageNamed:@"zhanwei"]];
+//    [self.titleImageView setImage:[UIImage imageNamed:@"zhanwei"]];
     self.describeLab.text = data.itemTitle;
     self.moneyLab.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];
     if(data.itemTitle ==nil || [@""isEqualToString: data.itemTitle]){

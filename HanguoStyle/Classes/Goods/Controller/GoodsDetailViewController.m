@@ -418,9 +418,6 @@
         _globleIsStore = !_globleIsStore;
         AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
         if (_globleIsStore) {
-            if(![PublicMethod isConnectionAvailable]){
-                return;
-            }
             NSString * urlString =[HSGlobal collectUrl];
             
             NSDictionary * dict;
@@ -449,10 +446,20 @@
                     _globleStoreCount++;
                     [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
                     
+                }else{
+                    _globleIsStore = !_globleIsStore;
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelFont = [UIFont systemFontOfSize:11];
+                    hud.labelText = @"收藏失败";
+                    hud.margin = 10.f;
+                    hud.removeFromSuperViewOnHide = YES;
+                    [hud hide:YES afterDelay:1];
                 }
 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                 _globleIsStore = !_globleIsStore;
                 [PublicMethod printAlert:@"收藏失败"];
             }];
             
@@ -485,10 +492,20 @@
                     [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount - 1] forState:UIControlStateNormal];
                     _globleStoreCount--;
                     [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
+                }else{
+                    _globleIsStore = !_globleIsStore;
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelFont = [UIFont systemFontOfSize:11];
+                    hud.labelText = @"取消收藏失败";
+                    hud.margin = 10.f;
+                    hud.removeFromSuperViewOnHide = YES;
+                    [hud hide:YES afterDelay:1];
                 }
                 
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                 _globleIsStore = !_globleIsStore;
                 [PublicMethod printAlert:@"取消收藏失败"];
             }];
 

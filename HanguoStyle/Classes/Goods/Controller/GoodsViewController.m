@@ -14,6 +14,7 @@
 #import "GoodsDetailViewController.h"
 #import "GGTabBarViewController.h"
 #import "GoodsShowH5ViewController.h"
+#import "PinGoodsDetailViewController.h"
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -146,13 +147,19 @@
 {
     
     SliderData * sliderData = _imageUrls[index];
-    if([sliderData.targetType isEqualToString:@"D"]){
+    if([sliderData.targetType isEqualToString:@"D"]){//跳到普通商品详情页
         self.hidesBottomBarWhenPushed=YES;
         GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
         gdViewController.url = sliderData.itemTarget;
         [self.navigationController pushViewController:gdViewController animated:YES];
         self.hidesBottomBarWhenPushed=NO;
-    }else if([sliderData.targetType isEqualToString:@"T"]){
+    }else if([sliderData.targetType isEqualToString:@"P"]){//跳到拼购商品详情页
+        self.hidesBottomBarWhenPushed=YES;
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = _pushUrl;
+        [self.navigationController pushViewController:pinViewController animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
+    }else if([sliderData.targetType isEqualToString:@"T"]){//跳到列表页，后台控制不会跳到h5的列表页
         self.hidesBottomBarWhenPushed=YES;
         GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
         gsViewController.navigationItem.title = @"商品展示";

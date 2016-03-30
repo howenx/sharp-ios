@@ -25,8 +25,8 @@
 }
 - (void)setData:(ThemeData *)data
 {
-    [self.preImageView sd_setImageWithURL:[NSURL URLWithString:data.themeImg]];
-    
+    [self.preImageView sd_setImageWithURL:[NSURL URLWithString:data.themeImg] placeholderImage:[UIImage  imageNamed:@"zhanwei"]];
+//    [self.preImageView setImage:[UIImage imageNamed:@"zhanwei"]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

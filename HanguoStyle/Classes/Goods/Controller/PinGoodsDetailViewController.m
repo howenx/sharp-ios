@@ -43,10 +43,12 @@
     BOOL twoViewAlreadyLoad;
     BOOL threeViewAlreadyLoad;
 }
+@property (nonatomic) BOOL globleIsStore;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *footView;
 @property (weak, nonatomic) IBOutlet UIButton *openTeamButton;
 @property (weak, nonatomic) IBOutlet UIButton *singleBuyButton;
+@property (weak, nonatomic) IBOutlet UIButton *collectBtn;
 
 @end
 
@@ -132,6 +134,14 @@
     oneViewAlreadyLoad = true;
     twoViewAlreadyLoad = true;
     threeViewAlreadyLoad = true;
+    
+    if(_detailData.collectId == 0){
+        _globleIsStore = false;
+        [self.collectBtn setImage:[UIImage imageNamed:@"grayStore"] forState:UIControlStateNormal];
+    }else{
+        [self.collectBtn setImage:[UIImage imageNamed:@"redStore"] forState:UIControlStateNormal];
+        _globleIsStore = true;
+    }
     if(![_detailData.status isEqualToString:@"Y"]){
         _openTeamButton.enabled = NO;
         _singleBuyButton.enabled = NO;
@@ -245,7 +255,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-        _sectionZeroHeight = GGUISCREENWIDTH + 200;
+        _sectionZeroHeight = GGUISCREENWIDTH + 208;
         
 //        if(_detailData.itemPreviewImgs.count>0){
 //            _sectionZeroHeight = ((ItemPreviewImgsData *)_detailData.itemPreviewImgs[0]).height* GGUISCREENWIDTH/((ItemPreviewImgsData *)_detailData.itemPreviewImgs[0]).width + 200;
@@ -568,6 +578,102 @@
 
 -(void)backController{
     [self prepareDataSource];
+}
+- (IBAction)collectClick:(id)sender {
+    if(![PublicMethod isConnectionAvailable]){
+        return;
+    }
+    BOOL isLogin = [PublicMethod checkLogin];
+    if(!isLogin){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.labelText = @"未登录状态下不能收藏商品";
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
+        return;
+        
+    }else{
+        _globleIsStore = !_globleIsStore;
+        
+        AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+        
+        if (_globleIsStore) {
+            
+            NSString * urlString =[HSGlobal collectUrl];
+            
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_detailData.sizeId,@"skuId",_detailData.skuType,@"skuType",[NSNumber numberWithLong: _detailData.skuTypeId],@"skuTypeId",nil];
+            [GiFHUD setGifWithImageName:@"hmm.gif"];
+            [GiFHUD show];
+            [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //转换为词典数据
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                
+                
+                NSInteger code = [[[dict objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                
+                if(code == 200){
+                    [self.collectBtn setImage:[UIImage imageNamed:@"redStore"] forState:UIControlStateNormal];
+                    _detailData.collectId = [[dict objectForKey:@"collectId"]longValue];
+                }else{
+                     _globleIsStore = !_globleIsStore;
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelFont = [UIFont systemFontOfSize:11];
+                    hud.labelText = @"收藏失败";
+                    hud.margin = 10.f;
+                    hud.removeFromSuperViewOnHide = YES;
+                    [hud hide:YES afterDelay:1];
+                }
+                [GiFHUD dismiss];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                 _globleIsStore = !_globleIsStore;
+                [GiFHUD dismiss];
+                [PublicMethod printAlert:@"收藏失败"];
+            }];
+            
+            
+        }else{
+            NSString * urlString = [NSString stringWithFormat:@"%@%ld",[HSGlobal unCollectUrl],_detailData.collectId];
+            [GiFHUD setGifWithImageName:@"hmm.gif"];
+            [GiFHUD show];
+            [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //转换为词典数据
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                
+                NSInteger code = [[[dict objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                
+                if(code == 200){
+                    [self.collectBtn setImage:[UIImage imageNamed:@"grayStore"] forState:UIControlStateNormal];
+                    _detailData.collectId = 0;
+                }else{
+                     _globleIsStore = !_globleIsStore;
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.labelFont = [UIFont systemFontOfSize:11];
+                    hud.labelText = @"取消收藏失败";
+                    hud.margin = 10.f;
+                    hud.removeFromSuperViewOnHide = YES;
+                    [hud hide:YES afterDelay:1];
+                }
+                [GiFHUD dismiss];
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                 _globleIsStore = !_globleIsStore;
+                [GiFHUD dismiss];
+                [PublicMethod printAlert:@"取消收藏失败"];
+            }];
+            
+            
+        }
+        
+        
+    }
+
 }
 
 #pragma mark - MWPhotoBrowserDelegate
