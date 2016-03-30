@@ -1,5 +1,6 @@
 projectFilesBackup*/
 **/.DS_Store
+**/project.pbxproj
 logs
 project/project
 project/target
