@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinGoodsDetailViewController">
             <connections>
+                <outlet property="collectBtn" destination="57h-Ev-6jb" id="XyD-9W-DDb"/>
                 <outlet property="footView" destination="xYa-6B-crT" id="1VO-xq-ep6"/>
                 <outlet property="openTeamButton" destination="T0W-nT-HET" id="vza-fY-M64"/>
                 <outlet property="singleBuyButton" destination="xrg-IF-cFC" id="oYK-IN-fAS"/>
@@ -35,6 +36,9 @@
                             <state key="normal" image="grayStore.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="collectClick:" destination="-1" eventType="touchUpInside" id="jK2-PV-iGH"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0W-nT-HET">
                             <rect key="frame" x="61" y="0.0" width="157" height="50"/>
@@ -92,6 +96,6 @@
         </view>
     </objects>
     <resources>
-        <image name="grayStore.png" width="132" height="120"/>
+        <image name="grayStore.png" width="22" height="20"/>
     </resources>
 </document>

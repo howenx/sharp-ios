@@ -133,7 +133,7 @@
     UIScrollView *_scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     //设置UIScrollView 的显示内容的尺寸，有n张图要显示，就设置 屏幕宽度*n ，这里假设要显示4张图
-    _scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 4, [UIScreen mainScreen].bounds.size.height);
+    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 4, GGUISCREENHEIGHT);
     
     _scrollView.tag = 101;
     
@@ -143,25 +143,39 @@
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.delegate = self;
     
+    
+
+    
+    
     //在UIScrollView 上加入 UIImageView
     for (int i = 0 ; i < 4; i ++) {
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i , 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH * i , 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
         
         //将要加载的图片放入imageView 中
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
         imageView.image = image;
         
         [_scrollView addSubview:imageView];
+        if(i == 3){
+            UIImageView * enterImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH * i +(GGUISCREENWIDTH-167)/2, GGUISCREENHEIGHT*0.8, 167, 40)];
+            enterImgV.image = [UIImage imageNamed:@"openApp"];
+            enterImgV.userInteractionEnabled = YES;
+            [enterImgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewDisappear)]];
+            [_scrollView addSubview:enterImgV];
+        }
     }
-    
-    //初始化 UIPageControl 和 _scrollView 显示在 同一个页面中
-    UIPageControl *pageConteol = [[UIPageControl alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-50)/2, GGUISCREENHEIGHT - 60, 50, 40)];
-    pageConteol.numberOfPages = 4;//设置pageConteol 的page 和 _scrollView 上的图片一样多
-    pageConteol.tag = 201;
-    
     [self.window addSubview:_scrollView];
-    [self.window addSubview: pageConteol];
+    
+    
+    //设置分页
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-50, GGUISCREENWIDTH, 40)];
+    _pageControl.userInteractionEnabled = NO;
+    _pageControl.currentPageIndicatorTintColor = GGMainColor;
+    _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    _pageControl.numberOfPages = 4;
+    [self.window addSubview:_pageControl];
+
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -169,25 +183,17 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     // 记录scrollView 的当前位置，因为已经设置了分页效果，所以：位置/屏幕大小 = 第几页
-    int current = scrollView.contentOffset.x/[UIScreen mainScreen].bounds.size.width;
+    int current = scrollView.contentOffset.x/GGUISCREENWIDTH;
     
     //根据scrollView 的位置对page 的当前页赋值
-    UIPageControl *page = (UIPageControl *)[self.window viewWithTag:201];
-    page.currentPage = current;
-    
-    //当显示到最后一页时，让滑动图消失
-    if (page.currentPage == 3) {
-        
-        //调用方法，使滑动图消失
-        [self scrollViewDisappear];
-    }
+    _pageControl.currentPage = current;
+
 }
 
 -(void)scrollViewDisappear{
-    
+    [_pageControl removeFromSuperview];
     //拿到 view 中的 UIScrollView 和 UIPageControl
     UIScrollView *scrollView = (UIScrollView *)[self.window viewWithTag:101];
-    UIPageControl *page = (UIPageControl *)[self.window viewWithTag:201];
     
     //设置滑动图消失的动画效果图
     [UIView animateWithDuration:2.0f animations:^{
@@ -197,7 +203,7 @@
     } completion:^(BOOL finished) {
         
         [scrollView removeFromSuperview];
-        [page removeFromSuperview];
+        
     }];
     
     //将滑动图启动过的信息保存到 NSUserDefaults 中，使得第二次不运行滑动图
