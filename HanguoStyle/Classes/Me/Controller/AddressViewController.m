@@ -11,7 +11,9 @@
 #import "AddressCell.h"
 
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,AddressCellDelegate>
-
+{
+    UILabel * emptyLab;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray * data;
 @end
@@ -33,7 +35,14 @@
     self.data = [NSMutableArray array];
     
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-
+    
+    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT/2, GGUISCREENWIDTH, 40)];
+    emptyLab.textAlignment = NSTextAlignmentCenter;
+    emptyLab.textColor = [UIColor grayColor];
+    emptyLab.font = [UIFont systemFontOfSize:15];
+    emptyLab.text =@"暂无收货地址";
+    [self.view addSubview:emptyLab];
+    emptyLab.hidden = YES;
     
     //右上角添加按钮
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
@@ -82,6 +91,11 @@
                     data.isOrderDefault = YES;
                 }
                 [self.data addObject:data];
+            }
+            if(self.data.count == 0){
+                emptyLab.hidden = NO;
+            }else{
+                emptyLab.hidden = YES;
             }
             [self.tableView reloadData];
 
@@ -147,6 +161,11 @@
     }
     
 }
+//修改左滑删除按钮的title
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -192,6 +211,11 @@
                 [hud hide:YES afterDelay:1];
                 [self.data removeObjectAtIndex:[indexPath row]];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
             }else{
                 hud.labelText = @"删除失败";
                 [hud hide:YES afterDelay:1];

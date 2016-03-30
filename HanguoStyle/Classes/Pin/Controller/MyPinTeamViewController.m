@@ -11,6 +11,9 @@
 #import "MyPinTeamCell.h"
 #import "PinDetailViewController.h"
 @interface MyPinTeamViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MBProgressHUDDelegate,MyPinTeamCellDelegate>
+{
+    UILabel * emptyLab;
+}
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UIScrollView * scrollView;
 @property (nonatomic) UIView * lineView;
@@ -38,6 +41,12 @@
     [self createScrollView];
     [self createTableView];
     [self requestData];
+    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
+    emptyLab.textAlignment = NSTextAlignmentCenter;
+    emptyLab.textColor = [UIColor grayColor];
+    emptyLab.font = [UIFont systemFontOfSize:15];
+    emptyLab.text =@"暂无拼团商品";
+
 }
 - (void) requestData
 {
@@ -76,11 +85,24 @@
                     [_data addObject:data];
                 }
             }
+            
             [self.tableView reloadData];
             if (_pageNum == 0) {
                 [_totalView addSubview:_tableView];
+                [_totalView addSubview:emptyLab];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
             }else if(_pageNum == 1){
                 [_obligationView addSubview:_tableView];
+                [_obligationView addSubview:emptyLab];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
             }
 
         }else{

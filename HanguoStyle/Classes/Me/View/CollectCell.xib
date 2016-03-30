@@ -14,36 +14,89 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecf-kH-Ouy">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ecf-kH-Ouy">
                         <rect key="frame" x="10" y="10" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="bPl-mG-c61"/>
+                            <constraint firstAttribute="height" constant="80" id="oy2-3c-Bb8"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTj-8J-X1y">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTj-8J-X1y">
                         <rect key="frame" x="100" y="45" width="210" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="tMJ-Am-OO9"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="最低至：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqw-US-iLd">
-                        <rect key="frame" x="100" y="70" width="50" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最低至:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uqw-US-iLd">
+                        <rect key="frame" x="100" y="70" width="40" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="HKc-sx-2Kl"/>
+                            <constraint firstAttribute="height" constant="20" id="Wgr-Rm-JEk"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-pc-2uQ">
-                        <rect key="frame" x="150" y="71" width="160" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdX-pc-2uQ">
+                        <rect key="frame" x="140" y="70" width="170" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="8J4-tU-qvU"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6w-Hw-cWE">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g6w-Hw-cWE">
                         <rect key="frame" x="100" y="10" width="210" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Dd3-b8-ul7"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hmm_klmpintuan.png" translatesAutoresizingMaskIntoConstraints="NO" id="BYO-f8-RuY">
+                        <rect key="frame" x="10" y="10" width="25" height="25"/>
+                        <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="YMZ-O5-SfA"/>
+                            <constraint firstAttribute="height" constant="25" id="ipc-Bk-rTo"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="hdX-pc-2uQ" secondAttribute="trailing" constant="10" id="3ch-PT-fAJ"/>
+                    <constraint firstItem="xTj-8J-X1y" firstAttribute="top" secondItem="g6w-Hw-cWE" secondAttribute="bottom" constant="5" id="8ps-e4-9Qm"/>
+                    <constraint firstItem="uqw-US-iLd" firstAttribute="top" secondItem="xTj-8J-X1y" secondAttribute="bottom" constant="5" id="GOw-HG-19K"/>
+                    <constraint firstItem="g6w-Hw-cWE" firstAttribute="leading" secondItem="ecf-kH-Ouy" secondAttribute="trailing" constant="10" id="Hkq-IT-NgB"/>
+                    <constraint firstItem="hdX-pc-2uQ" firstAttribute="top" secondItem="uqw-US-iLd" secondAttribute="top" id="LfP-sS-FCo"/>
+                    <constraint firstItem="BYO-f8-RuY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SFt-97-qYl"/>
+                    <constraint firstItem="hdX-pc-2uQ" firstAttribute="leading" secondItem="uqw-US-iLd" secondAttribute="trailing" id="UEk-sb-ffW"/>
+                    <constraint firstItem="ecf-kH-Ouy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="VNm-PI-yCJ"/>
+                    <constraint firstAttribute="trailing" secondItem="g6w-Hw-cWE" secondAttribute="trailing" constant="10" id="Y7R-Zm-6UH"/>
+                    <constraint firstAttribute="trailing" secondItem="xTj-8J-X1y" secondAttribute="trailing" constant="10" id="aPt-VX-8UA"/>
+                    <constraint firstItem="xTj-8J-X1y" firstAttribute="leading" secondItem="ecf-kH-Ouy" secondAttribute="trailing" constant="10" id="b9N-TJ-HVF"/>
+                    <constraint firstItem="g6w-Hw-cWE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="dkc-y4-OJr"/>
+                    <constraint firstItem="BYO-f8-RuY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="iOL-7i-vGa"/>
+                    <constraint firstItem="uqw-US-iLd" firstAttribute="leading" secondItem="ecf-kH-Ouy" secondAttribute="trailing" constant="10" id="lcj-Fn-TQW"/>
+                    <constraint firstItem="ecf-kH-Ouy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="zRD-Pp-IRp"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="goodsImageView" destination="ecf-kH-Ouy" id="HmR-IU-cv9"/>
+                <outlet property="pinImageView" destination="BYO-f8-RuY" id="6CI-uY-DRI"/>
+                <outlet property="priceLab" destination="hdX-pc-2uQ" id="jSM-ff-DoI"/>
+                <outlet property="priceTitleLab" destination="uqw-US-iLd" id="TM5-Np-6uL"/>
+                <outlet property="sizeLab" destination="xTj-8J-X1y" id="Nas-HE-IAB"/>
+                <outlet property="titleLab" destination="g6w-Hw-cWE" id="eAC-ax-mia"/>
+            </connections>
             <point key="canvasLocation" x="325" y="365"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="hmm_klmpintuan.png" width="26" height="26"/>
+    </resources>
 </document>

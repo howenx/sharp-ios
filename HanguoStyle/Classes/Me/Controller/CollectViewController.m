@@ -9,7 +9,12 @@
 #import "CollectViewController.h"
 #import "CollectData.h"
 #import "CollectCell.h"
+#import "GoodsDetailViewController.h"
+#import "PinGoodsDetailViewController.h"
 @interface CollectViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UILabel * emptyLab;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -31,6 +36,14 @@
     self.data  = [NSMutableArray array];
     [self headerRefresh];
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    
+    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT/2, GGUISCREENWIDTH, 40)];
+    emptyLab.textAlignment = NSTextAlignmentCenter;
+    emptyLab.textColor = [UIColor grayColor];
+    emptyLab.font = [UIFont systemFontOfSize:15];
+    emptyLab.text =@"暂无收藏商品";
+    [self.view addSubview:emptyLab];
+    emptyLab.hidden = YES;
 }
 -(void)headerRefresh{
     
@@ -54,11 +67,16 @@
         
         if(code == 200){
             NSArray * dataArray = [object objectForKey:@"collectList"];
+            
             for (id node in dataArray) {
                 CollectData * data = [[CollectData alloc] initWithJSONNode:node];
                 [self.data addObject:data];
             }
-
+            if(self.data.count == 0){
+                emptyLab.hidden = NO;
+            }else{
+                emptyLab.hidden = YES;
+            }
             [self.tableView reloadData];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -97,7 +115,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 200;
+    return 100;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -106,11 +124,86 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 5;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor =  GGColor(240, 240, 240);
     return headerView;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //进入到商品展示页面
+
+    CollectData* collectData =_data[indexPath.section];
+    if ([@"pin" isEqualToString:collectData.skuType]) {
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = collectData.invUrl;
+        [self.navigationController pushViewController:pinViewController animated:YES];
+    }else{
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = collectData.invUrl;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+    }
+}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//修改左滑删除按钮的title
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"取消";
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if(![PublicMethod isConnectionAvailable]){
+            return;
+        }
+        CollectData* collectData =_data[indexPath.section];
+        NSString * urlString = [NSString stringWithFormat:@"%@%ld",[HSGlobal unCollectUrl],collectData.collectId];
+        
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+        AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+        [manager GET:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //转换为词典数据
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            
+            NSInteger code = [[[dict objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            if(200 == code){
+                hud.labelText = @"取消收藏成功";
+                [hud hide:YES afterDelay:1];
+                [self.data removeObjectAtIndex:[indexPath section]];
+                NSLog(@"%d",[indexPath section]);
+                NSLog(@"%d",[indexPath row]);
+
+                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
+            }else{
+                hud.labelText = @"取消收藏失败";
+                [hud hide:YES afterDelay:1];
+            }
+            
+            [GiFHUD dismiss];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"取消收藏失败"];
+            
+        }];
+        
+        
+    }
+}
+
+
 -(void)backController{
     [self headerRefresh];
 }

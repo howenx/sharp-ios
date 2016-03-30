@@ -59,6 +59,7 @@
     
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
+    self.tableView.bounces = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.data = [NSMutableArray array];
     [self setTableViewDataSource];
