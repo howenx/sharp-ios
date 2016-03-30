@@ -319,6 +319,8 @@
 		80FF44B11BD9C99C00966924 /* GoodsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FF44AF1BD9C99C00966924 /* GoodsDetailViewController.m */; };
 		80FF44B21BD9C99C00966924 /* GoodsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80FF44B01BD9C99C00966924 /* GoodsDetailViewController.xib */; };
 		944AB0379DB243F0E9688CAF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D00DFAC7AB1D5C092084958 /* libPods.a */; };
+		B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */; };
+		B048D3F91CAB6BDB00D92CD5 /* icon_save@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */; };
 		B0705ED31CAA14AA00E86A30 /* AboutOurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */; };
 		B0705ED41CAA14AA00E86A30 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED21CAA14AA00E86A30 /* FeedbackViewController.m */; };
 		B0705ED81CAA165600E86A30 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED71CAA165600E86A30 /* PlaceholderTextView.m */; };
@@ -805,6 +807,8 @@
 		80FF44AE1BD9C99C00966924 /* GoodsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailViewController.h; sourceTree = "<group>"; };
 		80FF44AF1BD9C99C00966924 /* GoodsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailViewController.m; sourceTree = "<group>"; };
 		80FF44B01BD9C99C00966924 /* GoodsDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsDetailViewController.xib; sourceTree = "<group>"; };
+		B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@2x.png"; path = "setting/icon_save@2x.png"; sourceTree = "<group>"; };
+		B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@3x.png"; path = "setting/icon_save@3x.png"; sourceTree = "<group>"; };
 		B0705ECF1CAA14AA00E86A30 /* AboutOurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutOurViewController.h; sourceTree = "<group>"; };
 		B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutOurViewController.m; sourceTree = "<group>"; };
 		B0705ED11CAA14AA00E86A30 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -1759,6 +1763,8 @@
 		B0705ED91CAA167400E86A30 /* setting */ = {
 			isa = PBXGroup;
 			children = (
+				B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */,
+				B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */,
 				B0705EDA1CAA168200E86A30 /* about_us.png */,
 				B0705EDB1CAA168200E86A30 /* about_us@2x.png */,
 				B0705EDC1CAA168200E86A30 /* about_us@3x.png */,
@@ -2042,6 +2048,7 @@
 				800528971CA3E2F200558D9F /* pengyouquan@2x.png in Resources */,
 				8005289C1CA3E2F200558D9F /* weixin@3x.png in Resources */,
 				80FDB8A01CA538C8006D5CB0 /* hmm_zutuan_success@2x.png in Resources */,
+				B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */,
 				8069E4AB1BC7B18500742D8F /* LosePwdViewController.xib in Resources */,
 				B0705EEC1CAA168200E86A30 /* clean.png in Resources */,
 				806BFFA01C3D1C3300680AF6 /* ios-social-sdk-like.html in Resources */,
@@ -2070,6 +2077,7 @@
 				80FC2EF11C86E28600FD32DE /* hmm_cantuan_success.png in Resources */,
 				B0705EF41CAA168200E86A30 /* opinion@3x.png in Resources */,
 				80FDB89E1CA538C8006D5CB0 /* hmm_zutuan_fail@2x.png in Resources */,
+				B048D3F91CAB6BDB00D92CD5 /* icon_save@3x.png in Resources */,
 				806BFFA11C3D1C3300680AF6 /* ios-social-sdk-login-detail.html in Resources */,
 				80EC9CA21C1FE8D60040A3A2 /* OrderViewController.xib in Resources */,
 				80FDB8AE1CA538C8006D5CB0 /* icon_shuaxin@2x.png in Resources */,
