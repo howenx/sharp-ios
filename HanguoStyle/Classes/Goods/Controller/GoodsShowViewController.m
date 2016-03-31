@@ -213,7 +213,7 @@
         
         
         //创建一个collectionView
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
         _collectionView.backgroundColor = GGColor(240, 240, 240);
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

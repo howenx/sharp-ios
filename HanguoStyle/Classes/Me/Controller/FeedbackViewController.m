@@ -36,7 +36,7 @@
 //    fieldText.placeholder = @"请输入您宝贵的意见吧~";
 //    
 //    [self.view addSubview:fieldText];
-    view=[[PlaceholderTextView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    view=[[PlaceholderTextView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     view.placeholder=@"请输入您宝贵的意见吧~";
     view.font=[UIFont boldSystemFontOfSize:14];
     view.placeholderFont=[UIFont boldSystemFontOfSize:13];

@@ -40,7 +40,7 @@
 -(void) createView{
 
     
-    UILabel * photoLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 64, GGUISCREENWIDTH-70, 40)];
+    UILabel * photoLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-70, 40)];
     photoLabelTitle.text = @"请选择本地照片:";
     photoLabelTitle.tag = 10001;
     photoLabelTitle.font = [UIFont systemFontOfSize:14];
@@ -57,14 +57,14 @@
 //    [self.view addSubview:button];
     
     
-    _smallimage = [[UIImageView alloc] initWithFrame: CGRectMake(GGUISCREENWIDTH-70, 64+5, 30, 30)] ;
+    _smallimage = [[UIImageView alloc] initWithFrame: CGRectMake(GGUISCREENWIDTH-70, 5, 30, 30)] ;
     _smallimage.image = _comeImage;
     _smallimage.tag = 10002;
     _smallimage.userInteractionEnabled = YES;
     [_smallimage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
     [self.view addSubview:_smallimage];
     
-    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 73, 20, 20)];
+    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 9, 20, 20)];
     jianImageView1.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView1.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView1.tag = 10003;
@@ -72,11 +72,11 @@
     [jianImageView1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
     [self.view addSubview:jianImageView1];
     
-    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 104, GGUISCREENWIDTH, 8)];
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 8)];
     lineView.backgroundColor =  GGColor(240, 240, 240);
     [self.view addSubview:lineView];
     
-    UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 112,  90, 40)];
+    UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 48,  90, 40)];
     nameLabelTitle.text = @"用户名:";
     nameLabelTitle.tag = 10005;
     nameLabelTitle.font = [UIFont systemFontOfSize:14];
@@ -86,7 +86,7 @@
     
     
     
-    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 117, GGUISCREENWIDTH-130, 30)];
+    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 53, GGUISCREENWIDTH-130, 30)];
     _nameLab.tag = 10006;
     _nameLab.textAlignment = NSTextAlignmentRight;
     _nameLab.text = self.userName;
@@ -95,7 +95,7 @@
     [_nameLab addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
 
     [self.view addSubview:_nameLab];
-    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 121, 20, 20)];
+    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 57, 20, 20)];
     jianImageView0.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView0.tag = 10004;
     jianImageView0.image = [UIImage imageNamed:@"icon_more_hui"];
@@ -103,12 +103,12 @@
     [jianImageView0 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
     [self.view addSubview:jianImageView0];
     
-    UIView * lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 152, GGUISCREENWIDTH, 8)];
+    UIView * lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 88, GGUISCREENWIDTH, 8)];
     lineView1.backgroundColor =  GGColor(240, 240, 240);
     [self.view addSubview:lineView1];
     
     
-    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 152, GGUISCREENWIDTH - 40, 50)];
+    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 88, GGUISCREENWIDTH - 40, 50)];
     sexLabelTitle.text = @"性别：";
     sexLabelTitle.tag = 10007;
     sexLabelTitle.font = [UIFont systemFontOfSize:14];
@@ -117,7 +117,7 @@
     [self.view addSubview:sexLabelTitle];
     
 
-    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 170, 20, 20)];
+    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 113, 20, 20)];
     [_gLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
     _gLabel.font = [UIFont systemFontOfSize:15];
     _gLabel.tag = 10008;
@@ -126,7 +126,7 @@
     [self.view addSubview:_gLabel];
 
     
-    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 172, 20, 20)];
+    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 108, 20, 20)];
     jianImageView.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView.tag = 10009;
@@ -134,7 +134,7 @@
     [jianImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
     [self.view addSubview:jianImageView];
     
-    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 202, GGUISCREENWIDTH, 8)];
+    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 138, GGUISCREENWIDTH, 8)];
     lineView2.backgroundColor =  GGColor(240, 240, 240);
     [self.view addSubview:lineView2];
 

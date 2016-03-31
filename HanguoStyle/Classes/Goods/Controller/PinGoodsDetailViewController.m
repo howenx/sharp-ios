@@ -150,7 +150,7 @@
     }
     if(![_detailData.status isEqualToString:@"Y"] && ![_detailData.status isEqualToString:@"P"]){
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 70, GGUISCREENWIDTH, 20) ;
+        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 70-64, GGUISCREENWIDTH, 20) ;
         otherPinGoodsBtn.backgroundColor = GGMainColor;
         
         [otherPinGoodsBtn setTitle:@"该活动已结束，去看看其他拼购吧" forState:UIControlStateNormal];

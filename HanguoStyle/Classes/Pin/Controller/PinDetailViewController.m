@@ -108,7 +108,7 @@
         buyNowH = 0;
         goSeeOtherBtnH = 30;
     }
-    UIScrollView * _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT- 64- buyNowH - goSeeOtherBtnH)];
+    UIScrollView * _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT- 64- buyNowH - goSeeOtherBtnH)];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(0,statusH + personH + joinTimeH + goodsH);
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -305,12 +305,12 @@
 
         stateImageView.image = [UIImage imageNamed:@"hmm_zutuan"];
         
-        UIView * btnBgView = [[UIView alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-80, GGUISCREENWIDTH, 80)];
+        UIView * btnBgView = [[UIView alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-80-64, GGUISCREENWIDTH, 80)];
         btnBgView.backgroundColor = [UIColor blackColor];
         btnBgView.alpha = 0.6;
         [self.view addSubview:btnBgView];
         UIButton * buyNowBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        buyNowBtn.frame = CGRectMake(10,GGUISCREENHEIGHT-65 , GGUISCREENWIDTH-20, 50);
+        buyNowBtn.frame = CGRectMake(10,GGUISCREENHEIGHT-65-64 , GGUISCREENWIDTH-20, 50);
         [buyNowBtn.layer setCornerRadius:3];
         buyNowBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         buyNowBtn.backgroundColor = GGMainColor;

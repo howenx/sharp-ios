@@ -135,10 +135,10 @@
     scrollView = [[UIScrollView alloc] init];
     
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"I"]) {
-        scrollView.frame = CGRectMake(10, 104, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-104);
+        scrollView.frame = CGRectMake(10, 40, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-104);
         scrollView.contentSize = CGSizeMake(0, 570 + _orderData.skuArray.count * 80);
         
-        auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 64, GGUISCREENWIDTH-20, 40)];
+        auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
         auctionTimeLab.numberOfLines = 1;
         auctionTimeLab.font = [UIFont systemFontOfSize:15];
         auctionTimeLab.textColor = GGMainColor;
@@ -147,7 +147,7 @@
         secondsCountDown = 24 * 60 * 60 - _orderData.orderInfo.countDown/1000;
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
     }else{
-        scrollView.frame = CGRectMake(10, 64, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
+        scrollView.frame = CGRectMake(10, 0, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
         scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80);
     }
     scrollView.delegate = self;

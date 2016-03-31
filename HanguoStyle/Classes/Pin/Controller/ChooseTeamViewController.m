@@ -35,7 +35,7 @@
 
 //创建上面view
 -(void)createGoodsView{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(10, 74, GGUISCREENWIDTH-20, 100)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(10, 14, GGUISCREENWIDTH-20, 100)];
     view.backgroundColor = [UIColor whiteColor];
 //    [view.layer setMasksToBounds:YES];
     view.layer.cornerRadius = 4.0;
@@ -65,7 +65,7 @@
 
 //创建下面view
 -(void)createTeamView{
-    _mainView = [[UIView alloc]initWithFrame:CGRectMake(10, 190, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-190-60)];
+    _mainView = [[UIView alloc]initWithFrame:CGRectMake(10, 126, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-190-60)];
     _mainView.backgroundColor = [UIColor whiteColor];
     _mainView.layer.cornerRadius = 4.0;
     _mainView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
@@ -224,7 +224,7 @@
     
     [_mainView removeFromSuperview];
     _chooseHeight = 0;
-    _mainView = [[UIView alloc]initWithFrame:CGRectMake(10, 190, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-190-60)];
+    _mainView = [[UIView alloc]initWithFrame:CGRectMake(10, 126, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-190-60)];
     _mainView.backgroundColor = [UIColor whiteColor];
     _mainView.layer.cornerRadius = 4.0;
     _mainView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色

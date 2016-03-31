@@ -90,7 +90,7 @@
 //    controller.edgesForExtendedLayout = UIRectEdgeTop;
 //    controller.edgesForExtendedLayout = UIRectEdgeNone;
     [navgationBar setBackgroundImage:[[UIImage createImageWithColor:GGMainColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forBarMetrics:UIBarMetricsDefault];
-    navgationBar.translucent = NO;
+//    navgationBar.translucent = NO;
     
 //    navgationBar.barTintColor=GGMainColor;
     // 字体的属性
