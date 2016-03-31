@@ -67,7 +67,7 @@
 }
 -(void)createWebView{
     NSString * urlString =[NSString stringWithFormat:@"%@%ld",[HSGlobal payUrl],_orderId];
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     

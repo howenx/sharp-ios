@@ -44,7 +44,7 @@
     
     if(isLogin){
         UIButton * exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exitBtn.frame = CGRectMake(10, 10, GGUISCREENWIDTH-20, 30);
+        exitBtn.frame = CGRectMake(10, 10, GGUISCREENWIDTH-20, 40);
         exitBtn.backgroundColor = GGMainColor;
         [exitBtn setTitle:@"退出" forState:UIControlStateNormal];
         exitBtn.titleLabel.font = [UIFont systemFontOfSize:14];

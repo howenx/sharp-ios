@@ -125,7 +125,7 @@
 
 
 -(void)createHeadView{
-    UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, 40)];
+    UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
     barView.backgroundColor = [UIColor whiteColor];
     
     
@@ -172,7 +172,7 @@
     
     //设置scrollview
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.frame = CGRectMake(0, 104, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40);
+    _scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40);
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 2, 0);
     _scrollView.showsHorizontalScrollIndicator = NO;

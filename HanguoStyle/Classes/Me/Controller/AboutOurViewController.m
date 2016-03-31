@@ -21,7 +21,7 @@
     [self createWebView];
 }
 -(void)createWebView{
-    UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];

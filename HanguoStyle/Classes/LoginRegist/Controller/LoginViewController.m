@@ -174,9 +174,11 @@
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIView *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
     //控件下端frame的y值,+10为了下面的判断，让控件和键盘之间有点距离
-    CGFloat viewY = firstResponder.frame.origin.y + firstResponder.frame.size.height + 10;
+    CGFloat viewY = firstResponder.frame.origin.y + firstResponder.frame.size.height + 10 +64;
     //键盘上端的frame的y值
     CGFloat keyY = GGUISCREENHEIGHT - keyboardSize.height;
+    NSLog(@"viewY=%f",viewY);
+    NSLog(@"keyY=%f",keyY);
     if(viewY >= keyY){
         [UIView beginAnimations:@"up" context:nil];
         [UIView setAnimationDuration:0.5];
@@ -191,7 +193,7 @@
     [UIView beginAnimations:@"down" context:nil];
     [UIView setAnimationDuration:0.5];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    self.view.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT);
+    self.view.frame = CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT);
     [UIView commitAnimations];
     
 }
