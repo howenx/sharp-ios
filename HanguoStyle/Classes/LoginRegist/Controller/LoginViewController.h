@@ -8,9 +8,7 @@
 
 
 #import "BaseViewController.h"
-@protocol  LoginViewDelegate <NSObject>
--(void)backMe;
-@end
+
 @interface LoginViewController : BaseViewController
-@property(nonatomic,weak) id <LoginViewDelegate> delegate;
+
 @end

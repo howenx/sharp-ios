@@ -48,7 +48,7 @@
             }else{
                 _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
                 NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
-                [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,itemDiscountCount)];
+                [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(0,itemDiscountCount)];
                 _detailLab.attributedText = str;
             }
             

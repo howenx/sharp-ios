@@ -63,14 +63,14 @@
 }
 -(void)setBadge{
     _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6+8 , 2, 15, 15)];
-    _cntLabel.textColor = [UIColor redColor];
+    _cntLabel.textColor = GGMainColor;
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont boldSystemFontOfSize:11];
     _cntLabel.backgroundColor = [UIColor whiteColor];
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
-    _cntLabel.layer.borderColor = [UIColor redColor].CGColor;
+    _cntLabel.layer.borderColor = GGMainColor.CGColor;
     _cntLabel.hidden = YES;
     [self addSubview:_cntLabel];
 

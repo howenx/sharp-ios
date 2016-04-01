@@ -131,8 +131,8 @@
         }
         _goodsDetailData.sizeArray = array;
         _sizeName = sizeString;
-        [btn setTitleColor:[UIColor redColor]forState:UIControlStateNormal];
-        [btn.layer setBorderColor:[UIColor redColor].CGColor];
+        [btn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [btn.layer setBorderColor:GGMainColor.CGColor];
 
 
     }

@@ -164,6 +164,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="price_bg.png" width="393" height="78"/>
+        <image name="price_bg.png" width="196" height="36"/>
     </resources>
 </document>

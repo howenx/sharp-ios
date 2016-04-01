@@ -48,7 +48,7 @@
         //设置分页
         _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, _viewHeight-30, _viewWidth, 30)];
         _pageControl.userInteractionEnabled = NO;
-        _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+        _pageControl.currentPageIndicatorTintColor = GGMainColor;
         _pageControl.pageIndicatorTintColor = [UIColor whiteColor];
         [self addSubview:_pageControl];
         

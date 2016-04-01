@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleAndMoneyConstraint;
 
 
+
 @property (weak, nonatomic) IBOutlet UIView *pinFlagView;
 @property (weak, nonatomic) IBOutlet UILabel *pinTimeLab;
 
@@ -49,13 +50,10 @@
     if([data.itemType isEqualToString:@"pin"]){
         _saleOutLab.hidden = YES;
         _pinFlagView.hidden = NO;
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = _pinFlagView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        _pinFlagView.layer.mask = maskLayer;
+
         //在售
         if([@"Y" isEqualToString: data.state]){
+            _pinFlagView.width = 130;
             //2016-01-30 17:16:55
             int month= [[data.endAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.endAt substringWithRange:NSMakeRange(8,2)] intValue];
@@ -65,6 +63,7 @@
             NSString * strTime = [NSString stringWithFormat:@"截止到%d月%d日 %d:%d",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
         }else if([@"P" isEqualToString: data.state]){//预售
+            _pinFlagView.width = 130;
             int month= [[data.startAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.startAt substringWithRange:NSMakeRange(8,2)] intValue];
             int hour= [[data.startAt substringWithRange:NSMakeRange(11,2)] intValue];
@@ -73,9 +72,16 @@
             NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
         }else{
+            _pinFlagView.width = 70;
             NSString * strTime = @"已结束";
             _pinTimeLab.text  = strTime;
         }
+        NSLog(@"sss%f",_pinFlagView.bounds.size.width);
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame = _pinFlagView.bounds;
+        maskLayer.path = maskPath.CGPath;
+        _pinFlagView.layer.mask = maskLayer;
     }else{
         if([@"Y" isEqualToString: data.state]||[@"P" isEqualToString: data.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
             _saleOutLab.hidden = YES;

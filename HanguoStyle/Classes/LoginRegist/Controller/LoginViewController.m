@@ -308,7 +308,6 @@
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
             [self sendCart];
-            [self.delegate backMe];
             //1.登陆成功,跳转到下主页面
             [self.navigationController popViewControllerAnimated:YES];
             
