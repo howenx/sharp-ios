@@ -14,7 +14,7 @@
 
 @interface PayViewController ()<UIAlertViewDelegate,UIWebViewDelegate>
 {
-    UIWebView * webView;
+    
 }
 @end
 
@@ -67,7 +67,7 @@
 }
 -(void)createWebView{
     NSString * urlString =[NSString stringWithFormat:@"%@%ld",[HSGlobal payUrl],_orderId];
-    webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
@@ -80,6 +80,14 @@
     [webView loadRequest:request];
     
     
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [webView stringByEvaluatingJavaScriptFromString:@"function openOrder() { "
+     "window.location = '/openOrder';"
+     "}"];
+    [webView stringByEvaluatingJavaScriptFromString:@"function openHome() { "
+     "window.location = '/openHome';"
+     "}"];
 }
 #pragma mark - webViewDelegate
 
@@ -99,17 +107,19 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         return false;
     }
+    
     if ([[[request URL] absoluteString] rangeOfString:@"promotion/pin"].location != NSNotFound) {
     
-//    }
-//    NSArray *components = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"|"];
-//    if ([components count] >1  && [(NSString *)[components objectAtIndex:1] isEqualToString:@"openPinOrder"]) {
         NSString * url = [[request URL] absoluteString];
         PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
         detailVC.url = url;
         detailVC.isFrom = @"PayViewController";
         [self.navigationController pushViewController:detailVC animated:YES];
         return false;
+    }
+    
+    if ([request.mainDocumentURL.relativePath rangeOfString:@":"].location != NSNotFound ||[request.mainDocumentURL.relativePath rangeOfString:@"all"].location != NSNotFound || [@"/"isEqualToString:request.mainDocumentURL.relativePath]|| [@""isEqualToString:request.mainDocumentURL.relativePath]) {
+        return  false;
     }
     return  true;
 }
