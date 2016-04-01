@@ -63,7 +63,7 @@
         [self.navigationController pushViewController:pinViewController animated:YES];
         return false;
     }
-    if ([request.mainDocumentURL.relativePath rangeOfString:@"detail/item"].location != NSNotFound) {
+    if ([request.mainDocumentURL.relativePath rangeOfString:@"detail/item"].location != NSNotFound || [request.mainDocumentURL.relativePath rangeOfString:@"detail/pin"].location != NSNotFound) {
         return false;
     }
     return  true;

@@ -257,7 +257,7 @@
     [JPUSHService handleRemoteNotification:userInfo];
     
 }
-
+//远程推送
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // IOS 7 Support Required
      NSLog(@"收到通知:%@", [self logDic:userInfo]);
@@ -297,6 +297,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+//Safari浏览器跳转打开、唤醒app
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    if (url) {
+//        
+//        UIAlertView *alertView = [[ UIAlertView alloc ] initWithTitle : nil message : @" 你唤醒了您的应用 " delegate : self cancelButtonTitle : @" 确定 " otherButtonTitles : nil , nil ];
+//        
+//        [alertView show ];
+//        
+//    }
+//    
+//    return YES ;
+//    
+//}
+
+
 - (NSString *)logDic:(NSDictionary *)dic {
     if (![dic count]) {
         return nil;
