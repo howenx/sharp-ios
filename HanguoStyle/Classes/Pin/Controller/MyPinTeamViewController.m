@@ -10,6 +10,7 @@
 #import "PinTeamData.h"
 #import "MyPinTeamCell.h"
 #import "PinDetailViewController.h"
+#import "OrderDetailsPinViewController.h"
 @interface MyPinTeamViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MBProgressHUDDelegate,MyPinTeamCellDelegate>
 {
     UILabel * emptyLab;
@@ -243,6 +244,17 @@
     cell.delegate = self;
     cell.data = self.data[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    [cell setSelectButtonBlock:^(NSString * str) {
+        NSLog(@"查看订单");
+       PinTeamData * data = [_data objectAtIndex:indexPath.row]
+        ;
+        OrderDetailsPinViewController * vc = [OrderDetailsPinViewController new];
+        vc.orderId = data.orderId;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }];
+    
     return cell;
 
 }
