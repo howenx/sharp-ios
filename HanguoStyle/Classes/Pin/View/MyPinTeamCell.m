@@ -48,7 +48,7 @@
     [self.delegate sendTeamDetailUrl:_data.pinUrl];
 }
 - (void)orderBtnClicked {
-    
+    self.selectButtonBlock(@"");
 }
 - (void)awakeFromNib {
     // Initialization code

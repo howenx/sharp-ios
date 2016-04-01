@@ -20,4 +20,6 @@
 @interface MyPinTeamCell : UITableViewCell
 @property (nonatomic, weak) id <MyPinTeamCellDelegate> delegate;
 @property(nonatomic,strong) PinTeamData * data;
+
+@property (nonatomic,copy) void (^selectButtonBlock)(NSString * str);
 @end

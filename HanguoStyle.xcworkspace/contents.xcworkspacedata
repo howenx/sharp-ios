@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:HanguoStyle.xcodeproj">
+      location = "group:/Users/wayne/dev/style-ios/HanguoStyle.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
