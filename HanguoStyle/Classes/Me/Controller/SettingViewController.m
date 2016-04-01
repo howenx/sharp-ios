@@ -44,9 +44,11 @@
     
     if(isLogin){
         UIButton * exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exitBtn.frame = CGRectMake(10, 10, GGUISCREENWIDTH-20, 40);
+        exitBtn.frame = CGRectMake(10, 10, GGUISCREENWIDTH-20, 35);
+        [exitBtn.layer setMasksToBounds:YES];
+        [exitBtn.layer setCornerRadius:4];
         exitBtn.backgroundColor = GGMainColor;
-        [exitBtn setTitle:@"退出" forState:UIControlStateNormal];
+        [exitBtn setTitle:@"退 出" forState:UIControlStateNormal];
         exitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [exitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];

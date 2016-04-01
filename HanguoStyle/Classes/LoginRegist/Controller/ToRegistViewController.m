@@ -10,6 +10,7 @@
 #import "ReturnResult.h"
 #import "RegistViewController.h"
 #import "ToLosePwdViewController.h"
+#import "LosePwdViewController.h"
 @interface ToRegistViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneLab;
 
@@ -70,7 +71,7 @@
 }
 
 -(void)createVerifyView{
-    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
+    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _verifyBg.backgroundColor = [UIColor blackColor];
     _verifyBg.alpha = 0.3;
     [self.view addSubview:_verifyBg];
@@ -101,7 +102,7 @@
     UIButton * cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancleBtn.frame = CGRectMake(0, 60, _verifyView.width/2, 40);
     [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     cancleBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [cancleBtn addTarget:self action:@selector(cancleBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_verifyView addSubview:cancleBtn];
@@ -110,7 +111,7 @@
     UIButton * sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.frame = CGRectMake(_verifyView.width/2, 60, _verifyView.width/2, 40);
     [sureBtn setTitle:@"找回密码" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [sureBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [sureBtn addTarget:self action:@selector(sureBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [_verifyView addSubview:sureBtn];
@@ -167,7 +168,8 @@
 -(void)sureBtnClick{
     _verifyView.hidden = YES;
     _verifyBg.hidden = YES;
-    ToLosePwdViewController * lpvc = [[ToLosePwdViewController alloc]init];
+    LosePwdViewController * lpvc = [[LosePwdViewController alloc]init];
+    lpvc.phone = _phoneLab.text;
     [self.navigationController pushViewController:lpvc animated:YES];
 }
 //验证手机号

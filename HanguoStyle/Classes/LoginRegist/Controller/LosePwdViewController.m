@@ -13,11 +13,11 @@
 {
     int secondsCountDown; //倒计时总时长
     NSTimer * countDownTimer;
+    FMDatabase * database;
 }
 - (IBAction)commitButton:(UIButton *)sender;
 - (IBAction)testingCodeButton:(UIButton *)sender;
 
-- (IBAction)backButton:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UITextField *pwd;
 @property (weak, nonatomic) IBOutlet UITextField *identCode;
@@ -193,10 +193,7 @@
 }
 
 
-#pragma mark - 按钮事件
-- (IBAction)backButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 - (IBAction)commitButton:(UIButton *)sender {
     if(![self check]){
         return;
@@ -225,6 +222,7 @@
         if(returnResult.code == 200){
             //开始倒计时
             countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES]; //启动倒计时后会每秒钟调用一次方法 timeFireMethod
+            _testBtn.enabled = NO;
         }else{
             [self showHud:returnResult.message];
         }
@@ -238,17 +236,21 @@
     
 }
 -(void)timeFireMethod{
-    _testBtn.enabled = NO;
     //倒计时-1
     secondsCountDown--;
-    //修改倒计时标签现实内容
-    [_testBtn setTitle:[NSString stringWithFormat:@"%d s",secondsCountDown] forState:UIControlStateNormal];
+
     //当倒计时到0时，做需要的操作，比如验证码过期不能提交
     if(secondsCountDown==0){
         [countDownTimer invalidate];
         countDownTimer = nil;
         [_testBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         _testBtn.enabled = YES;
+    }else{
+        //修改倒计时标签现实内容
+        //_testBtn.titleLabel.text 为了防止按钮文字闪动
+        _testBtn.titleLabel.text = [NSString stringWithFormat:@"%d 秒",secondsCountDown];
+        [_testBtn setTitle:[NSString stringWithFormat:@"%d 秒",secondsCountDown] forState:UIControlStateNormal];
+        
     }
 }
 
@@ -265,8 +267,15 @@
         ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
         [self showHud:returnResult.message];
         if(returnResult.code == 200){
+            [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+            [self sendCart];
             [self.navigationController popToRootViewControllerAnimated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+        }else{
+            [self showHud:returnResult.message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -320,6 +329,62 @@
         return false;
     }
     return true;
+}
+-(void)sendCart{
+    database = [PublicMethod shareDatabase];
+    
+    //开始添加事务
+    [database beginTransaction];
+    
+    FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
+    NSMutableArray * mutArray = [NSMutableArray array];
+    while ([rs next]){
+        
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid"]] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"cart_id"]] forKey:@"cartId"];
+        [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid_amount"]] forKey:@"amount"];
+        [myDict setObject:@"I" forKey:@"state"];
+        [myDict setObject:[rs stringForColumn:@"sku_type"] forKey:@"skuType"];
+        [myDict setObject:[NSNumber numberWithLong:[rs longForColumn:@"sku_type_id"]] forKey:@"skuTypeId"];
+        [mutArray addObject:myDict];
+        
+    }
+    
+    //提交事务
+    [database commit];
+    
+    
+    if(mutArray.count >0){
+        NSString * urlString =[HSGlobal addToCartUrl];
+        AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+        
+        
+        [manager POST:urlString  parameters:[mutArray copy] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            NSLog(@"message= %@",message);
+            if(code == 200){
+                [database beginTransaction];
+                [database executeUpdate:@"DELETE FROM Shopping_Cart"];
+                [database commit];
+            }else{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = message;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            //            [HSGlobal printAlert:@"发送购物车数据失败"];
+            [self showHud:@"发送购物车数据失败"];
+        }];
+        
+    }
 }
 
 @end

@@ -18,7 +18,7 @@
 #import "CouponViewController.h"
 #import "MyPinTeamViewController.h"
 #import "CollectViewController.h"
-@interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate,LoginViewDelegate,SettingDelegate>
+@interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate,SettingDelegate>
 {
     MineData * mineData;
     BOOL agoIsLogin;
@@ -206,7 +206,6 @@
         [self.navigationController pushViewController:updateUserController animated:YES];
     }else{
         LoginViewController * login = [[LoginViewController alloc]init];
-        login.delegate =self;
         [self.navigationController pushViewController:login animated:YES];
     }
     
@@ -249,7 +248,6 @@
         [self pushGoodShowView:indexPath.section];
     }else{
         LoginViewController * login = [[LoginViewController alloc]init];
-        login.delegate = self;
         [self.navigationController pushViewController:login animated:NO];
     }
     
@@ -334,9 +332,7 @@
     
 
 }
--(void)backMe{
-    [self footerRefresh];
-}
+
 -(void) backMeFromSetting{
     [self footerRefresh];
 }

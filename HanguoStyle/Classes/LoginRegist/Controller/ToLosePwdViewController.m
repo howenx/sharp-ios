@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
+
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"找回密码";
     _textF = [[UITextField alloc]init];
@@ -44,6 +44,7 @@
     _textF.tag = 10014;
 
     [self createVerifyView];
+    [self createNoRegistView];
 
 }
 //通过委托来放弃第一响应者
@@ -103,7 +104,7 @@
 }
 //创建手机号尚未注册弹出页
 -(void)createNoRegistView{
-    _noRegistBg = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
+    _noRegistBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _noRegistBg.backgroundColor = [UIColor blackColor];
     _noRegistBg.alpha = 0.3;
     [self.view addSubview:_noRegistBg];
@@ -129,12 +130,10 @@
     line2.backgroundColor = GGColor(240, 240, 240);
     [_noRegistView addSubview:line2];
     
-    
-    
     UIButton * cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancleBtn.frame = CGRectMake(0, 60, _noRegistView.width/2, 40);
     [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     cancleBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [cancleBtn addTarget:self action:@selector(noRegistCancleClick) forControlEvents:UIControlEventTouchUpInside];
     [_noRegistView addSubview:cancleBtn];
@@ -142,8 +141,8 @@
     
     UIButton * sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.frame = CGRectMake(_noRegistView.width/2, 60, _noRegistView.width/2, 40);
-    [sureBtn setTitle:@"立即注册" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [sureBtn setTitle:@"去注册" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [sureBtn addTarget:self action:@selector(toRegistClick) forControlEvents:UIControlEventTouchUpInside];
     [_noRegistView addSubview:sureBtn];
@@ -167,7 +166,7 @@
 }
 //创建图文验证码页面
 -(void)createVerifyView{
-    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
+    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _verifyBg.backgroundColor = [UIColor blackColor];
     _verifyBg.alpha = 0.3;
     [self.view addSubview:_verifyBg];
@@ -296,6 +295,7 @@
             _noRegistBg.hidden = NO;
             [self showHud:@"该手机号码没有注册"];
             
+            
         }else if(returnResult.code == 5001){//已注册
             
             LosePwdViewController * lpvc = [[LosePwdViewController alloc]init];
@@ -343,14 +343,5 @@
     
     hud.labelText = message;
 }
--(void)backViewController{
-    
-    for (UIViewController *temp in self.navigationController.viewControllers) {
-        if ([temp isKindOfClass:[LoginViewController class]]) {
-            [self.navigationController popToViewController:temp animated:YES];
-            break;
-        }
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
-}
+
 @end

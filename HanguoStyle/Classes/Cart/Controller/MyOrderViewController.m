@@ -209,14 +209,14 @@
     [obligationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     _obligationLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/6+20 , 0, 15, 15)];
-    _obligationLabel.textColor = [UIColor redColor];
+    _obligationLabel.textColor = GGMainColor;
     _obligationLabel.textAlignment = NSTextAlignmentCenter;
     _obligationLabel.font = [UIFont boldSystemFontOfSize:11];
     _obligationLabel.backgroundColor = [UIColor whiteColor];
     _obligationLabel.layer.cornerRadius = CGRectGetHeight(_obligationLabel.bounds)/2;
     _obligationLabel.layer.masksToBounds = YES;
     _obligationLabel.layer.borderWidth = 1.0f;
-    _obligationLabel.layer.borderColor = [UIColor redColor].CGColor;
+    _obligationLabel.layer.borderColor = GGMainColor.CGColor;
     
     if (_obligationCount == 0) {
         _obligationLabel.hidden = YES;
@@ -236,14 +236,14 @@
     [receiptGoodsBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     _receiptGoodsLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/6+20 , 0, 15, 15)];
-    _receiptGoodsLabel.textColor = [UIColor redColor];
+    _receiptGoodsLabel.textColor = GGMainColor;
     _receiptGoodsLabel.textAlignment = NSTextAlignmentCenter;
     _receiptGoodsLabel.font = [UIFont boldSystemFontOfSize:11];
     _receiptGoodsLabel.backgroundColor = [UIColor whiteColor];
     _receiptGoodsLabel.layer.cornerRadius = CGRectGetHeight(_obligationLabel.bounds)/2;
     _receiptGoodsLabel.layer.masksToBounds = YES;
     _receiptGoodsLabel.layer.borderWidth = 1.0f;
-    _receiptGoodsLabel.layer.borderColor = [UIColor redColor].CGColor;
+    _receiptGoodsLabel.layer.borderColor = GGMainColor.CGColor;
     
     if (_receiptGoodsCount == 0) {
         _receiptGoodsLabel.hidden = YES;

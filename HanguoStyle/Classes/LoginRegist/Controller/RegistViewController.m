@@ -15,7 +15,6 @@
     NSTimer * countDownTimer;
     FMDatabase * database;
 }
-- (IBAction)backButton:(UIButton *)sender;
 - (IBAction)registButton:(UIButton *)sender;
 - (IBAction)testingCodeButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *testBtn;
@@ -180,10 +179,7 @@
     return canChange;
     
 }
-#pragma mark - 按钮事件
-- (IBAction)backButton:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+
 
 - (IBAction)registButton:(UIButton *)sender {
     if(![self check]){
@@ -212,6 +208,7 @@
         if(returnResult.code == 200){
             //开始倒计时
             countDownTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES]; //启动倒计时后会每秒钟调用一次方法 timeFireMethod
+            _testBtn.enabled = NO;
         }else{
             [self showHud:returnResult.message];
         }
@@ -223,17 +220,22 @@
 
 }
 -(void)timeFireMethod{
-    _testBtn.enabled = NO;
+
     //倒计时-1
     secondsCountDown--;
-    //修改倒计时标签现实内容
-    [_testBtn setTitle:[NSString stringWithFormat:@"%d s",secondsCountDown] forState:UIControlStateNormal];
+   
     //当倒计时到0时，做需要的操作，比如验证码过期不能提交
     if(secondsCountDown==0){
         [countDownTimer invalidate];
         countDownTimer = nil;
         [_testBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         _testBtn.enabled = YES;
+    }else{
+        //修改倒计时标签现实内容
+        //_testBtn.titleLabel.text 为了防止按钮文字闪动
+        _testBtn.titleLabel.text = [NSString stringWithFormat:@"%d 秒",secondsCountDown];
+        [_testBtn setTitle:[NSString stringWithFormat:@"%d 秒",secondsCountDown] forState:UIControlStateNormal];
+        
     }
 }
 //发送注册数据
@@ -249,7 +251,13 @@
         ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
         
         if(returnResult.code == 200){
-            [self toLogin];
+            [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+            [self sendCart];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         }else{
             [self showHud:returnResult.message];
         }
@@ -260,39 +268,7 @@
 
 }
 
--(void)toLogin{
-    NSString * urlString =[HSGlobal loginUrl];
-    AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phone,@"name",_pwd.text,@"password",@"-1",@"code",nil];
-    [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //转换为词典数据
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        //创建数据模型对象,加入数据数组
-        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-        
-        if(returnResult.code == 200){
-            [self showHud:@"注册成功，自动登录"];
-            //把用户账号存到内存中
-            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
-            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
-            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
-            [self sendCart];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
-            
-            
-        }else if(returnResult.code == 4001){//如果让输入图文验证码就跳到登陆界面
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
-        }else{
-            [self showHud:returnResult.message];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [self showHud:@"登陆失败"];
-    }];
-    
-}
+
 
 -(BOOL)check{
 
