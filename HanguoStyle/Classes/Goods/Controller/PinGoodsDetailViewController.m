@@ -282,7 +282,7 @@
 {
     if(section==1){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = GGColor(240, 240, 240);
+        barView.backgroundColor = GGBgColor;
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
         [tuWenBtn setTitle:@"图文详情" forState:UIControlStateNormal];

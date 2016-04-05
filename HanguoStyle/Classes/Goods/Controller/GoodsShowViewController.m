@@ -41,7 +41,7 @@
 
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
-    _collectionView.backgroundColor = GGColor(240, 240, 240);
+    _collectionView.backgroundColor = GGBgColor;
     self.data  = [NSMutableArray array];
     self.hidesBottomBarWhenPushed = YES;
     self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
@@ -214,7 +214,7 @@
         
         //创建一个collectionView
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
-        _collectionView.backgroundColor = GGColor(240, 240, 240);
+        _collectionView.backgroundColor = GGBgColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [self.view addSubview:_collectionView];

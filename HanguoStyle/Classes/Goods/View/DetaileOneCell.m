@@ -67,9 +67,9 @@
             }else{
                 image = [UIImage imageNamed:@"redStore"];
             }
-            self.storeBtn.imageEdgeInsets = UIEdgeInsetsMake(10,GGUISCREENWIDTH/4-30,10,GGUISCREENWIDTH/4);
+//            self.storeBtn.imageEdgeInsets = UIEdgeInsetsMake(10,GGUISCREENWIDTH/4-30,10,GGUISCREENWIDTH/4);
             [self.storeBtn setImage:image forState:UIControlStateNormal];
-            [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)sizeData.collectCount] forState:UIControlStateNormal];
+//            [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)sizeData.collectCount] forState:UIControlStateNormal];
   
         }
     }
@@ -84,8 +84,10 @@
         for (int i = 0; i < _scrollArr.count; i++)
         {
             UIImageView *imv = [[UIImageView alloc] init];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url]];
-            imv.image = [UIImage imageWithData:data];
+//            imv.contentMode = UIViewContentModeScaleAspectFit;
+//            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url]];
+            [imv sd_setImageWithURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url] placeholderImage:[UIImage  imageNamed:@"zhanwei"]];
+//            imv.image = [UIImage imageWithData:data];
             [imageArr addObject:imv];
         }
         hView.imageViewAry = imageArr;

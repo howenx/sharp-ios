@@ -34,7 +34,7 @@
     }
     //绘制脚步view
     UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.origin.y + rect.size.height + 10, GGUISCREENWIDTH, 8)];
-    footView.backgroundColor = GGColor(234, 234, 234);
+    footView.backgroundColor = GGBgColor;
     [self.contentView addSubview:footView];
     if([self.delegate respondsToSelector:@selector(getThreeCellH:)]){
         [self.delegate getThreeCellH:(footView.frame.origin.y + footView.frame.size.height)];

@@ -118,7 +118,7 @@
     
     //状态imageview
     UIView * statusView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, statusH)];
-    statusView.backgroundColor =GGColor(240, 240, 240);
+    statusView.backgroundColor =GGBgColor;
     UIImageView * statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(50, 20, GGUISCREENWIDTH-100, statusH-40)];
     statusImageView.contentMode = UIViewContentModeScaleAspectFit;
     [statusView addSubview:statusImageView];
@@ -132,7 +132,7 @@
     
     UIImageView * invImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 80, 80)];
     invImageView.layer.borderWidth = 1;
-    invImageView.layer.borderColor = GGColor(240, 240, 240).CGColor;
+    invImageView.layer.borderColor = GGBgColor.CGColor;
     invImageView.contentMode = UIViewContentModeScaleAspectFit;
     [invImageView sd_setImageWithURL:[NSURL URLWithString:_data.pinImg]];
     [goodsView addSubview:invImageView];
@@ -164,7 +164,7 @@
     
     //头像view
     UIView * photoView = [[UIView alloc]initWithFrame:CGRectMake(0, goodsView.height + goodsView.y, GGUISCREENWIDTH, personH)];
-    photoView.backgroundColor =GGColor(240, 240, 240);
+    photoView.backgroundColor =GGBgColor;
     [_scrollView addSubview:photoView];
 
     for(int i = 0;i < ceilf([NSString stringWithFormat: @"%ld", (long)_data.personNum].floatValue/5);i++){
@@ -219,7 +219,7 @@
         
         if (((PinUsersData*)_data.pinUsersArray[i]).orMaster == 1) {
             UIView * singleView = [[UIView alloc]initWithFrame:CGRectMake(0, i*80, GGUISCREENWIDTH, 80)];
-            singleView.backgroundColor = GGColor(240, 240, 240);
+            singleView.backgroundColor = GGBgColor;
             [joinTimeView addSubview:singleView];
             
             UIImageView * masterBgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 80)];
@@ -251,7 +251,7 @@
             [joinTimeView addSubview:singleView];
             
             UIView  * topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 20)];
-            topView.backgroundColor = GGColor(240, 240, 240);
+            topView.backgroundColor = GGBgColor;
             [singleView addSubview:topView];
             
             UIView  * shuLineView = [[UIView alloc]initWithFrame:CGRectMake(30, 0, 1, 20)];

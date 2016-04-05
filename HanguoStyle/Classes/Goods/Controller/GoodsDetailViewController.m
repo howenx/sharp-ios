@@ -116,17 +116,24 @@
     _otherRowHeight = 0;
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2)];
     _lineView.backgroundColor = GGMainColor;
+    [self makeShareButton];
+}
+-(void)makeShareButton{
     
-
+    //右上角添加按钮
+    UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    [rightButton setImage:[UIImage imageNamed:@"iconfont_fenxiang"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(shareBtnClicked:)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
 }
-
 -(void)makeCartUI{
     
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -10, _cartButton.y-10, 20, 20)];
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -7, _cartButton.y-3, 13, 13)];
     _cntLabel.textColor = GGMainColor;
     _cntLabel.textAlignment = NSTextAlignmentCenter;
-    _cntLabel.font = [UIFont boldSystemFontOfSize:13];
+    _cntLabel.font = [UIFont boldSystemFontOfSize:10];
     _cntLabel.backgroundColor = [UIColor whiteColor];
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
@@ -320,7 +327,7 @@
             oneCell.delegate = self;
             oneCell.data = _detailData;
             [oneCell.storeBtn addTarget:self action:@selector(storeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [oneCell.shareBtn addTarget:self action:@selector(shareBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+//            [oneCell.shareBtn addTarget:self action:@selector(shareBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             oneCellAlreadyLoad = false;
             oneCellAgainLoad = false;
         }
@@ -442,7 +449,7 @@
                         }
                     }
                     UIImage * image = [UIImage imageNamed:@"redStore"];
-                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount + 1] forState:UIControlStateNormal];
+//                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount + 1] forState:UIControlStateNormal];
                     _globleStoreCount++;
                     [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
                     
@@ -489,7 +496,7 @@
                         }
                     }
                     UIImage * image = [UIImage imageNamed:@"grayStore"];
-                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount - 1] forState:UIControlStateNormal];
+//                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount - 1] forState:UIControlStateNormal];
                     _globleStoreCount--;
                     [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
                 }else{
@@ -553,7 +560,7 @@
 {
     if((section==3 && numberOfSection == 4) || (section ==2 && numberOfSection == 3)){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = GGColor(240, 240, 240);
+        barView.backgroundColor = GGBgColor;
         //    barView.backgroundColor = [UIColor whiteColor];
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
@@ -622,7 +629,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-        _sectionZeroHeight = GGUISCREENWIDTH + 40 + 1 + 80 + 8;
+        _sectionZeroHeight = GGUISCREENWIDTH + 80 + 8;
 //        for(SizeData * sizeData in _detailData.sizeArray){
 //            
 //            if(sizeData.orMasterInv){

@@ -83,10 +83,10 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [webView stringByEvaluatingJavaScriptFromString:@"function openOrder() { "
-     "window.location = '/openOrder';"
+     "window.location = '/openOrder1';"
      "}"];
     [webView stringByEvaluatingJavaScriptFromString:@"function openHome() { "
-     "window.location = '/openHome';"
+     "window.location = '/openHome1';"
      "}"];
 }
 #pragma mark - webViewDelegate
@@ -97,12 +97,12 @@
     NSLog(@"+++++++%@",[[request URL] absoluteString]);
 
     //获取URL并且做比较，判断是否触发了JS事件，注意有"/"
-    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openOrder"]) {
+    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openOrder1"]) {
         MyOrderViewController * myOrder = [[MyOrderViewController alloc]init];
         [self.navigationController pushViewController:myOrder animated:YES];
         return false;
     }
-    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openHome"]) {
+    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openHome1"]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         return false;
@@ -118,9 +118,9 @@
         return false;
     }
     
-    if ([request.mainDocumentURL.relativePath rangeOfString:@":"].location != NSNotFound ||[request.mainDocumentURL.relativePath rangeOfString:@"all"].location != NSNotFound || [@"/"isEqualToString:request.mainDocumentURL.relativePath]|| [@""isEqualToString:request.mainDocumentURL.relativePath]) {
-        return  false;
-    }
+//    if ([request.mainDocumentURL.relativePath rangeOfString:@":"].location != NSNotFound ||[request.mainDocumentURL.relativePath rangeOfString:@"all"].location != NSNotFound || [@"/"isEqualToString:request.mainDocumentURL.relativePath]|| [@""isEqualToString:request.mainDocumentURL.relativePath]) {
+//        return  false;
+//    }
     return  true;
 }
 //-(void) webViewDidFinishLoad:(UIWebView *)webView {

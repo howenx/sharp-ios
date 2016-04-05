@@ -47,7 +47,7 @@
         
         
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,GGUISCREENWIDTH-40, 40)];
-        titleLab.backgroundColor = GGColor(240, 240, 240);
+        titleLab.backgroundColor = GGBgColor;
         titleLab.font = [UIFont systemFontOfSize:16];
         titleLab.textAlignment = NSTextAlignmentCenter;
         titleLab.textColor = [UIColor blackColor];
@@ -88,7 +88,7 @@
 
         
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 150, GGUISCREENWIDTH-40, 1)];
-        lineView.backgroundColor = GGColor(240, 240, 240);
+        lineView.backgroundColor = GGBgColor;
         [view addSubview:lineView];
 
         

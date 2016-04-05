@@ -105,8 +105,8 @@
     [self requestData:[mutArray copy]];
 }
 -(void)createNoCartView{
-    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
-    _bgView.backgroundColor = GGColor(244, 244, 244);
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
+    _bgView.backgroundColor = GGBgColor;
     UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -319)/2, 150, 319, 133)];
     bgImageView.image = [UIImage imageNamed:@"shoppingcart"];
     

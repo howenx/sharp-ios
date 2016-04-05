@@ -31,7 +31,7 @@
     
     
     UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
-    line1.backgroundColor = GGColor(240, 240, 240);
+    line1.backgroundColor = GGBgColor;
     [self.contentView addSubview:line1];
     
     
@@ -63,12 +63,12 @@
     
     
     UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, 49, GGUISCREENWIDTH, 1)];
-    line2.backgroundColor = GGColor(240, 240, 240);
+    line2.backgroundColor = GGBgColor;
     [payTypeView addSubview:line2];
     if(_isPayTypeEdit){
         
         UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 90, GGUISCREENWIDTH, 40)];
-        selectView.backgroundColor = GGColor(240, 240, 240);
+        selectView.backgroundColor = GGBgColor;
         [self.contentView addSubview:selectView];
         
         
