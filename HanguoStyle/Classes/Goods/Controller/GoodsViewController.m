@@ -15,6 +15,7 @@
 #import "GGTabBarViewController.h"
 #import "GoodsShowH5ViewController.h"
 #import "PinGoodsDetailViewController.h"
+#import "MessageViewController.h"
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -38,6 +39,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    //右侧按钮
+    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+    self.navigationItem.rightBarButtonItem = anotherButton;
+    
+    
+    
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     _addon = 1;
@@ -57,6 +64,13 @@
     self.tableView.contentOffset = CGPointMake(0, 0);
     
     [self footerRefresh];
+}
+//消息盒子
+-(void)rightBarButton:(UIBarButtonItem *)bar
+{
+//    NSLog(@"消息盒子");
+    MessageViewController * vc = [MessageViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)queryCustNum{
