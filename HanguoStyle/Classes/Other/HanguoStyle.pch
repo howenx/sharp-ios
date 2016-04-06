@@ -5,7 +5,7 @@
 //  Created by liudongsheng on 15/10/9.
 //  Copyright (c) 2015年 liudongsheng. All rights reserved.
 //
-
+#import <YYModel.h>
 #ifndef HanguoStyle_HanguoStyle_pch
 #define HanguoStyle_HanguoStyle_pch
 
