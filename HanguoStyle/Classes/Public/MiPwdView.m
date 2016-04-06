@@ -197,21 +197,22 @@
 {
     
     NSArray  * array= [detailStr componentsSeparatedByString:@","];
+    NSArray * jumpArray = [[array objectAtIndex:[array count]-2] componentsSeparatedByString:@"https://style.hanmimei.com"];
     if([array count]>2){
         NSString * url ;
         
         if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
             //进入普通商品详情页
 
-            url = [NSString stringWithFormat:@"%@/comm/detail/item%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+            url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
 
         }else if ([detailStr rangeOfString:@"<P>"].location != NSNotFound) {
             //进入拼购商品详情页
-            url = [NSString stringWithFormat:@"%@/comm/detail/pin%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+            url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
 
         }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
             //进入拼团详情页
-            url = [NSString stringWithFormat:@"%@/promotion/pin/activity%@",[HSGlobal shareTuanHeaderUrl],[array objectAtIndex:[array count]-2]];
+            url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],jumpArray[1]];
         }
 
         
