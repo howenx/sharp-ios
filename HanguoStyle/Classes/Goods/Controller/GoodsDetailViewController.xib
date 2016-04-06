@@ -27,6 +27,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8K1-YV-4gu" userLabel="底部view">
                     <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgm-MS-qpy" userLabel="line">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="fCd-M4-9EU"/>
+                            </constraints>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rW-8I-H9N">
                             <rect key="frame" x="296" y="5" width="65" height="30"/>
                             <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,12 +93,15 @@
                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="h7N-pE-Kny" secondAttribute="top" id="35G-il-oyp"/>
+                        <constraint firstItem="Lgm-MS-qpy" firstAttribute="leading" secondItem="8K1-YV-4gu" secondAttribute="leading" id="3MQ-Yd-g8B"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" constant="5" id="9cT-TF-cdM"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" constant="8" id="Mck-yo-160"/>
                         <constraint firstAttribute="height" constant="40" id="RqY-xi-y77"/>
+                        <constraint firstItem="Lgm-MS-qpy" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="TFt-l3-qNb"/>
                         <constraint firstAttribute="trailing" secondItem="6rW-8I-H9N" secondAttribute="trailing" constant="14" id="fz3-bC-hax"/>
                         <constraint firstItem="h7N-pE-Kny" firstAttribute="top" secondItem="VjO-Xy-kVG" secondAttribute="top" id="rcV-RJ-aJd"/>
                         <constraint firstItem="VjO-Xy-kVG" firstAttribute="leading" secondItem="8K1-YV-4gu" secondAttribute="leading" constant="18" id="vJo-4I-qjp"/>
+                        <constraint firstAttribute="trailing" secondItem="Lgm-MS-qpy" secondAttribute="trailing" id="xJN-Si-lJx"/>
                     </constraints>
                 </view>
             </subviews>

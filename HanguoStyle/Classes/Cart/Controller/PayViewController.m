@@ -14,7 +14,7 @@
 
 @interface PayViewController ()<UIAlertViewDelegate,UIWebViewDelegate>
 {
-    
+    int count;
 }
 @end
 
@@ -83,34 +83,40 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [webView stringByEvaluatingJavaScriptFromString:@"function openOrder() { "
-     "window.location = '/openOrder1';"
+     "window.location = '/openOrder';"
      "}"];
     [webView stringByEvaluatingJavaScriptFromString:@"function openHome() { "
-     "window.location = '/openHome1';"
+     "window.location = '/openHome';"
+     "}"];
+    [webView stringByEvaluatingJavaScriptFromString:@"function pin(urlStr) { "
+     "var field = '/pinSuccess' + urlStr;"
+     "window.location = field;"
      "}"];
 }
 #pragma mark - webViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+
     NSLog(@"-------%@",request.mainDocumentURL.relativePath);
     NSLog(@"+++++++%@",[[request URL] absoluteString]);
 
     //获取URL并且做比较，判断是否触发了JS事件，注意有"/"
-    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openOrder1"]) {
+    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openOrder"]) {
         MyOrderViewController * myOrder = [[MyOrderViewController alloc]init];
         [self.navigationController pushViewController:myOrder animated:YES];
         return false;
     }
-    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openHome1"]) {
+    if ([request.mainDocumentURL.relativePath isEqualToString:@"/openHome"]) {
         [self.navigationController popToRootViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         return false;
     }
     
-    if ([[[request URL] absoluteString] rangeOfString:@"promotion/pin"].location != NSNotFound) {
-    
-        NSString * url = [[request URL] absoluteString];
+    if ([request.mainDocumentURL.relativePath rangeOfString:@"/pinSuccess"].location != NSNotFound) {
+        NSArray *array = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"/pinSuccess"]; //从字符A中分隔成2个元素的数组
+
+        NSString * url = array[1];
         PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
         detailVC.url = url;
         detailVC.isFrom = @"PayViewController";
@@ -118,7 +124,7 @@
         return false;
     }
     
-//    if ([request.mainDocumentURL.relativePath rangeOfString:@":"].location != NSNotFound ||[request.mainDocumentURL.relativePath rangeOfString:@"all"].location != NSNotFound || [@"/"isEqualToString:request.mainDocumentURL.relativePath]|| [@""isEqualToString:request.mainDocumentURL.relativePath]) {
+//    if ([request.mainDocumentURL.relativePath rangeOfString:@"/pin/activity"].location != NSNotFound) {
 //        return  false;
 //    }
     return  true;
