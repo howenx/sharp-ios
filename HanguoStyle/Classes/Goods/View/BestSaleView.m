@@ -21,7 +21,7 @@
 -(void)createBestSale:(NSArray *)pushArray{
     array = pushArray;
     gap = 215;
-    self.backgroundColor = GGColor(240, 240, 240);
+    self.backgroundColor = GGBgColor;
     CGRect rect = CGRectMake(0, 0, GGUISCREENWIDTH, 0);
     
     for(int i = 1;i <= pushArray.count; i++){
@@ -71,7 +71,7 @@
     
     
     UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 210, viewW, 5)];
-    bottomView.backgroundColor = GGColor(240, 240, 240);
+    bottomView.backgroundColor = GGBgColor;
     [view addSubview:bottomView];
     
     

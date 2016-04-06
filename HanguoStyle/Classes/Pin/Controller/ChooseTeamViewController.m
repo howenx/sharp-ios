@@ -28,7 +28,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"选择拼团";
-    self.view.backgroundColor = GGColor(240, 240, 240);
+    self.view.backgroundColor = GGBgColor;
     [self createGoodsView];
     [self createTeamView];
 }

@@ -81,11 +81,11 @@
     
     
     UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(0, 60, _verifyView.width, 1)];
-    line1.backgroundColor = GGColor(240, 240, 240);
+    line1.backgroundColor = GGBgColor;
     [_verifyView addSubview:line1];
     
     UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(_verifyView.width/2, 60, 1, 40)];
-    line2.backgroundColor = GGColor(240, 240, 240);
+    line2.backgroundColor = GGBgColor;
     [_verifyView addSubview:line2];
     
     

@@ -76,7 +76,6 @@
             NSString * strTime = @"已结束";
             _pinTimeLab.text  = strTime;
         }
-        NSLog(@"sss%f",_pinFlagView.bounds.size.width);
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
         maskLayer.frame = _pinFlagView.bounds;

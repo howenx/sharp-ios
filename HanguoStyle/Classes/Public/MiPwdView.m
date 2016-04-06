@@ -47,7 +47,7 @@
         
         
         UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,GGUISCREENWIDTH-40, 40)];
-        titleLab.backgroundColor = GGColor(240, 240, 240);
+        titleLab.backgroundColor = GGBgColor;
         titleLab.font = [UIFont systemFontOfSize:16];
         titleLab.textAlignment = NSTextAlignmentCenter;
         titleLab.textColor = [UIColor blackColor];
@@ -88,7 +88,7 @@
 
         
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 150, GGUISCREENWIDTH-40, 1)];
-        lineView.backgroundColor = GGColor(240, 240, 240);
+        lineView.backgroundColor = GGBgColor;
         [view addSubview:lineView];
 
         
@@ -134,22 +134,25 @@
 //    NSLog(@"---------%@",currController);
 
     NSArray  * array= [detailStr componentsSeparatedByString:@","];
+    NSArray * jumpArray = [[array objectAtIndex:[array count]-2] componentsSeparatedByString:@"https://style.hanmimei.com"];
     
+    NSLog(@"-----jumpArray[0]=%@",jumpArray[0]);
+    NSLog(@"-----jumpArray[1]=%@",jumpArray[1]);
     if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
         //进入普通商品详情页
         GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-        gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail/item%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+        gdViewController.url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
         [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
     }else if ([detailStr rangeOfString:@"<P>"].location != NSNotFound) {
         //进入拼购商品详情页
         PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-        pinViewController.url = [NSString stringWithFormat:@"%@/comm/detail/pin%@",[HSGlobal shareGoodsHeaderUrl],[array objectAtIndex:[array count]-2]];
+        pinViewController.url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
 
         [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
     }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
         //进入拼团详情页
         PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
-        detailVC.url = [NSString stringWithFormat:@"%@/promotion/pin/activity%@",[HSGlobal shareTuanHeaderUrl],[array objectAtIndex:[array count]-2]];
+        detailVC.url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],jumpArray[1]];
         [(UINavigationController *)controller pushViewController:detailVC animated:YES];
     }
     

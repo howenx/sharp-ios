@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
-    self.view.backgroundColor = GGColor(240, 240, 240);
+    self.view.backgroundColor = GGBgColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     //只有已取消的订单才能删除
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"C"]) {
@@ -156,7 +156,7 @@
     scrollView.showsVerticalScrollIndicator = FALSE;
     scrollView.showsHorizontalScrollIndicator = FALSE;
     scrollView.pagingEnabled = NO;
-    scrollView.backgroundColor = GGColor(240, 240, 240);
+    scrollView.backgroundColor = GGBgColor;
     scrollView.scrollsToTop = YES;
     [self.view addSubview:scrollView];
     

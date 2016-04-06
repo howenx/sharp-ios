@@ -73,7 +73,7 @@
     [self.view addSubview:jianImageView1];
     
     UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 8)];
-    lineView.backgroundColor =  GGColor(240, 240, 240);
+    lineView.backgroundColor =  GGBgColor;
     [self.view addSubview:lineView];
     
     UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 48,  90, 40)];
@@ -104,7 +104,7 @@
     [self.view addSubview:jianImageView0];
     
     UIView * lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 88, GGUISCREENWIDTH, 8)];
-    lineView1.backgroundColor =  GGColor(240, 240, 240);
+    lineView1.backgroundColor = GGBgColor;
     [self.view addSubview:lineView1];
     
     
@@ -135,7 +135,7 @@
     [self.view addSubview:jianImageView];
     
     UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 138, GGUISCREENWIDTH, 8)];
-    lineView2.backgroundColor =  GGColor(240, 240, 240);
+    lineView2.backgroundColor =  GGBgColor;
     [self.view addSubview:lineView2];
 
     

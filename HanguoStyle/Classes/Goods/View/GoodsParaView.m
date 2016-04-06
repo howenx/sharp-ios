@@ -49,7 +49,7 @@
     [view addSubview:valueLabel];
     
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(10, gap, GGUISCREENWIDTH - 20, 1)];
-    line.backgroundColor = GGColor(234, 234, 234);
+    line.backgroundColor = GGBgColor;
     [view addSubview:line];
     return view;
     

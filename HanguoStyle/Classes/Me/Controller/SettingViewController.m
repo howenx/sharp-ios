@@ -22,7 +22,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"设置";
-    self.view.backgroundColor = GGColor(240, 240, 240);
+    self.view.backgroundColor = GGBgColor;
     [self createSettingView];
 }
 -(void)createSettingView{

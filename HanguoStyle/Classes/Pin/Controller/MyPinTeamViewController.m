@@ -182,11 +182,11 @@
     [self.view addSubview:_scrollView];
     
     _totalView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
-    _totalView.backgroundColor = GGColor(240, 240, 240);
+    _totalView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_totalView];
     
     _obligationView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
-    _obligationView.backgroundColor = GGColor(240, 240, 240);
+    _obligationView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_obligationView];
     
     
@@ -194,7 +194,7 @@
 -(void)createTableView{
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40) style:UITableViewStylePlain];
-    _tableView.backgroundColor = GGColor(240, 240, 240);
+    _tableView.backgroundColor = GGBgColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.scrollsToTop = YES;

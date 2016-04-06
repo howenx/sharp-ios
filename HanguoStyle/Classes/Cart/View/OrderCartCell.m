@@ -21,7 +21,7 @@
 }
 - (void)setData:(OrderData *)data{
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 10)];
-    backView.backgroundColor = GGColor(240, 240, 240);
+    backView.backgroundColor = GGBgColor;
     [self.contentView addSubview:backView];
     CGFloat bottom = 10;
     for(int i = 0 ;i<data.singleCustomsArray.count; i++){
@@ -44,7 +44,7 @@
     headLab.textColor = [UIColor grayColor];
     headLab.textAlignment = NSTextAlignmentCenter;
     UIView * backView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
-    backView1.backgroundColor = GGColor(240, 240, 240);
+    backView1.backgroundColor = GGBgColor;
     [self.contentView addSubview:backView1];
 
     [view addSubview:headLab];
@@ -74,7 +74,7 @@
         priceLabel.font = [UIFont systemFontOfSize:15];
         priceLabel.numberOfLines = 1;
         priceLabel.text = [NSString stringWithFormat:@"￥%.2f",cdData.itemPrice];
-        priceLabel.textColor = GGColor(254, 99, 108);
+        priceLabel.textColor = GGMainColor;
         [cartView addSubview:priceLabel];
         
         
@@ -88,7 +88,7 @@
         
         
         UIView * backView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99, GGUISCREENWIDTH, 1)];
-        backView2.backgroundColor = GGColor(240, 240, 240);
+        backView2.backgroundColor = GGBgColor;
         [cartView addSubview:backView2];
         
         [view addSubview:cartView];
@@ -119,7 +119,7 @@
     low = footLab.y +footLab.height;
     
     UIView * backView3 = [[UIView alloc]initWithFrame:CGRectMake(0, low-1, GGUISCREENWIDTH, 1)];
-    backView3.backgroundColor = GGColor(240, 240, 240);
+    backView3.backgroundColor = GGBgColor;
 
     
     [view addSubview:backView3];

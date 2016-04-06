@@ -47,7 +47,7 @@
         pushView.frame =CGRectMake(0, GGUISCREENHEIGHT - (GGUISCREENWIDTH-gap*3)/2 -10, self.frame.size.width, (GGUISCREENWIDTH-gap*3)/2 +10);
     }];
     pushView.tag = 70;
-    pushView.backgroundColor = GGColor(240, 240, 240);
+    pushView.backgroundColor = GGBgColor;
     [self addSubview:pushView];
     
     _collectionView.scrollsToTop = NO;
@@ -55,7 +55,7 @@
     
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
-    _collectionView.backgroundColor = GGColor(240, 240, 240);
+    _collectionView.backgroundColor = GGBgColor;
     
     
     
@@ -81,7 +81,7 @@
         
         //创建一个collectionView
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, GGUISCREENWIDTH, (GGUISCREENWIDTH-gap*3)/2) collectionViewLayout:layout];
-        _collectionView.backgroundColor = GGColor(240, 240, 240);
+        _collectionView.backgroundColor = GGBgColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         [pushView addSubview:_collectionView];

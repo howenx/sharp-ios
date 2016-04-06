@@ -42,7 +42,7 @@
     if([self.contentView viewWithTag:50000] == nil){
         
         globView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, data.cellHeight)];
-        globView.backgroundColor = GGColor(240, 240, 240);
+        globView.backgroundColor = GGBgColor;
         globView.tag = 50000;
         [self.contentView addSubview:globView];
         
@@ -164,7 +164,7 @@
         
         
         CALayer *layer = [titleImageView layer];
-        layer.borderColor = GGColor(240, 240, 240).CGColor;
+        layer.borderColor = GGBgColor.CGColor;
         layer.borderWidth = 1.0f;
         [scrollView addSubview:titleImageView];
     }

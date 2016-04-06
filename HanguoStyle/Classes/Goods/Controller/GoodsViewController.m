@@ -261,7 +261,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc] init];
-    headerView.backgroundColor =  GGColor(240, 240, 240);
+    headerView.backgroundColor =  GGBgColor;
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

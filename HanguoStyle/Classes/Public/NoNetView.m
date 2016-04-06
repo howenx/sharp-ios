@@ -12,7 +12,7 @@
 -(id)initWithFrame :(CGRect)rect{
     if (self = [super initWithFrame:rect]) {
         UIView * _bgView = [[UIView alloc]initWithFrame:rect];
-        _bgView.backgroundColor = GGColor(244, 244, 244);
+        _bgView.backgroundColor = GGBgColor;
         UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-200)/2, 150, 200, 200)];
         bgImageView.image = [UIImage imageNamed:@"icon-duanwang"];
         

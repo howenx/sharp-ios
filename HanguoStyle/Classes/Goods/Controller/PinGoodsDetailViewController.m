@@ -282,7 +282,7 @@
 {
     if(section==1){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = GGColor(240, 240, 240);
+        barView.backgroundColor = GGBgColor;
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
         [tuWenBtn setTitle:@"图文详情" forState:UIControlStateNormal];
@@ -563,12 +563,14 @@
     
     shareView.shareStr =  _detailData.itemTitle;
     shareView.shareTitle = _detailData.itemTitle;
-    
-    shareView.shareUrl = @"http://www.hanmimei.com";
     shareView.shareImage = _detailData.invImg;
-    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
+//    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
+    NSArray  * array= [_url componentsSeparatedByString:@"comm"];
+    
     if(array.count == 2){
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@,－🔑 M令 🔑",_detailData.pinTitle,array[1]];
+        NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[1]];
+        shareView.shareUrl = shareUrl;
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@,－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }

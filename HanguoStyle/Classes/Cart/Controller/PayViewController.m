@@ -14,7 +14,7 @@
 
 @interface PayViewController ()<UIAlertViewDelegate,UIWebViewDelegate>
 {
-    
+    int count;
 }
 @end
 
@@ -88,11 +88,16 @@
     [webView stringByEvaluatingJavaScriptFromString:@"function openHome() { "
      "window.location = '/openHome';"
      "}"];
+    [webView stringByEvaluatingJavaScriptFromString:@"function pin(urlStr) { "
+     "var field = '/pinSuccess' + urlStr;"
+     "window.location = field;"
+     "}"];
 }
 #pragma mark - webViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+
     NSLog(@"-------%@",request.mainDocumentURL.relativePath);
     NSLog(@"+++++++%@",[[request URL] absoluteString]);
 
@@ -108,9 +113,10 @@
         return false;
     }
     
-    if ([[[request URL] absoluteString] rangeOfString:@"promotion/pin"].location != NSNotFound) {
-    
-        NSString * url = [[request URL] absoluteString];
+    if ([request.mainDocumentURL.relativePath rangeOfString:@"/pinSuccess"].location != NSNotFound) {
+        NSArray *array = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"/pinSuccess"]; //从字符A中分隔成2个元素的数组
+
+        NSString * url = array[1];
         PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
         detailVC.url = url;
         detailVC.isFrom = @"PayViewController";
@@ -118,9 +124,9 @@
         return false;
     }
     
-    if ([request.mainDocumentURL.relativePath rangeOfString:@":"].location != NSNotFound ||[request.mainDocumentURL.relativePath rangeOfString:@"all"].location != NSNotFound || [@"/"isEqualToString:request.mainDocumentURL.relativePath]|| [@""isEqualToString:request.mainDocumentURL.relativePath]) {
-        return  false;
-    }
+//    if ([request.mainDocumentURL.relativePath rangeOfString:@"/pin/activity"].location != NSNotFound) {
+//        return  false;
+//    }
     return  true;
 }
 //-(void) webViewDidFinishLoad:(UIWebView *)webView {

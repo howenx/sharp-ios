@@ -16,8 +16,8 @@
     if (self) {
        
         self.backgroundColor = GGMainColor;
-        [self.layer setMasksToBounds:YES];
-        [self.layer setCornerRadius:3.0];
+//        [self.layer setMasksToBounds:YES];
+//        [self.layer setCornerRadius:3.0];
         
         _label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 20)];
         _label.font = [UIFont systemFontOfSize:14];
