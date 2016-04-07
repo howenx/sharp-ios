@@ -127,7 +127,7 @@
     [self removeFromSuperview];
     UIViewController * controller = [self getCurrentVC];
 
-    NSArray  * array= [detailStr componentsSeparatedByString:@","];
+    NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
     NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
     
 
@@ -189,7 +189,7 @@
 -(void)prepareDataSource
 {
     
-    NSArray  * array= [detailStr componentsSeparatedByString:@","];
+    NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
     NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
     if([array count]>2){
         NSString * url ;

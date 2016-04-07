@@ -248,7 +248,7 @@
 //    else
     if (index == 100001)
     {
-        [UMSocialData defaultData].extConfig.title = _shareStr;
+        [UMSocialData defaultData].extConfig.title = _shareTitle;
         [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
