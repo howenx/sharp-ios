@@ -126,18 +126,11 @@
 -(void)sureBtnClick{
     [self removeFromSuperview];
     UIViewController * controller = [self getCurrentVC];
-//    NSArray *viewControllers = ((UINavigationController *)controller).viewControllers;
-//    UIViewController * currController = [viewControllers objectAtIndex:viewControllers.count-1];
-//    if ([currController isKindOfClass:[CartViewController class]]) {
-//        
-//    }
-//    NSLog(@"---------%@",currController);
 
     NSArray  * array= [detailStr componentsSeparatedByString:@","];
-    NSArray * jumpArray = [[array objectAtIndex:[array count]-2] componentsSeparatedByString:@"https://style.hanmimei.com"];
+    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
     
-    NSLog(@"-----jumpArray[0]=%@",jumpArray[0]);
-    NSLog(@"-----jumpArray[1]=%@",jumpArray[1]);
+
     if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
         //进入普通商品详情页
         GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
@@ -197,7 +190,7 @@
 {
     
     NSArray  * array= [detailStr componentsSeparatedByString:@","];
-    NSArray * jumpArray = [[array objectAtIndex:[array count]-2] componentsSeparatedByString:@"https://style.hanmimei.com"];
+    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
     if([array count]>2){
         NSString * url ;
         

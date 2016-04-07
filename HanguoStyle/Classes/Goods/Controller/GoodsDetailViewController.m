@@ -532,7 +532,7 @@
 //    shareView.delegate = self;
     
     shareView.shareStr =  _detailData.itemTitle;
-    shareView.shareTitle = _detailData.itemTitle;
+    shareView.shareTitle = @"全球正品，尽在韩秘美";
     
     NSString * copyUrl;
     for(SizeData * sizeData in _detailData.sizeArray){
@@ -547,7 +547,7 @@
     if(array.count == 2){
         NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[1]];
         shareView.shareUrl = shareUrl;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【 %@】,%@,－🔑 M令 🔑",_detailData.itemTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【 %@】%@,－🔑 M令 🔑",_detailData.itemTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
