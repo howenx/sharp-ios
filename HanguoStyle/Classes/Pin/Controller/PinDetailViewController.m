@@ -454,9 +454,9 @@
 //    }
 //    NSArray  * array = [_url componentsSeparatedByString:@"promotion/pin/activity"];
     NSArray  * array = [_url componentsSeparatedByString:@"promotion"];
-    NSString * shareUrl = [NSString stringWithFormat:@"http://style.hanmimei.com%@",array[1]];
+    NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[1]];
     if(array.count == 2){
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@,－🔑 M令 🔑",_data.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@－🔑 M令 🔑",_data.pinTitle,shareUrl];
         shareView.shareFrom = @"T";
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];

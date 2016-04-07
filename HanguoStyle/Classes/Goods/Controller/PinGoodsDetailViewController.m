@@ -570,7 +570,7 @@
     if(array.count == 2){
         NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[1]];
         shareView.shareUrl = shareUrl;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@,－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
