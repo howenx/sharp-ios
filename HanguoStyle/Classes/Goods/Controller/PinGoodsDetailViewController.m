@@ -562,13 +562,13 @@
     //    shareView.delegate = self;
     
     shareView.shareStr =  _detailData.itemTitle;
-    shareView.shareTitle = _detailData.itemTitle;
+    shareView.shareTitle = @"全球正品，尽在韩秘美";
     shareView.shareImage = _detailData.invImg;
 //    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
     NSArray  * array= [_url componentsSeparatedByString:@"comm"];
     
-    if(array.count == 2){
-        NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[1]];
+    if(array.count >= 2){
+        NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[array.count-1]];
         shareView.shareUrl = shareUrl;
         shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
         [shareView makeUI];
