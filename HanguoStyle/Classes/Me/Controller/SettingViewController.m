@@ -44,7 +44,7 @@
     
     if(isLogin){
         UIButton * exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exitBtn.frame = CGRectMake(10, 10, GGUISCREENWIDTH-20, 35);
+        exitBtn.frame = CGRectMake(10, 20, GGUISCREENWIDTH-20, 35);
         [exitBtn.layer setMasksToBounds:YES];
         [exitBtn.layer setCornerRadius:4];
         exitBtn.backgroundColor = GGMainColor;
@@ -88,7 +88,7 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15];
         
         UIView  * viBg = [[UIView alloc]initWithFrame:CGRectMake(0, 49.5, GGUISCREENWIDTH, 0.5)];
-        viBg.backgroundColor = UIColorFromRGB(0x8a8a8a);
+        viBg.backgroundColor = GGBgColor;
         [cell.contentView addSubview:viBg];
         
     }
@@ -142,7 +142,7 @@
                     
                 case 4: {
                     cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"版本号"];
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@(%@)", kSAAPPVERSION, kSABUILDVERSION];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", kSAAPPVERSION];
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"System-update"]];
                     iv.frame = CGRectMake(18, 19, 18, 18);
                     [cell.contentView addSubview:iv];
