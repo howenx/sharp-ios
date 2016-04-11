@@ -45,7 +45,7 @@
     [self.dianImageView_ addSubview:self.dianLabel_];
     
     
-    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top, GGUISCREENWIDTH - wight - 2*space - 15 -40-15, 34/2)];
+    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top, GGUISCREENWIDTH - wight - 2*space - 15 -150-15, 34/2)];
     self.titleLabel_.font = [UIFont boldSystemFontOfSize:17];
     self.titleLabel_.textColor = [UIColor blackColor];
     [self.contentView addSubview:self.titleLabel_];
@@ -56,7 +56,9 @@
     self.detailLabel_.textColor = UIColorFromRGB(0x999999);
     [self.contentView addSubview:self.detailLabel_];
     
-    self.timeLabel_ =[[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.titleLabel_, 15), top, 40-2, 15)];
+    self.timeLabel_ =[[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.titleLabel_, 15), top, 150, 15)];
+    self.timeLabel_.textAlignment = NSTextAlignmentRight;
+    
     self.timeLabel_.font = [UIFont systemFontOfSize:14];
     self.timeLabel_.textColor = UIColorFromRGB(0x999999);
     [self.contentView addSubview:self.timeLabel_];
@@ -66,39 +68,46 @@
     [self.contentView addSubview:self.lineView_];
 }
 
--(void)setData:(NSInteger)row
+-(void)setData:(MessageModel *)messageModel Row:(NSInteger)row;
 {
     self.iconImageView_.image = [UIImage imageNamed:[NSString stringWithFormat:@"message%ld",(long)row]];
     self.dianImageView_.image = [UIImage imageNamed:@"dian"];
-    if (row == 0) {
+    
+    
+    if ([messageModel.num isEqualToString:@"0"]) {
+        self.dianImageView_.hidden = YES;
+    }else
+    {
+        self.dianImageView_.hidden = NO;
+    }
+    self.dianLabel_.text = messageModel.num;
+    
+    
+    
+    
+    NSString * timeStampString = messageModel.createAt;
+    NSTimeInterval _interval=[timeStampString doubleValue] / 1000.0;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:_interval];
+    NSDateFormatter *objDateformat = [[NSDateFormatter alloc] init];
+    [objDateformat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    self.timeLabel_.text = [objDateformat stringFromDate: date];
+    self.detailLabel_.text = messageModel.content;
+    if ([messageModel.msgType isEqualToString:@"system"]) {
     self.titleLabel_.text = @"系统消息";
-        self.detailLabel_.text = @"测试数据";
-        self.timeLabel_.text = @"2:30";
-        self.dianLabel_.text = @"1";
+
     }
-    if (row == 1) {
+    if ([messageModel.msgType isEqualToString:@"discount"]) {
     self.titleLabel_.text = @"商品提醒";
-        self.detailLabel_.text = @"测试数据";
-        self.timeLabel_.text = @"2:30";
-        self.dianLabel_.text = @"1";
     }
-    if (row == 2) {
+    if ([messageModel.msgType isEqualToString:@"coupon"]) {
         self.titleLabel_.text = @"优惠促销";
-        self.detailLabel_.text = @"测试数据";
-        self.timeLabel_.text = @"2:30";
-        self.dianLabel_.text = @"1";
     }
-    if (row == 3) {
+    if ([messageModel.msgType isEqualToString:@"logistics"]) {
         self.titleLabel_.text = @"物流通知";
-        self.detailLabel_.text = @"测试数据";
-        self.timeLabel_.text = @"2:30";
-        self.dianLabel_.text = @"1";
     }
-    if (row == 4) {
+    if ([messageModel.msgType isEqualToString:@"goods"]) {
         self.titleLabel_.text = @"我的资产";
-        self.detailLabel_.text = @"测试数据";
-        self.timeLabel_.text = @"2:30";
-        self.dianLabel_.text = @"12";
     }
 }
 @end

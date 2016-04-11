@@ -45,4 +45,6 @@
 + (NSString *) pinListUrl;
 + (NSString *) shareTuanHeaderUrl;
 + (NSString *) shareGoodsHeaderUrl;
++ (NSString *) messageListUrl;
++ (NSString *) messageListType;
 @end

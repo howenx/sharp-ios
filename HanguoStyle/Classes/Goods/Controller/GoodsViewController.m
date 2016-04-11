@@ -21,6 +21,7 @@
     NSArray *_imageUrls;
     NSInteger totalPageCount;
     NSInteger _cnt;
+    Boolean isMaxZero;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -39,9 +40,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    //右侧按钮
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
+
     
     
     
@@ -106,6 +105,20 @@
             NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
             
             if(code == 200){
+                
+//              NSInteger msg =   [[object objectForKey:@"msgRemind"] integerValue];
+//                
+//                if (msg > 0) {
+//                                    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+//                                    self.navigationItem.rightBarButtonItem = anotherButton;
+//                }
+//                else
+//                {
+//                    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+//                    self.navigationItem.rightBarButtonItem = anotherButton;
+//
+//                }
+                
                 _cnt = [[object objectForKey:@"cartNum"]integerValue];
                 if (_cnt != 0) {
                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)_cnt],@"badgeValue", nil];
@@ -209,6 +222,22 @@
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:object];
         if(data.code == 200){
+            
+            if ([[object objectForKey:@"msgRemind"] integerValue]>0) {
+                isMaxZero = YES;
+                
+                //右侧按钮
+                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                self.navigationItem.rightBarButtonItem = anotherButton;
+                
+            }else
+            {
+                isMaxZero = NO;
+                //右侧按钮
+                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                self.navigationItem.rightBarButtonItem = anotherButton;
+            }
+            
             totalPageCount = data.pageCount;
             [self.data addObjectsFromArray:[data.themeArray mutableCopy]];
             

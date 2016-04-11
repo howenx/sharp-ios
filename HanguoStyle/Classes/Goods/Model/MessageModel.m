@@ -9,5 +9,11 @@
 #import "MessageModel.h"
 
 @implementation MessageModel
-
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"msgType" : @"msgType",
+             @"num" : @"num",
+             @"content" : @"content",
+             @"createAt" : @"createAt"
+             };
+}
 @end

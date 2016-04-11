@@ -8,10 +8,10 @@
 
 #import "HSGlobal.h"
 //wayne
-//#define SERVERY1 @"http://172.28.3.78:9003"
-//#define SERVERY2 @"http://172.28.3.78:9001"
-//#define SERVERY3 @"http://172.28.3.78:9004"
-//#define SERVERY4 @"http://172.28.3.78:9005"
+#define SERVERY1 @"http://172.28.3.78:9003"
+#define SERVERY2 @"http://172.28.3.78:9001"
+#define SERVERY3 @"http://172.28.3.78:9004"
+#define SERVERY4 @"http://172.28.3.78:9005"
 
 //#define SERVERY1 @"http://172.28.3.66:9003"
 //#define SERVERY2 @"http://172.28.3.66:9001"
@@ -23,10 +23,10 @@
 //#define SERVERY3 @"http://172.28.3.18:9004"
 //#define SERVERY4 @"http://172.28.3.18:9005"
 
-#define SERVERY1 @"https://shopping.hanmimei.com"
-#define SERVERY2 @"https://api.hanmimei.com"
-#define SERVERY3 @"https://id.hanmimei.com"
-#define SERVERY4 @"https://promotion.hanmimei.com"
+//#define SERVERY1 @"https://shopping.hanmimei.com"
+//#define SERVERY2 @"https://api.hanmimei.com"
+//#define SERVERY3 @"https://id.hanmimei.com"
+//#define SERVERY4 @"https://promotion.hanmimei.com"
 
 
 //#define SERVERY1 @"http://172.28.3.51:9003"
@@ -280,7 +280,20 @@
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
+//消息列表
++ (NSString *) messageListUrl{
+    NSString * url = [NSString stringWithFormat:@"%@/client/msg/get/type",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//单个类型消息列表
++(NSString *) messageListType
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/msg/list/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
+}
 
 
 @end
