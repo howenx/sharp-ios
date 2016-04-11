@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageModel.h"
 #import "BaseViewController.h"
 @interface MessageViewController : BaseViewController
 @property (nonatomic ,strong)UITableView * tableView;
+@property (nonatomic,strong)NSMutableArray * arrayData;
+@property (nonatomic,strong)MessageModel * messageModel;
 @end

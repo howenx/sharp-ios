@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MessageModel.h"
 
 @interface MessageTableViewCell : UITableViewCell
 @property (nonatomic ,strong) UIImageView * iconImageView_;
@@ -20,5 +21,5 @@
 @property (nonatomic ,strong) UIImageView * dianImageView_;
 @property (nonatomic ,strong) UILabel * dianLabel_;
 
--(void)setData:(NSInteger)row;
+-(void)setData:(MessageModel *)messageModel Row:(NSInteger)row;
 @end

@@ -375,6 +375,16 @@
 		B0307D721CB3A94C0017C38F /* sign@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D691CB3A94C0017C38F /* sign@3x.png */; };
 		B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */; };
 		B048D3F91CAB6BDB00D92CD5 /* icon_save@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */; };
+		B06794E61CB651C400545A16 /* SystemMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E51CB651C400545A16 /* SystemMessageViewController.m */; };
+		B06794E91CB656BA00545A16 /* MessageTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E81CB656BA00545A16 /* MessageTypeModel.m */; };
+		B06794EC1CB6596200545A16 /* MessageTypeSystemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794EB1CB6596200545A16 /* MessageTypeSystemTableViewCell.m */; };
+		B06794F11CB66A8400545A16 /* fanye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B06794ED1CB66A8400545A16 /* fanye@2x.png */; };
+		B06794F21CB66A8400545A16 /* fanye@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B06794EE1CB66A8400545A16 /* fanye@3x.png */; };
+		B06794F31CB66A8400545A16 /* iconshezhi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B06794EF1CB66A8400545A16 /* iconshezhi@2x.png */; };
+		B06794F41CB66A8400545A16 /* iconshezhi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B06794F01CB66A8400545A16 /* iconshezhi@3x.png */; };
+		B06794F71CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794F61CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m */; };
+		B06794FA1CB754B100545A16 /* MessageTypeDiscountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794F91CB754B100545A16 /* MessageTypeDiscountTableViewCell.m */; };
+		B06794FD1CB759D600545A16 /* MessageTypeCouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794FC1CB759D600545A16 /* MessageTypeCouponTableViewCell.m */; };
 		B0705ED31CAA14AA00E86A30 /* AboutOurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */; };
 		B0705ED41CAA14AA00E86A30 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED21CAA14AA00E86A30 /* FeedbackViewController.m */; };
 		B0705ED81CAA165600E86A30 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED71CAA165600E86A30 /* PlaceholderTextView.m */; };
@@ -393,6 +403,16 @@
 		B0705EF51CAA168200E86A30 /* System-update.png in Resources */ = {isa = PBXBuildFile; fileRef = B0705EE61CAA168200E86A30 /* System-update.png */; };
 		B0705EF61CAA168200E86A30 /* System-update@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0705EE71CAA168200E86A30 /* System-update@2x.png */; };
 		B0705EF71CAA168200E86A30 /* System-update@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0705EE81CAA168200E86A30 /* System-update@3x.png */; };
+		B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBF91CB7918A003E7240 /* icongengduo.png */; };
+		B079BC001CB7918A003E7240 /* icongengduo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBFA1CB7918A003E7240 /* icongengduo@2x.png */; };
+		B079BC011CB7918A003E7240 /* icongengduo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBFB1CB7918A003E7240 /* icongengduo@3x.png */; };
+		B079BC021CB7918A003E7240 /* message_wu.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBFC1CB7918A003E7240 /* message_wu.png */; };
+		B079BC031CB7918A003E7240 /* message_wu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBFD1CB7918A003E7240 /* message_wu@2x.png */; };
+		B079BC041CB7918A003E7240 /* message_wu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BBFE1CB7918A003E7240 /* message_wu@3x.png */; };
+		B079BC071CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B079BC061CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.m */; };
+		B079BC0B1CB7B090003E7240 /* coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC081CB7B090003E7240 /* coupon.png */; };
+		B079BC0C1CB7B090003E7240 /* coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC091CB7B090003E7240 /* coupon@2x.png */; };
+		B079BC0D1CB7B090003E7240 /* coupon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC0A1CB7B090003E7240 /* coupon@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -921,6 +941,22 @@
 		B0307D691CB3A94C0017C38F /* sign@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sign@3x.png"; path = "pintuan/sign@3x.png"; sourceTree = "<group>"; };
 		B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@2x.png"; path = "setting/icon_save@2x.png"; sourceTree = "<group>"; };
 		B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@3x.png"; path = "setting/icon_save@3x.png"; sourceTree = "<group>"; };
+		B06794E41CB651C400545A16 /* SystemMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMessageViewController.h; sourceTree = "<group>"; };
+		B06794E51CB651C400545A16 /* SystemMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMessageViewController.m; sourceTree = "<group>"; };
+		B06794E71CB656BA00545A16 /* MessageTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeModel.h; sourceTree = "<group>"; };
+		B06794E81CB656BA00545A16 /* MessageTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeModel.m; sourceTree = "<group>"; };
+		B06794EA1CB6596200545A16 /* MessageTypeSystemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeSystemTableViewCell.h; sourceTree = "<group>"; };
+		B06794EB1CB6596200545A16 /* MessageTypeSystemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeSystemTableViewCell.m; sourceTree = "<group>"; };
+		B06794ED1CB66A8400545A16 /* fanye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fanye@2x.png"; path = "message/fanye@2x.png"; sourceTree = "<group>"; };
+		B06794EE1CB66A8400545A16 /* fanye@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fanye@3x.png"; path = "message/fanye@3x.png"; sourceTree = "<group>"; };
+		B06794EF1CB66A8400545A16 /* iconshezhi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iconshezhi@2x.png"; path = "message/iconshezhi@2x.png"; sourceTree = "<group>"; };
+		B06794F01CB66A8400545A16 /* iconshezhi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iconshezhi@3x.png"; path = "message/iconshezhi@3x.png"; sourceTree = "<group>"; };
+		B06794F51CB7447800545A16 /* MessageTypeLogisticsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeLogisticsTableViewCell.h; sourceTree = "<group>"; };
+		B06794F61CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeLogisticsTableViewCell.m; sourceTree = "<group>"; };
+		B06794F81CB754B100545A16 /* MessageTypeDiscountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeDiscountTableViewCell.h; sourceTree = "<group>"; };
+		B06794F91CB754B100545A16 /* MessageTypeDiscountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeDiscountTableViewCell.m; sourceTree = "<group>"; };
+		B06794FB1CB759D600545A16 /* MessageTypeCouponTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeCouponTableViewCell.h; sourceTree = "<group>"; };
+		B06794FC1CB759D600545A16 /* MessageTypeCouponTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeCouponTableViewCell.m; sourceTree = "<group>"; };
 		B0705ECF1CAA14AA00E86A30 /* AboutOurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutOurViewController.h; sourceTree = "<group>"; };
 		B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutOurViewController.m; sourceTree = "<group>"; };
 		B0705ED11CAA14AA00E86A30 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -942,6 +978,17 @@
 		B0705EE61CAA168200E86A30 /* System-update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "System-update.png"; path = "setting/System-update.png"; sourceTree = "<group>"; };
 		B0705EE71CAA168200E86A30 /* System-update@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "System-update@2x.png"; path = "setting/System-update@2x.png"; sourceTree = "<group>"; };
 		B0705EE81CAA168200E86A30 /* System-update@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "System-update@3x.png"; path = "setting/System-update@3x.png"; sourceTree = "<group>"; };
+		B079BBF91CB7918A003E7240 /* icongengduo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icongengduo.png; path = message/icongengduo.png; sourceTree = "<group>"; };
+		B079BBFA1CB7918A003E7240 /* icongengduo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icongengduo@2x.png"; path = "message/icongengduo@2x.png"; sourceTree = "<group>"; };
+		B079BBFB1CB7918A003E7240 /* icongengduo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icongengduo@3x.png"; path = "message/icongengduo@3x.png"; sourceTree = "<group>"; };
+		B079BBFC1CB7918A003E7240 /* message_wu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = message_wu.png; path = message/message_wu.png; sourceTree = "<group>"; };
+		B079BBFD1CB7918A003E7240 /* message_wu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_wu@2x.png"; path = "message/message_wu@2x.png"; sourceTree = "<group>"; };
+		B079BBFE1CB7918A003E7240 /* message_wu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "message_wu@3x.png"; path = "message/message_wu@3x.png"; sourceTree = "<group>"; };
+		B079BC051CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeGoodsTableViewCell.h; sourceTree = "<group>"; };
+		B079BC061CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeGoodsTableViewCell.m; sourceTree = "<group>"; };
+		B079BC081CB7B090003E7240 /* coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coupon.png; path = message/coupon.png; sourceTree = "<group>"; };
+		B079BC091CB7B090003E7240 /* coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coupon@2x.png"; path = "message/coupon@2x.png"; sourceTree = "<group>"; };
+		B079BC0A1CB7B090003E7240 /* coupon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coupon@3x.png"; path = "message/coupon@3x.png"; sourceTree = "<group>"; };
 		DC98376C6BF25B4E123C6D31 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1232,6 +1279,8 @@
 				80FE470C1CA12CEC00BA8681 /* GoodsShowH5ViewController.m */,
 				B019E38C1CB4B3E700574DE3 /* MessageViewController.h */,
 				B019E38D1CB4B3E700574DE3 /* MessageViewController.m */,
+				B06794E41CB651C400545A16 /* SystemMessageViewController.h */,
+				B06794E51CB651C400545A16 /* SystemMessageViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1251,6 +1300,8 @@
 				80E4A9281C740806008311FA /* PinGoodsDetailData.m */,
 				B019E3C51CB4CBA900574DE3 /* MessageModel.h */,
 				B019E3C61CB4CBA900574DE3 /* MessageModel.m */,
+				B06794E71CB656BA00545A16 /* MessageTypeModel.h */,
+				B06794E81CB656BA00545A16 /* MessageTypeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1260,6 +1311,16 @@
 			children = (
 				B019E3C21CB4B9C200574DE3 /* MessageTableViewCell.h */,
 				B019E3C31CB4B9C200574DE3 /* MessageTableViewCell.m */,
+				B06794EA1CB6596200545A16 /* MessageTypeSystemTableViewCell.h */,
+				B06794EB1CB6596200545A16 /* MessageTypeSystemTableViewCell.m */,
+				B06794F51CB7447800545A16 /* MessageTypeLogisticsTableViewCell.h */,
+				B06794F61CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m */,
+				B06794F81CB754B100545A16 /* MessageTypeDiscountTableViewCell.h */,
+				B06794F91CB754B100545A16 /* MessageTypeDiscountTableViewCell.m */,
+				B06794FB1CB759D600545A16 /* MessageTypeCouponTableViewCell.h */,
+				B06794FC1CB759D600545A16 /* MessageTypeCouponTableViewCell.m */,
+				B079BC051CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.h */,
+				B079BC061CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.m */,
 				802EEFDD1BDE370D00AC1EF1 /* ThreeViewCell.h */,
 				802EEFDE1BDE370D00AC1EF1 /* ThreeViewCell.m */,
 				802EEFDF1BDE370D00AC1EF1 /* ThreeViewCell.xib */,
@@ -1891,6 +1952,19 @@
 		B019E3611CB4B2B200574DE3 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				B079BC081CB7B090003E7240 /* coupon.png */,
+				B079BC091CB7B090003E7240 /* coupon@2x.png */,
+				B079BC0A1CB7B090003E7240 /* coupon@3x.png */,
+				B079BBF91CB7918A003E7240 /* icongengduo.png */,
+				B079BBFA1CB7918A003E7240 /* icongengduo@2x.png */,
+				B079BBFB1CB7918A003E7240 /* icongengduo@3x.png */,
+				B079BBFC1CB7918A003E7240 /* message_wu.png */,
+				B079BBFD1CB7918A003E7240 /* message_wu@2x.png */,
+				B079BBFE1CB7918A003E7240 /* message_wu@3x.png */,
+				B06794ED1CB66A8400545A16 /* fanye@2x.png */,
+				B06794EE1CB66A8400545A16 /* fanye@3x.png */,
+				B06794EF1CB66A8400545A16 /* iconshezhi@2x.png */,
+				B06794F01CB66A8400545A16 /* iconshezhi@3x.png */,
 				B019E38F1CB4B7D600574DE3 /* message0.png */,
 				B019E3901CB4B7D600574DE3 /* message0@2x.png */,
 				B019E3911CB4B7D600574DE3 /* message0@3x.png */,
@@ -2101,13 +2175,16 @@
 				8069E4C51BC7B22800742D8F /* MeViewController.xib in Resources */,
 				80F262D01C5B100200DC7CEB /* talkbackRight.png in Resources */,
 				8005287C1CA3D2F800558D9F /* icon_coupon@3x.png in Resources */,
+				B06794F31CB66A8400545A16 /* iconshezhi@2x.png in Resources */,
 				80113BAA1CABAEF90010B4E9 /* zhanwei@3x.png in Resources */,
 				80014FFE1BC7A2BC0078B2F5 /* Main.storyboard in Resources */,
 				806BFF8C1C3D1C3300680AF6 /* UMSCommentDetailController.xib in Resources */,
 				80E45C8C1C57620500941AC3 /* youhuiquan_bg_use.png in Resources */,
+				B079BC0C1CB7B090003E7240 /* coupon@2x.png in Resources */,
 				806BFF8F1C3D1C3300680AF6 /* UMShareEditViewController.xib in Resources */,
 				80E45C8A1C5761FA00941AC3 /* youhuiquan_bg_unuse.png in Resources */,
 				80641E761BE742F7003E8371 /* DetaileOneCell.xib in Resources */,
+				B079BC011CB7918A003E7240 /* icongengduo@3x.png in Resources */,
 				B0307D6C1CB3A94C0017C38F /* order@3x.png in Resources */,
 				80113B851CAB65820010B4E9 /* login_header@2x.png in Resources */,
 				B019E37D1CB4B2D600574DE3 /* line.png in Resources */,
@@ -2136,6 +2213,7 @@
 				80FDB8BA1CA539FE006D5CB0 /* grayStore@2x.png in Resources */,
 				80FDB89F1CA538C8006D5CB0 /* hmm_zutuan_fail@3x.png in Resources */,
 				80EF42D11C2D14DA00853FFE /* MeCell.xib in Resources */,
+				B079BC0D1CB7B090003E7240 /* coupon@3x.png in Resources */,
 				80EA5ED81C8442BF000ABCE9 /* MyPinTeamViewController.xib in Resources */,
 				B0705EF61CAA168200E86A30 /* System-update@2x.png in Resources */,
 				80FDB8581CA4D6E2006D5CB0 /* icon_nan@3x.png in Resources */,
@@ -2148,6 +2226,7 @@
 				B019E37A1CB4B2D600574DE3 /* dian.png in Resources */,
 				B019E3A81CB4B7D600574DE3 /* message1@2x.png in Resources */,
 				80FDB85D1CA4D7F3006D5CB0 /* icon_back@2x.png in Resources */,
+				B079BC041CB7918A003E7240 /* message_wu@3x.png in Resources */,
 				800528A51CA3EED300558D9F /* selected@2x.png in Resources */,
 				80FDB8921CA538C8006D5CB0 /* address_xiugai@2x.png in Resources */,
 				80113BA21CAB717A0010B4E9 /* openApp@3x.png in Resources */,
@@ -2168,6 +2247,7 @@
 				80FDB8B31CA538C8006D5CB0 /* iconfont_fenxiang@3x.png in Resources */,
 				80FDB89B1CA538C8006D5CB0 /* hmm_klmpintuan@3x.png in Resources */,
 				B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */,
+				B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */,
 				802EEFE11BDE370D00AC1EF1 /* ThreeViewCell.xib in Resources */,
 				80FDB85E1CA4D7F3006D5CB0 /* icon_back@3x.png in Resources */,
 				80113B8D1CAB662D0010B4E9 /* shoppingcart@2x.png in Resources */,
@@ -2184,6 +2264,7 @@
 				800528951CA3E2F200558D9F /* mimeiPwd@2x.png in Resources */,
 				800528A61CA3EED300558D9F /* selected@3x.png in Resources */,
 				B019E3B21CB4B7D600574DE3 /* message4@3x.png in Resources */,
+				B06794F21CB66A8400545A16 /* fanye@3x.png in Resources */,
 				80FDB8B71CA538C8006D5CB0 /* share@3x.png in Resources */,
 				80FDB8A41CA538C8006D5CB0 /* icon_default_header@2x.png in Resources */,
 				800528831CA3DB0100558D9F /* icon_address@2x.png in Resources */,
@@ -2245,6 +2326,7 @@
 				80FDB8A51CA538C8006D5CB0 /* icon_default_header@3x.png in Resources */,
 				800528731CA3D29500558D9F /* icon_pintuan@2x.png in Resources */,
 				806F83001CA92D4300C4DCB4 /* CollectViewController.xib in Resources */,
+				B079BC021CB7918A003E7240 /* message_wu.png in Resources */,
 				B0705EF51CAA168200E86A30 /* System-update.png in Resources */,
 				806BFFA41C3D1C3300680AF6 /* ios-social-sdk-share-detail.html in Resources */,
 				80113B751CAB64C90010B4E9 /* cancel@2x.png in Resources */,
@@ -2276,13 +2358,16 @@
 				80113BA61CABAAF20010B4E9 /* pingou_liucheng@3x.png in Resources */,
 				80113B791CAB64F00010B4E9 /* hmm_pingou_fail@2x.png in Resources */,
 				8069E4BB1BC7B1EF00742D8F /* CartViewController.xib in Resources */,
+				B06794F11CB66A8400545A16 /* fanye@2x.png in Resources */,
 				80FDB8951CA538C8006D5CB0 /* defaultSelect@3x.png in Resources */,
 				800528971CA3E2F200558D9F /* pengyouquan@2x.png in Resources */,
 				80113BA11CAB717A0010B4E9 /* openApp@2x.png in Resources */,
 				8005289C1CA3E2F200558D9F /* weixin@3x.png in Resources */,
+				B079BC001CB7918A003E7240 /* icongengduo@2x.png in Resources */,
 				80FDB8A01CA538C8006D5CB0 /* hmm_zutuan_success@2x.png in Resources */,
 				B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */,
 				8069E4AB1BC7B18500742D8F /* LosePwdViewController.xib in Resources */,
+				B06794F41CB66A8400545A16 /* iconshezhi@3x.png in Resources */,
 				80113B801CAB65410010B4E9 /* hmm_kaituan_success@3x.png in Resources */,
 				B0705EEC1CAA168200E86A30 /* clean.png in Resources */,
 				806BFFA01C3D1C3300680AF6 /* ios-social-sdk-like.html in Resources */,
@@ -2291,6 +2376,7 @@
 				80113B991CAB66870010B4E9 /* 1@2x.png in Resources */,
 				800528A81CA3EED300558D9F /* unselected@3x.png in Resources */,
 				B0705EEF1CAA168200E86A30 /* contact-us.png in Resources */,
+				B079BC0B1CB7B090003E7240 /* coupon.png in Resources */,
 				80FDB8A31CA538C8006D5CB0 /* hmm_zutuan@3x.png in Resources */,
 				B0307D711CB3A94C0017C38F /* sign@2x.png in Resources */,
 				B019E3B61CB4B7D600574DE3 /* messagebutton2.png in Resources */,
@@ -2308,6 +2394,7 @@
 				806BFF9C1C3D1C3300680AF6 /* iOS-social-analytics-releasenote.html in Resources */,
 				806F82FB1CA92CF200C4DCB4 /* CollectCell.xib in Resources */,
 				B019E3AD1CB4B7D600574DE3 /* message3.png in Resources */,
+				B079BC031CB7918A003E7240 /* message_wu@2x.png in Resources */,
 				B019E3B31CB4B7D600574DE3 /* messagebutton.png in Resources */,
 				80E45C8E1C57620D00941AC3 /* youhuiquan_bg_outdate.png in Resources */,
 				806BFF901C3D1C3300680AF6 /* UMShareEditViewControlleriPad.xib in Resources */,
@@ -2406,6 +2493,7 @@
 				80FEEC651C9BD7C300C56643 /* BestSaleView.m in Sources */,
 				80AFE7791C328B57006692F2 /* MyOrderMoreCell.m in Sources */,
 				B019E38E1CB4B3E700574DE3 /* MessageViewController.m in Sources */,
+				B06794FA1CB754B100545A16 /* MessageTypeDiscountTableViewCell.m in Sources */,
 				8068814B1C23A24C0017B439 /* PayTypeCell.m in Sources */,
 				8069E4B41BC7B18500742D8F /* UIBarButtonItem+GG.m in Sources */,
 				80ECAC701C1ECFAF00777ACC /* SettingViewController.m in Sources */,
@@ -2421,8 +2509,11 @@
 				80294E3D1C2A7C1700B70713 /* PayViewController.m in Sources */,
 				80108A8E1C60751F00B20C64 /* MWGridViewController.m in Sources */,
 				807F633A1C3CB53100345BFE /* GiFHUD.m in Sources */,
+				B06794F71CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m in Sources */,
 				8005E72C1BF197B60025B82F /* PhotoAndTextView.m in Sources */,
 				8069E4B31BC7B18500742D8F /* NSString+GG.m in Sources */,
+				B06794E61CB651C400545A16 /* SystemMessageViewController.m in Sources */,
+				B079BC071CB7AF68003E7240 /* MessageTypeGoodsTableViewCell.m in Sources */,
 				80E45C791C5757FB00941AC3 /* CouponData.m in Sources */,
 				8069E4AA1BC7B18500742D8F /* LosePwdViewController.m in Sources */,
 				80F6CBB81C59BF20005B4EE9 /* BaseView.m in Sources */,
@@ -2431,6 +2522,7 @@
 				8037D8831BF03127003A2C4B /* DetailThreeCell.m in Sources */,
 				80E4A92D1C74775A008311FA /* PinGoodsDetailViewController.m in Sources */,
 				8069E4B11BC7B18500742D8F /* GGButton.m in Sources */,
+				B06794EC1CB6596200545A16 /* MessageTypeSystemTableViewCell.m in Sources */,
 				806F82FF1CA92D4300C4DCB4 /* CollectViewController.m in Sources */,
 				80108A741C60750A00B20C64 /* DACircularProgressView.m in Sources */,
 				80011AD71BEC52F7000FEC2A /* DetailTwoCell.m in Sources */,
@@ -2480,6 +2572,7 @@
 				807F63371C3CB53100345BFE /* FMDatabasePool.m in Sources */,
 				80029F2C1C06E08500872F73 /* InitAppDelegate.m in Sources */,
 				80EA5EDD1C84433F000ABCE9 /* PinTeamData.m in Sources */,
+				B06794E91CB656BA00545A16 /* MessageTypeModel.m in Sources */,
 				80108A8D1C60751F00B20C64 /* MWGridCell.m in Sources */,
 				80D9800D1C4E348500CCAC03 /* UserNameViewController.m in Sources */,
 				80EF42CB1C2D148500853FFE /* AddressCell.m in Sources */,
@@ -2508,6 +2601,7 @@
 				80E7F1481C0460830087C608 /* CartData.m in Sources */,
 				80F6CBB51C59BCC2005B4EE9 /* BaseViewController.m in Sources */,
 				80108A921C60751F00B20C64 /* MWTapDetectingView.m in Sources */,
+				B06794FD1CB759D600545A16 /* MessageTypeCouponTableViewCell.m in Sources */,
 				80EA5ED71C8442BF000ABCE9 /* MyPinTeamViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

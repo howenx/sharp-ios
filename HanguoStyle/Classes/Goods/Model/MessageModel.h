@@ -9,4 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface MessageModel : NSObject
+@property  (nonatomic , strong)NSString * msgType;
+@property  (nonatomic , strong)NSString * num;
+@property  (nonatomic , strong)NSString * content;
+@property  (nonatomic , strong)NSString * createAt;
 @end

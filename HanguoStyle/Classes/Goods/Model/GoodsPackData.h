@@ -41,6 +41,7 @@
 @property (nonatomic) NSArray * themeArray;
 @property (nonatomic) NSArray * sliderArray;
 @property (nonatomic) NSInteger pageCount;
+@property (nonatomic) NSInteger * msgRemind;
 
 
 

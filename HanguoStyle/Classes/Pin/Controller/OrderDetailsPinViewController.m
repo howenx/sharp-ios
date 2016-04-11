@@ -116,7 +116,7 @@
     
 //    分割线
     UIView * topLine = [[UIView alloc]initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 1)];
-    topLine.backgroundColor = [UIColor lightGrayColor];
+    topLine.backgroundColor = GGBgColor;
     
     [headerView addSubview:topLine];
     
@@ -286,7 +286,7 @@ top = PosYFromView(orderID, sapce);
     
     
     UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 1)];
-    lineView.backgroundColor = [UIColor lightGrayColor];
+    lineView.backgroundColor = GGBgColor;
     [headerView addSubview:lineView];
     
     
@@ -304,7 +304,7 @@ top = PosYFromView(orderID, sapce);
     
     
     UIView * lineViewdata = [[UIView alloc]initWithFrame:CGRectMake(0, top, SCREEN_WIDTH, 1)];
-    lineViewdata.backgroundColor = [UIColor lightGrayColor];
+    lineViewdata.backgroundColor = GGBgColor;
     [headerView addSubview:lineViewdata];
     
     
@@ -390,7 +390,7 @@ top = PosYFromView(orderID, sapce);
         [self.contentView addSubview:priceLabel];
         
         lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 100-0.5, SCREEN_WIDTH, 0.5)];
-        lineView.backgroundColor = [UIColor lightGrayColor];
+        lineView.backgroundColor = GGBgColor;
         [self.contentView addSubview:lineView];
         
     }
