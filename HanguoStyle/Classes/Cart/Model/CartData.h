@@ -32,7 +32,7 @@
 @end
 @interface CartData : NSObject
 - (CartData *) initWithJSONNode: (id) node;
-
+@property (nonatomic) NSString * postalLimit;
 @property (nonatomic) NSString * invAreaNm;
 @property (nonatomic) NSString * invCustoms;
 @property (nonatomic) NSString * invArea;

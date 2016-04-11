@@ -44,7 +44,7 @@
         _postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cartData.selectPostalTaxRate];
     }else{
         if(cartData.selectPostalTaxRate == 0){
-            _postalTaxLabel.text = @"行邮税￥0";
+            _postalTaxLabel.text = @"免税";
         }else{
             _postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f(免)",cartData.selectPostalTaxRate];
         }

@@ -18,6 +18,7 @@
     if (self) {
         
         
+        self.postalLimit = [node objectForKey:@"postalLimit"];
         self.invAreaNm = [node objectForKey:@"invAreaNm"];
         self.invArea = [node objectForKey:@"invArea"];
         self.invCustoms = [node objectForKey:@"invCustoms"];

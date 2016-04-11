@@ -97,6 +97,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     database = [PublicMethod shareDatabase];
@@ -412,13 +413,16 @@
     }
     isLogin = [PublicMethod checkLogin];
     if(!isLogin){
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelFont = [UIFont systemFontOfSize:11];
-        hud.labelText = @"未登录状态下不能收藏商品";
-        hud.margin = 10.f;
-        hud.removeFromSuperViewOnHide = YES;
-        [hud hide:YES afterDelay:1];
+        LoginViewController * login = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:login animated:YES];
+        
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.mode = MBProgressHUDModeText;
+//        hud.labelFont = [UIFont systemFontOfSize:11];
+//        hud.labelText = @"未登录状态下不能收藏商品";
+//        hud.margin = 10.f;
+//        hud.removeFromSuperViewOnHide = YES;
+//        [hud hide:YES afterDelay:1];
         return;
         
     }else{
@@ -532,7 +536,7 @@
 //    shareView.delegate = self;
     
     shareView.shareStr =  _detailData.itemTitle;
-    shareView.shareTitle = @"全球正品，尽在韩秘美";
+    shareView.shareTitle = @"韩秘美，只卖韩国正品";
     
     NSString * copyUrl;
     for(SizeData * sizeData in _detailData.sizeArray){
@@ -782,10 +786,10 @@
         [database beginTransaction];
         FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart where pid = ? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithInt:[sizeId intValue]],skuType,[NSNumber numberWithLong:skuTypeId]];
         //购物车如果存在这件商品，就更新数量
-        while ([rs next]){
-            int amount = [rs intForColumn:@"pid_amount"] ;
+        if ([rs next]){
+            int amount = [rs intForColumn:@"pid_amount"]+1 ;
             NSString * checkUrl = [HSGlobal checkAddCartAmount];
-            checkUrl = [NSString stringWithFormat:@"%@/%d/%d",checkUrl,[sizeId intValue],amount+1];
+
             AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
             if(manager == nil){
                 NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
@@ -793,22 +797,30 @@
                 [self.view addSubview:noNetView];
                 return;
             }
+            
+            
+            NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+            [myDict setObject:[NSNumber numberWithInt:[sizeId intValue]] forKey:@"skuId"];
+            [myDict setObject:[NSNumber numberWithInt:amount] forKey:@"amount"];
+            [myDict setObject:[NSNumber numberWithLong:skuTypeId] forKey:@"skuTypeId"];
+            [myDict setObject:skuType forKey:@"skuType"];
+            
+
             [GiFHUD setGifWithImageName:@"hmm.gif"];
             [GiFHUD show];
-            NSLog(@"checkUrl = %@",checkUrl);
-            [manager GET:checkUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [manager POST:checkUrl  parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
                 NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
                 NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
                 NSString * returnMsg ;
                 if(code == 200){
-                    BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithInt:amount+1],[NSNumber numberWithInt:[sizeId intValue]],skuType,[NSNumber numberWithLong:skuTypeId]];
+                    BOOL isUpdateOK = [database executeUpdate:@"UPDATE Shopping_Cart SET pid_amount = ? WHERE pid = ? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithInt:amount],[NSNumber numberWithInt:[sizeId intValue]],skuType,[NSNumber numberWithLong:skuTypeId]];
                     
                     if (isUpdateOK) {
                         returnMsg = @"成功添加购物车";
                         [self startAnimation];
                     }else{
-                        returnMsg = @"保存数据库失败";
+                        returnMsg = @"添加购物车失败";
                     }
                     [database commit];
                     
@@ -830,35 +842,71 @@
                 [PublicMethod printAlert:@"添加失败"];
             }];
             return;
-        }
-        
-        
-        
-        
-        NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state,sku_type,sku_type_id) values (?,?,?,?,?,?)";
-        
-        //插入
-        BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"I",skuType,[NSNumber numberWithLong:skuTypeId]];
-        
-        if (isInsertOK)
-        {
-            [self startAnimation];
-            FMResultSet * rs = [database executeQuery:@"SELECT * FROM Shopping_Cart"];
-            while ([rs next]){
-                NSLog(@"pid=%d",[rs intForColumn:@"pid"]);
-                NSLog(@"cart_id=%d",[rs intForColumn:@"cart_id"]);
-                NSLog(@"pid_amount=%d",[rs intForColumn:@"pid_amount"]);
-                NSLog(@"state=%@",[rs stringForColumn:@"state"]);
-                NSLog(@"sku_type=%@",[rs stringForColumn:@"sku_type"]);
-                NSLog(@"sku_type_id=%@",[rs stringForColumn:@"sku_type_id"]);
-                NSLog(@"_______________________________");
+        }else{
+            int amount = 1 ;
+            NSString * checkUrl = [HSGlobal checkAddCartAmount];
+            
+            AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
+            if(manager == nil){
+                NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+                noNetView.delegate = self;
+                [self.view addSubview:noNetView];
+                return;
             }
+            
+            
+            NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+            [myDict setObject:[NSNumber numberWithInt:[sizeId intValue]] forKey:@"skuId"];
+            [myDict setObject:[NSNumber numberWithInt:amount] forKey:@"amount"];
+            [myDict setObject:[NSNumber numberWithLong:skuTypeId] forKey:@"skuTypeId"];
+            [myDict setObject:skuType forKey:@"skuType"];
+
+            
+            
+            
+            [GiFHUD setGifWithImageName:@"hmm.gif"];
+            [GiFHUD show];
+            [manager POST:checkUrl  parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+                NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                NSString * returnMsg ;
+                if(code == 200){
+                    NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state,sku_type,sku_type_id) values (?,?,?,?,?,?)";
+                    
+                    //插入
+                    BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"I",skuType,[NSNumber numberWithLong:skuTypeId]];
+                    
+                    if (isInsertOK)
+                    {
+                        [self startAnimation];
+                        returnMsg = @"成功添加购物车";
+                    }else{
+                        returnMsg = @"添加购物车失败";
+                    }
+                    //提交事务
+                    [database commit];
+                }else{
+                    returnMsg = message;
+                }
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.labelText = returnMsg;
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+                
+                [GiFHUD dismiss];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [GiFHUD dismiss];
+                NSLog(@"Error: %@", error);
+                [PublicMethod printAlert:@"添加失败"];
+            }];
+            return;
+
+        
         }
-        
-        
-        //提交事务
-        [database commit];
-        
         NSLog(@"---------事务结束");
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;

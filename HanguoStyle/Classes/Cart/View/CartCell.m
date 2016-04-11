@@ -144,12 +144,17 @@
         
     }else{
         
-        NSInteger amount = _data.amount ;
         NSString * checkUrl = [HSGlobal checkAddCartAmount];
-        checkUrl = [NSString stringWithFormat:@"%@/%ld/%ld",checkUrl,(long)_data.skuId,amount-1];
+        
         AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
         
-        [manager GET:checkUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithLong:_data.skuId] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInteger:_data.amount - 1] forKey:@"amount"];
+        [myDict setObject:[NSNumber numberWithLong:_data.skuTypeId] forKey:@"skuTypeId"];
+        [myDict setObject:_data.skuType forKey:@"skuType"];
+        
+        [manager POST:checkUrl  parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
             NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
             NSLog(@"message = %@",message);
@@ -212,15 +217,17 @@
         
     }else{
 
-        NSInteger amount = _data.amount ;
         NSString * checkUrl = [HSGlobal checkAddCartAmount];
-        checkUrl = [NSString stringWithFormat:@"%@/%ld/%ld",checkUrl,(long)_data.skuId,amount+1];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareNoHeadRequestManager];
-        
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithLong:_data.skuId] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInteger:_data.amount + 1] forKey:@"amount"];
+        [myDict setObject:[NSNumber numberWithLong:_data.skuTypeId] forKey:@"skuTypeId"];
+        [myDict setObject:_data.skuType forKey:@"skuType"];
         [GiFHUD setGifWithImageName:@"hmm.gif"];
         [GiFHUD show];
         
-        [manager GET:checkUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [manager POST:checkUrl  parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
             NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
             NSLog(@"message = %@",message);

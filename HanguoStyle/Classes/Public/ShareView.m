@@ -17,17 +17,17 @@
 @implementation ShareView
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-//        [self makeUI];
+        //        [self makeUI];
     }
     return self;
 }
@@ -62,132 +62,132 @@
     [shareView addSubview:tishi];
     
     
-//    UIButton * copyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    copyButton.frame = CGRectMake(20, 50, 40, 40);
-//    
-//    [copyButton setBackgroundImage:[UIImage imageNamed:@"icon_fuzhi"] forState:UIControlStateNormal];
-//    [copyButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    copyButton.tag = 100005;
-//    [shareView addSubview:copyButton];
-//
-//    
-//    UILabel *copyLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 50 + 40+10, 40, 20)];
-//    
-//    copyLab.text = @"复制";
-//    copyLab.font = [UIFont systemFontOfSize:14];
-//    copyLab.numberOfLines = 0;
-//    copyLab.lineBreakMode = NSLineBreakByWordWrapping;
-//    copyLab.textAlignment = NSTextAlignmentCenter;
-//    copyLab.textColor = [UIColor lightGrayColor];
-//    [shareView addSubview:copyLab];
-//    
+    //    UIButton * copyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    copyButton.frame = CGRectMake(20, 50, 40, 40);
+    //
+    //    [copyButton setBackgroundImage:[UIImage imageNamed:@"icon_fuzhi"] forState:UIControlStateNormal];
+    //    [copyButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    copyButton.tag = 100005;
+    //    [shareView addSubview:copyButton];
+    //
+    //
+    //    UILabel *copyLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 50 + 40+10, 40, 20)];
+    //
+    //    copyLab.text = @"复制";
+    //    copyLab.font = [UIFont systemFontOfSize:14];
+    //    copyLab.numberOfLines = 0;
+    //    copyLab.lineBreakMode = NSLineBreakByWordWrapping;
+    //    copyLab.textAlignment = NSTextAlignmentCenter;
+    //    copyLab.textColor = [UIColor lightGrayColor];
+    //    [shareView addSubview:copyLab];
+    //
     
-
-        UIButton * mklButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        mklButton.frame = CGRectMake(10, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20);
-        
-        [mklButton setBackgroundImage:[UIImage imageNamed:@"mimeiPwd"] forState:UIControlStateNormal];
-        [mklButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        mklButton.tag = 100005;
-        [shareView addSubview:mklButton];
-        
-        
-        
-        UILabel *mklLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 50 + self.frame.size.width/4, self.frame.size.width/4, 20)];
-        
-        mklLab.text = @"秘口令";
-        mklLab.font = [UIFont systemFontOfSize:14];
-        mklLab.numberOfLines = 0;
-        mklLab.lineBreakMode = NSLineBreakByWordWrapping;
-        mklLab.textAlignment = NSTextAlignmentCenter;
-        mklLab.textColor = [UIColor lightGrayColor];
-        [shareView addSubview:mklLab];
-        
-        
-    if(![_shareFrom isEqualToString:@"T"]){
-        float btnWidth = self.frame.size.width/4;
-        float width_wx = 0;
-        
-        if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
-        {
-            UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-            wxBtn.layer.cornerRadius = 5;
-            wxBtn.clipsToBounds = YES;
-            wxBtn.tag = 100001;
-            [wxBtn setBackgroundImage:[UIImage imageNamed:@"pengyouquan"] forState:UIControlStateNormal];
-            [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [shareView addSubview:wxBtn];
-            UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1 , 50 + self.frame.size.width/4, btnWidth, 20)];
-            l.textColor = [UIColor lightGrayColor];
-            l.text =@"朋友圈";
-            l.textAlignment = NSTextAlignmentCenter;
-            l.font = [UIFont systemFontOfSize:14];
-            [shareView addSubview:l];
-            width_wx = btnWidth;
-        }
-        else
-        {
-            
-        }
-        
-        float width_hy = 0;
-        if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
-        {
-            UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 + width_wx , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-            wxBtn.layer.cornerRadius = 5;
-            wxBtn.clipsToBounds = YES;
-            wxBtn.tag = 100002;
-            [wxBtn setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
-            [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [shareView addSubview:wxBtn];
-            UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1+ width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
-            l.textColor = [UIColor lightGrayColor];
-            l.text =@"微信好友";
-            l.textAlignment = NSTextAlignmentCenter;
-            l.font = [UIFont systemFontOfSize:14];
-            [shareView addSubview:l];
-            width_hy = btnWidth;
-        }
-        else
-        {
-            
-        }
-        
-        
-        
-        if ([QQApiInterface isQQInstalled]&&[QQApiInterface isQQSupportApi])
-        {
-            UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth*1 + width_wx +width_hy, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-            wxBtn.layer.cornerRadius = 5;
-            wxBtn.clipsToBounds = YES;
-            wxBtn.tag = 100003;
-            [wxBtn setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-            [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-            [shareView addSubview:wxBtn];
-            UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth*2 + width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
-            l.textColor = [UIColor lightGrayColor];
-            l.text =@"QQ好友";
-            l.textAlignment = NSTextAlignmentCenter;
-            l.font = [UIFont systemFontOfSize:14];
-            [shareView addSubview:l];
-        }
-        else
-        {
-            
-        }
+    
+    UIButton * mklButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    mklButton.frame = CGRectMake(10, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20);
+    
+    [mklButton setBackgroundImage:[UIImage imageNamed:@"mimeiPwd"] forState:UIControlStateNormal];
+    [mklButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    mklButton.tag = 100005;
+    [shareView addSubview:mklButton];
+    
+    
+    
+    UILabel *mklLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 50 + self.frame.size.width/4, self.frame.size.width/4, 20)];
+    
+    mklLab.text = @"秘口令";
+    mklLab.font = [UIFont systemFontOfSize:14];
+    mklLab.numberOfLines = 0;
+    mklLab.lineBreakMode = NSLineBreakByWordWrapping;
+    mklLab.textAlignment = NSTextAlignmentCenter;
+    mklLab.textColor = [UIColor lightGrayColor];
+    [shareView addSubview:mklLab];
+    
+    
+    
+    float btnWidth = self.frame.size.width/4;
+    float width_wx = 0;
+    
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
+    {
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
+        wxBtn.layer.cornerRadius = 5;
+        wxBtn.clipsToBounds = YES;
+        wxBtn.tag = 100001;
+        [wxBtn setBackgroundImage:[UIImage imageNamed:@"pengyouquan"] forState:UIControlStateNormal];
+        [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [shareView addSubview:wxBtn];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1 , 50 + self.frame.size.width/4, btnWidth, 20)];
+        l.textColor = [UIColor lightGrayColor];
+        l.text =@"朋友圈";
+        l.textAlignment = NSTextAlignmentCenter;
+        l.font = [UIFont systemFontOfSize:14];
+        [shareView addSubview:l];
+        width_wx = btnWidth;
     }
+    else
+    {
+        
+    }
+    
+    float width_hy = 0;
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
+    {
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 + width_wx , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
+        wxBtn.layer.cornerRadius = 5;
+        wxBtn.clipsToBounds = YES;
+        wxBtn.tag = 100002;
+        [wxBtn setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+        [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [shareView addSubview:wxBtn];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1+ width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
+        l.textColor = [UIColor lightGrayColor];
+        l.text =@"微信好友";
+        l.textAlignment = NSTextAlignmentCenter;
+        l.font = [UIFont systemFontOfSize:14];
+        [shareView addSubview:l];
+        width_hy = btnWidth;
+    }
+    else
+    {
+        
+    }
+    
+    
+    
+    if ([QQApiInterface isQQInstalled]&&[QQApiInterface isQQSupportApi])
+    {
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth*1 + width_wx +width_hy, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
+        wxBtn.layer.cornerRadius = 5;
+        wxBtn.clipsToBounds = YES;
+        wxBtn.tag = 100003;
+        [wxBtn setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+        [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [shareView addSubview:wxBtn];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth*2 + width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
+        l.textColor = [UIColor lightGrayColor];
+        l.text =@"QQ好友";
+        l.textAlignment = NSTextAlignmentCenter;
+        l.font = [UIFont systemFontOfSize:14];
+        [shareView addSubview:l];
+    }
+    else
+    {
+        
+    }
+    
     
     
     
     
     UIButton * cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelBtn.frame = CGRectMake((self.frame.size.width-300)/2,shareView.frame.size.height-50, 300, 40);
-    [cancelBtn setImage:[UIImage imageNamed:@"cancle"] forState:UIControlStateNormal];
-
+    [cancelBtn setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
+    
     
     [cancelBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-
-//    wbButton.tag = 100004;
+    
+    //    wbButton.tag = 100004;
     [shareView addSubview:cancelBtn];
     
     
@@ -199,56 +199,56 @@
     NSString *shareText =_shareStr;
     int index = (int)sender.tag;
     UIImage *image = [UIImage imageNamed:@"0"];
-//    if (index == 100000) {
-//        if (!_shareImage) {
-//            
-//            [UMSocialAccountManager isOauthAndTokenNotExpired:UMShareToSina];
-//            //进入授权页面
-//            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].loginClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-//                    //获取微博用户名、uid、token等
-//                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-//                    NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
-//                    //进入你的分享内容编辑页面
-//                    [[UMSocialControllerService defaultControllerService]
-//                     setShareText:[NSString stringWithFormat:@"%@--%@",shareText,_shareUrl] shareImage:image
-//                     socialUIDelegate:self];
-//                    //设置分享内容和回调对象
-//                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES);
-//                }
-//                else
-//                {
-//                    
-//                }
-//            });
-//        }
-//        else
-//        {
-//            [UMSocialAccountManager isOauthAndTokenNotExpired:UMShareToSina];
-//            //进入授权页面
-//            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].loginClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-//                    //获取微博用户名、uid、token等
-//                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-//                    NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
-//                    //进入你的分享内容编辑页面
-//                    [[UMSocialControllerService defaultControllerService]
-//                     setShareText:[NSString stringWithFormat:@"%@--%@",shareText,_shareUrl] shareImage:image
-//                     socialUIDelegate:self];
-//                    //设置分享内容和回调对象
-//                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler((UIViewController *)_delegate,[UMSocialControllerService defaultControllerService],YES);
-//                }
-//                else
-//                {
-//                    
-//                }
-//            });
-//        }
-//    }
-//    else
+    //    if (index == 100000) {
+    //        if (!_shareImage) {
+    //
+    //            [UMSocialAccountManager isOauthAndTokenNotExpired:UMShareToSina];
+    //            //进入授权页面
+    //            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].loginClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+    //                if (response.responseCode == UMSResponseCodeSuccess) {
+    //                    //获取微博用户名、uid、token等
+    //                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
+    //                    NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
+    //                    //进入你的分享内容编辑页面
+    //                    [[UMSocialControllerService defaultControllerService]
+    //                     setShareText:[NSString stringWithFormat:@"%@--%@",shareText,_shareUrl] shareImage:image
+    //                     socialUIDelegate:self];
+    //                    //设置分享内容和回调对象
+    //                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES);
+    //                }
+    //                else
+    //                {
+    //
+    //                }
+    //            });
+    //        }
+    //        else
+    //        {
+    //            [UMSocialAccountManager isOauthAndTokenNotExpired:UMShareToSina];
+    //            //进入授权页面
+    //            [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].loginClickHandler((UIViewController*)_delegate,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+    //                if (response.responseCode == UMSResponseCodeSuccess) {
+    //                    //获取微博用户名、uid、token等
+    //                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
+    //                    NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken);
+    //                    //进入你的分享内容编辑页面
+    //                    [[UMSocialControllerService defaultControllerService]
+    //                     setShareText:[NSString stringWithFormat:@"%@--%@",shareText,_shareUrl] shareImage:image
+    //                     socialUIDelegate:self];
+    //                    //设置分享内容和回调对象
+    //                    [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina].snsClickHandler((UIViewController *)_delegate,[UMSocialControllerService defaultControllerService],YES);
+    //                }
+    //                else
+    //                {
+    //
+    //                }
+    //            });
+    //        }
+    //    }
+    //    else
     if (index == 100001)
     {
-        [UMSocialData defaultData].extConfig.title = _shareTitle;
+        [UMSocialData defaultData].extConfig.title = _shareStr;
         [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
@@ -311,7 +311,7 @@
     }
     else if (index == 100003)
     {
-         [UMSocialQQHandler setQQWithAppId:@"1104980747" appKey:@"eDLFyqWCM2GzdkMB" url:_shareUrl];
+        [UMSocialQQHandler setQQWithAppId:@"1104980747" appKey:@"eDLFyqWCM2GzdkMB" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
@@ -340,7 +340,7 @@
         }
     }
     else if (sender.tag == 100004) {
-      
+        
     }else if (sender.tag == 100005) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = _shareDetailPage;
@@ -366,7 +366,7 @@
         shareView.frame =CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, 50+bWidth+20+20+20+40+10);
     } completion:^(BOOL finished) {
         if (finished) {
-             [self removeFromSuperview];
+            [self removeFromSuperview];
         }
     }];
 }
@@ -375,7 +375,7 @@
     //根据`responseCode`得到发送结果,如果分享成功
     if(response.responseCode == UMSResponseCodeSuccess)
     {
-    
+        
     }
     else
     {

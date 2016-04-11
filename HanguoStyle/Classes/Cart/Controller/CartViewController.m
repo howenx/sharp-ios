@@ -36,17 +36,18 @@
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UILabel *goodsCount;
+//@property (weak, nonatomic) IBOutlet UILabel *goodsCount;
 @property (weak, nonatomic) IBOutlet UILabel *totalAmount;
-- (IBAction)allSelectBtn:(UIButton *)sender;
+//- (IBAction)allSelectBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *realityPay;
 @property (weak, nonatomic) IBOutlet UILabel *save;
-@property (weak, nonatomic) IBOutlet UILabel *tiShiLab;
+//@property (weak, nonatomic) IBOutlet UILabel *tiShiLab;
 - (IBAction)settlementBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 @property (weak, nonatomic) IBOutlet UIView *footView;
 @property (weak, nonatomic) IBOutlet UIButton *goSettle;
 
+@property (weak, nonatomic) IBOutlet UILabel *notifyLab;
 
 
 @property (nonatomic)  UIView * bgView;
@@ -196,8 +197,10 @@
                         [self.data addObject:data];
                     }
                     if(_data.count > 0){
+                        [self updataNotify];
                         [self updateOtherMessage:_data];
                         [self.footView setHidden:NO];
+                        [self.notifyLab setHidden:NO];
                     }
                     
                     [self.tableView reloadData];
@@ -219,6 +222,7 @@
                 NSLog(@"Error: %@", error);
                 [GiFHUD dismiss];
                 [self.footView setHidden:YES];
+                [self.notifyLab setHidden:YES];
                 [PublicMethod printAlert:@"请求购物车数据失败"];
             }];
 
@@ -228,23 +232,22 @@
             [manager POST:urlString  parameters:array success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
                 [self.tableView.header endRefreshing];
-                
-                NSArray * dataArray = [object objectForKey:@"cartList"];
-                if(dataArray.count>0){
-                    _bgView.hidden = YES;
-                }else{
-                    _bgView.hidden = NO;
-                }
+
                 NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
                 NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
                 NSLog(@"message= %@",message);
-                NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
                 if(code == 200 ||code == 1015 ){//1015 表示购物车为空
                     if(_data.count > 0){
+                        [self updataNotify];
                         [self updateOtherMessage:_data];
                         [self.footView setHidden:NO];
+                        [self.notifyLab setHidden:NO];
+                        _bgView.hidden = YES;
+                    }else{
+                        _bgView.hidden = NO;
                     }
                     
+
                     [self.tableView reloadData];
                     PublicMethod * pm = [[PublicMethod alloc]init];
                     [pm sendCustNum];
@@ -284,6 +287,7 @@
                 NSLog(@"Error: %@", error);
                 [GiFHUD dismiss];
                 [self.footView setHidden:YES];
+                [self.notifyLab setHidden:YES];
                 [PublicMethod printAlert:@"请求购物车数据失败"];
             }];
         }
@@ -314,13 +318,16 @@
                 }
                 
                 if(_data.count > 0){
+                    [self updataNotify];
                     [self updateOtherMessage:_data];
                     [self.footView setHidden:NO];
+                    [self.notifyLab setHidden:NO];
                 }
                 
                 [self.tableView reloadData];
                 PublicMethod * pm = [[PublicMethod alloc]init];
                 [pm sendCustNum];
+                
             }else{
 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -337,10 +344,12 @@
             NSLog(@"Error: %@", error);
             [GiFHUD dismiss];
             [self.footView setHidden:YES];
+            [self.notifyLab setHidden:YES];
             [PublicMethod printAlert:@"请求购物车数据失败"];
         }];
 
     }
+    
 }
 
 -(void)updateOtherMessage :(NSArray *) array{
@@ -356,9 +365,9 @@
     selectCount = 0;
     totalAmt = 0;
     realityAmount = 0;
-    _tiShiLab.text = @"";
-    _goSettle.enabled = YES;
-    _goSettle.backgroundColor = GGMainColor;
+//    _tiShiLab.text = @"";
+//    _goSettle.enabled = YES;
+//    _goSettle.backgroundColor = GGMainColor;
     for (int i=0; i< array.count; i++) {
         CartData * cData = array[i];
         float invAreaAmount=0;
@@ -369,28 +378,43 @@
                 selectCount = selectCount + cdData.amount;
                 totalAmt = totalAmt + cdData.amount * cdData.itemPrice;
                 realityAmount = totalAmt;
-                invAreaAmount = totalAmt;
+                invAreaAmount = invAreaAmount + cdData.amount * cdData.itemPrice;
             }
         }
-        if(invAreaAmount>1000){
-            _tiShiLab.text = [NSString stringWithFormat:@"提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
+        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
+            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }
     }
 
-    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
-    
-    self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
-    
-    self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
+//    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
+    if (selectCount==0) {
+        self.goSettle.titleLabel.text = @"去结算";
+        [self.goSettle setTitle:@"去结算" forState:UIControlStateNormal];
+        _goSettle.enabled = NO;
+        _goSettle.backgroundColor = [UIColor grayColor];
+    }else{
+        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
+        [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
+//        _goSettle.enabled = YES;
+//        _goSettle.backgroundColor = GGMainColor;
+    }
+    if(totalAmt == 0){
+        self.totalAmount.text = @"￥0";
+        self.realityPay.text = @"应付:￥0";
+    }else{
+        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
+        self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
+    }
+
     
 //    self.save.text = [NSString stringWithFormat:@"以节省:￥0"];
     if( selectCount == goodAmount){
-        [self.selectBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+//        [self.selectBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
         isSelectAll = true;
     }else {
-        [self.selectBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+//        [self.selectBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
         isSelectAll = false;
     }
     
@@ -449,6 +473,7 @@
     [self headerRefresh];
 }
 -(void)sendUpdateData:(CartDetailData *)data andJJFlag:(NSString *)jjFlag{
+
     isJiaJianReload = YES;
     NSMutableArray * mutArray = [NSMutableArray array];
     
@@ -514,6 +539,7 @@
             }
             
             if(_data.count > 0){
+                [self updataNotify];
                 [self updateOtherMessage:_data];
             }
             [self.tableView reloadData];
@@ -534,53 +560,79 @@
 
 
 //点击全选按钮触发事件
-- (IBAction)allSelectBtn:(UIButton *)sender {
-    if(![PublicMethod isConnectionAvailable]){
-        return;
-    }
-    isSelectAll=!isSelectAll;
-
-    if(isSelectAll){
-        for (int i=0; i<_data.count; i++) {
-            CartData * cData = _data[i];
-            cData.selectPostalTaxRate = 0;
-            for(int j=0; j < cData.cartDetailArray.count; j++){
-                CartDetailData * cdData = cData.cartDetailArray[j];
-                if(![@"S" isEqualToString: cdData.state]){
-
-                    cdData.state = @"G";
-                    cData.selectPostalTaxRate = cData.selectPostalTaxRate + cdData.itemPrice * cdData.amount * [cdData.postalTaxRate intValue] * 0.01;
-                }
+//- (IBAction)allSelectBtn:(UIButton *)sender {
+//    if(![PublicMethod isConnectionAvailable]){
+//        return;
+//    }
+//    isSelectAll=!isSelectAll;
+//
+//    if(isSelectAll){
+//        for (int i=0; i<_data.count; i++) {
+//            CartData * cData = _data[i];
+//            cData.selectPostalTaxRate = 0;
+//            for(int j=0; j < cData.cartDetailArray.count; j++){
+//                CartDetailData * cdData = cData.cartDetailArray[j];
+//                if(![@"S" isEqualToString: cdData.state]){
+//
+//                    cdData.state = @"G";
+//                    cData.selectPostalTaxRate = cData.selectPostalTaxRate + cdData.itemPrice * cdData.amount * [cdData.postalTaxRate intValue] * 0.01;
+//                }
+//            }
+//
+//        }
+//    }else{
+//        
+//        for (int i=0; i<_data.count; i++) {
+//            CartData * cData = _data[i];
+//
+//            cData.selectPostalTaxRate = 0;
+//            for(int j=0; j < cData.cartDetailArray.count; j++){
+//                CartDetailData * cdData = cData.cartDetailArray[j];
+//                if(![@"S" isEqualToString: cdData.state]){
+//
+//                    cdData.state = @"I";
+//                }
+//            }
+//        }
+//    }
+//    
+//    [self.tableView reloadData];
+//    
+//    [self updateOtherMessage:_data];
+//    
+//    isLogin = [PublicMethod checkLogin];
+//    if(!isLogin){
+//        [self updataCart];
+//    }
+//    
+//}
+-(void)updataNotify{
+    int selectAreaCount = 0;
+    for (int i=0; i<_data.count; i++) {
+        BOOL haveSelect = NO;
+        CartData * cData = _data[i];
+        for (int j = 0;j < cData.cartDetailArray.count; j++) {
+            CartDetailData * cdData = cData.cartDetailArray[j];
+            if([@"G" isEqualToString: cdData.state]){
+                haveSelect = YES;
             }
-
         }
+        if (haveSelect) {
+            selectAreaCount++;
+        }
+    }
+    if(selectAreaCount > 1){
+        _notifyLab.text = @"    提示：单次购买，只能购买同一保税区商品";
+        _goSettle.enabled = NO;
+        _goSettle.backgroundColor = [UIColor grayColor];
     }else{
-        
-        for (int i=0; i<_data.count; i++) {
-            CartData * cData = _data[i];
-
-            cData.selectPostalTaxRate = 0;
-            for(int j=0; j < cData.cartDetailArray.count; j++){
-                CartDetailData * cdData = cData.cartDetailArray[j];
-                if(![@"S" isEqualToString: cdData.state]){
-
-                    cdData.state = @"I";
-                }
-            }
-        }
+        _notifyLab.text = @"    友情提示：同一保税区商品总额有限";
+        _goSettle.enabled = YES;
+        _goSettle.backgroundColor = GGMainColor;
     }
-    
-    [self.tableView reloadData];
-    
-    [self updateOtherMessage:_data];
-    
-    isLogin = [PublicMethod checkLogin];
-    if(!isLogin){
-        [self updataCart];
-    }
-    
 }
 -(void)sendSelectData:(CartDetailData *)data{
+    [self updataNotify];
     if([@"I" isEqualToString: data.state]){
         selectCount = selectCount - data.amount;
         totalAmt = totalAmt - data.amount * data.itemPrice;
@@ -591,18 +643,32 @@
         realityAmount = totalAmt;
     }
     
-    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
+//    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
+    if (selectCount==0) {
+        self.goSettle.titleLabel.text = @"去结算";
+        [self.goSettle setTitle:@"去结算" forState:UIControlStateNormal];
+        _goSettle.enabled = NO;
+        _goSettle.backgroundColor = [UIColor grayColor];
+    }else{
+        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
+        [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
+    }
+    if(totalAmt == 0){
+        self.totalAmount.text = @"￥0";
+        self.realityPay.text = @"应付:￥0";
+    }else{
+        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
+        
+        self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
+    }
     
-    self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
-    
-    self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
     
 //    self.save.text = [NSString stringWithFormat:@"以节省:￥0"];
     if( selectCount == goodAmount){
-        [self.selectBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+//        [self.selectBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
         isSelectAll = true;
     }else {
-        [self.selectBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+//        [self.selectBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
         isSelectAll = false;
     }
     for (int i=0; i<_data.count; i++) {
@@ -615,10 +681,10 @@
             }
             TableHeadView *tableHeadView = (TableHeadView *)[self.tableView viewWithTag:2000 + i];
             if(cData.selectPostalTaxRate>cData.postalStandard){
-                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.selectPostalTaxRate] ;
+                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.postalStandard] ;
             }else{
                 if([@"-0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]] || [@"0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]]){
-                    tableHeadView.postalTaxLabel.text = @"行邮税￥0";
+                    tableHeadView.postalTaxLabel.text = @"免税";
                 }else{
                     tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f(免)",cData.selectPostalTaxRate] ;
                 }
@@ -632,9 +698,9 @@
     
     
     //这段逻辑为了你判断一个保税区里面的商品是否超过1000
-    _tiShiLab.text = @"";
-    _goSettle.enabled = YES;
-    _goSettle.backgroundColor = GGMainColor;
+//    _tiShiLab.text = @"";
+//    _goSettle.enabled = YES;
+//    _goSettle.backgroundColor = GGMainColor;
     for (int i=0; i< _data.count; i++) {
         CartData * cData = _data[i];
         float invAreaAmount=0;
@@ -645,8 +711,8 @@
                 invAreaAmount = invAreaAmount + cdData.amount * cdData.itemPrice;
             }
         }
-        if(invAreaAmount>1000){
-            _tiShiLab.text = [NSString stringWithFormat:@"提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
+        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
+            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }

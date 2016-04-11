@@ -190,8 +190,9 @@
 {
     
     NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
-    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
-    if([array count]>2){
+    
+    if([array count]>=2){
+        NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
         NSString * url ;
         
         if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {

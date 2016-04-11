@@ -23,9 +23,12 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleAndMoneyConstraint;
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *pinFlagImageView;
 
-@property (weak, nonatomic) IBOutlet UIView *pinFlagView;
+//@property (weak, nonatomic) IBOutlet UIView *pinFlagView;
 @property (weak, nonatomic) IBOutlet UILabel *pinTimeLab;
+@property (weak, nonatomic) IBOutlet UIView *willSaleView;
+@property (weak, nonatomic) IBOutlet UIImageView *willSaleImageView;
 
 
 
@@ -48,12 +51,13 @@
 
 
     if([data.itemType isEqualToString:@"pin"]){
-        _saleOutLab.hidden = YES;
-        _pinFlagView.hidden = NO;
+        
+        _pinFlagImageView.hidden = NO;
+        _pinTimeLab.hidden = NO;
 
         //在售
         if([@"Y" isEqualToString: data.state]){
-            _pinFlagView.width = 130;
+            _saleOutLab.hidden = YES;
             //2016-01-30 17:16:55
             int month= [[data.endAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.endAt substringWithRange:NSMakeRange(8,2)] intValue];
@@ -62,8 +66,9 @@
             
             NSString * strTime = [NSString stringWithFormat:@"截止到%d月%d日 %d:%d",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
+            _willSaleView.hidden = YES;
         }else if([@"P" isEqualToString: data.state]){//预售
-            _pinFlagView.width = 130;
+            _saleOutLab.hidden = YES;
             int month= [[data.startAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.startAt substringWithRange:NSMakeRange(8,2)] intValue];
             int hour= [[data.startAt substringWithRange:NSMakeRange(11,2)] intValue];
@@ -71,24 +76,30 @@
             
             NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
+            _willSaleView.hidden = NO;
         }else{
-            _pinFlagView.width = 70;
-            NSString * strTime = @"已结束";
+            _saleOutLab.hidden = NO;
+            _saleOutLab.text = @"已结束";
+            NSString * strTime = @"此团拼购已结束";
             _pinTimeLab.text  = strTime;
+            _willSaleView.hidden = YES;
         }
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = _pinFlagView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        _pinFlagView.layer.mask = maskLayer;
+
     }else{
-        if([@"Y" isEqualToString: data.state]||[@"P" isEqualToString: data.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+        if([@"Y" isEqualToString: data.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+            _saleOutLab.hidden = YES;
+            _willSaleView.hidden = YES;
+        }else if([@"P" isEqualToString: data.state]){
+            _willSaleView.hidden = NO;
             _saleOutLab.hidden = YES;
         }else{
             _saleOutLab.hidden = NO;
+            _saleOutLab.text = @"已抢光";
+            _willSaleView.hidden = YES;
         }
         
-        _pinFlagView.hidden = YES;
+        _pinFlagImageView.hidden = YES;
+        _pinTimeLab.hidden = YES;
     }
     
     [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg] placeholderImage:[UIImage imageNamed:@"zhanwei"]];
