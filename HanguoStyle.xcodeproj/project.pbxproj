@@ -364,6 +364,7 @@
 		B019E3B81CB4B7D600574DE3 /* messagebutton2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B019E3A31CB4B7D600574DE3 /* messagebutton2@3x.png */; };
 		B019E3C41CB4B9C200574DE3 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B019E3C31CB4B9C200574DE3 /* MessageTableViewCell.m */; };
 		B019E3C71CB4CBA900574DE3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B019E3C61CB4CBA900574DE3 /* MessageModel.m */; };
+		B0208D731CBC9A7A00F626A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */; };
 		B0307D6A1CB3A94C0017C38F /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D611CB3A94C0017C38F /* order.png */; };
 		B0307D6B1CB3A94C0017C38F /* order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D621CB3A94C0017C38F /* order@2x.png */; };
 		B0307D6C1CB3A94C0017C38F /* order@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D631CB3A94C0017C38F /* order@3x.png */; };
@@ -930,6 +931,7 @@
 		B019E3C31CB4B9C200574DE3 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		B019E3C51CB4CBA900574DE3 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
 		B019E3C61CB4CBA900574DE3 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B0307D611CB3A94C0017C38F /* order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = order.png; path = pintuan/order.png; sourceTree = "<group>"; };
 		B0307D621CB3A94C0017C38F /* order@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "order@2x.png"; path = "pintuan/order@2x.png"; sourceTree = "<group>"; };
 		B0307D631CB3A94C0017C38F /* order@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "order@3x.png"; path = "pintuan/order@3x.png"; sourceTree = "<group>"; };
@@ -1367,6 +1369,7 @@
 		8069E47F1BC7B18500742D8F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */,
 				8069E4801BC7B18500742D8F /* LoginViewController.h */,
 				8069E4811BC7B18500742D8F /* LoginViewController.m */,
 				8069E4831BC7B18500742D8F /* LosePwdViewController.h */,
@@ -2311,6 +2314,7 @@
 				806BFFA71C3D1C3300680AF6 /* markdown.css in Resources */,
 				B0705EF31CAA168200E86A30 /* opinion@2x.png in Resources */,
 				804BE2261BE0CA46009ABF33 /* GoodsShowViewController.xib in Resources */,
+				B0208D731CBC9A7A00F626A3 /* LoginViewController.xib in Resources */,
 				800528741CA3D29500558D9F /* icon_pintuan@3x.png in Resources */,
 				B0307D721CB3A94C0017C38F /* sign@3x.png in Resources */,
 				80FDB8A71CA538C8006D5CB0 /* icon_delete_hui@3x.png in Resources */,
