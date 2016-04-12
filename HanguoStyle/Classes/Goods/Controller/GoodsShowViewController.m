@@ -203,11 +203,11 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
 
         //上下两个item的空隙
-        layout.minimumLineSpacing = gap;
+        layout.minimumLineSpacing = gap*2;
         //左右2个item的空隙
-        layout.minimumInteritemSpacing = gap;
+        layout.minimumInteritemSpacing = 0;
         //上左下右的空隙
-        layout.sectionInset = UIEdgeInsetsMake(0, gap, gap, gap);
+//        layout.sectionInset = UIEdgeInsetsMake(0, gap, gap, gap);
         //滚动方向
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
@@ -280,11 +280,11 @@
     //第0组
     if (indexPath.section == 0)
     {
-        return CGSizeMake(GGUISCREENWIDTH-gap*2, ((GoodsShowData*)_data[indexPath.section]).height*(GGUISCREENWIDTH-gap*2)/((GoodsShowData*)_data[indexPath.section]).width);
+        return CGSizeMake(GGUISCREENWIDTH, ((GoodsShowData*)_data[indexPath.section]).height*GGUISCREENWIDTH/((GoodsShowData*)_data[indexPath.section]).width);
     }
     else //其他组
     {
-        return CGSizeMake((GGUISCREENWIDTH-gap*3)/2, (GGUISCREENWIDTH-gap*3)/2);
+        return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2);
     }
 }
 

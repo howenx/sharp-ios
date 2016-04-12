@@ -308,10 +308,7 @@
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
             [self sendCart];
-            //1.登陆成功,跳转到下主页面
-            [self.navigationController popViewControllerAnimated:YES];
             
-     
         }else if(returnResult.code == 4001){
             [self getVerifyData];
         }else{
@@ -438,16 +435,22 @@
             //修改购物车tabbar的badgeValue
             PublicMethod * pm = [[PublicMethod alloc]init];
             [pm sendCustNum];
+            //1.登陆成功,跳转到下主页面
+            [self.navigationController popViewControllerAnimated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
 //            [HSGlobal printAlert:@"发送购物车数据失败"];
             [self showHud:@"发送购物车数据失败"];
+            //1.登陆成功,跳转到下主页面
+            [self.navigationController popViewControllerAnimated:YES];
         }];
 
     }else{
         //修改购物车tabbar的badgeValue
         PublicMethod * pm = [[PublicMethod alloc]init];
         [pm sendCustNum];
+        //1.登陆成功,跳转到下主页面
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
     

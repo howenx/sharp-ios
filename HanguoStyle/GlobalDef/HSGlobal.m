@@ -131,7 +131,7 @@
 // 添加购物车校验数量（未登陆状态）
 + (NSString *) checkAddCartAmount
 {
-    NSString * url = [NSString stringWithFormat:@"%@/client/cart/verify/amount",SERVERY1];
+    NSString * url = [NSString stringWithFormat:@"%@/client/cart/nologin/verify/amount",SERVERY1];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }

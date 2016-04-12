@@ -334,7 +334,7 @@
 }
 
 -(void) backMeFromSetting{
-    [self footerRefresh];
+    [self createHeadView];
 }
 -(void)backController{
     [self footerRefresh];

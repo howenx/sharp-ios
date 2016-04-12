@@ -58,6 +58,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tabBarController.tabBar.hidden=YES;
@@ -562,7 +563,7 @@
     //    shareView.delegate = self;
     
     shareView.shareStr =  _detailData.itemTitle;
-    shareView.shareTitle = @"全球正品，尽在韩秘美";
+    shareView.shareTitle = @"韩秘美，只卖韩国正品";
     shareView.shareImage = _detailData.invImg;
 //    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
     NSArray  * array= [_url componentsSeparatedByString:@"comm"];
@@ -574,8 +575,6 @@
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
-    
-    
 }
 
 -(void)backController{
@@ -587,13 +586,15 @@
     }
     BOOL isLogin = [PublicMethod checkLogin];
     if(!isLogin){
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelFont = [UIFont systemFontOfSize:11];
-        hud.labelText = @"未登录状态下不能收藏商品";
-        hud.margin = 10.f;
-        hud.removeFromSuperViewOnHide = YES;
-        [hud hide:YES afterDelay:1];
+        LoginViewController * login = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:login animated:YES];
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.mode = MBProgressHUDModeText;
+//        hud.labelFont = [UIFont systemFontOfSize:11];
+//        hud.labelText = @"未登录状态下不能收藏商品";
+//        hud.margin = 10.f;
+//        hud.removeFromSuperViewOnHide = YES;
+//        [hud hide:YES afterDelay:1];
         return;
         
     }else{

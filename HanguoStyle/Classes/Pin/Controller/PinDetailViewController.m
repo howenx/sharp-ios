@@ -38,10 +38,12 @@
 @implementation PinDetailViewController
 -(void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=YES;
+    
     [self requestData];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"组团详情";
@@ -432,35 +434,31 @@
 
 
 - (void) shareBtnClicked: (UIButton *) button{
+  
+    
     if(![PublicMethod isConnectionAvailable]){
         return;
     }
     ShareView *shareView = [[ShareView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
     shareView.tag = 1000000000;
-    //    shareView.delegate = self;
     
-//    shareView.shareStr =  _detailData.itemTitle;
-//    shareView.shareTitle = _detailData.itemTitle;
-//    
-//    shareView.shareUrl = @"http://www.hanmimei.com";
-//    
-//    NSString * copyUrl;
-//    for(SizeData * sizeData in _detailData.sizeArray){
-//        if(sizeData.orMasterInv){
-//            shareView.shareImage = sizeData.invImg;
-//            copyUrl = sizeData.invUrl;
-//            break;
-//        }
-//    }
-//    NSArray  * array = [_url componentsSeparatedByString:@"promotion/pin/activity"];
-    NSArray  * array = [_url componentsSeparatedByString:@"promotion"];
+    shareView.shareStr =  _data.pinTitle;
+    shareView.shareTitle = @"韩秘美，只卖韩国正品";
+    
+
+    NSArray  * array = [_data.pinUrl componentsSeparatedByString:@"promotion"];
     NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[array.count-1]];
     if(array.count >= 2){
+        shareView.shareUrl = shareUrl;
+        shareView.shareImage = _data.pinImg;
         shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@－🔑 M令 🔑",_data.pinTitle,shareUrl];
-        shareView.shareFrom = @"T";
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
+
+    
+    
+    
     
     
 }

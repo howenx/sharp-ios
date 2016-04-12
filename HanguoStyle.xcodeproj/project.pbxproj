@@ -59,6 +59,11 @@
 		8005B0091C3CC5C300CB93EE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8005B0081C3CC5C300CB93EE /* SystemConfiguration.framework */; };
 		8005B00B1C3CC5D300CB93EE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8005B00A1C3CC5D300CB93EE /* libz.dylib */; };
 		8005E72C1BF197B60025B82F /* PhotoAndTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8005E72B1BF197B60025B82F /* PhotoAndTextView.m */; };
+		80086BD01CBB4AFD00CB5B90 /* CrashMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80086BCF1CBB4AFD00CB5B90 /* CrashMaster.framework */; };
+		80086BD71CBBA1BA00CB5B90 /* biaoqian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80086BD51CBBA1BA00CB5B90 /* biaoqian@2x.png */; };
+		80086BD81CBBA1BA00CB5B90 /* biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80086BD61CBBA1BA00CB5B90 /* biaoqian@3x.png */; };
+		80086BDB1CBBA7D300CB5B90 /* yushou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80086BD91CBBA7D300CB5B90 /* yushou@2x.png */; };
+		80086BDC1CBBA7D300CB5B90 /* yushou@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80086BDA1CBBA7D300CB5B90 /* yushou@3x.png */; };
 		8008B73D1C030FF1009B7D49 /* CartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8008B73B1C030FF1009B7D49 /* CartCell.m */; };
 		8008B73E1C030FF1009B7D49 /* CartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8008B73C1C030FF1009B7D49 /* CartCell.xib */; };
 		8009CE2F1C3CF70C00B32A81 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8009CE2E1C3CF70C00B32A81 /* Security.framework */; };
@@ -144,7 +149,6 @@
 		8068814B1C23A24C0017B439 /* PayTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8068814A1C23A24C0017B439 /* PayTypeCell.m */; };
 		8068814E1C23E0180017B439 /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8068814D1C23E0180017B439 /* CouponCell.m */; };
 		8069E4A81BC7B18500742D8F /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8069E4811BC7B18500742D8F /* LoginViewController.m */; };
-		8069E4A91BC7B18500742D8F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8069E4821BC7B18500742D8F /* LoginViewController.xib */; };
 		8069E4AA1BC7B18500742D8F /* LosePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8069E4841BC7B18500742D8F /* LosePwdViewController.m */; };
 		8069E4AB1BC7B18500742D8F /* LosePwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8069E4851BC7B18500742D8F /* LosePwdViewController.xib */; };
 		8069E4AC1BC7B18500742D8F /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8069E4871BC7B18500742D8F /* RegistViewController.m */; };
@@ -360,6 +364,7 @@
 		B019E3B81CB4B7D600574DE3 /* messagebutton2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B019E3A31CB4B7D600574DE3 /* messagebutton2@3x.png */; };
 		B019E3C41CB4B9C200574DE3 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B019E3C31CB4B9C200574DE3 /* MessageTableViewCell.m */; };
 		B019E3C71CB4CBA900574DE3 /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B019E3C61CB4CBA900574DE3 /* MessageModel.m */; };
+		B0208D731CBC9A7A00F626A3 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */; };
 		B0307D6A1CB3A94C0017C38F /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D611CB3A94C0017C38F /* order.png */; };
 		B0307D6B1CB3A94C0017C38F /* order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D621CB3A94C0017C38F /* order@2x.png */; };
 		B0307D6C1CB3A94C0017C38F /* order@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D631CB3A94C0017C38F /* order@3x.png */; };
@@ -484,6 +489,11 @@
 		8005B00A1C3CC5D300CB93EE /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8005E72A1BF197B60025B82F /* PhotoAndTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoAndTextView.h; sourceTree = "<group>"; };
 		8005E72B1BF197B60025B82F /* PhotoAndTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoAndTextView.m; sourceTree = "<group>"; };
+		80086BCF1CBB4AFD00CB5B90 /* CrashMaster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashMaster.framework; sourceTree = "<group>"; };
+		80086BD51CBBA1BA00CB5B90 /* biaoqian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "biaoqian@2x.png"; sourceTree = "<group>"; };
+		80086BD61CBBA1BA00CB5B90 /* biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "biaoqian@3x.png"; sourceTree = "<group>"; };
+		80086BD91CBBA7D300CB5B90 /* yushou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yushou@2x.png"; sourceTree = "<group>"; };
+		80086BDA1CBBA7D300CB5B90 /* yushou@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yushou@3x.png"; sourceTree = "<group>"; };
 		8008B73A1C030FF1009B7D49 /* CartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartCell.h; sourceTree = "<group>"; };
 		8008B73B1C030FF1009B7D49 /* CartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartCell.m; sourceTree = "<group>"; };
 		8008B73C1C030FF1009B7D49 /* CartCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartCell.xib; sourceTree = "<group>"; };
@@ -604,7 +614,6 @@
 		8068814D1C23E0180017B439 /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
 		8069E4801BC7B18500742D8F /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		8069E4811BC7B18500742D8F /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		8069E4821BC7B18500742D8F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		8069E4831BC7B18500742D8F /* LosePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LosePwdViewController.h; sourceTree = "<group>"; };
 		8069E4841BC7B18500742D8F /* LosePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LosePwdViewController.m; sourceTree = "<group>"; };
 		8069E4851BC7B18500742D8F /* LosePwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LosePwdViewController.xib; sourceTree = "<group>"; };
@@ -922,6 +931,7 @@
 		B019E3C31CB4B9C200574DE3 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		B019E3C51CB4CBA900574DE3 /* MessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageModel.h; sourceTree = "<group>"; };
 		B019E3C61CB4CBA900574DE3 /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
+		B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B0307D611CB3A94C0017C38F /* order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = order.png; path = pintuan/order.png; sourceTree = "<group>"; };
 		B0307D621CB3A94C0017C38F /* order@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "order@2x.png"; path = "pintuan/order@2x.png"; sourceTree = "<group>"; };
 		B0307D631CB3A94C0017C38F /* order@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "order@3x.png"; path = "pintuan/order@3x.png"; sourceTree = "<group>"; };
@@ -1006,6 +1016,7 @@
 				8009CE311C3CF72100B32A81 /* libiconv.dylib in Frameworks */,
 				806BFF961C3D1C3300680AF6 /* libSocialAlipayShare.a in Frameworks */,
 				8009CE2F1C3CF70C00B32A81 /* Security.framework in Frameworks */,
+				80086BD01CBB4AFD00CB5B90 /* CrashMaster.framework in Frameworks */,
 				8005B00B1C3CC5D300CB93EE /* libz.dylib in Frameworks */,
 				8005B0091C3CC5C300CB93EE /* SystemConfiguration.framework in Frameworks */,
 				8009D6C81C97D88200FA5BE2 /* jpush-ios-2.1.0.a in Frameworks */,
@@ -1358,9 +1369,9 @@
 		8069E47F1BC7B18500742D8F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B0208D721CBC9A7A00F626A3 /* LoginViewController.xib */,
 				8069E4801BC7B18500742D8F /* LoginViewController.h */,
 				8069E4811BC7B18500742D8F /* LoginViewController.m */,
-				8069E4821BC7B18500742D8F /* LoginViewController.xib */,
 				8069E4831BC7B18500742D8F /* LosePwdViewController.h */,
 				8069E4841BC7B18500742D8F /* LosePwdViewController.m */,
 				8069E4851BC7B18500742D8F /* LosePwdViewController.xib */,
@@ -1503,6 +1514,7 @@
 		8069E49D1BC7B18500742D8F /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				80086BCF1CBB4AFD00CB5B90 /* CrashMaster.framework */,
 				80EF42D51C2D187700853FFE /* Image */,
 				8069E49E1BC7B18500742D8F /* Categroy */,
 				80014FF61BC7A2BC0078B2F5 /* AppDelegate.h */,
@@ -1811,6 +1823,10 @@
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
 				802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */,
+				80086BD51CBBA1BA00CB5B90 /* biaoqian@2x.png */,
+				80086BD61CBBA1BA00CB5B90 /* biaoqian@3x.png */,
+				80086BD91CBBA7D300CB5B90 /* yushou@2x.png */,
+				80086BDA1CBBA7D300CB5B90 /* yushou@3x.png */,
 				80F262A51C5B100200DC7CEB /* talkbackLeft.png */,
 				80F262A61C5B100200DC7CEB /* talkbackRight.png */,
 				80F6CBBC1C59F911005B4EE9 /* icon-duanwang.png */,
@@ -2208,7 +2224,6 @@
 				B019E3B81CB4B7D600574DE3 /* messagebutton2@3x.png in Resources */,
 				802A34011C75B0F700C7AF28 /* pingou_wanfa.png in Resources */,
 				80113B761CAB64C90010B4E9 /* cancel@3x.png in Resources */,
-				8069E4A91BC7B18500742D8F /* LoginViewController.xib in Resources */,
 				80113B7D1CAB652B0010B4E9 /* hmm_cantuan_success@3x.png in Resources */,
 				800528591CA3D05800558D9F /* me_tab_selected@2x.png in Resources */,
 				B019E37A1CB4B2D600574DE3 /* dian.png in Resources */,
@@ -2264,6 +2279,7 @@
 				B019E37C1CB4B2D600574DE3 /* dian@3x.png in Resources */,
 				80FDB8AF1CA538C8006D5CB0 /* icon_shuaxin@3x.png in Resources */,
 				804BE22B1BE0CA71009ABF33 /* GoodsShowCell.xib in Resources */,
+				80086BDC1CBBA7D300CB5B90 /* yushou@3x.png in Resources */,
 				80FDB8A21CA538C8006D5CB0 /* hmm_zutuan@2x.png in Resources */,
 				80FDB8AA1CA538C8006D5CB0 /* icon_more_hui@2x.png in Resources */,
 				80113B9B1CAB66870010B4E9 /* 2@2x.png in Resources */,
@@ -2276,6 +2292,7 @@
 				B019E3B51CB4B7D600574DE3 /* messagebutton@3x.png in Resources */,
 				80FDB8591CA4D6E2006D5CB0 /* icon_nv@2x.png in Resources */,
 				B0307D6A1CB3A94C0017C38F /* order.png in Resources */,
+				80086BDB1CBBA7D300CB5B90 /* yushou@2x.png in Resources */,
 				80FDB8B41CA538C8006D5CB0 /* price_bg@2x.png in Resources */,
 				8009D6D01C97DF2400FA5BE2 /* PushConfig.plist in Resources */,
 				80113B9C1CAB66870010B4E9 /* 2@3x.png in Resources */,
@@ -2297,6 +2314,7 @@
 				806BFFA71C3D1C3300680AF6 /* markdown.css in Resources */,
 				B0705EF31CAA168200E86A30 /* opinion@2x.png in Resources */,
 				804BE2261BE0CA46009ABF33 /* GoodsShowViewController.xib in Resources */,
+				B0208D731CBC9A7A00F626A3 /* LoginViewController.xib in Resources */,
 				800528741CA3D29500558D9F /* icon_pintuan@3x.png in Resources */,
 				B0307D721CB3A94C0017C38F /* sign@3x.png in Resources */,
 				80FDB8A71CA538C8006D5CB0 /* icon_delete_hui@3x.png in Resources */,
@@ -2307,6 +2325,7 @@
 				800528881CA3DD5300558D9F /* icon_delete@3x.png in Resources */,
 				80F262F31C5B353900DC7CEB /* LaunchScreen.xib in Resources */,
 				8005285A1CA3D05800558D9F /* me_tab_selected@3x.png in Resources */,
+				80086BD81CBBA1BA00CB5B90 /* biaoqian@3x.png in Resources */,
 				80113B7A1CAB64F00010B4E9 /* hmm_pingou_fail@3x.png in Resources */,
 				80FDB8A51CA538C8006D5CB0 /* icon_default_header@3x.png in Resources */,
 				800528731CA3D29500558D9F /* icon_pintuan@2x.png in Resources */,
@@ -2334,6 +2353,7 @@
 				B0307D6E1CB3A94C0017C38F /* peisong@2x.png in Resources */,
 				B0307D6B1CB3A94C0017C38F /* order@2x.png in Resources */,
 				80113B9A1CAB66870010B4E9 /* 1@3x.png in Resources */,
+				80086BD71CBBA1BA00CB5B90 /* biaoqian@2x.png in Resources */,
 				B019E3B71CB4B7D600574DE3 /* messagebutton2@2x.png in Resources */,
 				80AFBDAE1BD8B1B4003D1308 /* AppendAddrViewController.xib in Resources */,
 				800528621CA3D13900558D9F /* gs_tab_selected@3x.png in Resources */,
@@ -2729,10 +2749,11 @@
 					"$(PROJECT_DIR)/HanguoStyle/Classes/Third/umeng_sdk_4.4_arm64/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/HanguoStyle/Classes/Third/umeng_ios_social_sdk_4.2.5_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					/Users/liudongsheng/Downloads/umeng_ios_social_sdk_4.4_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI,
+					"$(PROJECT_DIR)/HanguoStyle/Classes/Other",
 				);
 				GCC_PREFIX_HEADER = HanguoStyle/Classes/Other/HanguoStyle.pch;
 				INFOPLIST_FILE = HanguoStyle/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2810,10 +2831,11 @@
 					"$(PROJECT_DIR)/HanguoStyle/Classes/Third/umeng_sdk_4.4_arm64/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/HanguoStyle/Classes/Third/umeng_ios_social_sdk_4.2.5_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					/Users/liudongsheng/Downloads/umeng_ios_social_sdk_4.4_arm64_custom/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI,
+					"$(PROJECT_DIR)/HanguoStyle/Classes/Other",
 				);
 				GCC_PREFIX_HEADER = HanguoStyle/Classes/Other/HanguoStyle.pch;
 				INFOPLIST_FILE = HanguoStyle/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

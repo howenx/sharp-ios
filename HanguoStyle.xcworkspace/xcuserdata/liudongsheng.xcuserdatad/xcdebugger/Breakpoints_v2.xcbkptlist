@@ -4,13 +4,51 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
+            filePath = "HanguoStyle/Classes/Cart/Controller/CartViewController.m"
+            timestampString = "481785249.816351"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
+            landmarkName = "-sendSelectData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Cart/Controller/CartViewController.m"
+            timestampString = "481785257.162605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "687"
+            endingLineNumber = "687"
+            landmarkName = "-sendSelectData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Cart/Model/CartData.m"
+            timestampString = "481785801.39981"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-initWithJSONNode:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -20,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
-            timestampString = "481628049.211248"
+            timestampString = "482051885.157591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
-            landmarkName = "-shareBtnClicked:"
+            startingLineNumber = "874"
+            endingLineNumber = "874"
+            landmarkName = "-addToShoppingCart:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HanguoStyle/Classes/Goods/Controller/PinGoodsDetailViewController.m"
-            timestampString = "481628053.917536"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
-            landmarkName = "-shareBtnClicked:"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
+            landmarkName = "-addToShoppingCart:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +89,157 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HanguoStyle/Classes/Pin/Controller/PinDetailViewController.m"
-            timestampString = "481686938.483388"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
-            landmarkName = "-shareBtnClicked:"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
+            landmarkName = "-addToShoppingCart:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "817"
+            endingLineNumber = "817"
+            landmarkName = "-addToShoppingCart:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "869"
+            endingLineNumber = "869"
+            landmarkName = "-addToShoppingCart:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[GoodsDetailViewController addToShoppingCart:]"
+                  moduleName = "HanguoStyle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+                  timestampString = "482038082.541394"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "866"
+                  endingLineNumber = "866"
+                  offsetFromSymbolStart = "5576">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[GoodsDetailViewController addToShoppingCart:]_block_invoke_2"
+                  moduleName = "HanguoStyle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+                  timestampString = "482038082.541534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "866"
+                  endingLineNumber = "866"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "811"
+            endingLineNumber = "811"
+            landmarkName = "-addToShoppingCart:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[GoodsDetailViewController addToShoppingCart:]"
+                  moduleName = "HanguoStyle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+                  timestampString = "482038082.542113"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "808"
+                  endingLineNumber = "808"
+                  offsetFromSymbolStart = "3835">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[GoodsDetailViewController addToShoppingCart:]_block_invoke"
+                  moduleName = "HanguoStyle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+                  timestampString = "482038082.542242"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "808"
+                  endingLineNumber = "808"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsDetailViewController.m"
+            timestampString = "482051885.157591"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "878"
+            endingLineNumber = "878"
+            landmarkName = "-addToShoppingCart:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Cart/Controller/CartViewController.m"
+            timestampString = "482038082.265962"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "-headerRefresh"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

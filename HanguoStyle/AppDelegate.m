@@ -23,6 +23,7 @@
 #import "PinGoodsDetailViewController.h"
 #import "PinDetailViewController.h"
 #import "GoodsViewController.h"
+#import <CrashMaster/CrashMaster.h>
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -45,7 +46,7 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self umConfig];
-    
+    [CrashMaster init:@"ee2bb0b0d95af384232362f254137920" channel:@"应用的渠道号" config:[CrashMasterConfig defaultConfig]];
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定
     NSLog(@"+++++++%@", NSHomeDirectory());
     application.statusBarHidden = NO;
