@@ -10,6 +10,7 @@
 #import "MessageTableViewCell.h"
 #import "LoginViewController.h"
 #import "SystemMessageViewController.h"
+#import "UIBarButtonItem+GG.h"
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -29,19 +30,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    BOOL isLogin = [PublicMethod checkLogin];
-    
-    if(!isLogin){
-        LoginViewController * login = [[LoginViewController alloc]init];
-        [self.navigationController pushViewController:login animated:NO];
-        
-    }else
-    {
-        [self createSettingView];
-        
-    }
-    
+
     [super viewWillAppear:animated];
+    
+    [self createSettingView];
+
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
+    
     UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icongengduo"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
     self.navigationItem.rightBarButtonItem = anotherButton;
     [self setModel];
@@ -163,5 +158,12 @@
     
     [self.navigationController pushViewController:vc animated:YES];
     
+}
+
+-(void)backViewController
+{
+    
+    self.selectButtonBlock(nil);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

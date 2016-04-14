@@ -378,6 +378,15 @@
 		B0307D721CB3A94C0017C38F /* sign@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B0307D691CB3A94C0017C38F /* sign@3x.png */; };
 		B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */; };
 		B048D3F91CAB6BDB00D92CD5 /* icon_save@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */; };
+		B04C7BB31CBF5FD8000B3B4C /* weiyong.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAA1CBF5FD8000B3B4C /* weiyong.png */; };
+		B04C7BB41CBF5FD8000B3B4C /* weiyong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAB1CBF5FD8000B3B4C /* weiyong@2x.png */; };
+		B04C7BB51CBF5FD8000B3B4C /* weiyong@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAC1CBF5FD8000B3B4C /* weiyong@3x.png */; };
+		B04C7BB61CBF5FD8000B3B4C /* yiyong.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAD1CBF5FD8000B3B4C /* yiyong.png */; };
+		B04C7BB71CBF5FD8000B3B4C /* yiyong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAE1CBF5FD8000B3B4C /* yiyong@2x.png */; };
+		B04C7BB81CBF5FD8000B3B4C /* yiyong@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAF1CBF5FD8000B3B4C /* yiyong@3x.png */; };
+		B04C7BB91CBF5FD8000B3B4C /* zhuyi.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB01CBF5FD8000B3B4C /* zhuyi.png */; };
+		B04C7BBA1CBF5FD8000B3B4C /* zhuyi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB11CBF5FD8000B3B4C /* zhuyi@2x.png */; };
+		B04C7BBB1CBF5FD8000B3B4C /* zhuyi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB21CBF5FD8000B3B4C /* zhuyi@3x.png */; };
 		B06794E61CB651C400545A16 /* SystemMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E51CB651C400545A16 /* SystemMessageViewController.m */; };
 		B06794E91CB656BA00545A16 /* MessageTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E81CB656BA00545A16 /* MessageTypeModel.m */; };
 		B06794EC1CB6596200545A16 /* MessageTypeSystemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794EB1CB6596200545A16 /* MessageTypeSystemTableViewCell.m */; };
@@ -947,6 +956,15 @@
 		B0307D691CB3A94C0017C38F /* sign@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sign@3x.png"; path = "pintuan/sign@3x.png"; sourceTree = "<group>"; };
 		B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@2x.png"; path = "setting/icon_save@2x.png"; sourceTree = "<group>"; };
 		B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@3x.png"; path = "setting/icon_save@3x.png"; sourceTree = "<group>"; };
+		B04C7BAA1CBF5FD8000B3B4C /* weiyong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weiyong.png; path = coupon/weiyong.png; sourceTree = "<group>"; };
+		B04C7BAB1CBF5FD8000B3B4C /* weiyong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weiyong@2x.png"; path = "coupon/weiyong@2x.png"; sourceTree = "<group>"; };
+		B04C7BAC1CBF5FD8000B3B4C /* weiyong@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weiyong@3x.png"; path = "coupon/weiyong@3x.png"; sourceTree = "<group>"; };
+		B04C7BAD1CBF5FD8000B3B4C /* yiyong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yiyong.png; path = coupon/yiyong.png; sourceTree = "<group>"; };
+		B04C7BAE1CBF5FD8000B3B4C /* yiyong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yiyong@2x.png"; path = "coupon/yiyong@2x.png"; sourceTree = "<group>"; };
+		B04C7BAF1CBF5FD8000B3B4C /* yiyong@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yiyong@3x.png"; path = "coupon/yiyong@3x.png"; sourceTree = "<group>"; };
+		B04C7BB01CBF5FD8000B3B4C /* zhuyi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zhuyi.png; path = coupon/zhuyi.png; sourceTree = "<group>"; };
+		B04C7BB11CBF5FD8000B3B4C /* zhuyi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zhuyi@2x.png"; path = "coupon/zhuyi@2x.png"; sourceTree = "<group>"; };
+		B04C7BB21CBF5FD8000B3B4C /* zhuyi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zhuyi@3x.png"; path = "coupon/zhuyi@3x.png"; sourceTree = "<group>"; };
 		B06794E41CB651C400545A16 /* SystemMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMessageViewController.h; sourceTree = "<group>"; };
 		B06794E51CB651C400545A16 /* SystemMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMessageViewController.m; sourceTree = "<group>"; };
 		B06794E71CB656BA00545A16 /* MessageTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeModel.h; sourceTree = "<group>"; };
@@ -1823,6 +1841,7 @@
 		80EF42D51C2D187700853FFE /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B04C7BA91CBF5FC8000B3B4C /* coupon */,
 				B019E3611CB4B2B200574DE3 /* message */,
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
@@ -2021,6 +2040,22 @@
 			name = pintuan;
 			sourceTree = "<group>";
 		};
+		B04C7BA91CBF5FC8000B3B4C /* coupon */ = {
+			isa = PBXGroup;
+			children = (
+				B04C7BAA1CBF5FD8000B3B4C /* weiyong.png */,
+				B04C7BAB1CBF5FD8000B3B4C /* weiyong@2x.png */,
+				B04C7BAC1CBF5FD8000B3B4C /* weiyong@3x.png */,
+				B04C7BAD1CBF5FD8000B3B4C /* yiyong.png */,
+				B04C7BAE1CBF5FD8000B3B4C /* yiyong@2x.png */,
+				B04C7BAF1CBF5FD8000B3B4C /* yiyong@3x.png */,
+				B04C7BB01CBF5FD8000B3B4C /* zhuyi.png */,
+				B04C7BB11CBF5FD8000B3B4C /* zhuyi@2x.png */,
+				B04C7BB21CBF5FD8000B3B4C /* zhuyi@3x.png */,
+			);
+			name = coupon;
+			sourceTree = "<group>";
+		};
 		B0705ED51CAA164B00E86A30 /* PlaceholderTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2180,6 +2215,7 @@
 				80D9800E1C4E348500CCAC03 /* UserNameViewController.xib in Resources */,
 				B0705EF71CAA168200E86A30 /* System-update@3x.png in Resources */,
 				806BFFA51C3D1C3300680AF6 /* ios-social-sdk-share-quick.html in Resources */,
+				B04C7BB71CBF5FD8000B3B4C /* yiyong@2x.png in Resources */,
 				B0307D6D1CB3A94C0017C38F /* peisong.png in Resources */,
 				8069E4C51BC7B22800742D8F /* MeViewController.xib in Resources */,
 				80F262D01C5B100200DC7CEB /* talkbackRight.png in Resources */,
@@ -2191,6 +2227,7 @@
 				806BFF8C1C3D1C3300680AF6 /* UMSCommentDetailController.xib in Resources */,
 				80E45C8C1C57620500941AC3 /* youhuiquan_bg_use.png in Resources */,
 				B079BC0C1CB7B090003E7240 /* coupon@2x.png in Resources */,
+				B04C7BBA1CBF5FD8000B3B4C /* zhuyi@2x.png in Resources */,
 				806BFF8F1C3D1C3300680AF6 /* UMShareEditViewController.xib in Resources */,
 				80E45C8A1C5761FA00941AC3 /* youhuiquan_bg_unuse.png in Resources */,
 				80641E761BE742F7003E8371 /* DetaileOneCell.xib in Resources */,
@@ -2202,6 +2239,7 @@
 				806BFF9D1C3D1C3300680AF6 /* iOS-social-releasenote.html in Resources */,
 				806BFFA21C3D1C3300680AF6 /* ios-social-sdk-login-quick.html in Resources */,
 				8005289A1CA3E2F200558D9F /* qq@3x.png in Resources */,
+				B04C7BB91CBF5FD8000B3B4C /* zhuyi.png in Resources */,
 				800528801CA3DA8400558D9F /* icon_collection@3x.png in Resources */,
 				80FDB8991CA538C8006D5CB0 /* hmm_hui@3x.png in Resources */,
 				B019E3A91CB4B7D600574DE3 /* message1@3x.png in Resources */,
@@ -2258,10 +2296,12 @@
 				80FDB89B1CA538C8006D5CB0 /* hmm_klmpintuan@3x.png in Resources */,
 				B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */,
 				B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */,
+				B04C7BB51CBF5FD8000B3B4C /* weiyong@3x.png in Resources */,
 				802EEFE11BDE370D00AC1EF1 /* ThreeViewCell.xib in Resources */,
 				80FDB85E1CA4D7F3006D5CB0 /* icon_back@3x.png in Resources */,
 				80113B8D1CAB662D0010B4E9 /* shoppingcart@2x.png in Resources */,
 				80FDB89A1CA538C8006D5CB0 /* hmm_klmpintuan@2x.png in Resources */,
+				B04C7BB61CBF5FD8000B3B4C /* yiyong.png in Resources */,
 				800528771CA3D2C200558D9F /* icon_dingdan@2x.png in Resources */,
 				80AFBDA91BD883F5003D1308 /* AddressViewController.xib in Resources */,
 				80113B8A1CAB66100010B4E9 /* hmm_pingou_success@3x.png in Resources */,
@@ -2283,6 +2323,7 @@
 				B019E3A51CB4B7D600574DE3 /* message0@2x.png in Resources */,
 				80113B861CAB65820010B4E9 /* login_header@3x.png in Resources */,
 				8008B73E1C030FF1009B7D49 /* CartCell.xib in Resources */,
+				B04C7BB41CBF5FD8000B3B4C /* weiyong@2x.png in Resources */,
 				B019E37C1CB4B2D600574DE3 /* dian@3x.png in Resources */,
 				80FDB8AF1CA538C8006D5CB0 /* icon_shuaxin@3x.png in Resources */,
 				804BE22B1BE0CA71009ABF33 /* GoodsShowCell.xib in Resources */,
@@ -2316,10 +2357,12 @@
 				80F262CF1C5B100200DC7CEB /* talkbackLeft.png in Resources */,
 				80FDB8961CA538C8006D5CB0 /* hmm_bg_jiantou@2x.png in Resources */,
 				B019E37F1CB4B2D600574DE3 /* line@3x.png in Resources */,
+				B04C7BB31CBF5FD8000B3B4C /* weiyong.png in Resources */,
 				80FDE7861CAE1012001E6D7E /* icon_more_down_hui.png in Resources */,
 				800528991CA3E2F200558D9F /* qq@2x.png in Resources */,
 				806BFFA71C3D1C3300680AF6 /* markdown.css in Resources */,
 				B0705EF31CAA168200E86A30 /* opinion@2x.png in Resources */,
+				B04C7BBB1CBF5FD8000B3B4C /* zhuyi@3x.png in Resources */,
 				804BE2261BE0CA46009ABF33 /* GoodsShowViewController.xib in Resources */,
 				B0208D731CBC9A7A00F626A3 /* LoginViewController.xib in Resources */,
 				800528741CA3D29500558D9F /* icon_pintuan@3x.png in Resources */,
@@ -2368,6 +2411,7 @@
 				B019E3AB1CB4B7D600574DE3 /* message2@2x.png in Resources */,
 				80113BA61CABAAF20010B4E9 /* pingou_liucheng@3x.png in Resources */,
 				80113B791CAB64F00010B4E9 /* hmm_pingou_fail@2x.png in Resources */,
+				B04C7BB81CBF5FD8000B3B4C /* yiyong@3x.png in Resources */,
 				8069E4BB1BC7B1EF00742D8F /* CartViewController.xib in Resources */,
 				B06794F11CB66A8400545A16 /* fanye@2x.png in Resources */,
 				80FDB8951CA538C8006D5CB0 /* defaultSelect@3x.png in Resources */,

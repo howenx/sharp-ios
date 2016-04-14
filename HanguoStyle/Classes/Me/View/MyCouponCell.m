@@ -25,11 +25,11 @@
     self.denominationLab.text = [NSString stringWithFormat:@"￥%@",data.denomination];
     self.endAtLab.text = [NSString stringWithFormat:@"有效期至：%@",data.endAt];
     if([data.state isEqualToString:@"N"]){
-        [self.bgImageView setImage:[UIImage imageNamed:@"youhuiquan_bg_unuse" ]];
+        [self.bgImageView setImage:[UIImage imageNamed:@"weiyong" ]];
     }else if([data.state isEqualToString:@"Y"]){
-        [self.bgImageView setImage:[UIImage imageNamed:@"youhuiquan_bg_use" ]];
+        [self.bgImageView setImage:[UIImage imageNamed:@"yiyong" ]];
     }else if([data.state isEqualToString:@"S"]){
-        [self.bgImageView setImage:[UIImage imageNamed:@"youhuiquan_bg_outdate" ]];
+        [self.bgImageView setImage:[UIImage imageNamed:@"yiyong" ]];
     }
 }
 - (void)awakeFromNib {
