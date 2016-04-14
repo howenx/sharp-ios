@@ -15,6 +15,7 @@
 @implementation BaseViewController
 -(void)viewWillAppear:(BOOL)animated{
     [self.navigationController.navigationBar setAlpha:1];
+    [GiFHUD dismiss];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

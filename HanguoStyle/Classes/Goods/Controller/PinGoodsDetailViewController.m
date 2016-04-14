@@ -20,6 +20,7 @@
 #import "ShareView.h"
 #import "RecommendGoodsView.h"
 #import "GoodsShowData.h"
+#import "UIImage+GG.h"
 @interface PinGoodsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,PinDetailOneCellDelegate,ThreeViewCellDelegate,MBProgressHUDDelegate,MWPhotoBrowserDelegate>
 {
     
@@ -71,8 +72,14 @@
     _sectionZeroHeight = 0;
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2)];
     _lineView.backgroundColor = GGMainColor;
+    [_singleBuyButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xF03046)] forState:UIControlStateNormal];
+    [_openTeamButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xff5359)] forState:UIControlStateNormal];
+    [_singleBuyButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xe82e43)] forState:UIControlStateHighlighted];
+    [_openTeamButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xf55165)] forState:UIControlStateHighlighted];
+
     [self makeShareButton];
 }
+
 -(void)makeShareButton{
     
     //右上角添加按钮

@@ -174,17 +174,17 @@ static GiFHUD *instance;
 
 - (instancetype)init {
 
-    if ((self = [super initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)])) {
+    if ((self = [super initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)])) {
         
         [self setAlpha:0];
-        [self setCenter:APPDELEGATE.window.center];
+//        [self setCenter:APPDELEGATE.window.center];
         [self setClipsToBounds:NO];
         
         [self.layer setBackgroundColor:[[UIColor colorWithWhite:0 alpha:0.2] CGColor]];
 //        [self.layer setCornerRadius:10];
         [self.layer setMasksToBounds:YES];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, 150, 300)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/2 -25,(GGUISCREENHEIGHT-64-50)/2, 50, 50)];
         [self addSubview:self.imageView];
         
         [APPDELEGATE.window addSubview:self];

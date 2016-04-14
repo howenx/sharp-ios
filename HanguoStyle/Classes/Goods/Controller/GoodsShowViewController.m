@@ -207,7 +207,7 @@
         //左右2个item的空隙
         layout.minimumInteritemSpacing = 0;
         //上左下右的空隙
-//        layout.sectionInset = UIEdgeInsetsMake(0, gap, gap, gap);
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, gap*2, 0);
         //滚动方向
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         

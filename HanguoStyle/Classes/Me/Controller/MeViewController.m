@@ -37,6 +37,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
     [self.navigationController setNavigationBarHidden:YES animated:TRUE];
+    [GiFHUD dismiss];
 
     //下面这段逻辑是当上一次进到我的页面的时候是未登录，然后在购物车页面登陆，再次点击我的页面，让他进入到登陆状态
     

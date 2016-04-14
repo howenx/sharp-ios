@@ -53,8 +53,10 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>HmmApp</string>
+				<string>hmmapp</string>
 			</array>
+			<key>CFBundleURLName</key>
+			<string>com.app.hmm</string>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
