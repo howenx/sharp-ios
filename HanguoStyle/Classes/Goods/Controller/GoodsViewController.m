@@ -16,6 +16,7 @@
 #import "GoodsShowH5ViewController.h"
 #import "PinGoodsDetailViewController.h"
 #import "MessageViewController.h"
+#import "LoginViewController.h"
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -67,9 +68,46 @@
 //消息盒子
 -(void)rightBarButton:(UIBarButtonItem *)bar
 {
-//    NSLog(@"消息盒子");
-    MessageViewController * vc = [MessageViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    BOOL isLogin = [PublicMethod checkLogin];
+    if(!isLogin){
+        LoginViewController * login = [[LoginViewController alloc]init];
+        [self.navigationController pushViewController:login animated:NO];
+        
+    }else
+    {
+        MessageViewController * vc = [MessageViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        [vc setSelectButtonBlock:^(NSString * str) {
+
+            NSString * url = [HSGlobal goodsPackMoreUrl: _addon];
+            AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+            [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                GoodsPackData * data = [[GoodsPackData alloc] initWithJSONNode:object];
+                if(data.code == 200){
+                    
+                    if ([[object objectForKey:@"msgRemind"] integerValue]>0) {
+                        isMaxZero = YES;
+                        
+                        //右侧按钮
+                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                        self.navigationItem.rightBarButtonItem = anotherButton;
+                        
+                    }else
+                    {
+                        isMaxZero = NO;
+                        //右侧按钮
+                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                        self.navigationItem.rightBarButtonItem = anotherButton;
+                    }
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            }];
+
+        }];
+    }
+    
 }
 
 -(void)queryCustNum{
@@ -224,6 +262,7 @@
         if(data.code == 200){
             
             if ([[object objectForKey:@"msgRemind"] integerValue]>0) {
+            
                 isMaxZero = YES;
                 
                 //右侧按钮

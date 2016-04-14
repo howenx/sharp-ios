@@ -13,4 +13,5 @@
 @property (nonatomic ,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * arrayData;
 @property (nonatomic,strong)MessageModel * messageModel;
+@property (nonatomic,copy) void (^selectButtonBlock)(NSString * str);
 @end
