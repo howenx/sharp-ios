@@ -94,7 +94,7 @@
                     
                     odViewController.orderData = singleData;
                 }
-
+                odViewController.selectOrderId = selectOrderId;
                 selectOrderId = 0;
                 [self.navigationController pushViewController:odViewController animated:YES];
             }else{

@@ -49,6 +49,7 @@
 @end
 
 @interface Refund : NSObject
+
 @property (nonatomic) NSString * orderId;
 @property (nonatomic) NSString * splitOrderId;
 @property (nonatomic) NSString * payBackFee;
@@ -57,6 +58,7 @@
 @property (nonatomic) NSString * contactTel;
 @property (nonatomic) NSString * rejectReason;
 @property (nonatomic) NSString * refundType;
+
 @end
 
 
