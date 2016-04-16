@@ -218,7 +218,8 @@
         [lastDict setObject: telTextfield.text forKey:@"contactTel"];
         [lastDict setObject: @"deliver" forKey:@"refundType"];
         
-        
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
         [manager POST:[HSGlobal refundUrl] parameters:lastDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         } success:^(AFHTTPRequestOperation *operation,id responseObject) {
             
@@ -247,9 +248,10 @@
                 
                 [self performSelector:@selector(back) withObject:nil afterDelay:1];
             }
+            [GiFHUD dismiss];
             
         } failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-            
+            [GiFHUD dismiss];
             NSLog(@"Error: %@", error);
             [self back];
         }];

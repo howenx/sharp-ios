@@ -388,16 +388,11 @@
 		B04C7BB61CBF5FD8000B3B4C /* yiyong.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAD1CBF5FD8000B3B4C /* yiyong.png */; };
 		B04C7BB71CBF5FD8000B3B4C /* yiyong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAE1CBF5FD8000B3B4C /* yiyong@2x.png */; };
 		B04C7BB81CBF5FD8000B3B4C /* yiyong@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAF1CBF5FD8000B3B4C /* yiyong@3x.png */; };
-
-		B04C7BB91CBF5FD8000B3B4C /* zhuyi.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB01CBF5FD8000B3B4C /* zhuyi.png */; };
-		B04C7BBA1CBF5FD8000B3B4C /* zhuyi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB11CBF5FD8000B3B4C /* zhuyi@2x.png */; };
-		B04C7BBB1CBF5FD8000B3B4C /* zhuyi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BB21CBF5FD8000B3B4C /* zhuyi@3x.png */; };
 		B04C7BC11CBF8F1D000B3B4C /* RefundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B04C7BC01CBF8F1D000B3B4C /* RefundViewController.m */; };
 		B04C7BC61CBF9675000B3B4C /* xing.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BC31CBF9675000B3B4C /* xing.png */; };
 		B04C7BC71CBF9675000B3B4C /* xing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BC41CBF9675000B3B4C /* xing@2x.png */; };
 		B04C7BC81CBF9675000B3B4C /* xing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BC51CBF9675000B3B4C /* xing@3x.png */; };
 		B06644C61CC0DE81007DA1CF /* NetRequestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = B06644C51CC0DE81007DA1CF /* NetRequestClass.m */; };
-
 		B06794E61CB651C400545A16 /* SystemMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E51CB651C400545A16 /* SystemMessageViewController.m */; };
 		B06794E91CB656BA00545A16 /* MessageTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794E81CB656BA00545A16 /* MessageTypeModel.m */; };
 		B06794EC1CB6596200545A16 /* MessageTypeSystemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794EB1CB6596200545A16 /* MessageTypeSystemTableViewCell.m */; };
@@ -979,10 +974,6 @@
 		B04C7BAD1CBF5FD8000B3B4C /* yiyong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yiyong.png; path = coupon/yiyong.png; sourceTree = "<group>"; };
 		B04C7BAE1CBF5FD8000B3B4C /* yiyong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yiyong@2x.png"; path = "coupon/yiyong@2x.png"; sourceTree = "<group>"; };
 		B04C7BAF1CBF5FD8000B3B4C /* yiyong@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yiyong@3x.png"; path = "coupon/yiyong@3x.png"; sourceTree = "<group>"; };
-
-		B04C7BB01CBF5FD8000B3B4C /* zhuyi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zhuyi.png; path = coupon/zhuyi.png; sourceTree = "<group>"; };
-		B04C7BB11CBF5FD8000B3B4C /* zhuyi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zhuyi@2x.png"; path = "coupon/zhuyi@2x.png"; sourceTree = "<group>"; };
-		B04C7BB21CBF5FD8000B3B4C /* zhuyi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zhuyi@3x.png"; path = "coupon/zhuyi@3x.png"; sourceTree = "<group>"; };
 		B04C7BBF1CBF8F1D000B3B4C /* RefundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RefundViewController.h; sourceTree = "<group>"; };
 		B04C7BC01CBF8F1D000B3B4C /* RefundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RefundViewController.m; sourceTree = "<group>"; };
 		B04C7BC31CBF9675000B3B4C /* xing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = xing.png; path = returnD/xing.png; sourceTree = "<group>"; };
