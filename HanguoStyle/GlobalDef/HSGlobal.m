@@ -8,10 +8,10 @@
 
 #import "HSGlobal.h"
 //wayne
-#define SERVERY1 @"http://172.28.3.78:9003"
-#define SERVERY2 @"http://172.28.3.78:9001"
-#define SERVERY3 @"http://172.28.3.78:9004"
-#define SERVERY4 @"http://172.28.3.78:9005"
+//#define SERVERY1 @"http://172.28.3.78:9003"
+//#define SERVERY2 @"http://172.28.3.78:9001"
+//#define SERVERY3 @"http://172.28.3.78:9004"
+//#define SERVERY4 @"http://172.28.3.78:9005"
 
 //#define SERVERY1 @"http://172.28.3.66:9003"
 //#define SERVERY2 @"http://172.28.3.66:9001"
@@ -29,13 +29,19 @@
 //#define SERVERY4 @"https://promotion.hanmimei.com"
 
 
-//#define SERVERY1 @"http://172.28.3.51:9003"
-//#define SERVERY2 @"http://172.28.3.51:9001"
-//#define SERVERY3 @"http://172.28.3.51:9004"
-//#define SERVERY4 @"http://172.28.3.51:9005"
+#define SERVERY1 @"http://172.28.3.51:9003"
+#define SERVERY2 @"http://172.28.3.51:9001"
+#define SERVERY3 @"http://172.28.3.51:9004"
+#define SERVERY4 @"http://172.28.3.51:9005"
 
 @implementation HSGlobal
-
+//查看物流
++ (NSString *) searchLogisticsUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/express/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 //接到商品分享口令时，拼接口令前面的地址
 + (NSString *) shareGoodsHeaderUrl

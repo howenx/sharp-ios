@@ -9,6 +9,7 @@
 #import "MyOrderOneCell.h"
 #import "UIView+frame.h"
 #import "UIImageView+WebCache.h"
+#import "SearchLogisticsViewController.h"
 @interface MyOrderOneCell(){
     UIView * globView;
     UIView * headView;
@@ -264,6 +265,20 @@
         }
         
         
+    }else if([status isEqualToString:@"R"]){
+        if([self.contentView viewWithTag:50015] == nil){
+            ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [ckwlBtn.layer setMasksToBounds:YES];
+            [ckwlBtn.layer setCornerRadius:5.0];
+            ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+            [ckwlBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+            ckwlBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+            [ckwlBtn setBackgroundColor:GGMainColor];
+            [ckwlBtn addTarget:self action:@selector(ckwlBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            ckwlBtn.tag = 50015;
+            [footView addSubview:ckwlBtn];
+        }
+
     }else{
 
         [[self.contentView viewWithTag:50011] removeFromSuperview];
@@ -283,12 +298,44 @@
 }
 //查看物流
 -(void)ckwlBtnClick{
-    
+    UIViewController * controller = [self getCurrentVC];
+    SearchLogisticsViewController * searchLogistics = [[SearchLogisticsViewController alloc]init];
+    searchLogistics.orderId = [NSString stringWithFormat:@"%ld",_data.orderInfo.orderId];
+    [(UINavigationController *)controller pushViewController:searchLogistics animated:YES];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
-
+//获取当前屏幕显示的viewcontroller
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *result = nil;
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    UIView *frontView = [[window subviews] objectAtIndex:0];
+    id nextResponder = [frontView nextResponder];
+    
+    if ([nextResponder isKindOfClass:[UIViewController class]])
+        result = nextResponder;
+    else
+        result = window.rootViewController;
+    
+    UITabBarController *tab = (UITabBarController *)result;
+    return tab.selectedViewController;
+}
 @end

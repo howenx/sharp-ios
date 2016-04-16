@@ -12,6 +12,12 @@
 @interface CouponViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     UILabel * emptyLab;
+    int Ncount;
+    int Ycount;
+    int Scount;
+    UIButton * totalBtn;
+    UIButton * obligationBtn;
+    UIButton * receiptGoodsBtn;
 }
 @property (nonatomic) UIScrollView * scrollView;
 @property (nonatomic) UIView * lineView;
@@ -29,6 +35,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
+    self.view.backgroundColor = GGBgColor;
     _scrollView.scrollsToTop = NO;
     self.navigationItem.title = @"优惠券";
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -43,11 +50,11 @@
     emptyLab.text =@"暂无优惠券";
     [self requestData];
     
-
+    
 }
 -(void)requestData{
     NSString * urlString = [HSGlobal couponUrl];
-
+    
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
     if(manager == nil){
         NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
@@ -66,53 +73,72 @@
         NSLog(@"message= %@",message);
         NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
         if(code == 200){
-
-                [self.data removeAllObjects];
-                for (id node in dataArray) {
-                    CouponData * data = [[CouponData alloc] initWithJSONNode:node];
-                    if (_pageNum == 0 && [data.state isEqualToString:@"N"]) {//未使用
-                        [_data addObject:data];
-                    }else if(_pageNum == 1 && [data.state isEqualToString:@"Y"]){//已使用
-                        [_data addObject:data];
-                    }else if(_pageNum == 2 && [data.state isEqualToString:@"S"]){//已过期
-                        [_data addObject:data];
-                    }
-                    
-                }
-            
-                [self.tableView reloadData];
-                if (_pageNum == 0) {
-                    [_totalView addSubview:_tableView];
-                    [_totalView addSubview:emptyLab];
-                    if(self.data.count == 0){
-                        emptyLab.hidden = NO;
-                    }else{
-                        emptyLab.hidden = YES;
-                    }
-
-                }else if(_pageNum == 1){
-                    [_obligationView addSubview:_tableView];
-                    [_obligationView addSubview:emptyLab];
-                    if(self.data.count == 0){
-                        emptyLab.hidden = NO;
-                    }else{
-                        emptyLab.hidden = YES;
-                    }
-
-                }else if(_pageNum == 2){
-                    [_receiptGoodsView addSubview:_tableView];
-                    [_receiptGoodsView addSubview:emptyLab];
-                    if(self.data.count == 0){
-                        emptyLab.hidden = NO;
-                    }else{
-                        emptyLab.hidden = YES;
-                    }
-
+            Ncount = 0;
+            Ycount = 0;
+            Scount = 0;
+            [self.data removeAllObjects];
+            for (id node in dataArray) {
+                CouponData * data = [[CouponData alloc] initWithJSONNode:node];
+                if (_pageNum == 0 && [data.state isEqualToString:@"N"]) {//未使用
+                    [_data addObject:data];
+                }else if(_pageNum == 1 && [data.state isEqualToString:@"Y"]){//已使用
+                    [_data addObject:data];
+                }else if(_pageNum == 2 && [data.state isEqualToString:@"S"]){//已过期
+                    [_data addObject:data];
                 }
                 
+                
+                if ([data.state isEqualToString:@"N"]) {//未使用
+                    Ncount++;
+                }else if([data.state isEqualToString:@"Y"]){//已使用
+                    Ycount++;
+                }else if([data.state isEqualToString:@"S"]){//已过期
+                    Scount++;
+                }
+            }
+            [totalBtn setTitle:[NSString stringWithFormat:@"未使用(%d)",Ncount] forState:UIControlStateNormal];
+            [obligationBtn setTitle:[NSString stringWithFormat:@"已使用(%d)",Ycount] forState:UIControlStateNormal];
+            [receiptGoodsBtn setTitle:[NSString stringWithFormat:@"已过期(%d)",Scount] forState:UIControlStateNormal];
             
-            
-            
+            [self.tableView reloadData];
+            if (_pageNum == 0) {
+                [totalBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+
+                [_totalView addSubview:_tableView];
+                [_totalView addSubview:emptyLab];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
+                
+            }else if(_pageNum == 1){
+                [totalBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [_obligationView addSubview:_tableView];
+                [_obligationView addSubview:emptyLab];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
+                
+            }else if(_pageNum == 2){
+                [totalBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
+                [_receiptGoodsView addSubview:_tableView];
+                [_receiptGoodsView addSubview:emptyLab];
+                if(self.data.count == 0){
+                    emptyLab.hidden = NO;
+                }else{
+                    emptyLab.hidden = YES;
+                }
+            }
+         
         }else{
             MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
@@ -136,7 +162,7 @@
     barView.backgroundColor = [UIColor whiteColor];
     
     
-    UIButton * totalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    totalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     totalBtn.tag = 15000;
     totalBtn.frame = CGRectMake(10, 10, (GGUISCREENWIDTH-20)/3, 20);
     [totalBtn setTitle:@"未使用" forState:UIControlStateNormal];
@@ -145,7 +171,7 @@
     [totalBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton * obligationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    obligationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     obligationBtn.tag = 15001;
     obligationBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/3, 10, (GGUISCREENWIDTH-20)/3, 20);
     [obligationBtn setTitle:@"已使用" forState:UIControlStateNormal];
@@ -155,7 +181,7 @@
     
     
     
-    UIButton * receiptGoodsBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    receiptGoodsBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     receiptGoodsBtn.tag= 15002;
     receiptGoodsBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/3, 10, (GGUISCREENWIDTH-20)/3, 20);
     [receiptGoodsBtn setTitle:@"已过期" forState:UIControlStateNormal];
@@ -172,7 +198,7 @@
     
     
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/3, 2)];
-    _lineView.backgroundColor = GGMainColor;
+    _lineView.backgroundColor = UIColorFromRGB(0Xff5359);
     [barView addSubview:_lineView];
     [self.view addSubview:barView];
     
@@ -186,7 +212,7 @@
     
     //设置scrollview
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40);
+    _scrollView.frame = CGRectMake(0, 45, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40-5);
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 3, 0);
     _scrollView.showsHorizontalScrollIndicator = NO;
@@ -194,17 +220,17 @@
     _scrollView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_scrollView];
     
-    _totalView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
+    _totalView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40-5)];
     _totalView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_totalView];
     
-    _obligationView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
+    _obligationView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40-5)];
     _obligationView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_obligationView];
     
     
     
-    _receiptGoodsView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH*2, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
+    _receiptGoodsView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH*2, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40-5)];
     _receiptGoodsView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_receiptGoodsView];
     
@@ -222,14 +248,16 @@
 - (void) changeView{
     [self requestData];
     _tableView.contentOffset = CGPointMake(0, 0);
+    
     if(_pageNum==0){
+        
         [UIView animateWithDuration:0.5 animations:^{
             _lineView.frame = CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/3, 2);
         }];
-        
         _scrollView.contentOffset = CGPointMake(0, 0);
         
     }else if(_pageNum==1){//
+        
         [UIView animateWithDuration:0.5 animations:^{
             _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/3, 40-2, (GGUISCREENWIDTH-20)/3, 2);
         }];
@@ -237,6 +265,7 @@
         
         
     }else if(_pageNum==2){
+        
         [UIView animateWithDuration:0.5 animations:^{
             _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/3, 40-2, (GGUISCREENWIDTH-20)/3, 2);
         }];
@@ -248,7 +277,7 @@
 
 -(void)createTableView{
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40-5) style:UITableViewStylePlain];
     _tableView.backgroundColor = GGBgColor;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -271,7 +300,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 140;
+//    return (GGUISCREENWIDTH-20)*130/356 + 15;
+    return 145;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -42,9 +42,6 @@
     
     [super viewDidLoad];
 
-    
-    
-    
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     _addon = 1;

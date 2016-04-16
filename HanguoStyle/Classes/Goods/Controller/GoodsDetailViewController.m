@@ -136,7 +136,7 @@
 }
 -(void)makeCartUI{
     
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -7, _cartButton.y-3, 13, 13)];
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -7, _cartButton.y-3, 15, 15)];
     _cntLabel.textColor = GGMainColor;
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont boldSystemFontOfSize:10];

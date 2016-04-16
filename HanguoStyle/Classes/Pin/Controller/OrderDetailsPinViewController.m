@@ -209,7 +209,7 @@
     [headerView addSubview:orderID];
     UILabel * orderIDData = [self createLabel:70 H:15 X:PosXFromView(orderID, 5) Y:top textColor:[UIColor grayColor] text:[NSString stringWithFormat:@"%ld",self.singleData.orderInfo.orderId]];
     [headerView addSubview:orderIDData];
-top = PosYFromView(orderID, sapce);
+    top = PosYFromView(orderID, sapce);
 //下单时间
     UILabel * time = [self createLabel:70 H:15 X:10 Y:top textColor:[UIColor grayColor] text:@"下单时间:"];
     [headerView addSubview:time];

@@ -101,7 +101,7 @@
     
 //    navgationBar.barTintColor=GGMainColor;
     // 字体的属性
-    NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:15],NSForegroundColorAttributeName :[UIColor whiteColor]};
+    NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName :[UIColor whiteColor]};
     [navgationBar setTitleTextAttributes:dict];
     
     
@@ -109,7 +109,7 @@
     UIBarButtonItem *barButton = [UIBarButtonItem appearance];
     NSMutableDictionary * attrsDict = [[NSMutableDictionary alloc] init];
     attrsDict[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    attrsDict[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+    attrsDict[NSFontAttributeName] = [UIFont systemFontOfSize:17];
     [barButton setTitleTextAttributes:attrsDict forState:UIControlStateNormal];
     
     
