@@ -502,13 +502,20 @@
             stateLab.textColor = [UIColor grayColor];
             
             if ([_orderData.refund.state isEqualToString:@"I"]) {
-                stateLab.text = [NSString stringWithFormat:@"退款状态：审核中"];
+                stateLab.text = [NSString stringWithFormat:@"退款状态：申请受理中"];
             }else if([_orderData.refund.state isEqualToString:@"A"])
             {
                 stateLab.text = [NSString stringWithFormat:@"退款状态：提示5-15个工作日，退款金额自动返回"];
             }else if([_orderData.refund.state isEqualToString:@"R"])
             {
-                stateLab.text = [NSString stringWithFormat:@"退款状态：不可再次点击申请退款"];
+                stateLab.text = [NSString stringWithFormat:@"退款状态：拒绝退款"];
+            }else if([_orderData.refund.state isEqualToString:@"N"])
+            {
+                stateLab.text = [NSString stringWithFormat:@"退款状态：由于某种不可抗力量，导致退款受理失败，我们客服MM会及时联系您"];
+
+            }else if([_orderData.refund.state isEqualToString:@"Y"])
+            {
+                stateLab.text = [NSString stringWithFormat:@"退款状态：退款受理成功"];
             }
             
             [refundView addSubview:stateLab];
