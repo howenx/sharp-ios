@@ -28,5 +28,5 @@
 +(AFHTTPRequestOperationManager *)shareNoHeadRequestManager;
 +(MBProgressHUD *)getHUD :(UIViewController *)controller;
 +(BOOL) isConnectionAvailable;
-
+@property (nonatomic,strong)NSString * contentType;
 @end

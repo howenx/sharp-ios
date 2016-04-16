@@ -47,4 +47,5 @@
 + (NSString *) shareGoodsHeaderUrl;
 + (NSString *) messageListUrl;
 + (NSString *) messageListType;
++(NSString *)refundUrl;
 @end

@@ -99,6 +99,7 @@
     [manager.requestSerializer setValue:userToken forHTTPHeaderField:@"id-token"];
     return manager;
 }
+
 +(AFHTTPRequestOperationManager *)shareNoHeadRequestManager{
     if(![self isConnectionAvailable]){
         return nil;

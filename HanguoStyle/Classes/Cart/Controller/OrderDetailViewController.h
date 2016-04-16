@@ -10,4 +10,5 @@
 #import "BaseViewController.h"
 @interface OrderDetailViewController : BaseViewController
 @property(nonatomic) MyOrderData * orderData;
+@property (nonatomic,assign)long selectOrderId;
 @end
