@@ -28,9 +28,9 @@
         UIView * view = [self createGoodsView:((GoodsShowData*)pushArray[i-1])];
         view.backgroundColor = [UIColor whiteColor];
         if(i%2!=0){
-            view.frame = CGRectMake(5, (ceilf([NSString stringWithFormat: @"%d",i].floatValue/2)-1) * gap, (GGUISCREENWIDTH-15)/2, gap);
+            view.frame = CGRectMake(0, (ceilf([NSString stringWithFormat: @"%d",i].floatValue/2)-1) * gap, GGUISCREENWIDTH/2, gap);
         }else{
-            view.frame = CGRectMake((GGUISCREENWIDTH-15)/2+10, (ceilf([NSString stringWithFormat: @"%d",i].floatValue/2)-1) * gap, (GGUISCREENWIDTH-15)/2, gap);
+            view.frame = CGRectMake(GGUISCREENWIDTH/2, (ceilf([NSString stringWithFormat: @"%d",i].floatValue/2)-1) * gap, GGUISCREENWIDTH/2, gap);
         }
         NSLog(@"%f  %f  %f   %f",view.x,view.y,view.width,view.height);
         view.tag = 43000+i-1;
@@ -45,16 +45,29 @@
 }
 -(UIView *)createGoodsView:(GoodsShowData*)showData{
     
-    float viewW = (GGUISCREENWIDTH-15)/2;
+    float viewW = GGUISCREENWIDTH/2;
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, viewW, gap)];
     
+    UIView* leftView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, 5, gap)];
+    leftView.backgroundColor = GGBgColor;
+    [view addSubview:leftView];
     
-    UIImageView * goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, viewW, 155)];
+    UIView* rightView =[[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2-5, 0, 5, gap)];
+    rightView.backgroundColor = GGBgColor;
+    [view addSubview:rightView];
+    
+    
+    UIImageView * goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, viewW-10, 155)];
     goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
     [goodsImageView sd_setImageWithURL:[NSURL URLWithString:showData.itemImg]];
     [view addSubview:goodsImageView];
     
-    UILabel  * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 157, viewW-10, 30)];
+    
+    UIView* lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 156, GGUISCREENWIDTH/2, 1)];
+    lineView.backgroundColor = GGBgColor;
+    [view addSubview:lineView];
+    
+    UILabel  * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 157, viewW-20, 30)];
     titleLabel.font = [UIFont systemFontOfSize:10];
     titleLabel.textColor = [UIColor lightGrayColor];
     titleLabel.numberOfLines = 2;
@@ -62,7 +75,7 @@
     [view addSubview:titleLabel];
     
     
-    UILabel  * moneyLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 189, 100, 21)];
+    UILabel  * moneyLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 189, 100, 21)];
     moneyLab.font = [UIFont systemFontOfSize:14];
     moneyLab.textColor = GGMainColor;
     moneyLab.numberOfLines = 1;
@@ -78,25 +91,16 @@
     
     if([showData.itemType isEqualToString:@"pin"]){
         
-        UIView * _pinFlagView = [[UIView alloc]initWithFrame:CGRectMake(2, 2, 145, 30)];
-        _pinFlagView.backgroundColor = GGMainColor;
-        _pinFlagView.alpha = 0.8;
-        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
-        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-        maskLayer.frame = _pinFlagView.bounds;
-        maskLayer.path = maskPath.CGPath;
-        _pinFlagView.layer.mask = maskLayer;
-        [view addSubview:_pinFlagView];
-        
-        UIImageView * pinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, 26, 26)];
-        [pinImageView setImage:[UIImage imageNamed:@"hmm_klmpintuan"]];
+        UIImageView * pinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 5, 140, 29)];
+        [pinImageView setImage:[UIImage imageNamed:@"biaoqian"]];
         [view addSubview:pinImageView];
         
-        UILabel  * _pinTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(28, 4, 117, 21)];
-        _pinTimeLab.font = [UIFont systemFontOfSize:10];
+        UILabel  * _pinTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(24, 6, 98, 21)];
+        _pinTimeLab.font = [UIFont systemFontOfSize:9];
         _pinTimeLab.textColor = [UIColor whiteColor];
         _pinTimeLab.numberOfLines = 1;
-        [_pinFlagView addSubview:_pinTimeLab];
+        [view addSubview:_pinTimeLab];
+        
         //在售
         if([@"Y" isEqualToString: showData.state]){
             //2016-01-30 17:16:55
@@ -115,23 +119,55 @@
             
             NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
+            
+            
+            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, 210)];
+            willSaleView.backgroundColor = [UIColor blackColor];
+            willSaleView.alpha = 0.5;
+            [view addSubview:willSaleView];
+            
+            UIImageView * willSaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, (willSaleView.height - 54)/2, willSaleView.width, 54)];
+            willSaleImageView.contentMode =UIViewContentModeScaleAspectFit;
+            [willSaleImageView setImage:[UIImage imageNamed:@"yushou"]];
+            [willSaleView addSubview:willSaleImageView];
+
+            
+            
         }else{
-            _pinFlagView.frame = CGRectMake(2, 2, 70, 30);
-            UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_pinFlagView.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(7, 7)];
-            CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-            maskLayer.frame = _pinFlagView.bounds;
-            maskLayer.path = maskPath.CGPath;
-            _pinFlagView.layer.mask = maskLayer;
-            NSString * strTime = @"已结束";
-            _pinTimeLab.text  = strTime;
-        }
-    }else{
-        if(![@"Y" isEqualToString: showData.state]&&![@"P" isEqualToString: showData.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
-            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake(87, 88, 67, 35)];
-            _saleOutLab.font = [UIFont systemFontOfSize:17];
+            _pinTimeLab.text  = @"此团拼购已结束";
+            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-66)/2, (view.height-66)/2, 66, 66)];
+            _saleOutLab.font = [UIFont systemFontOfSize:13];
             _saleOutLab.textColor = [UIColor whiteColor];
             _saleOutLab.backgroundColor = GGColor(111, 113, 121);
-            _saleOutLab.text = @"已售完";
+            _saleOutLab.alpha = 0.7;
+            [_saleOutLab.layer setCornerRadius:33];
+            [_saleOutLab.layer setMasksToBounds:YES];
+            _saleOutLab.text = @"已结束";
+            [view addSubview:_saleOutLab];
+            
+        }
+    }else{
+        if([@"P" isEqualToString: showData.state]){
+            
+            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, 210)];
+            willSaleView.backgroundColor = [UIColor blackColor];
+            willSaleView.alpha = 0.5;
+            [view addSubview:willSaleView];
+            
+            UIImageView * willSaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, (willSaleView.height - 54)/2, willSaleView.width, 54)];
+            willSaleImageView.contentMode =UIViewContentModeScaleAspectFit;
+            [willSaleImageView setImage:[UIImage imageNamed:@"yushou"]];
+            [willSaleView addSubview:willSaleImageView];
+            
+        }else if(![@"Y" isEqualToString: showData.state]&&![@"P" isEqualToString: showData.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-66)/2, (view.height-66)/2, 66, 66)];
+            _saleOutLab.font = [UIFont systemFontOfSize:13];
+            _saleOutLab.textColor = [UIColor whiteColor];
+            _saleOutLab.backgroundColor = GGColor(111, 113, 121);
+            _saleOutLab.alpha = 0.7;
+            [_saleOutLab.layer setCornerRadius:33];
+            [_saleOutLab.layer setMasksToBounds:YES];
+            _saleOutLab.text = @"已抢光";
             [view addSubview:_saleOutLab];
         }
     }

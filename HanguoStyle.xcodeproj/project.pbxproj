@@ -216,6 +216,8 @@
 		8081D9C11BFC724F0098B2E2 /* LoginRefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C01BFC724F0098B2E2 /* LoginRefViewController.m */; };
 		8081D9C41BFC7F720098B2E2 /* GoodsParaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */; };
 		808627E61C11345300ED92AB /* AddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = 808627E51C11345300ED92AB /* AddressData.m */; };
+		8096A7021CBCF6E000DD1B1A /* shixao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8096A7001CBCF6E000DD1B1A /* shixao@2x.png */; };
+		8096A7031CBCF6E000DD1B1A /* shixao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8096A7011CBCF6E000DD1B1A /* shixao@3x.png */; };
 		809B02711C52284200030955 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 809B02701C52284200030955 /* PublicMethod.m */; };
 		809D26DC1BCBA9A200C71445 /* GoodsPackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 809D26DA1BCBA9A200C71445 /* GoodsPackCell.m */; };
 		809D26DD1BCBA9A200C71445 /* GoodsPackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 809D26DB1BCBA9A200C71445 /* GoodsPackCell.xib */; };
@@ -746,6 +748,8 @@
 		8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsParaView.m; sourceTree = "<group>"; };
 		808627E41C11345300ED92AB /* AddressData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressData.h; sourceTree = "<group>"; };
 		808627E51C11345300ED92AB /* AddressData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressData.m; sourceTree = "<group>"; };
+		8096A7001CBCF6E000DD1B1A /* shixao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shixao@2x.png"; sourceTree = "<group>"; };
+		8096A7011CBCF6E000DD1B1A /* shixao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shixao@3x.png"; sourceTree = "<group>"; };
 		809B026F1C52284200030955 /* PublicMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicMethod.h; sourceTree = "<group>"; };
 		809B02701C52284200030955 /* PublicMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicMethod.m; sourceTree = "<group>"; };
 		809D26D91BCBA9A200C71445 /* GoodsPackCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsPackCell.h; sourceTree = "<group>"; };
@@ -1858,6 +1862,8 @@
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
 				802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */,
+				8096A7001CBCF6E000DD1B1A /* shixao@2x.png */,
+				8096A7011CBCF6E000DD1B1A /* shixao@3x.png */,
 				80086BD51CBBA1BA00CB5B90 /* biaoqian@2x.png */,
 				80086BD61CBBA1BA00CB5B90 /* biaoqian@3x.png */,
 				80086BD91CBBA7D300CB5B90 /* yushou@2x.png */,
@@ -2252,6 +2258,7 @@
 				B06794F31CB66A8400545A16 /* iconshezhi@2x.png in Resources */,
 				80113BAA1CABAEF90010B4E9 /* zhanwei@3x.png in Resources */,
 				80014FFE1BC7A2BC0078B2F5 /* Main.storyboard in Resources */,
+				8096A7031CBCF6E000DD1B1A /* shixao@3x.png in Resources */,
 				806BFF8C1C3D1C3300680AF6 /* UMSCommentDetailController.xib in Resources */,
 				80E45C8C1C57620500941AC3 /* youhuiquan_bg_use.png in Resources */,
 				B079BC0C1CB7B090003E7240 /* coupon@2x.png in Resources */,
@@ -2497,6 +2504,7 @@
 				800528611CA3D13900558D9F /* gs_tab_selected@2x.png in Resources */,
 				802A33FD1C75716800C7AF28 /* PinDetailOneCell.xib in Resources */,
 				80D77E2B1C45F6EE00A55C6B /* ToRegistViewController.xib in Resources */,
+				8096A7021CBCF6E000DD1B1A /* shixao@2x.png in Resources */,
 				806BFF911C3D1C3300680AF6 /* UMSLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

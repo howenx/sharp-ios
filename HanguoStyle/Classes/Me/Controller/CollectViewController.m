@@ -60,7 +60,7 @@
     [GiFHUD setGifWithImageName:@"hmm.gif"];
     [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
@@ -90,7 +90,7 @@
         
         [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
         [GiFHUD dismiss];
         [PublicMethod printAlert:@"数据加载失败"];
     }];

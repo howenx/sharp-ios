@@ -98,22 +98,6 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJe-9S-GTb">
-                        <rect key="frame" x="285" y="87" width="25" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="25" id="lSe-Fu-0yt"/>
-                            <constraint firstAttribute="height" constant="25" id="sQO-gj-23x"/>
-                        </constraints>
-                        <state key="normal" image="icon_delete_hui.png">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="3"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGP-q6-lqJ" userLabel="line">
                         <rect key="frame" x="10" y="118" width="300" height="1"/>
                         <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
@@ -141,12 +125,19 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shixao.png" translatesAutoresizingMaskIntoConstraints="NO" id="KCo-VP-Iws">
+                        <rect key="frame" x="240" y="40" width="80" height="80"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="BkH-p5-8ob"/>
+                            <constraint firstAttribute="width" constant="80" id="OWb-0S-bgq"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="KCo-VP-Iws" secondAttribute="trailing" constant="-8" id="3lS-ha-ZRj"/>
                     <constraint firstAttribute="bottom" secondItem="j0v-eA-paT" secondAttribute="bottom" constant="-1" id="4jX-4I-9bM"/>
                     <constraint firstItem="j0v-eA-paT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8bc-xa-GsX"/>
                     <constraint firstAttribute="trailingMargin" secondItem="wGP-q6-lqJ" secondAttribute="trailing" constant="2" id="9lu-zk-DF0"/>
-                    <constraint firstItem="iJe-9S-GTb" firstAttribute="top" secondItem="MtW-Yn-GXJ" secondAttribute="bottom" constant="10" id="ArY-bb-kzq"/>
                     <constraint firstItem="kY4-N8-STc" firstAttribute="leading" secondItem="7AD-6L-ZsD" secondAttribute="trailing" constant="8" id="GzW-dy-qVg"/>
                     <constraint firstItem="kY4-N8-STc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="NaD-ru-lOK"/>
                     <constraint firstItem="MtW-Yn-GXJ" firstAttribute="leading" secondItem="7AD-6L-ZsD" secondAttribute="trailing" constant="8" id="Npr-br-MDq"/>
@@ -155,6 +146,7 @@
                     <constraint firstItem="7AD-6L-ZsD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="TWd-LG-cHw"/>
                     <constraint firstItem="JHI-we-9q2" firstAttribute="leading" secondItem="7AD-6L-ZsD" secondAttribute="trailing" constant="8" id="UlK-Bs-mdV"/>
                     <constraint firstItem="smU-hv-RUo" firstAttribute="top" secondItem="f6I-e0-VA3" secondAttribute="top" id="dzk-xX-gCF"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KCo-VP-Iws" secondAttribute="bottom" constant="-9" id="eUp-8R-tQL"/>
                     <constraint firstItem="j0v-eA-paT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fGw-Dz-rEK"/>
                     <constraint firstAttribute="bottomMargin" secondItem="wGP-q6-lqJ" secondAttribute="bottom" constant="-8" id="g8c-qw-1Xf"/>
                     <constraint firstAttribute="trailing" secondItem="kY4-N8-STc" secondAttribute="trailing" constant="8" id="iGx-Wh-Z0N"/>
@@ -166,17 +158,16 @@
                     <constraint firstItem="MtW-Yn-GXJ" firstAttribute="top" secondItem="kY4-N8-STc" secondAttribute="bottom" constant="11" id="qRc-ah-O5B"/>
                     <constraint firstItem="wGP-q6-lqJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="sa2-dx-ixV"/>
                     <constraint firstItem="JHI-we-9q2" firstAttribute="top" secondItem="f6I-e0-VA3" secondAttribute="top" id="voJ-Cz-jH2"/>
-                    <constraint firstAttribute="trailing" secondItem="iJe-9S-GTb" secondAttribute="trailing" constant="10" id="zbT-ox-XrV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="amountLab" destination="f6I-e0-VA3" id="LRZ-p7-Ygv"/>
                 <outlet property="colorAndSizeLab" destination="MtW-Yn-GXJ" id="757-ce-4xs"/>
-                <outlet property="delBtn" destination="iJe-9S-GTb" id="FHi-yR-vq2"/>
                 <outlet property="goodsImage" destination="7AD-6L-ZsD" id="VEy-Ix-11j"/>
                 <outlet property="jiaBtn" destination="smU-hv-RUo" id="0Xy-A0-VuJ"/>
                 <outlet property="jianBtn" destination="JHI-we-9q2" id="9XO-x2-Kcb"/>
                 <outlet property="price" destination="zsE-qN-m5q" id="kpj-ut-FWZ"/>
+                <outlet property="shixiaoImageView" destination="KCo-VP-Iws" id="G80-qh-UHw"/>
                 <outlet property="stateBtn" destination="j0v-eA-paT" id="GHX-BB-ftM"/>
                 <outlet property="title" destination="kY4-N8-STc" id="Por-uT-waF"/>
             </connections>
@@ -184,6 +175,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_delete_hui.png" width="16" height="16"/>
+        <image name="shixao.png" width="83" height="83"/>
     </resources>
 </document>

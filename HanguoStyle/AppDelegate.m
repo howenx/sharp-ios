@@ -40,9 +40,32 @@
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
     if (result == FALSE) {
-        //调用其他SDK，例如支付宝SDK等
+        //从网页跳转到app
+        NSArray * enterArray = [[url absoluteString] componentsSeparatedByString:@"hmmapp://data"];
+        if(enterArray.count>=2){
+            UIViewController * controller = [self getCurrentVC];
+            NSString * lastUrl = enterArray[1];
+            if ([lastUrl rangeOfString:@"pin/activity"].location != NSNotFound) {
+                
+                PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
+                detailVC.url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],lastUrl];
+                [(UINavigationController *)controller pushViewController:detailVC animated:YES];
+            } else {
+                if([lastUrl rangeOfString:@"pin"].location != NSNotFound) {
+                    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+                    pinViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
+                    [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
+                }else{
+                    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+                    gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
+                    [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
+                }
+            }
+            return YES;
+        }
     }
     return result;
+    
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self umConfig];
@@ -300,21 +323,6 @@
 }
 
 
-//Safari浏览器跳转打开、唤醒app
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    if (url) {
-//        
-//        UIAlertView *alertView = [[ UIAlertView alloc ] initWithTitle : nil message : @" 你唤醒了您的应用 " delegate : self cancelButtonTitle : @" 确定 " otherButtonTitles : nil , nil ];
-//        
-//        [alertView show ];
-//        
-//    }
-//    
-//    return YES ;
-//    
-//}
-
-
 - (NSString *)logDic:(NSDictionary *)dic {
     if (![dic count]) {
         return nil;
@@ -365,4 +373,5 @@
     UITabBarController *tab = (UITabBarController *)result;
     return tab.selectedViewController;
 }
+
 @end

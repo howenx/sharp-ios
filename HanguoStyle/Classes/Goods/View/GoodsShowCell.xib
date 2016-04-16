@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -94,7 +94,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eBb-dw-Owt" secondAttribute="trailing" id="8UY-4Q-1cf"/>
                             <constraint firstItem="eBb-dw-Owt" firstAttribute="centerY" secondItem="LS3-RN-Cju" secondAttribute="centerY" id="Ygr-HQ-eB9"/>
@@ -167,6 +167,8 @@
                 <outlet property="titleAndMoneyConstraint" destination="WIF-DC-lLA" id="gOd-6y-3Ab"/>
                 <outlet property="titleConstraint" destination="EzV-rC-dj2" id="7OI-aF-tHq"/>
                 <outlet property="titleImageView" destination="tIZ-rq-sR9" id="Mcv-Vy-9Kq"/>
+                <outlet property="titlePicLeftConstraint" destination="xmJ-Y5-AEp" id="3d9-u6-Ga7"/>
+                <outlet property="titlePicRightConstraint" destination="vGp-y8-iv1" id="ryI-hu-QaW"/>
                 <outlet property="willSaleImageView" destination="eBb-dw-Owt" id="MCM-v8-6IS"/>
                 <outlet property="willSaleView" destination="LS3-RN-Cju" id="CyS-x2-8Z3"/>
             </connections>

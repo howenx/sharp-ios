@@ -26,7 +26,7 @@
     NSLog(@"image.size.height= %f ",image.size.height);
     imv.frame =  CGRectMake(0,0, image.size.width, image.size.height);
     imv.image = image;
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _scrollView.delegate = self;
     _scrollView.contentSize = CGSizeMake(0,image.size.height);
     _scrollView.showsHorizontalScrollIndicator = NO;

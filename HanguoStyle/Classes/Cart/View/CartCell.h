@@ -17,8 +17,7 @@
 
 //点击选中按钮回传数据
 -(void)sendSelectData:(CartDetailData *)data;
-//登陆状态回传删除链接
--(void)sendDelUrl:(CartDetailData *)data;
+
 
 //点击图片和title时候回调controller，跳到详情页面
 
@@ -41,10 +40,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *jiaBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *delBtn;
-
 @property (weak, nonatomic) IBOutlet UILabel *amountLab;
 
 @property (weak, nonatomic) IBOutlet UILabel *colorAndSizeLab;
+
+@property (weak, nonatomic) IBOutlet UIImageView *shixiaoImageView;
+
 @property (nonatomic, weak) CartDetailData * data;
 @end

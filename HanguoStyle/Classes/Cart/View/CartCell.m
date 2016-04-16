@@ -48,26 +48,31 @@
     self.stateBtn.imageEdgeInsets = UIEdgeInsetsMake(50,5,50,5);
     if([@"I" isEqualToString: data.state]){//未选中
         [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+        self.shixiaoImageView.hidden = YES;
+        self.contentView.backgroundColor =  [UIColor whiteColor];
     }else if([@"G" isEqualToString: data.state]){//选中
         [self.stateBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+        self.shixiaoImageView.hidden = YES;
+        self.contentView.backgroundColor =  [UIColor whiteColor];
     }else if([@"S" isEqualToString: data.state]){
         [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+        self.shixiaoImageView.hidden = NO;
+        self.contentView.backgroundColor =  UIColorFromRGB(0xe7e7e7);
 //        [self.stateBtn setBackgroundColor:[UIColor grayColor]];
 //        [self.stateBtn.layer setMasksToBounds:YES];
 //        [self.stateBtn.layer setCornerRadius:10.0];
         
         self.stateBtn.enabled=NO;
-        self.stateBtn.alpha=0.4;
+//        self.stateBtn.alpha=0.4;
         self.jianBtn.enabled=NO;
-        self.jianBtn.alpha=0.4;
+//        self.jianBtn.alpha=0.4;
         self.jiaBtn.enabled=NO;
-        self.jiaBtn.alpha=0.4;
+//        self.jiaBtn.alpha=0.4;
     }
     
     [self.stateBtn addTarget:self action:@selector(stateBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.jianBtn addTarget:self action:@selector(jianBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.jiaBtn addTarget:self action:@selector(jiaBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.delBtn addTarget:self action:@selector(delBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.amountLab.text = [NSString stringWithFormat:@"%ld",(long)data.amount];
     //添加单击手势
     self.title.userInteractionEnabled=YES;
@@ -266,36 +271,6 @@
     }
 }
 
-
-- (void) delBtnClicked: (UIButton *) button
-{
-    if(![PublicMethod isConnectionAvailable]){
-        return;
-    }
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定要删除？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    
-    [alertView show];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        isLogin = [PublicMethod checkLogin];
-        //登陆状态
-        if(isLogin){
-            [self.delegate sendDelUrl:_data];
-        }else{
-            [self delCart];
-            [self.delegate loadDataNotify];
-        }
-
-    }
-}
-
--(void)delCart{
-    [database beginTransaction];
-    [database executeUpdate:@"DELETE FROM Shopping_Cart WHERE pid =? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithLong:_data.skuId],_data.skuType,[NSNumber numberWithLong:_data.skuTypeId]];
-    [database commit];
-}
 -(void)updataCart :(ShoppingCart *) shopCart{
     
     [database beginTransaction];

@@ -390,10 +390,10 @@
 
 //    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
     if (selectCount==0) {
-        self.goSettle.titleLabel.text = @"去结算";
-        [self.goSettle setTitle:@"去结算" forState:UIControlStateNormal];
-        _goSettle.enabled = NO;
-        _goSettle.backgroundColor = [UIColor grayColor];
+        self.goSettle.titleLabel.text = @"去结算(0)";
+        [self.goSettle setTitle:@"去结算(0)" forState:UIControlStateNormal];
+        _goSettle.enabled = YES;
+        _goSettle.backgroundColor = GGMainColor;
     }else{
         self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
         [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
@@ -457,18 +457,31 @@
     return 120;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    NSString * _pushUrl = ((CartDetailData *)((CartData *)_data[indexPath.section]).cartDetailArray[indexPath.row]).invUrl;
-//    //进入到商品展示页面
-//    self.hidesBottomBarWhenPushed=YES;
-//    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-//    gdViewController.url = _pushUrl;
-//    [self.navigationController pushViewController:gdViewController animated:YES];
-//    self.hidesBottomBarWhenPushed=NO;
-//}
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//修改左滑删除按钮的title
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        if(isLogin){
+            [self sendDelUrl:(CartDetailData *)((CartData *)_data[indexPath.section]).cartDetailArray[indexPath.row]];
+        }else{
+            [self delCart:(CartDetailData *)((CartData *)_data[indexPath.section]).cartDetailArray[indexPath.row]];
+            [self headerRefresh];
+        }
+    }
 
-
+}
+-(void)delCart:(CartDetailData *)detailData{
+    [database beginTransaction];
+    [database executeUpdate:@"DELETE FROM Shopping_Cart WHERE pid =? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithLong:detailData.skuId],detailData.skuType,[NSNumber numberWithLong:detailData.skuTypeId]];
+    [database commit];
+}
 -(void)loadDataNotify{
     [self headerRefresh];
 }
@@ -645,10 +658,10 @@
     
 //    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
     if (selectCount==0) {
-        self.goSettle.titleLabel.text = @"去结算";
-        [self.goSettle setTitle:@"去结算" forState:UIControlStateNormal];
-        _goSettle.enabled = NO;
-        _goSettle.backgroundColor = [UIColor grayColor];
+        self.goSettle.titleLabel.text = @"去结算(0)";
+        [self.goSettle setTitle:@"去结算(0)" forState:UIControlStateNormal];
+        _goSettle.enabled = YES;
+        _goSettle.backgroundColor = GGMainColor;
     }else{
         self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
         [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
@@ -742,7 +755,18 @@
 
 //去结算
 - (IBAction)settlementBtn:(UIButton *)sender {
+    
     if(![PublicMethod isConnectionAvailable]){
+        return;
+    }
+    if(selectCount==0){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先勾选商品";
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
         return;
     }
     isLogin = [PublicMethod checkLogin];

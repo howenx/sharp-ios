@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageAndTitleConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleAndMoneyConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titlePicLeftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titlePicRightConstraint;
 
 @property (weak, nonatomic) IBOutlet UIImageView *pinFlagImageView;
 
@@ -111,11 +113,16 @@
         _moneyFlagConstraint.constant = 0;
         _imageAndTitleConstraint.constant = 0;
         _titleAndMoneyConstraint.constant = 0;
+        _titlePicLeftConstraint.constant = 0;
+        _titlePicRightConstraint.constant = 0;
+        
     }else{
         _titleConstraint.constant = 30;
         _moneyFlagConstraint.constant = 21;
         _imageAndTitleConstraint.constant = 2;
         _titleAndMoneyConstraint.constant = 2;
+        _titlePicLeftConstraint.constant = 5;
+        _titlePicRightConstraint.constant = 5;
     }
     _titleImageView.userInteractionEnabled = YES;
     if(data.masterItemTag!=nil){
