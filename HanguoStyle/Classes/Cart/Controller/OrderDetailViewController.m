@@ -519,6 +519,8 @@
             [looutMoneyButton setBackgroundColor:GGMainColor];
             [looutMoneyButton setTitle:@"退款" forState:UIControlStateNormal];
             [looutMoneyButton addTarget:self action:@selector(looutMoneyButtonclcik:) forControlEvents:UIControlEventTouchUpInside];
+            [looutMoneyButton.layer setMasksToBounds:YES];
+            [looutMoneyButton.layer setCornerRadius:4.0];
             [scrollView addSubview:looutMoneyButton];
         }
 
@@ -656,7 +658,16 @@
         NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
         if(code == 200){
             //进入到订单详情
+            
+            
+            for (id node in dataArray) {
+                MyOrderData * singleData = [[MyOrderData alloc] initWithJSONNode:node];
                 
+                self.orderData = singleData;
+            }
+            
+            [self creatView];
+            
         }else{
             MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;

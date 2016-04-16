@@ -13,8 +13,10 @@
 
 @end
 
-
 @implementation SkuData
+
+@end
+@implementation Refund
 
 @end
 @implementation MyOrderData
@@ -38,6 +40,7 @@
         NSDictionary * refundDict = [node objectForKey:@"refund"];
         
         if (refundDict!=nil) {
+            self.refund = [[Refund alloc]init];
             self.refund.orderId = [refundDict objectForKey:@"orderId"];
             self.refund.splitOrderId = [refundDict objectForKey:@"splitOrderId"];
             self.refund.payBackFee = [refundDict objectForKey:@"payBackFee"];
