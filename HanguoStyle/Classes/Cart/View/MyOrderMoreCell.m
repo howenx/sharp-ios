@@ -9,6 +9,7 @@
 #import "MyOrderMoreCell.h"
 #import "UIView+frame.h"
 #import "UIImageView+WebCache.h"
+#import "SearchLogisticsViewController.h"
 @interface MyOrderMoreCell()<UIScrollViewDelegate>{
     UIView * globView;
     UIView * headView;
@@ -262,6 +263,40 @@
 }
 //查看物流
 -(void)ckwlBtnClick{
-    
+    UIViewController * controller = [self getCurrentVC];
+    SearchLogisticsViewController * searchLogistics = [[SearchLogisticsViewController alloc]init];
+    searchLogistics.orderId = [NSString stringWithFormat:@"%ld",_data.orderInfo.orderId];
+    [(UINavigationController *)controller pushViewController:searchLogistics animated:YES];
 }
+//获取当前屏幕显示的viewcontroller
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *result = nil;
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    UIView *frontView = [[window subviews] objectAtIndex:0];
+    id nextResponder = [frontView nextResponder];
+    
+    if ([nextResponder isKindOfClass:[UIViewController class]])
+        result = nextResponder;
+    else
+        result = window.rootViewController;
+    
+    UITabBarController *tab = (UITabBarController *)result;
+    return tab.selectedViewController;
+}
+
 @end

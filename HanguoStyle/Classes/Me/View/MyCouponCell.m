@@ -21,15 +21,18 @@
 - (void)setData:(CouponData *)data{
     _data = data;
     self.couponTypeLab.text = data.cateNm;
-    self.limitQuotaLab.text = [NSString stringWithFormat:@"满%@可用",data.limitQuota];
-    self.denominationLab.text = [NSString stringWithFormat:@"￥%@",data.denomination];
+    self.limitQuotaLab.text = [NSString stringWithFormat:@"订单满%@可用",data.limitQuota];
+    self.denominationLab.text = [NSString stringWithFormat:@"%@",data.denomination];
     self.endAtLab.text = [NSString stringWithFormat:@"有效期至：%@",data.endAt];
     if([data.state isEqualToString:@"N"]){
         [self.bgImageView setImage:[UIImage imageNamed:@"weiyong" ]];
+        self.denominationLab.textColor = UIColorFromRGB(0Xffa800);
     }else if([data.state isEqualToString:@"Y"]){
         [self.bgImageView setImage:[UIImage imageNamed:@"yiyong" ]];
+        self.denominationLab.textColor = UIColorFromRGB(0X666666);
     }else if([data.state isEqualToString:@"S"]){
         [self.bgImageView setImage:[UIImage imageNamed:@"yiyong" ]];
+        self.denominationLab.textColor = UIColorFromRGB(0X666666);
     }
 }
 - (void)awakeFromNib {

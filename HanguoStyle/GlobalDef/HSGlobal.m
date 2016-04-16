@@ -35,7 +35,13 @@
 #define SERVERY4 @"http://172.28.3.51:9005"
 
 @implementation HSGlobal
-
+//查看物流
++ (NSString *) searchLogisticsUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/express/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 //接到商品分享口令时，拼接口令前面的地址
 + (NSString *) shareGoodsHeaderUrl

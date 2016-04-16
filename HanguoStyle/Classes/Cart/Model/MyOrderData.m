@@ -60,7 +60,12 @@
         self.orderInfo.payMethod = [orderDict objectForKey:@"payMethod"];
         self.orderInfo.orderCreateAt = [orderDict objectForKey:@"orderCreateAt"];
         self.orderInfo.orderStatus = [orderDict objectForKey:@"orderStatus"];
-        self.orderInfo.discount = [orderDict objectForKey:@"discount"];
+        if(![NSString isNSNull:[orderDict objectForKey:@"discount"]]){
+            self.orderInfo.discount = [orderDict objectForKey:@"discount"];
+        }else{
+            self.orderInfo.discount = @"0";
+        }
+        
         self.orderInfo.orderDesc = [orderDict objectForKey:@"orderDesc"];
         self.orderInfo.addId = [orderDict objectForKey:@"addId"];
         self.orderInfo.shipFee = [orderDict objectForKey:@"shipFee"];
@@ -79,7 +84,7 @@
         
         self.orderInfo.orderAmount = [[orderDict objectForKey:@"orderAmount"]integerValue];
         //待付款和代收货下面分别有付款和查看物流
-        if([self.orderInfo.orderStatus isEqualToString:@"I"]||[self.orderInfo.orderStatus isEqualToString:@"D"]){
+        if([self.orderInfo.orderStatus isEqualToString:@"I"]||[self.orderInfo.orderStatus isEqualToString:@"D"]||[self.orderInfo.orderStatus isEqualToString:@"R"]){
             self.cellHeight = self.cellHeight + 50;
         }
         //商品信息

@@ -24,7 +24,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8K1-YV-4gu" userLabel="底部view">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8K1-YV-4gu" userLabel="footview">
                     <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rW-8I-H9N">
@@ -34,20 +34,15 @@
                                 <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="buyNow:" destination="-1" eventType="touchUpInside" id="oBD-TI-eVP"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjO-Xy-kVG">
-                            <rect key="frame" x="20" y="15" width="20" height="20"/>
+                            <rect key="frame" x="15" y="10" width="30" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="20" id="gNi-KT-1Bn"/>
-                                <constraint firstAttribute="height" constant="20" id="nc5-ax-Bsm"/>
+                                <constraint firstAttribute="width" constant="30" id="52n-Cl-521"/>
+                                <constraint firstAttribute="height" constant="30" id="blf-3a-fbo"/>
                             </constraints>
                             <state key="normal" backgroundImage="gs_tab_selected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,18 +54,10 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-pE-Kny">
                             <rect key="frame" x="61" y="0.0" width="157" height="50"/>
                             <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="cGQ-fR-1ow"/>
-                            </constraints>
                             <state key="normal" title="加入购物车">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="addToShoppingCart:" destination="-1" eventType="touchUpInside" id="Jns-cA-1fj"/>
                             </connections>
@@ -78,28 +65,30 @@
                     </subviews>
                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="6rW-8I-H9N" firstAttribute="height" secondItem="h7N-pE-Kny" secondAttribute="height" id="2Xh-T3-kbI"/>
-                        <constraint firstAttribute="trailing" secondItem="6rW-8I-H9N" secondAttribute="trailing" id="8Ic-qB-X3B"/>
-                        <constraint firstItem="VjO-Xy-kVG" firstAttribute="leading" secondItem="8K1-YV-4gu" secondAttribute="leading" constant="20" id="QNv-rb-wCU"/>
-                        <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" id="Vfy-8b-wIf"/>
-                        <constraint firstItem="h7N-pE-Kny" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="21" id="WiW-Sl-dZC"/>
-                        <constraint firstItem="6rW-8I-H9N" firstAttribute="width" secondItem="h7N-pE-Kny" secondAttribute="width" id="kMZ-dm-MQe"/>
-                        <constraint firstItem="VjO-Xy-kVG" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" constant="15" id="ntL-cj-mD7"/>
-                        <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="o0V-1A-rZQ"/>
-                        <constraint firstAttribute="height" constant="50" id="t54-8k-Xl2"/>
-                        <constraint firstItem="h7N-pE-Kny" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="twN-zW-ris"/>
+                        <constraint firstItem="VjO-Xy-kVG" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" constant="10" id="3Vt-X2-Ajj"/>
+                        <constraint firstAttribute="bottom" secondItem="h7N-pE-Kny" secondAttribute="bottom" id="4xl-yD-TiJ"/>
+                        <constraint firstItem="VjO-Xy-kVG" firstAttribute="leading" secondItem="8K1-YV-4gu" secondAttribute="leading" constant="15" id="8Ce-m3-QAc"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="FkA-7w-dhr"/>
+                        <constraint firstAttribute="bottom" secondItem="6rW-8I-H9N" secondAttribute="bottom" id="IDS-rT-bZh"/>
+                        <constraint firstAttribute="trailing" secondItem="6rW-8I-H9N" secondAttribute="trailing" id="Vl5-Mf-JBW"/>
+                        <constraint firstAttribute="height" constant="50" id="WLC-LG-kVE"/>
+                        <constraint firstItem="h7N-pE-Kny" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="bYm-75-HUg"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" id="rvd-Ce-MIX"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="width" secondItem="h7N-pE-Kny" secondAttribute="width" id="s2D-c4-MuN"/>
+                        <constraint firstItem="h7N-pE-Kny" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="16" id="tv4-6r-KZm"/>
+                        <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" id="zWa-di-sww"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="FtI-zk-Rvv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Cqx-gN-Ohv"/>
-                <constraint firstAttribute="bottom" secondItem="8K1-YV-4gu" secondAttribute="bottom" id="LXB-i1-BgH"/>
-                <constraint firstItem="8K1-YV-4gu" firstAttribute="top" secondItem="FtI-zk-Rvv" secondAttribute="bottom" id="NJ3-aa-6FE"/>
-                <constraint firstAttribute="trailing" secondItem="FtI-zk-Rvv" secondAttribute="trailing" id="OPh-TD-aSU"/>
-                <constraint firstItem="8K1-YV-4gu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RKF-RZ-x5z"/>
-                <constraint firstItem="FtI-zk-Rvv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="To2-EE-mqa"/>
-                <constraint firstAttribute="trailing" secondItem="8K1-YV-4gu" secondAttribute="trailing" id="fpp-ne-Sjz"/>
+                <constraint firstItem="FtI-zk-Rvv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="H5p-0q-pqP"/>
+                <constraint firstAttribute="trailing" secondItem="8K1-YV-4gu" secondAttribute="trailing" id="ecY-h7-kQQ"/>
+                <constraint firstAttribute="bottom" secondItem="8K1-YV-4gu" secondAttribute="bottom" id="fWJ-xO-VAk"/>
+                <constraint firstItem="8K1-YV-4gu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uxH-pU-zoT"/>
+                <constraint firstItem="FtI-zk-Rvv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ver-mh-1cb"/>
+                <constraint firstAttribute="trailing" secondItem="FtI-zk-Rvv" secondAttribute="trailing" id="w9Q-da-9eQ"/>
+                <constraint firstItem="8K1-YV-4gu" firstAttribute="top" secondItem="FtI-zk-Rvv" secondAttribute="bottom" id="ztd-sG-tr4"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
         </view>

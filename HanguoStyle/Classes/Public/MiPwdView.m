@@ -149,9 +149,6 @@
         [(UINavigationController *)controller pushViewController:detailVC animated:YES];
     }
     
-    
-    
-    
 }
 
 //获取当前屏幕显示的viewcontroller
