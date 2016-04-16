@@ -9,6 +9,7 @@
 #import "OrderDetailViewController.h"
 #import "PayViewController.h"
 #import "GoodsDetailViewController.h"
+#import "RefundViewController.h"
 @interface OrderDetailViewController ()<UIScrollViewDelegate>
 {
     long secondsCountDown;
@@ -42,6 +43,11 @@
     
 
 
+//    [self creatView];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self creatView];
 }
 - (void)delOrderClick{
@@ -146,10 +152,24 @@
         [self.view addSubview:auctionTimeLab];
         secondsCountDown = 24 * 60 * 60 - _orderData.orderInfo.countDown/1000;
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-    }else{
+    }else if([_orderData.orderInfo.orderStatus isEqualToString:@"S"])
+    {
+        scrollView.frame = CGRectMake(10, 0, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
+
+        
+        if (_orderData.refund!=nil) {
+            scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80 +115);
+        }else
+        {
+            scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80 +45);
+        }
+    }
+    else
+    {
         scrollView.frame = CGRectMake(10, 0, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
         scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80);
     }
+
     scrollView.delegate = self;
     
     
@@ -436,6 +456,74 @@
     
     
     
+    if([_orderData.orderInfo.orderStatus isEqualToString:@"S"])
+    {
+        
+        if (_orderData.refund!=nil) {
+            //订单金额
+            UIView * refundView = [[UIView alloc]initWithFrame:CGRectMake(0 , PosYFromView(orderPayView, 5), GGUISCREENWIDTH-20, 115)];
+            refundView.backgroundColor = [UIColor whiteColor];
+            refundView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            refundView.layer.borderWidth = 1.0f;
+            [scrollView addSubview:refundView];
+            
+            
+            
+            UILabel * refundLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+            refundLab.numberOfLines = 1;
+            refundLab.font = [UIFont systemFontOfSize:12];
+            refundLab.textColor = [UIColor grayColor];
+            refundLab.text = @"退款信息";
+            [refundView addSubview:refundLab];
+            
+            
+            UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
+            line5.backgroundColor = [UIColor lightGrayColor];
+            [refundView addSubview:line5];
+            
+            UILabel * priceLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(line5, 5), GGUISCREENWIDTH-40, 20)];
+            priceLab.numberOfLines = 1;
+            priceLab.font = [UIFont systemFontOfSize:12];
+            priceLab.textColor = [UIColor grayColor];
+            priceLab.text = [NSString stringWithFormat:@"退款金额：%@",_orderData.refund.payBackFee];
+            [refundView addSubview:priceLab];
+            
+            
+            UILabel * reasonLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(priceLab, 0), GGUISCREENWIDTH-40, 20)];
+            reasonLab.numberOfLines = 1;
+            reasonLab.font = [UIFont systemFontOfSize:12];
+            reasonLab.textColor = [UIColor grayColor];
+            reasonLab.text = [NSString stringWithFormat:@"退款原因：%@",_orderData.refund.reason];
+            [refundView addSubview:reasonLab];
+            
+            UILabel * stateLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(reasonLab, 0), GGUISCREENWIDTH-40, 20)];
+            stateLab.numberOfLines = 1;
+            stateLab.font = [UIFont systemFontOfSize:12];
+            stateLab.textColor = [UIColor grayColor];
+            
+            if ([_orderData.refund.state isEqualToString:@"I"]) {
+                stateLab.text = [NSString stringWithFormat:@"退款状态：审核中"];
+            }else if([_orderData.refund.state isEqualToString:@"A"])
+            {
+                stateLab.text = [NSString stringWithFormat:@"退款状态：提示5-15个工作日，退款金额自动返回"];
+            }else if([_orderData.refund.state isEqualToString:@"R"])
+            {
+                stateLab.text = [NSString stringWithFormat:@"退款状态：不可再次点击申请退款"];
+            }
+            
+            [refundView addSubview:stateLab];
+            
+        }else
+        {
+            UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(0, PosYFromView(orderPayView, 5), SCREEN_WIDTH, 40)];
+            [looutMoneyButton setBackgroundColor:GGMainColor];
+            [looutMoneyButton setTitle:@"退款" forState:UIControlStateNormal];
+            [looutMoneyButton addTarget:self action:@selector(looutMoneyButtonclcik:) forControlEvents:UIControlEventTouchUpInside];
+            [scrollView addSubview:looutMoneyButton];
+        }
+
+    }
+    
     if([_orderData.orderInfo.orderStatus isEqualToString:@"I"]){
         //取消订单
         cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -536,6 +624,55 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(void)looutMoneyButtonclcik:(UIButton *)btn
+{
+    RefundViewController * vc = [[RefundViewController alloc]init];
+    vc.orderData = self.orderData;
+    [self.navigationController pushViewController:vc animated:YES];
+    [vc setSelectButtonBlock:^(NSString * str) {
+        [self requestData];
+    }];
+}
+-(void)requestData{
+    NSString * urlString;
+    urlString = [NSString stringWithFormat:@"%@/%ld",[HSGlobal myOrderUrl],self.selectOrderId];
+    
+    AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
+    [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        NSArray * dataArray = [object objectForKey:@"orderList"];
+        NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        NSLog(@"message= %@",message);
+        NSLog(@"后台返回来数据条数%lu",(unsigned long)dataArray.count);
+        if(code == 200){
+            //进入到订单详情
+                
+        }else{
+            MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = message;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
+        }
+        [GiFHUD dismiss];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [GiFHUD dismiss];
+        [PublicMethod printAlert:@"请求订单数据失败"];
+    }];
+}
 
 @end

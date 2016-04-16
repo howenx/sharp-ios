@@ -300,6 +300,12 @@
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
 }
-
+//退款接口
++(NSString *)refundUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/order/apply/refund",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 @end

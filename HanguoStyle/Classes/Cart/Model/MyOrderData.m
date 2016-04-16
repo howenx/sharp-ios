@@ -34,7 +34,20 @@
         self.addressData.idCardNum = [dict objectForKey:@"idCardNum"];
         self.addressData.orDefault = YES;
 
-
+        //退款状态
+        NSDictionary * refundDict = [node objectForKey:@"refund"];
+        
+        if (refundDict!=nil) {
+            self.refund.orderId = [refundDict objectForKey:@"orderId"];
+            self.refund.splitOrderId = [refundDict objectForKey:@"splitOrderId"];
+            self.refund.payBackFee = [refundDict objectForKey:@"payBackFee"];
+            self.refund.reason = [refundDict objectForKey:@"reason"];
+            self.refund.state = [refundDict objectForKey:@"state"];
+            self.refund.contactTel = [refundDict objectForKey:@"rejectReason"];
+            self.refund.refundType = [refundDict objectForKey:@"refundType"];
+        }
+        
+        
         
         //订单信息
         NSDictionary * orderDict = [node objectForKey:@"order"];
@@ -57,7 +70,10 @@
         self.orderInfo.orderDetailUrl = [orderDict objectForKey:@"orderDetailUrl"];
         self.orderInfo.postalFee = [orderDict objectForKey:@"postalFee"];
         self.orderInfo.totalFee = [orderDict objectForKey:@"totalFee"];
-        self.orderInfo.orderSplitId = [orderDict objectForKey:@"orderSplitId"];
+        if(![NSString isNSNull:[orderDict objectForKey:@"orderSplitId"]]){
+            self.orderInfo.orderSplitId = [[orderDict objectForKey:@"orderSplitId"]longValue];
+        }
+        
         if([[orderDict objectForKey:@"orderStatus"] isEqualToString:@"I"]){
              self.orderInfo.countDown = [[orderDict objectForKey:@"countDown"]longValue];
         }

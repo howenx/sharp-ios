@@ -91,6 +91,7 @@
                 OrderDetailViewController * odViewController = [[OrderDetailViewController alloc]init];
                 for (id node in dataArray) {
                     MyOrderData * singleData = [[MyOrderData alloc] initWithJSONNode:node];
+                    
                     odViewController.orderData = singleData;
                 }
 
