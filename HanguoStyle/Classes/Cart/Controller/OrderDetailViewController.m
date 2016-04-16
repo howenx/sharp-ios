@@ -519,6 +519,8 @@
             [looutMoneyButton setBackgroundColor:GGMainColor];
             [looutMoneyButton setTitle:@"退款" forState:UIControlStateNormal];
             [looutMoneyButton addTarget:self action:@selector(looutMoneyButtonclcik:) forControlEvents:UIControlEventTouchUpInside];
+            [looutMoneyButton.layer setMasksToBounds:YES];
+            [looutMoneyButton.layer setCornerRadius:4.0];
             [scrollView addSubview:looutMoneyButton];
         }
 
