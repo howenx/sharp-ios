@@ -27,12 +27,7 @@
 //#define SERVERY2 @"https://api.hanmimei.com"
 //#define SERVERY3 @"https://id.hanmimei.com"
 //#define SERVERY4 @"https://promotion.hanmimei.com"
-
-<<<<<<< HEAD
 //
-=======
-
->>>>>>> f19f77a0f0c9e1cdcb2c4a27a5f52aee2cc71091
 //#define SERVERY1 @"http://172.28.3.51:9003"
 //#define SERVERY2 @"http://172.28.3.51:9001"
 //#define SERVERY3 @"http://172.28.3.51:9004"
