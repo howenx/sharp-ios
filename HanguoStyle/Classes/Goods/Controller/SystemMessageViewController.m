@@ -74,11 +74,64 @@
         [self.arrayData removeAllObjects];
         [tableView_ removeFromSuperview];
         
+        
         if (_arrayData.count<=0) {
             UIImageView * bgImageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-            bgImageView.image = [UIImage imageNamed:@"message_wu"];
+            bgImageView.image = [UIImage imageNamed:@"icon_delete"];
             [self.view addSubview:bgImageView];
         }
+        
+        
+        NSString * urlString =[NSString stringWithFormat:@"%@%@",[HSGlobal deleteMessageListType],self.messageType];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
+            return;
+        }
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+        
+        [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"] integerValue];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSLog(@"code= %ld",(long)code);
+            NSLog(@"message= %@",message);
+            
+            if(200 == code){
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                hud.labelText = @"删除成功";
+                [hud hide:YES afterDelay:1];
+                
+            }else{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                hud.labelText = @"删除失败";
+                [hud hide:YES afterDelay:1];
+            }
+            
+            [GiFHUD dismiss];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"删除失败"];
+            
+        }];
+    
+        
+        
+        
     }
 }
 
@@ -96,9 +149,6 @@
     [GiFHUD setGifWithImageName:@"hmm.gif"];
     [GiFHUD show];
     
-    
-    
-    //    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:genderFlag,@"gender",encodeImage,@"photoUrl",nil];
     [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"] integerValue];
@@ -139,7 +189,7 @@
 
 
 -(void)createSettingView{
-    tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT) style:UITableViewStylePlain];
+    tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) style:UITableViewStylePlain];
     //    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     tableView_.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView_.bounces = YES;
@@ -159,6 +209,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"%--------ld",self.arrayData.count);
     return self.arrayData.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -247,9 +298,10 @@
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.messageModel = [self.arrayData objectAtIndex:indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.arrayData removeObjectAtIndex:indexPath.row];
-        [tableView_ deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView_ deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
         
         
         if (_arrayData.count<=0) {
@@ -258,6 +310,60 @@
             [tableView_ removeFromSuperview];
             [self.view addSubview:bgImageView];
         }
+        
+        
+        
+        NSString * urlString =[NSString stringWithFormat:@"%@%@",[HSGlobal deleteMessageOne],self.messageModel.ID];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
+            return;
+        }
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+        
+        [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"] integerValue];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSLog(@"code= %ld",(long)code);
+            NSLog(@"message= %@",message);
+            
+            if(200 == code){
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                hud.labelText = @"删除成功";
+                [hud hide:YES afterDelay:1];
+                
+            }else{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                hud.labelText = @"删除失败";
+                [hud hide:YES afterDelay:1];
+            }
+            
+            [GiFHUD dismiss];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"删除失败"];
+            
+        }];
+
+        
+        
+        
+        
         
     }
 }

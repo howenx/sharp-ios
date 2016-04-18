@@ -8,10 +8,10 @@
 
 #import "HSGlobal.h"
 //wayne
-//#define SERVERY1 @"http://172.28.3.78:9003"
-//#define SERVERY2 @"http://172.28.3.78:9001"
-//#define SERVERY3 @"http://172.28.3.78:9004"
-//#define SERVERY4 @"http://172.28.3.78:9005"
+#define SERVERY1 @"http://172.28.3.78:9003"
+#define SERVERY2 @"http://172.28.3.78:9001"
+#define SERVERY3 @"http://172.28.3.78:9004"
+#define SERVERY4 @"http://172.28.3.78:9005"
 
 //#define SERVERY1 @"http://172.28.3.66:9003"
 //#define SERVERY2 @"http://172.28.3.66:9001"
@@ -28,11 +28,11 @@
 //#define SERVERY3 @"https://id.hanmimei.com"
 //#define SERVERY4 @"https://promotion.hanmimei.com"
 
-
-#define SERVERY1 @"http://172.28.3.51:9003"
-#define SERVERY2 @"http://172.28.3.51:9001"
-#define SERVERY3 @"http://172.28.3.51:9004"
-#define SERVERY4 @"http://172.28.3.51:9005"
+//
+//#define SERVERY1 @"http://172.28.3.51:9003"
+//#define SERVERY2 @"http://172.28.3.51:9001"
+//#define SERVERY3 @"http://172.28.3.51:9004"
+//#define SERVERY4 @"http://172.28.3.51:9005"
 
 @implementation HSGlobal
 //查看物流
@@ -300,6 +300,25 @@
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
 }
+
+//全部删除
++(NSString *) deleteMessageListType
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/msg/clean/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+}
+
+//单个删除
++(NSString *) deleteMessageOne
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/msg/delMsg/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+}
+
 //退款接口
 +(NSString *)refundUrl
 {

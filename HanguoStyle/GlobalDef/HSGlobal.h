@@ -49,4 +49,6 @@
 + (NSString *) messageListType;
 + (NSString *) searchLogisticsUrl;
 +(NSString *)refundUrl;
++(NSString *) deleteMessageListType;
++(NSString *) deleteMessageOne;
 @end

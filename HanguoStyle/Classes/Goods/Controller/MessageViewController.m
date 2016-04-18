@@ -21,7 +21,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
-    self.navigationItem.title = @"消息";
+    self.navigationItem.title = @"消息盒子";
     self.view.backgroundColor = GGColor(240, 240, 240);
     
 
@@ -35,10 +35,10 @@
     
     [self createSettingView];
 
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
-    
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icongengduo"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
+//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
+//    
+//    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icongengduo"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+//    self.navigationItem.rightBarButtonItem = anotherButton;
     [self setModel];
     
 }
