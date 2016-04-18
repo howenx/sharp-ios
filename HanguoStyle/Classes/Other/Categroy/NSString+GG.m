@@ -68,6 +68,13 @@
 + (BOOL)isNumAndLetterAndChinese:(NSString *)string
 
 {
+    NSArray *array = [NSArray arrayWithObjects:@"➋",@"➌",@"➍",@"➎",@"➏",@"➐",@"➑",@"➒",nil];
+    for(NSString * zf in array){
+        if ([zf isEqualToString:string]) {
+            return YES;
+        }
+    }
+
     NSString *regex = @"[a-zA-Z0-9\u4e00-\u9fa5][a-zA-Z0-9\u4e00-\u9fa5]*";
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
