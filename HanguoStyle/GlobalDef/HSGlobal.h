@@ -50,4 +50,6 @@
 + (NSString *) searchLogisticsUrl;
 + (NSString *) refundUrl;
 + (NSString *) confirmReceiptUrl;
++(NSString *) deleteMessageListType;
++(NSString *) deleteMessageOne;
 @end
