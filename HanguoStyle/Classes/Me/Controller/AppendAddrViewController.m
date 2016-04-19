@@ -7,6 +7,7 @@
 //
 
 #import "AppendAddrViewController.h"
+#import "AppDelegate.h"
 @interface AppendAddrViewController ()<UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate>
 
 {
@@ -196,7 +197,7 @@
     
 }
 -(void)showHud:(NSString *) message{
-    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:((AppDelegate*)[[UIApplication sharedApplication] delegate]).window animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelFont = [UIFont systemFontOfSize:11];
     hud.margin = 10.f;

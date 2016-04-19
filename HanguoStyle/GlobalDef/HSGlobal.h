@@ -48,5 +48,6 @@
 + (NSString *) messageListUrl;
 + (NSString *) messageListType;
 + (NSString *) searchLogisticsUrl;
-+(NSString *)refundUrl;
++ (NSString *) refundUrl;
++ (NSString *) confirmReceiptUrl;
 @end

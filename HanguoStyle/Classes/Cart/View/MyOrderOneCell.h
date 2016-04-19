@@ -11,7 +11,7 @@
 @protocol MyOrderOneCellDelegate <NSObject>
 
 -(void)checkOrder:(MyOrderData *)orderData;
-
+-(void)reloadData;
 @end
 @interface MyOrderOneCell : UITableViewCell
 @property (nonatomic, weak) id <MyOrderOneCellDelegate> delegate;
