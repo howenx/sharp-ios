@@ -86,7 +86,7 @@
             UIImageView *imv = [[UIImageView alloc] init];
 //            imv.contentMode = UIViewContentModeScaleAspectFit;
 //            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url]];
-            [imv sd_setImageWithURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url] placeholderImage:[UIImage  imageNamed:@"zhanwei"]];
+            [imv sd_setImageWithURL:[NSURL URLWithString:((itemPreviewImgsData *)_scrollArr[i]).url] placeholderImage:[UIImage  imageNamed:@"load1ing"]];
 //            imv.image = [UIImage imageWithData:data];
             [imageArr addObject:imv];
         }

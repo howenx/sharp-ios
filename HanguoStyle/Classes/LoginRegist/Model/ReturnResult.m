@@ -7,7 +7,7 @@
 //
 
 #import "ReturnResult.h"
-
+#import "NSString+GG.h"
 @implementation ReturnResult
 - (ReturnResult *) initWithJSONNode: (id) node
 {
@@ -15,10 +15,19 @@
     if (self) {
         
         self.message = [[node objectForKey:@"message"] objectForKey:@"message"];
-        self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        if(![NSString isNSNull:[[node objectForKey:@"message"] objectForKey:@"code"]]){
+            self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        }
+        
         self.token = [[node objectForKey:@"result"] objectForKey:@"token"];
-        self.expired = [[[node objectForKey:@"result"]objectForKey:@"expired"]integerValue];
-        self.alias = [NSString stringWithFormat:@"%ld",[[[node objectForKey:@"result"]objectForKey:@"id"]longValue]];
+        if(![NSString isNSNull:[[node objectForKey:@"result"]objectForKey:@"expired"]]){
+            self.expired = [[[node objectForKey:@"result"]objectForKey:@"expired"]integerValue];
+        }
+        
+        if(![NSString isNSNull:[[node objectForKey:@"result"]objectForKey:@"id"]]){
+            self.alias = [NSString stringWithFormat:@"%ld",[[[node objectForKey:@"result"]objectForKey:@"id"]longValue]];
+        }
+        
     }
     return self;
 }

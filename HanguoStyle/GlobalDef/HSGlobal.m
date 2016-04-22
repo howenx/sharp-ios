@@ -14,17 +14,17 @@
 //#define SERVERY4 @"http://172.28.3.78:9005"
 
 
-#define SERVERY1 @"https://shopping.hanmimei.com"
-#define SERVERY2 @"https://api.hanmimei.com"
-#define SERVERY3 @"https://id.hanmimei.com"
-#define SERVERY4 @"https://promotion.hanmimei.com"
-
-
 //#define SERVERY1 @"https://shopping.hanmimei.com"
 //#define SERVERY2 @"https://api.hanmimei.com"
 //#define SERVERY3 @"https://id.hanmimei.com"
 //#define SERVERY4 @"https://promotion.hanmimei.com"
-//
+
+
+#define SERVERY1 @"https://shopping.hanmimei.com"
+#define SERVERY2 @"https://api.hanmimei.com"
+#define SERVERY3 @"https://id.hanmimei.com"
+#define SERVERY4 @"https://promotion.hanmimei.com"
+//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 //#define SERVERY1 @"http://172.28.3.51:9003"
 //#define SERVERY2 @"http://172.28.3.51:9001"

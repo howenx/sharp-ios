@@ -7,7 +7,7 @@
 //
 
 #import "RefTokenData.h"
-
+#import "NSString+GG.h"
 @implementation RefTokenData
 - (RefTokenData *) initWithJSONNode: (id) node
 {
@@ -15,9 +15,15 @@
     if (self) {
         
         self.message = [node objectForKey:@"message"];
-        self.result = [[node objectForKey:@"result"] boolValue];
+        if(![NSString isNSNull:[node objectForKey:@"result"]]){
+            self.result = [[node objectForKey:@"result"] boolValue];
+        }
+        
         self.token = [node objectForKey:@"token"];
-        self.expired = [[node objectForKey:@"expired"]integerValue];
+        if(![NSString isNSNull:[node objectForKey:@"expired"]]){
+            self.expired = [[node objectForKey:@"expired"]integerValue];
+        }
+        
     }
     return self;
 }

@@ -39,19 +39,31 @@
         self.pinTitle = [stockDict objectForKey:@"pinTitle"];
         self.startAt = [stockDict objectForKey:@"startAt"];
         self.endAt = [stockDict objectForKey:@"endAt"];
-        self.restrictAmount = [[stockDict objectForKey:@"restrictAmount"]integerValue];
+        if(![NSString isNSNull:[stockDict objectForKey:@"restrictAmount"]]){
+            self.restrictAmount = [[stockDict objectForKey:@"restrictAmount"]integerValue];
+        }
+        
         self.floorPrice = [[stockDict objectForKey:@"floorPrice"]objectFromJSONString];
         self.pinDiscount = [stockDict objectForKey:@"pinDiscount"];
         self.pinRedirectUrl = [stockDict objectForKey:@"pinRedirectUrl"];
         self.invArea = [stockDict objectForKey:@"invArea"];
-        self.restAmount = [[stockDict objectForKey:@"restAmount"]integerValue];
+        if(![NSString isNSNull:[stockDict objectForKey:@"restAmount"]]){
+            self.restAmount = [[stockDict objectForKey:@"restAmount"]integerValue];
+        }
+        
         self.itemPreviewImgs = [NSMutableArray array];
         NSArray * tags = [[stockDict objectForKey:@"itemPreviewImgs"]objectFromJSONString];
         for (id tag in tags) {
             ItemPreviewImgsData * tagData = [[ItemPreviewImgsData alloc]init];
             
             tagData.url = [tag objectForKey:@"url"];
+            if(![NSString isNSNull:[tag objectForKey:@"collectId"]]){
+                
+            }
             tagData.width = [[tag objectForKey:@"width"]floatValue];
+            if(![NSString isNSNull:[tag objectForKey:@"collectId"]]){
+                
+            }
             tagData.height = [[tag objectForKey:@"height"]floatValue];
             
             [self.itemPreviewImgs addObject:tagData];
@@ -65,12 +77,21 @@
             self.collectCount = [[stockDict objectForKey:@"collectCount"]integerValue];
         }
 //        self.browseCount = [[stockDict objectForKey:@"browseCount"]integerValue];
-        self.soldAmount = [[stockDict objectForKey:@"soldAmount"]integerValue];
+        if(![NSString isNSNull:[stockDict objectForKey:@"soldAmount"]]){
+            self.soldAmount = [[stockDict objectForKey:@"soldAmount"]integerValue];
+        }
+        
         self.invImg = [[[stockDict objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
         self.invPrice = [stockDict objectForKey:@"invPrice"];
         self.skuType = [stockDict objectForKey:@"skuType"];
-        self.skuTypeId = [[stockDict objectForKey:@"skuTypeId"]longValue];
-        self.collectId = [[stockDict objectForKey:@"collectId"]longValue];
+        if(![NSString isNSNull:[stockDict objectForKey:@"skuTypeId"]]){
+            self.skuTypeId = [[stockDict objectForKey:@"skuTypeId"]longValue];
+        }
+        
+        if(![NSString isNSNull:[stockDict objectForKey:@"collectId"]]){
+            self.collectId = [[stockDict objectForKey:@"collectId"]longValue];
+        }
+        
 
 
         self.pinTieredPricesArray = [NSMutableArray array];
@@ -106,7 +127,10 @@
 
             
             tagData.price = [tag objectForKey:@"price"];
-            tagData.peopleNum = [[tag objectForKey:@"peopleNum"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"peopleNum"]]){
+                tagData.peopleNum = [[tag objectForKey:@"peopleNum"]integerValue];
+            }
+            
             
             [self.pinTieredPricesArray addObject:tagData];
         }

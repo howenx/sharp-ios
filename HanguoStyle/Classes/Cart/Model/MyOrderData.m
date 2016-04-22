@@ -55,7 +55,10 @@
         //订单信息
         NSDictionary * orderDict = [node objectForKey:@"order"];
         self.orderInfo = [[OrderInfo alloc]init];
-        self.orderInfo.orderId = [[orderDict objectForKey:@"orderId"]longValue];
+        if(![NSString isNSNull:[orderDict objectForKey:@"orderId"]]){
+            self.orderInfo.orderId = [[orderDict objectForKey:@"orderId"]longValue];
+        }
+        
         self.orderInfo.payTotal = [orderDict objectForKey:@"payTotal"];
         self.orderInfo.payMethod = [orderDict objectForKey:@"payMethod"];
         self.orderInfo.orderCreateAt = [orderDict objectForKey:@"orderCreateAt"];
@@ -78,11 +81,15 @@
         }
         
         if([[orderDict objectForKey:@"orderStatus"] isEqualToString:@"I"]){
-             self.orderInfo.countDown = [[orderDict objectForKey:@"countDown"]longValue];
+            if(![NSString isNSNull:[orderDict objectForKey:@"countDown"]]){
+                self.orderInfo.countDown = [[orderDict objectForKey:@"countDown"]longValue];
+            }
         }
        
+        if(![NSString isNSNull:[orderDict objectForKey:@"orderAmount"]]){
+            self.orderInfo.orderAmount = [[orderDict objectForKey:@"orderAmount"]integerValue];
+        }
         
-        self.orderInfo.orderAmount = [[orderDict objectForKey:@"orderAmount"]integerValue];
         //待付款和代收货下面分别有付款和查看物流
         if([self.orderInfo.orderStatus isEqualToString:@"I"]||[self.orderInfo.orderStatus isEqualToString:@"D"]||[self.orderInfo.orderStatus isEqualToString:@"R"]){
             self.cellHeight = self.cellHeight + 50;
@@ -92,8 +99,12 @@
         NSArray * tags = [node objectForKey:@"sku"];
         for (id tag in tags) {
             SkuData * detailData = [[SkuData alloc]init];
-            detailData.skuId = [[tag objectForKey:@"skuId"]longValue];
-            detailData.amount = [[tag objectForKey:@"amount"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"skuId"]]){
+                detailData.skuId = [[tag objectForKey:@"skuId"]longValue];
+            }
+            if(![NSString isNSNull:[tag objectForKey:@"amount"]]){
+                detailData.amount = [[tag objectForKey:@"amount"]integerValue];
+            }
             detailData.price = [tag objectForKey:@"price"];
             detailData.skuTitle = [tag objectForKey:@"skuTitle"];
             detailData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];

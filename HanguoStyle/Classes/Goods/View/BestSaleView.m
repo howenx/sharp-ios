@@ -135,9 +135,10 @@
             
         }else{
             _pinTimeLab.text  = @"此团拼购已结束";
-            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-66)/2, (view.height-66)/2, 66, 66)];
+            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((view.width-66)/2, (view.height-66)/2, 66, 66)];
             _saleOutLab.font = [UIFont systemFontOfSize:13];
             _saleOutLab.textColor = [UIColor whiteColor];
+            _saleOutLab.textAlignment = NSTextAlignmentCenter;
             _saleOutLab.backgroundColor = GGColor(111, 113, 121);
             _saleOutLab.alpha = 0.7;
             [_saleOutLab.layer setCornerRadius:33];
@@ -160,9 +161,10 @@
             [willSaleView addSubview:willSaleImageView];
             
         }else if(![@"Y" isEqualToString: showData.state]&&![@"P" isEqualToString: showData.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
-            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-66)/2, (view.height-66)/2, 66, 66)];
+            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((view.width-66)/2, (view.height-66)/2, 66, 66)];
             _saleOutLab.font = [UIFont systemFontOfSize:13];
             _saleOutLab.textColor = [UIColor whiteColor];
+            _saleOutLab.textAlignment = NSTextAlignmentCenter;
             _saleOutLab.backgroundColor = GGColor(111, 113, 121);
             _saleOutLab.alpha = 0.7;
             [_saleOutLab.layer setCornerRadius:33];

@@ -104,7 +104,7 @@
         _pinTimeLab.hidden = YES;
     }
     
-    [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg] placeholderImage:[UIImage imageNamed:@"zhanwei"]];
+    [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg] placeholderImage:[UIImage imageNamed:@"load2ing"]];
 //    [self.titleImageView setImage:[UIImage imageNamed:@"zhanwei"]];
     self.describeLab.text = data.itemTitle;
     self.moneyLab.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];

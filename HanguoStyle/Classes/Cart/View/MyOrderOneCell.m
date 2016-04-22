@@ -92,7 +92,7 @@
     if([self.contentView viewWithTag:50004] == nil){
         
         orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 90, 0, 50, 50)];
-        orderStatusLab.font = [UIFont systemFontOfSize:12];
+        orderStatusLab.font = [UIFont systemFontOfSize:14];
         orderStatusLab.textAlignment = NSTextAlignmentRight;
         orderStatusLab.textColor = [UIColor grayColor];
         orderStatusLab.tag = 50004;
@@ -106,20 +106,28 @@
     
     if([status isEqualToString:@"C"]){
         orderStatusLab.text = @"已取消";
+        orderStatusLab.textColor = UIColorFromRGB(0x333333);//黑色
     }else if([status isEqualToString:@"I"]){
         orderStatusLab.text = @"待付款";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"S"]){
         orderStatusLab.text = @"待发货";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"F"]){
         orderStatusLab.text = @"失败";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"R"]){
         orderStatusLab.text = @"已收货";
+        orderStatusLab.textColor = UIColorFromRGB(0x16bb5c);//绿色
     }else if([status isEqualToString:@"D"]){
         orderStatusLab.text = @"待收货";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"J"]){
         orderStatusLab.text = @"拒收货";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"T"]){
         orderStatusLab.text = @"已退款";
+        orderStatusLab.textColor = UIColorFromRGB(0x333333);
     }
 
     

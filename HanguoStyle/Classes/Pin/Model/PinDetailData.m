@@ -81,8 +81,9 @@
         for (id tag in tags) {
 
             PinUsersData * detailData = [[PinUsersData alloc]init];
-            
-            detailData.orMaster = [[tag objectForKey:@"orMaster"]longValue];
+            if(![NSString isNSNull:[tag objectForKey:@"orMaster"]]){
+                detailData.orMaster = [[tag objectForKey:@"orMaster"]longValue];
+            }
             detailData.joinAt = [tag objectForKey:@"joinAt"];
             detailData.userImg = [tag objectForKey:@"userImg"];
             detailData.userNm = [tag objectForKey:@"userNm"];

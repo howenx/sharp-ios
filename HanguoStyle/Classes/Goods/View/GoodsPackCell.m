@@ -25,7 +25,8 @@
 }
 - (void)setData:(ThemeData *)data
 {
-    [self.preImageView sd_setImageWithURL:[NSURL URLWithString:data.themeImg] placeholderImage:[UIImage  imageNamed:@"zhanwei"]];
+    [self.preImageView sd_setImageWithURL:[NSURL URLWithString:data.themeImg] placeholderImage:[UIImage  imageNamed:@"load1ing"]];
+    self.preImageView.contentMode = UIViewContentModeScaleAspectFit;
 //    [self.preImageView setImage:[UIImage imageNamed:@"zhanwei"]];
 }
 

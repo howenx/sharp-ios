@@ -57,6 +57,7 @@
         CartDetailData * cdData = cartDataArray[i];
         UIView * cartView = [[UIView alloc]initWithFrame:CGRectMake(0, low, GGUISCREENWIDTH, 100)];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 80, 80)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [imageView sd_setImageWithURL:[NSURL URLWithString:cdData.invImg]];
         [cartView addSubview:imageView];
         

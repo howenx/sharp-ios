@@ -141,7 +141,7 @@
     scrollView = [[UIScrollView alloc] init];
     
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"I"]) {
-        scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-104-60);
+        scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-104-50);
         scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         
         auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
@@ -163,7 +163,7 @@
             scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80 +115 +10);
         }else
         {
-            scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-60);
+            scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-50);
             scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         }
     }
@@ -522,7 +522,7 @@
             
         }else
         {
-            UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, GGUISCREENHEIGHT-64-50, 100, 40)];
+            UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, GGUISCREENHEIGHT-64-40, 100, 30)];
             [looutMoneyButton setTitleColor:GGMainColor forState:UIControlStateNormal];
             [looutMoneyButton.layer setBorderColor:GGMainColor.CGColor];
             [looutMoneyButton.layer setBorderWidth:1.0];
@@ -541,7 +541,7 @@
         cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [cancelBtn.layer setMasksToBounds:YES];
         [cancelBtn.layer setCornerRadius:5.0];
-        cancelBtn.frame = CGRectMake(GGUISCREENWIDTH-220,  GGUISCREENHEIGHT-64-50, 100, 40);
+        cancelBtn.frame = CGRectMake(GGUISCREENWIDTH-220,  GGUISCREENHEIGHT-64-40, 100, 30);
         [cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [cancelBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
@@ -555,7 +555,7 @@
         payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [payBtn.layer setMasksToBounds:YES];
         [payBtn.layer setCornerRadius:5.0];
-        payBtn.frame = CGRectMake(GGUISCREENWIDTH-110,  GGUISCREENHEIGHT-64-50, 100, 40);
+        payBtn.frame = CGRectMake(GGUISCREENWIDTH-110,  GGUISCREENHEIGHT-64-40, 100, 30);
         [payBtn setTitle:@"去支付" forState:UIControlStateNormal];
         payBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [payBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
