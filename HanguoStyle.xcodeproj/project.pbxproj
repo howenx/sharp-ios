@@ -79,7 +79,7 @@
 		800A0D621C3D309A00F548A9 /* libSocialSina.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 800A0D601C3D309A00F548A9 /* libSocialSina.a */; };
 		800B56E71BCE2666002A3FE3 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 800B56E61BCE2666002A3FE3 /* HeadView.m */; };
 		800DC7451C75C9FB00A01A0F /* JoinTeamMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 800DC7441C75C9FB00A01A0F /* JoinTeamMethodViewController.m */; };
-		8010346F1CCA18C6004F9CF7 /* HMM.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8010346E1CCA18C6004F9CF7 /* HMM.gif */; };
+		8010346F1CCA18C6004F9CF7 /* hmm.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8010346E1CCA18C6004F9CF7 /* hmm.gif */; };
 		80108A741C60750A00B20C64 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80108A711C60750A00B20C64 /* DACircularProgressView.m */; };
 		80108A751C60750A00B20C64 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80108A731C60750A00B20C64 /* DALabeledCircularProgressView.m */; };
 		80108A8C1C60751F00B20C64 /* MWCaptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 80108A781C60751F00B20C64 /* MWCaptionView.m */; };
@@ -535,7 +535,7 @@
 		800B56E61BCE2666002A3FE3 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
 		800DC7431C75C9FB00A01A0F /* JoinTeamMethodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinTeamMethodViewController.h; sourceTree = "<group>"; };
 		800DC7441C75C9FB00A01A0F /* JoinTeamMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinTeamMethodViewController.m; sourceTree = "<group>"; };
-		8010346E1CCA18C6004F9CF7 /* HMM.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = HMM.gif; sourceTree = "<group>"; };
+		8010346E1CCA18C6004F9CF7 /* hmm.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = hmm.gif; sourceTree = "<group>"; };
 		80108A701C60750A00B20C64 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
 		80108A711C60750A00B20C64 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
 		80108A721C60750A00B20C64 /* DALabeledCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALabeledCircularProgressView.h; sourceTree = "<group>"; };
@@ -1878,7 +1878,7 @@
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
 				802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */,
-				8010346E1CCA18C6004F9CF7 /* HMM.gif */,
+				8010346E1CCA18C6004F9CF7 /* hmm.gif */,
 				8019D3F31CC75EF300A65898 /* loading1@2x.png */,
 				8019D3F41CC75EF300A65898 /* loading1@3x.png */,
 				8019D3EF1CC75EEA00A65898 /* loading2@2x.png */,
@@ -2473,7 +2473,7 @@
 				B06794F11CB66A8400545A16 /* fanye@2x.png in Resources */,
 				80FDB8951CA538C8006D5CB0 /* defaultSelect@3x.png in Resources */,
 				800528971CA3E2F200558D9F /* pengyouquan@2x.png in Resources */,
-				8010346F1CCA18C6004F9CF7 /* HMM.gif in Resources */,
+				8010346F1CCA18C6004F9CF7 /* hmm.gif in Resources */,
 				80113BA11CAB717A0010B4E9 /* openApp@2x.png in Resources */,
 				8019D3F21CC75EEA00A65898 /* loading2@3x.png in Resources */,
 				8005289C1CA3E2F200558D9F /* weixin@3x.png in Resources */,
