@@ -27,6 +27,8 @@
     UIButton * payBtn;
     UIButton * qrshBtn;
     UIButton * ckwlBtn;
+    UILabel * amountLab;
+
 }
 
 @end
@@ -37,6 +39,8 @@
 }
 - (void)setData:(MyOrderData *)data{
     _data = data;
+    
+    
     
     if([self.contentView viewWithTag:50000] == nil){
         
@@ -65,7 +69,7 @@
         //订单号
         orderIdLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-100, 25)];
         orderIdLab.font = [UIFont systemFontOfSize:12];
-        orderIdLab.textColor = [UIColor grayColor];
+        orderIdLab.textColor = UIColorFromRGB(0x333333);
         orderIdLab.tag = 50002;
         [headView addSubview:orderIdLab];
         
@@ -77,7 +81,7 @@
         //创建时间
         createDateLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 25, GGUISCREENWIDTH-100, 25)];
         createDateLab.font = [UIFont systemFontOfSize:12];
-        createDateLab.textColor = [UIColor grayColor];
+        createDateLab.textColor = UIColorFromRGB(0x666666);
         createDateLab.tag = 50003;
         [headView addSubview:createDateLab];
         
@@ -88,7 +92,7 @@
     if([self.contentView viewWithTag:50004] == nil){
         
         orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 90, 0, 50, 50)];
-        orderStatusLab.font = [UIFont systemFontOfSize:12];
+        orderStatusLab.font = [UIFont systemFontOfSize:14];
         orderStatusLab.textAlignment = NSTextAlignmentRight;
         orderStatusLab.textColor = [UIColor grayColor];
         orderStatusLab.tag = 50004;
@@ -102,19 +106,30 @@
     
     if([status isEqualToString:@"C"]){
         orderStatusLab.text = @"已取消";
+        orderStatusLab.textColor = UIColorFromRGB(0x333333);//黑色
     }else if([status isEqualToString:@"I"]){
         orderStatusLab.text = @"待付款";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"S"]){
         orderStatusLab.text = @"待发货";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"F"]){
         orderStatusLab.text = @"失败";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"R"]){
         orderStatusLab.text = @"已收货";
+        orderStatusLab.textColor = UIColorFromRGB(0x16bb5c);//绿色
     }else if([status isEqualToString:@"D"]){
         orderStatusLab.text = @"待收货";
+        orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"J"]){
         orderStatusLab.text = @"拒收货";
+        orderStatusLab.textColor = GGMainColor;
+    }else if([status isEqualToString:@"T"]){
+        orderStatusLab.text = @"已退款";
+        orderStatusLab.textColor = UIColorFromRGB(0x333333);
     }
+
     
     
     
@@ -156,10 +171,10 @@
     
     if([self.contentView viewWithTag:50008] == nil){
         //title
-        titleLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 10, GGUISCREENWIDTH-100-10, 30)];
+        titleLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 10, GGUISCREENWIDTH-100-10, 35)];
         titleLab.numberOfLines = 2;
-        titleLab.font = [UIFont systemFontOfSize:12];
-        titleLab.textColor = [UIColor grayColor];
+        titleLab.font = [UIFont systemFontOfSize:13];
+        titleLab.textColor = UIColorFromRGB(0x333333);
         titleLab.tag = 50008;
         [middleView addSubview:titleLab];
     }
@@ -168,29 +183,51 @@
     
     if([self.contentView viewWithTag:50009] == nil){
         //size
-        sizeLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 50, GGUISCREENWIDTH-100-10, 20)];
+        sizeLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 50, 150, 20)];
         sizeLab.numberOfLines = 1;
         sizeLab.font = [UIFont systemFontOfSize:12];
-        sizeLab.textColor = [UIColor grayColor];
+        sizeLab.textColor = UIColorFromRGB(0x666666);
         sizeLab.tag = 50009;
         [middleView addSubview:sizeLab];
 
     }
-    sizeLab.text = [NSString stringWithFormat:@"%@  %@",((SkuData *)data.skuArray[0]).itemColor,((SkuData *)data.skuArray[0]).itemSize];
+    sizeLab.text = [NSString stringWithFormat:@"规格：%@  %@",((SkuData *)data.skuArray[0]).itemColor,((SkuData *)data.skuArray[0]).itemSize];
     
     if([self.contentView viewWithTag:50010] == nil){
         //price
-        priceLab = [[UILabel alloc]initWithFrame:CGRectMake(100, 70, GGUISCREENWIDTH-100-10, 20)];
+        priceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, 50, 100, 20)];
+        priceLab.textAlignment = NSTextAlignmentRight;
         priceLab.numberOfLines = 1;
         priceLab.font = [UIFont systemFontOfSize:12];
-        priceLab.textColor = [UIColor grayColor];
+        priceLab.textColor = UIColorFromRGB(0x666666);
         priceLab.tag = 50010;
         [middleView addSubview:priceLab];
         
     }
-    priceLab.text = [NSString stringWithFormat:@"单价：%@  X%ld",((SkuData *)data.skuArray[0]).price,((SkuData *)data.skuArray[0]).amount];
+    priceLab.text = [NSString stringWithFormat:@"￥%@",((SkuData *)data.skuArray[0]).price];
+    
+    if([self.contentView viewWithTag:50030] == nil){
+        //price
+        amountLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, 70, 100, 20)];
+        amountLab.textAlignment = NSTextAlignmentRight;
+        amountLab.numberOfLines = 1;
+        amountLab.font = [UIFont systemFontOfSize:13];
+        amountLab.textColor = UIColorFromRGB(0x333333);
+        amountLab.tag = 50030;
+        [middleView addSubview:amountLab];
+        
+    }
+    amountLab.text = [NSString stringWithFormat:@"共%ld件商品",((SkuData *)data.skuArray[0]).amount];
+
     
     
+
+
+
+    
+    
+    
+    [[self.contentView viewWithTag:50011] removeFromSuperview];
     //底部视图
     if([self.contentView viewWithTag:50011] == nil){
         
@@ -200,88 +237,92 @@
         [globView addSubview:footView];
         
     }
-   
-    if([status isEqualToString:@"I"]){//待支付
-        
-        if([self.contentView viewWithTag:50012] == nil){
-            payLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, GGUISCREENWIDTH-150, 30)];
-            payLab.numberOfLines = 1;
-            payLab.font = [UIFont systemFontOfSize:12];
-            payLab.textColor = [UIColor grayColor];
-            payLab.tag = 50012;
-            [footView addSubview:payLab];
-            
-        }
-        payLab.text = [NSString stringWithFormat:@"应付金额%@",data.orderInfo.payTotal];
-        
-        
-        
-        if([self.contentView viewWithTag:50013] == nil){
-            payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [payBtn.layer setMasksToBounds:YES];
-            [payBtn.layer setCornerRadius:5.0];
-            payBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
-            [payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-            payBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-            [payBtn setBackgroundColor:GGMainColor];
-            [payBtn addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            payBtn.tag = 50013;
-            [footView addSubview:payBtn];
-        }
+    
+    qrshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [qrshBtn.layer setMasksToBounds:YES];
+    [qrshBtn.layer setCornerRadius:4.0];
+    qrshBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+    [qrshBtn setTitle:@"确认收货" forState:UIControlStateNormal];
+    [qrshBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+    [qrshBtn.layer setBorderColor:GGMainColor.CGColor];
+    [qrshBtn.layer setBorderWidth:1.0];
+    qrshBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [qrshBtn addTarget:self action:@selector(qrshBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    qrshBtn.tag = 50014;
+    [footView addSubview:qrshBtn];
+    
+    
+    
+    
+    ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [ckwlBtn.layer setMasksToBounds:YES];
+    [ckwlBtn.layer setCornerRadius:4.0];
+    ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-160, 10, 70, 30);
+    [ckwlBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+    [ckwlBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+    [ckwlBtn.layer setBorderColor:UIColorFromRGB(0x333333).CGColor];
+    [ckwlBtn.layer setBorderWidth:1.0];
+    ckwlBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [ckwlBtn addTarget:self action:@selector(ckwlBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    ckwlBtn.tag = 50015;
+    [footView addSubview:ckwlBtn];
+    
+    
+    
+    payLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, GGUISCREENWIDTH-150, 30)];
+    payLab.numberOfLines = 1;
+    payLab.font = [UIFont systemFontOfSize:12];
+    payLab.textColor = [UIColor grayColor];
+    payLab.tag = 50012;
+    [footView addSubview:payLab];
+    
+    payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [payBtn.layer setMasksToBounds:YES];
+    [payBtn.layer setCornerRadius:4.0];
+    payBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+    [payBtn setTitle:@"付款" forState:UIControlStateNormal];
+    [payBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+    [payBtn.layer setBorderColor:GGMainColor.CGColor];
+    [payBtn.layer setBorderWidth:1.0];
+    payBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [payBtn addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    payBtn.tag = 50013;
+    [footView addSubview:payBtn];
 
-        
+    
+    if([status isEqualToString:@"I"]){//待支付
+
+        payLab.text = [NSString stringWithFormat:@"应付金额:￥%@",data.orderInfo.payTotal];
+
+        payLab.hidden = NO;
+        payBtn.hidden = NO;
+        ckwlBtn.hidden = YES;
+        qrshBtn.hidden = YES;
         
         
 
     }else if([status isEqualToString:@"D"]){//待收货
         
-        
-        
-        if([self.contentView viewWithTag:50014] == nil){
-            qrshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [qrshBtn.layer setMasksToBounds:YES];
-            [qrshBtn.layer setCornerRadius:5.0];
-            qrshBtn.frame = CGRectMake(GGUISCREENWIDTH-160, 10, 70, 30);
-            [qrshBtn setTitle:@"确认收货" forState:UIControlStateNormal];
-            qrshBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-            [qrshBtn setBackgroundColor:GGMainColor];
-            [qrshBtn addTarget:self action:@selector(qrshBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            qrshBtn.tag = 50014;
-            [footView addSubview:qrshBtn];
-        }
-       
-        
-        if([self.contentView viewWithTag:50015] == nil){
-            ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [ckwlBtn.layer setMasksToBounds:YES];
-            [ckwlBtn.layer setCornerRadius:5.0];
-            ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
-            [ckwlBtn setTitle:@"查看物流" forState:UIControlStateNormal];
-            ckwlBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-            [ckwlBtn setBackgroundColor:GGMainColor];
-            [ckwlBtn addTarget:self action:@selector(ckwlBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            ckwlBtn.tag = 50015;
-            [footView addSubview:ckwlBtn];
-        }
+        payLab.hidden = YES;
+        payBtn.hidden = YES;
+        ckwlBtn.hidden = NO;
+        qrshBtn.hidden = NO;
+
         
         
     }else if([status isEqualToString:@"R"]){
-        if([self.contentView viewWithTag:50015] == nil){
-            ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [ckwlBtn.layer setMasksToBounds:YES];
-            [ckwlBtn.layer setCornerRadius:5.0];
-            ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
-            [ckwlBtn setTitle:@"查看物流" forState:UIControlStateNormal];
-            ckwlBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-            [ckwlBtn setBackgroundColor:GGMainColor];
-            [ckwlBtn addTarget:self action:@selector(ckwlBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            ckwlBtn.tag = 50015;
-            [footView addSubview:ckwlBtn];
-        }
-
+        ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+        payLab.hidden = YES;
+        payBtn.hidden = YES;
+        ckwlBtn.hidden = NO;
+        qrshBtn.hidden = YES;
     }else{
 
         [[self.contentView viewWithTag:50011] removeFromSuperview];
+        payLab.hidden = YES;
+        payBtn.hidden = YES;
+        ckwlBtn.hidden = YES;
+        qrshBtn.hidden = YES;
     }
 
 }
@@ -294,8 +335,49 @@
 }
 //确认收货
 -(void)qrshBtnClick{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定已收货？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     
+    [alertView show];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        
+        NSString * url = [NSString stringWithFormat:@"%@%ld",[HSGlobal confirmReceiptUrl],_data.orderInfo.orderId];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            
+            if(code == 200){
+                [self.delegate reloadData];
+            }else{
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = message;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+            }
+            
+            
+            [GiFHUD dismiss];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"数据加载失败"];
+            
+        }];
+        
+    }
+}
+
 //查看物流
 -(void)ckwlBtnClick{
     UIViewController * controller = [self getCurrentVC];

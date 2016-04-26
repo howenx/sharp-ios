@@ -8,6 +8,7 @@
 
 #import "CartData.h"
 #import <JSONKit.h>
+#import "NSString+GG.h"
 @implementation CartDetailData
 
 @end
@@ -29,17 +30,30 @@
         NSArray * tags = [node objectForKey:@"carts"];
         for (id tag in tags) {
             CartDetailData * detailData = [[CartDetailData alloc]init];
-            detailData.cartId = [[tag objectForKey:@"cartId"]integerValue];
-            detailData.skuId = [[tag objectForKey:@"skuId"]longValue];
-            detailData.amount = [[tag objectForKey:@"amount"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"cartId"]]){
+                detailData.cartId = [[tag objectForKey:@"cartId"]integerValue];
+            }
+            if(![NSString isNSNull:[tag objectForKey:@"skuId"]]){
+                detailData.skuId = [[tag objectForKey:@"skuId"]longValue];
+            }
+            if(![NSString isNSNull:[tag objectForKey:@"amount"]]){
+                detailData.amount = [[tag objectForKey:@"amount"]integerValue];
+            }
             detailData.itemColor = [tag objectForKey:@"itemColor"];
             detailData.itemSize = [tag objectForKey:@"itemSize"];
-            detailData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
+            if(![NSString isNSNull:[tag objectForKey:@"itemPrice"]]){
+                detailData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
+            }
             detailData.state = [tag objectForKey:@"state"];
             detailData.invArea = [tag objectForKey:@"invArea"];
             detailData.invAreaNm = [node objectForKey:@"invAreaNm"];
-            detailData.restrictAmount = [[tag objectForKey:@"restrictAmount"]integerValue];
-            detailData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"restrictAmount"]]){
+                detailData.restrictAmount = [[tag objectForKey:@"restrictAmount"]integerValue];
+            }
+            if(![NSString isNSNull:[tag objectForKey:@"restAmount"]]){
+                detailData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
+            }
+            
             detailData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
             detailData.invUrl = [tag objectForKey:@"invUrl"];
             detailData.invTitle = [tag objectForKey:@"invTitle"];
@@ -47,10 +61,9 @@
             detailData.invCustoms = [tag objectForKey:@"invCustoms"];
             detailData.postalTaxRate = [tag objectForKey:@"postalTaxRate"];
             detailData.skuType = [tag objectForKey:@"skuType"];
-            
-            detailData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
-            
-            
+            if(![NSString isNSNull:[tag objectForKey:@"skuTypeId"]]){
+                detailData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
+            }
             
             if([detailData.state isEqualToString:@"G"]){
                 self.selectPostalTaxRate = self.selectPostalTaxRate + detailData.itemPrice * detailData.amount * [detailData.postalTaxRate intValue] * 0.01;

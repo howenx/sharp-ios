@@ -10,6 +10,7 @@
 @protocol MyOrderMoreCellDelegate <NSObject>
 
 -(void)checkOrder:(MyOrderData *)orderData;
+-(void)reloadData;
 
 @end
 @interface MyOrderMoreCell : UITableViewCell

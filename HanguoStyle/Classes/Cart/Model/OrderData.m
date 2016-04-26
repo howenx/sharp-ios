@@ -27,7 +27,9 @@
         NSDictionary * dict = [node objectForKey:@"address"];
         if (![dict isKindOfClass:[NSNull class]]) {
             self.addressData = [[AddressData alloc]init];
-            self.addressData.addId = [[dict objectForKey:@"addId"]stringValue];
+            if(![NSString isNSNull:[dict objectForKey:@"addId"]]){
+                self.addressData.addId = [[dict objectForKey:@"addId"]stringValue];
+            }
             self.addressData.tel = [dict objectForKey:@"tel"];
             self.addressData.name = [dict objectForKey:@"name"];
             self.addressData.deliveryCity = [dict objectForKey:@"deliveryCity"];
@@ -48,7 +50,9 @@
         for (id tag in tags) {
             OrderDetailData * detailData = [[OrderDetailData alloc]init];
             detailData.factSingleCustomsShipFee = [tag objectForKey:@"factSingleCustomsShipFee"];
-            detailData.singleCustomsSumAmount = [[tag objectForKey:@"singleCustomsSumAmount"]integerValue];
+            if(![NSString isNSNull:[tag objectForKey:@"singleCustomsSumAmount"]]){
+                detailData.singleCustomsSumAmount = [[tag objectForKey:@"singleCustomsSumAmount"]integerValue];
+            }
             detailData.invCustoms = [tag objectForKey:@"invCustoms"];
             detailData.portalSingleCustomsFee = [tag objectForKey:@"portalSingleCustomsFee"];
             detailData.shipSingleCustomsFee = [tag objectForKey:@"shipSingleCustomsFee"];

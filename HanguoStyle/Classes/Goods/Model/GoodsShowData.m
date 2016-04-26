@@ -26,17 +26,35 @@
 
         NSDictionary * imageDict = [[node objectForKey:@"itemImg"] objectFromJSONString];
         self.itemImg = [imageDict objectForKey:@"url"];
-        self.width = [[imageDict objectForKey:@"width"]floatValue];
-        self.height = [[imageDict objectForKey:@"height"]floatValue];
+        if(![NSString isNSNull:[imageDict objectForKey:@"width"]]){
+            self.width = [[imageDict objectForKey:@"width"]floatValue];
+        }
+        
+        if(![NSString isNSNull:[imageDict objectForKey:@"height"]]){
+            self.height = [[imageDict objectForKey:@"height"]floatValue];
+        }
+        
         
         self.itemTitle = [node objectForKey:@"itemTitle"];
-        self.itemPrice = [[node objectForKey:@"itemPrice"]floatValue];
-        self.itemSrcPrice = [[node objectForKey:@"itemSrcPrice"]floatValue];
-        self.itemDiscount = [[node objectForKey:@"itemDiscount"]floatValue];
+        if(![NSString isNSNull:[node objectForKey:@"itemPrice"]]){
+            self.itemPrice = [[node objectForKey:@"itemPrice"]floatValue];
+        }
+        
+        if(![NSString isNSNull:[node objectForKey:@"itemSrcPrice"]]){
+            self.itemSrcPrice = [[node objectForKey:@"itemSrcPrice"]floatValue];
+        }
+        
+        if(![NSString isNSNull:[node objectForKey:@"itemDiscount"]]){
+            self.itemDiscount = [[node objectForKey:@"itemDiscount"]floatValue];
+        }
+        
         
         
         self.itemSoldAmount = [node objectForKey:@"itemSoldAmount"];
-        self.collectCount = [[node objectForKey:@"collectCount"] integerValue];
+        if(![NSString isNSNull:[node objectForKey:@"collectCount"]]){
+            self.collectCount = [[node objectForKey:@"collectCount"] integerValue];
+        }
+        
         self.state = [node objectForKey:@"state"];
         
         
@@ -53,19 +71,23 @@
                 
                 tagData.name = [tag objectForKey:@"name"];
                 tagData.url = [tag objectForKey:@"url"];
-                tagData.angle = [[tag objectForKey:@"angle"]floatValue];
-                tagData.top = [[tag objectForKey:@"top"]floatValue];
-                tagData.left = [[tag objectForKey:@"left"]floatValue];
+                if(![NSString isNSNull:[tag objectForKey:@"angle"]]){
+                    tagData.angle = [[tag objectForKey:@"angle"]floatValue];
+                }
+                
+                if(![NSString isNSNull:[tag objectForKey:@"top"]]){
+                    tagData.top = [[tag objectForKey:@"top"]floatValue];
+                }
+                
+                if(![NSString isNSNull:[tag objectForKey:@"left"]]){
+                   tagData.left = [[tag objectForKey:@"left"]floatValue];
+                }
+                
                 
                 [array addObject:tagData];
             }
             
             self.masterItemTag = array;
-            
-//            NSDictionary * tagDict = [[node objectForKey:@"itemMasterImg"] objectFromJSONString];
-//            self.itemMasterImg = [tagDict objectForKey:@"url"];
-//            self.width = [[tagDict objectForKey:@"width"]floatValue];
-//            self.height = [[tagDict objectForKey:@"height"]floatValue];
         }
         
     }

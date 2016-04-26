@@ -46,62 +46,96 @@
         self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
         
         self.sizeArray = [NSMutableArray array];
-        NSArray * tags = [node objectForKey:@"stock"];
-        for (id tag in tags) {
-            SizeData * sizeData = [[SizeData alloc]init];
-            sizeData.sizeId = [tag objectForKey:@"id"];
-            sizeData.itemColor = [tag objectForKey:@"itemColor"];
-            sizeData.itemSize = [tag objectForKey:@"itemSize"];
-            sizeData.itemSize = [sizeData.itemColor stringByAppendingString:sizeData.itemSize];//吧颜色和尺寸拼接到一起作为一个选项显示
-            sizeData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
-            sizeData.itemSrcPrice = [[tag objectForKey:@"itemSrcPrice"]floatValue];
-            sizeData.itemDiscount = [[tag objectForKey:@"itemDiscount"]floatValue];
-            sizeData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
-//            sizeData.orSoldOut = [[tag objectForKey:@"orSoldOut"]boolValue];
-            
-            sizeData.invTitle = [tag objectForKey:@"invTitle"];
-            sizeData.invCollection = [tag objectForKey:@"invCollection"];
-            sizeData.orMasterInv = [[tag objectForKey:@"orMasterInv"]boolValue];
-            sizeData.invUrl = [tag objectForKey:@"invUrl"];
-            sizeData.state = [tag objectForKey:@"state"];
-            sizeData.invArea = [tag objectForKey:@"invArea"];
-            sizeData.invWeight = [tag objectForKey:@"invWeight"];
-            sizeData.postalTaxRate = [tag objectForKey:@"postalTaxRate"];
-            sizeData.postalStandard = [tag objectForKey:@"postalStandard"];
-            sizeData.invCustoms = [tag objectForKey:@"invCustoms"];
-            sizeData.shipFee = [tag objectForKey:@"shipFee"];
-            sizeData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
-            sizeData.invAreaNm = [tag objectForKey:@"invAreaNm"];
-            
-            sizeData.itemPreviewImgs = [NSMutableArray array];
-            NSArray * tags = [[tag objectForKey:@"itemPreviewImgs"]objectFromJSONString];
+        
+        if(![NSString isNSNull:[node objectForKey:@"stock"]]&&[node objectForKey:@"stock"]!=nil){
+            NSArray * tags = [node objectForKey:@"stock"];
             for (id tag in tags) {
-                itemPreviewImgsData * tagData = [[itemPreviewImgsData alloc]init];
+                SizeData * sizeData = [[SizeData alloc]init];
+                sizeData.sizeId = [tag objectForKey:@"id"];
+                sizeData.itemColor = [tag objectForKey:@"itemColor"];
+                sizeData.itemSize = [tag objectForKey:@"itemSize"];
+                sizeData.itemSize = [sizeData.itemColor stringByAppendingString:sizeData.itemSize];//吧颜色和尺寸拼接到一起作为一个选项显示
+                if(![NSString isNSNull:[tag objectForKey:@"itemPrice"]]){
+                    sizeData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
+                }
+                sizeData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
+                if(![NSString isNSNull:[tag objectForKey:@"itemSrcPrice"]]){
+                    sizeData.itemSrcPrice = [[tag objectForKey:@"itemSrcPrice"]floatValue];
+                }
                 
-                tagData.url = [tag objectForKey:@"url"];
-                tagData.width = [[tag objectForKey:@"width"]floatValue];
-                tagData.height = [[tag objectForKey:@"height"]floatValue];
+                if(![NSString isNSNull:[tag objectForKey:@"itemDiscount"]]){
+                    sizeData.itemDiscount = [[tag objectForKey:@"itemDiscount"]floatValue];
+                }
                 
-                [sizeData.itemPreviewImgs addObject:tagData];
+                if(![NSString isNSNull:[tag objectForKey:@"restAmount"]]){
+                    sizeData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];
+                }
+                
+                //            sizeData.orSoldOut = [[tag objectForKey:@"orSoldOut"]boolValue];
+                
+                sizeData.invTitle = [tag objectForKey:@"invTitle"];
+                sizeData.invCollection = [tag objectForKey:@"invCollection"];
+                if(![NSString isNSNull:[tag objectForKey:@"orMasterInv"]]){
+                    sizeData.orMasterInv = [[tag objectForKey:@"orMasterInv"]boolValue];
+                }
+                
+                sizeData.invUrl = [tag objectForKey:@"invUrl"];
+                sizeData.state = [tag objectForKey:@"state"];
+                sizeData.invArea = [tag objectForKey:@"invArea"];
+                sizeData.invWeight = [tag objectForKey:@"invWeight"];
+                sizeData.postalTaxRate = [tag objectForKey:@"postalTaxRate"];
+                sizeData.postalStandard = [tag objectForKey:@"postalStandard"];
+                sizeData.invCustoms = [tag objectForKey:@"invCustoms"];
+                sizeData.shipFee = [tag objectForKey:@"shipFee"];
+                sizeData.invImg = [[[tag objectForKey:@"invImg"]objectFromJSONString]objectForKey:@"url"];
+                sizeData.invAreaNm = [tag objectForKey:@"invAreaNm"];
+                
+                sizeData.itemPreviewImgs = [NSMutableArray array];
+                NSArray * tags = [[tag objectForKey:@"itemPreviewImgs"]objectFromJSONString];
+                for (id tag in tags) {
+                    itemPreviewImgsData * tagData = [[itemPreviewImgsData alloc]init];
+                    
+                    tagData.url = [tag objectForKey:@"url"];
+                    if(![NSString isNSNull:[tag objectForKey:@"width"]]){
+                        tagData.width = [[tag objectForKey:@"width"]floatValue];
+                    }
+                    
+                    if(![NSString isNSNull:[tag objectForKey:@"height"]]){
+                        tagData.height = [[tag objectForKey:@"height"]floatValue];
+                    }
+                    
+                    
+                    [sizeData.itemPreviewImgs addObject:tagData];
+                }
+                
+                sizeData.shareUrl = [tag objectForKey:@"shareUrl"];
+                if(![NSString isNSNull:[tag objectForKey:@"collectCount"]]){
+                    if(![NSString isNSNull:[tag objectForKey:@"collectCount"]]){
+                        sizeData.collectCount = [[tag objectForKey:@"collectCount"]integerValue];
+                    }
+                    
+                }
+                
+                //            sizeData.browseCount = [[tag objectForKey:@"browseCount"]integerValue];
+                sizeData.skuType = [tag objectForKey:@"skuType"];
+                if(![NSString isNSNull:[tag objectForKey:@"skuTypeId"]]){
+                    sizeData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
+                }
+                
+                sizeData.startAt = [tag objectForKey:@"startAt"];
+                sizeData.endAt = [tag objectForKey:@"endAt"];
+                if(![NSString isNSNull:[tag objectForKey:@"collectId"]]){
+                    sizeData.collectId = [[tag objectForKey:@"collectId"]longValue];
+                }
+                
+                
+                
+                
+                [self.sizeArray addObject:sizeData];
             }
-            
-            sizeData.shareUrl = [tag objectForKey:@"shareUrl"];
-            if(![NSString isNSNull:[tag objectForKey:@"collectCount"]]){
-                 sizeData.collectCount = [[tag objectForKey:@"collectCount"]integerValue];
-            }
-           
-//            sizeData.browseCount = [[tag objectForKey:@"browseCount"]integerValue];
-            sizeData.skuType = [tag objectForKey:@"skuType"];
-            sizeData.skuTypeId = [[tag objectForKey:@"skuTypeId"]longValue];
-            sizeData.startAt = [tag objectForKey:@"startAt"];
-            sizeData.endAt = [tag objectForKey:@"endAt"];
-            sizeData.collectId = [[tag objectForKey:@"collectId"]longValue];
-            
 
-            
-            [self.sizeArray addObject:sizeData];
         }
-        self.pushArray = [NSMutableArray array];
+            self.pushArray = [NSMutableArray array];
 //        if(![self.state isEqualToString:@"Y"] && ![self.state isEqualToString:@"P"] ){
             if (![NSString isNSNull:[node objectForKey:@"push"]]) {
                 NSArray * pushArray = [node objectForKey:@"push"];

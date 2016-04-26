@@ -30,7 +30,7 @@
     self.view.backgroundColor = GGBgColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     //只有已取消的订单才能删除
-    if ([_orderData.orderInfo.orderStatus isEqualToString:@"C"]) {
+    if ([_orderData.orderInfo.orderStatus isEqualToString:@"C"]||[_orderData.orderInfo.orderStatus isEqualToString:@"T"]) {
 
         //右上角删除按钮
         UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -88,10 +88,10 @@
         NSLog(@"message= %@",message);
         if(code == 200){
             if(delOrCancelFlag == 2){//取消订单
-                scrollView.frame = CGRectMake(10, 64, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
-                scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80);
+                scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
                 [cancelBtn removeFromSuperview];
                 [payBtn removeFromSuperview];
+                [auctionTimeLab removeFromSuperview];
                 orderStatusLab.text = @"订单状态：已取消";
                 
                 
@@ -133,7 +133,7 @@
         delOrCancelFlag = 2;
         [self delOrCancelOrder];
     }
-    auctionTimeLab.text = [NSString stringWithFormat:@"%ld小时%ld分%ld秒",  secondsCountDown/3600, (secondsCountDown%3600)/60, (secondsCountDown%3600)%60];//倒计时显示
+    auctionTimeLab.text = [NSString stringWithFormat:@"还剩%ld小时%ld分%ld秒，订单将被取消",  secondsCountDown/3600, (secondsCountDown%3600)/60, (secondsCountDown%3600)%60];//倒计时显示
 }
 -(void)creatView{
    
@@ -141,33 +141,36 @@
     scrollView = [[UIScrollView alloc] init];
     
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"I"]) {
-        scrollView.frame = CGRectMake(10, 40, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-104);
-        scrollView.contentSize = CGSizeMake(0, 570 + _orderData.skuArray.count * 80);
+        scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-104-50);
+        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         
-        auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
+        auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
         auctionTimeLab.numberOfLines = 1;
         auctionTimeLab.font = [UIFont systemFontOfSize:15];
         auctionTimeLab.textColor = GGMainColor;
+        auctionTimeLab.backgroundColor = GGColor(255, 237, 207);
         auctionTimeLab.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:auctionTimeLab];
-        secondsCountDown = 24 * 60 * 60 - _orderData.orderInfo.countDown/1000;
+        secondsCountDown = _orderData.orderInfo.countDown/1000-10;
         [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
-    }else if([_orderData.orderInfo.orderStatus isEqualToString:@"S"])
+    }else if([_orderData.orderInfo.orderStatus isEqualToString:@"S"]||[_orderData.orderInfo.orderStatus isEqualToString:@"T"])
     {
-        scrollView.frame = CGRectMake(10, 0, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
+        
 
         
         if (_orderData.refund!=nil) {
-            scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80 +115);
+            scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
+            scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80 +115 +10);
         }else
         {
-            scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80 +45);
+            scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-50);
+            scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         }
     }
     else
     {
-        scrollView.frame = CGRectMake(10, 0, GGUISCREENWIDTH-20, GGUISCREENHEIGHT-64);
-        scrollView.contentSize = CGSizeMake(0, 510 + _orderData.skuArray.count * 80);
+        scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
+        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
     }
 
     scrollView.delegate = self;
@@ -181,10 +184,9 @@
     [self.view addSubview:scrollView];
     
     
-    UIView * orderIdView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, GGUISCREENWIDTH-20, 100)];
+    UIView * orderIdView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 100)];
     orderIdView.backgroundColor = [UIColor whiteColor];
-    orderIdView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    orderIdView.layer.borderWidth = 1.0f;
+
     [scrollView addSubview:orderIdView];
     
     
@@ -192,22 +194,22 @@
     
     
     
-    UILabel * orderIdLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+    UILabel * orderIdLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
     orderIdLab.numberOfLines = 1;
     orderIdLab.font = [UIFont systemFontOfSize:12];
     orderIdLab.textColor = [UIColor grayColor];
     orderIdLab.text = [NSString stringWithFormat:@"订单号：%ld",_orderData.orderInfo.orderId];
     [orderIdView addSubview:orderIdLab];
     
-    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
-    line1.backgroundColor = [UIColor lightGrayColor];
+    UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+    line1.backgroundColor = GGBgColor;
     [orderIdView addSubview:line1];
     
     
     
     
     
-    orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 40, GGUISCREENWIDTH-40, 20)];
+    orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 40, GGUISCREENWIDTH-20, 20)];
     orderStatusLab.numberOfLines = 1;
     orderStatusLab.font = [UIFont systemFontOfSize:12];
     orderStatusLab.textColor = [UIColor grayColor];
@@ -230,19 +232,25 @@
         orderStatusLab.text = @"订单状态：待收货";
     }else if([status isEqualToString:@"J"]){
         orderStatusLab.text = @"订单状态：拒收货";
+    }else if([status isEqualToString:@"T"]){
+        orderStatusLab.text = @"订单状态：已退款";
     }
     [orderIdView addSubview:orderStatusLab];
     
     
     
     
-    UILabel * payTypeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, GGUISCREENWIDTH-40, 20)];
+    UILabel * payTypeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 60, GGUISCREENWIDTH-20, 20)];
     payTypeLab.numberOfLines = 1;
     payTypeLab.font = [UIFont systemFontOfSize:12];
     payTypeLab.textColor = [UIColor grayColor];
     NSString * payType;
     if([_orderData.orderInfo.payMethod isEqualToString:@"JD"]){
         payType = @"京东支付";
+    }else if([_orderData.orderInfo.payMethod isEqualToString:@"APAY"]){
+        payType = @"支付宝支付";
+    }else if([_orderData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
+        payType = @"微信支付";
     }
     payTypeLab.text = [NSString stringWithFormat:@"支付方式：%@",payType];
     [orderIdView addSubview:payTypeLab];
@@ -250,7 +258,7 @@
     
     
     
-    UILabel * createTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, GGUISCREENWIDTH-40, 20)];
+    UILabel * createTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, GGUISCREENWIDTH-20, 20)];
     createTimeLab.numberOfLines = 1;
     createTimeLab.font = [UIFont systemFontOfSize:12];
     createTimeLab.textColor = [UIColor grayColor];
@@ -260,31 +268,29 @@
     
     
     
-    UIView * orderDetailView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderIdView.y + orderIdView.height + 10, GGUISCREENWIDTH-20, 40 + _orderData.skuArray.count * 80)];
+    UIView * orderDetailView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderIdView.y + orderIdView.height + 10, GGUISCREENWIDTH, 40 + _orderData.skuArray.count * 80)];
     orderDetailView.backgroundColor = [UIColor whiteColor];
-    orderDetailView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    orderDetailView.layer.borderWidth = 1.0f;
     [scrollView addSubview:orderDetailView];
     
-    UILabel * orderDetailLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+    UILabel * orderDetailLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
     orderDetailLab.numberOfLines = 1;
     orderDetailLab.font = [UIFont systemFontOfSize:12];
     orderDetailLab.textColor = [UIColor grayColor];
     orderDetailLab.text = @"商品详情";
     [orderDetailView addSubview:orderDetailLab];
     
-    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
-    line2.backgroundColor = [UIColor lightGrayColor];
+    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+    line2.backgroundColor = GGBgColor;
     [orderDetailView addSubview:line2];
     
     
     for (int i = 0; i < _orderData.skuArray.count;i++ ) {
         SkuData * skuData = _orderData.skuArray[i];
         CGFloat hei = 40 + i * 80 ;
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, hei + 5, 70, 70)];
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, hei + 5, 70, 70)];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [imageView sd_setImageWithURL:[NSURL URLWithString:skuData.invImg]];
-        imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        imageView.layer.borderColor = GGBgColor.CGColor;
         imageView.layer.borderWidth = 1.0f;
         [orderDetailView addSubview:imageView];
         //添加单击手势
@@ -292,7 +298,7 @@
         [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)]];
         imageView.tag = 24000+i;
         
-        UILabel * orderTitleLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 5, GGUISCREENWIDTH-120, 30)];
+        UILabel * orderTitleLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 5, GGUISCREENWIDTH-100, 30)];
         orderTitleLab.numberOfLines = 2;
         orderTitleLab.font = [UIFont systemFontOfSize:12];
         orderTitleLab.textColor = [UIColor grayColor];
@@ -300,14 +306,14 @@
         [orderDetailView addSubview:orderTitleLab];
         
         
-        UILabel * orderAmountLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 35, GGUISCREENWIDTH-120, 20)];
+        UILabel * orderAmountLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 35, GGUISCREENWIDTH-100, 20)];
         orderAmountLab.numberOfLines = 1;
         orderAmountLab.font = [UIFont systemFontOfSize:12];
         orderAmountLab.textColor = [UIColor grayColor];
         orderAmountLab.text = [NSString stringWithFormat:@"数量：%ld",(long)skuData.amount];
         [orderDetailView addSubview:orderAmountLab];
         
-        UILabel * orderPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 55, GGUISCREENWIDTH-120, 20)];
+        UILabel * orderPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 55, GGUISCREENWIDTH-100, 20)];
         orderPriceLab.numberOfLines = 1;
         orderPriceLab.font = [UIFont systemFontOfSize:12];
         orderPriceLab.textColor = [UIColor grayColor];
@@ -316,8 +322,8 @@
         
         
         if(i != _orderData.skuArray.count-1){
-            UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, hei + 80 -1, GGUISCREENWIDTH-20, 1)];
-            line2.backgroundColor = [UIColor lightGrayColor];
+            UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, hei + 80 -1, GGUISCREENWIDTH, 1)];
+            line2.backgroundColor = GGBgColor;
             [orderDetailView addSubview:line2];
         }
     }
@@ -328,26 +334,24 @@
     
     
     //收货地址
-    UIView * orderAddressView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderDetailView.y + orderDetailView.height + 10, GGUISCREENWIDTH-20, 140)];
+    UIView * orderAddressView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderDetailView.y + orderDetailView.height + 10, GGUISCREENWIDTH, 140)];
     orderAddressView.backgroundColor = [UIColor whiteColor];
-    orderAddressView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    orderAddressView.layer.borderWidth = 1.0f;
     [scrollView addSubview:orderAddressView];
 
     
-    UILabel * orderAddressLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+    UILabel * orderAddressLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
     orderAddressLab.numberOfLines = 1;
     orderAddressLab.font = [UIFont systemFontOfSize:12];
     orderAddressLab.textColor = [UIColor grayColor];
     orderAddressLab.text = @"收货信息";
     [orderAddressView addSubview:orderAddressLab];
     
-    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
-    line3.backgroundColor = [UIColor lightGrayColor];
+    UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+    line3.backgroundColor = GGBgColor;
     [orderAddressView addSubview:line3];
     
     
-    UILabel * presonNameLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, GGUISCREENWIDTH-40, 20)];
+    UILabel * presonNameLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, GGUISCREENWIDTH-20, 20)];
     presonNameLab.numberOfLines = 1;
     presonNameLab.font = [UIFont systemFontOfSize:12];
     presonNameLab.textColor = [UIColor grayColor];
@@ -355,7 +359,7 @@
     [orderAddressView addSubview:presonNameLab];
     
     
-    UILabel * phoneNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, GGUISCREENWIDTH-40, 20)];
+    UILabel * phoneNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, GGUISCREENWIDTH-20, 20)];
     phoneNumLab.numberOfLines = 1;
     phoneNumLab.font = [UIFont systemFontOfSize:12];
     phoneNumLab.textColor = [UIColor grayColor];
@@ -365,7 +369,7 @@
     
     
     
-    UILabel * idNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-40, 20)];
+    UILabel * idNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-20, 20)];
     idNumLab.numberOfLines = 1;
     idNumLab.font = [UIFont systemFontOfSize:12];
     idNumLab.textColor = [UIColor grayColor];
@@ -374,7 +378,7 @@
     
     
     
-    UILabel * addressLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-40, 20)];
+    UILabel * addressLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-20, 20)];
     addressLab.numberOfLines = 1;
     addressLab.font = [UIFont systemFontOfSize:12];
     addressLab.textColor = [UIColor grayColor];
@@ -383,34 +387,32 @@
 
 
     //订单金额
-    UIView * orderPayView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderAddressView.y + orderAddressView.height + 10, GGUISCREENWIDTH-20, 180)];
+    UIView * orderPayView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderAddressView.y + orderAddressView.height + 10, GGUISCREENWIDTH, 180)];
     orderPayView.backgroundColor = [UIColor whiteColor];
-    orderPayView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    orderPayView.layer.borderWidth = 1.0f;
     [scrollView addSubview:orderPayView];
     
     
-    UILabel * orderPayLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+    UILabel * orderPayLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
     orderPayLab.numberOfLines = 1;
     orderPayLab.font = [UIFont systemFontOfSize:12];
     orderPayLab.textColor = [UIColor grayColor];
     orderPayLab.text = @"订单金额";
     [orderPayView addSubview:orderPayLab];
     
-    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
-    line4.backgroundColor = [UIColor lightGrayColor];
+    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+    line4.backgroundColor = GGBgColor;
     [orderPayView addSubview:line4];
     
     
     
-    UILabel * totalOrderNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, GGUISCREENWIDTH-40, 20)];
+    UILabel * totalOrderNumLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, GGUISCREENWIDTH-20, 20)];
     totalOrderNumLab.numberOfLines = 1;
     totalOrderNumLab.font = [UIFont systemFontOfSize:12];
     totalOrderNumLab.textColor = [UIColor grayColor];
     totalOrderNumLab.text = [NSString stringWithFormat:@"订单总件数：%ld",(long)_orderData.orderInfo.orderAmount];
     [orderPayView addSubview:totalOrderNumLab];
     
-    UILabel * totalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, GGUISCREENWIDTH-40, 20)];
+    UILabel * totalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 70, GGUISCREENWIDTH-20, 20)];
     totalFeeLab.numberOfLines = 1;
     totalFeeLab.font = [UIFont systemFontOfSize:12];
     totalFeeLab.textColor = [UIColor grayColor];
@@ -418,7 +420,7 @@
     [orderPayView addSubview:totalFeeLab];
     
     
-    UILabel * shipFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-40, 20)];
+    UILabel * shipFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-20, 20)];
     shipFeeLab.numberOfLines = 1;
     shipFeeLab.font = [UIFont systemFontOfSize:12];
     shipFeeLab.textColor = [UIColor grayColor];
@@ -427,7 +429,7 @@
     
     
     
-    UILabel * postalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-40, 20)];
+    UILabel * postalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-20, 20)];
     postalFeeLab.numberOfLines = 1;
     postalFeeLab.font = [UIFont systemFontOfSize:12];
     postalFeeLab.textColor = [UIColor grayColor];
@@ -437,7 +439,7 @@
     
     
     
-    UILabel * discountLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 130, GGUISCREENWIDTH-40, 20)];
+    UILabel * discountLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 130, GGUISCREENWIDTH-20, 20)];
     discountLab.numberOfLines = 1;
     discountLab.font = [UIFont systemFontOfSize:12];
     discountLab.textColor = [UIColor grayColor];
@@ -447,7 +449,7 @@
     
     
     
-    UILabel * payTotalLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 150, GGUISCREENWIDTH-40, 20)];
+    UILabel * payTotalLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 150, GGUISCREENWIDTH-20, 20)];
     payTotalLab.numberOfLines = 1;
     payTotalLab.font = [UIFont systemFontOfSize:12];
     payTotalLab.textColor = [UIColor grayColor];
@@ -456,20 +458,18 @@
     
     
     
-    if([_orderData.orderInfo.orderStatus isEqualToString:@"S"])
+    if([_orderData.orderInfo.orderStatus isEqualToString:@"S"]||[_orderData.orderInfo.orderStatus isEqualToString:@"T"])
     {
         
         if (_orderData.refund!=nil) {
             //订单金额
-            UIView * refundView = [[UIView alloc]initWithFrame:CGRectMake(0 , PosYFromView(orderPayView, 5), GGUISCREENWIDTH-20, 115)];
+            UIView * refundView = [[UIView alloc]initWithFrame:CGRectMake(0 , PosYFromView(orderPayView, 10), GGUISCREENWIDTH, 115)];
             refundView.backgroundColor = [UIColor whiteColor];
-            refundView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-            refundView.layer.borderWidth = 1.0f;
             [scrollView addSubview:refundView];
             
             
             
-            UILabel * refundLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-40, 40)];
+            UILabel * refundLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
             refundLab.numberOfLines = 1;
             refundLab.font = [UIFont systemFontOfSize:12];
             refundLab.textColor = [UIColor grayColor];
@@ -477,11 +477,11 @@
             [refundView addSubview:refundLab];
             
             
-            UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH-20, 1)];
-            line5.backgroundColor = [UIColor lightGrayColor];
+            UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+            line5.backgroundColor = GGBgColor;
             [refundView addSubview:line5];
             
-            UILabel * priceLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(line5, 5), GGUISCREENWIDTH-40, 20)];
+            UILabel * priceLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(line5, 5), GGUISCREENWIDTH-20, 20)];
             priceLab.numberOfLines = 1;
             priceLab.font = [UIFont systemFontOfSize:12];
             priceLab.textColor = [UIColor grayColor];
@@ -489,14 +489,14 @@
             [refundView addSubview:priceLab];
             
             
-            UILabel * reasonLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(priceLab, 0), GGUISCREENWIDTH-40, 20)];
+            UILabel * reasonLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(priceLab, 0), GGUISCREENWIDTH-20, 20)];
             reasonLab.numberOfLines = 1;
             reasonLab.font = [UIFont systemFontOfSize:12];
             reasonLab.textColor = [UIColor grayColor];
             reasonLab.text = [NSString stringWithFormat:@"退款原因：%@",_orderData.refund.reason];
             [refundView addSubview:reasonLab];
             
-            UILabel * stateLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(reasonLab, 0), GGUISCREENWIDTH-40, 20)];
+            UILabel * stateLab = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(reasonLab, 0), GGUISCREENWIDTH-20, 20)];
             stateLab.numberOfLines = 1;
             stateLab.font = [UIFont systemFontOfSize:12];
             stateLab.textColor = [UIColor grayColor];
@@ -522,13 +522,16 @@
             
         }else
         {
-            UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(0, PosYFromView(orderPayView, 5), SCREEN_WIDTH, 40)];
-            [looutMoneyButton setBackgroundColor:GGMainColor];
+            UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, GGUISCREENHEIGHT-64-40, 100, 30)];
+            [looutMoneyButton setTitleColor:GGMainColor forState:UIControlStateNormal];
+            [looutMoneyButton.layer setBorderColor:GGMainColor.CGColor];
+            [looutMoneyButton.layer setBorderWidth:1.0];
+            looutMoneyButton.titleLabel.font = [UIFont systemFontOfSize:15];
             [looutMoneyButton setTitle:@"退款" forState:UIControlStateNormal];
             [looutMoneyButton addTarget:self action:@selector(looutMoneyButtonclcik:) forControlEvents:UIControlEventTouchUpInside];
             [looutMoneyButton.layer setMasksToBounds:YES];
             [looutMoneyButton.layer setCornerRadius:4.0];
-            [scrollView addSubview:looutMoneyButton];
+            [self.view addSubview:looutMoneyButton];
         }
 
     }
@@ -538,25 +541,28 @@
         cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [cancelBtn.layer setMasksToBounds:YES];
         [cancelBtn.layer setCornerRadius:5.0];
-        cancelBtn.frame = CGRectMake(0,  orderPayView.y + orderPayView.height + 20, GGUISCREENWIDTH/2-20, 40);
+        cancelBtn.frame = CGRectMake(GGUISCREENWIDTH-220,  GGUISCREENHEIGHT-64-40, 100, 30);
         [cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
-        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [cancelBtn setBackgroundColor:[UIColor grayColor]];
+        cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [cancelBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+        [cancelBtn.layer setBorderColor:UIColorFromRGB(0x333333).CGColor];
+        [cancelBtn.layer setBorderWidth:1.0];
         [cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        cancelBtn.tag = 50013;
-        [scrollView addSubview:cancelBtn];
+
+        [self.view addSubview:cancelBtn];
         
         //去支付
         payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [payBtn.layer setMasksToBounds:YES];
         [payBtn.layer setCornerRadius:5.0];
-        payBtn.frame = CGRectMake(cancelBtn.x + cancelBtn.width +20,  orderPayView.y + orderPayView.height + 20, GGUISCREENWIDTH/2-20, 40);
+        payBtn.frame = CGRectMake(GGUISCREENWIDTH-110,  GGUISCREENHEIGHT-64-40, 100, 30);
         [payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-        payBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [payBtn setBackgroundColor:GGMainColor];
+        payBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [payBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [payBtn.layer setBorderColor:GGMainColor.CGColor];
+        [payBtn.layer setBorderWidth:1.0];
         [payBtn addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        payBtn.tag = 50013;
-        [scrollView addSubview:payBtn];
+        [self.view addSubview:payBtn];
         
 
     }

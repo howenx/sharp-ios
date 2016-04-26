@@ -156,7 +156,7 @@
     UILabel * countPriceLabelData = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(countPriceLabelTitle, 5), top, 40, 15)];
     
     countPriceLabelData.font = [UIFont systemFontOfSize:14];
-    countPriceLabelData.text = self.singleData.orderInfo.payTotal;
+    countPriceLabelData.text = [NSString stringWithFormat:@"￥%@ ",self.singleData.orderInfo.payTotal];
     countPriceLabelData.textColor = GGMainColor;
     [headerView addSubview:countPriceLabelData];
     
@@ -169,9 +169,17 @@
     
     UILabel * countPriceLabelframe = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(countPriceLabelData
                                                                                            , 0), top, SCREEN_WIDTH-20-5-20-lastSize1.width, 15)];
-    
+    NSString * payType = @"";
     countPriceLabelframe.font = [UIFont systemFontOfSize:14];
-    countPriceLabelframe.text = [NSString stringWithFormat:@"(%@)",self.singleData.orderInfo.payMethod];
+    if([self.singleData.orderInfo.payMethod isEqualToString:@"JD"]){
+        payType = @"京东支付";
+    }else if([self.singleData.orderInfo.payMethod isEqualToString:@"APAY"]){
+        payType = @"支付宝支付";
+    }else if([self.singleData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
+        payType = @"微信支付";
+    }
+
+    countPriceLabelframe.text = [NSString stringWithFormat:@"(%@)",payType];
     countPriceLabelframe.textColor = [UIColor grayColor];
     [headerView addSubview:countPriceLabelframe];
 
@@ -183,7 +191,7 @@
     
 //送至内容
     
-    UILabel * songTodata = [self createLabel:SCREEN_WIDTH - 20 -70  H:15 X:PosXFromView(songTo, 5) Y:top textColor:[UIColor grayColor] text:self.singleData.addressData.deliveryDetail];
+    UILabel * songTodata = [self createLabel:SCREEN_WIDTH - 20 -70  H:15 X:PosXFromView(songTo, 5) Y:top textColor:[UIColor grayColor] text:[NSString stringWithFormat:@"%@,%@",self.singleData.addressData.deliveryCity,self.singleData.addressData.deliveryDetail]];
     
     CGSize maxSize2 = CGSizeMake(SCREEN_WIDTH - 20 -70, MAXFLOAT);
     NSDictionary *attribute2 = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
@@ -200,7 +208,7 @@
     UILabel * shouPerson = [self createLabel:70 H:15 X:10 Y:top textColor:[UIColor grayColor] text:@"收货人: "];
     [headerView addSubview:shouPerson];
     
-    UILabel * shouPersonData = [self createLabel:SCREEN_WIDTH - 20 -70 H:15 X:PosXFromView(shouPerson, 5) Y:top textColor:[UIColor grayColor] text:self.singleData.addressData.name];
+    UILabel * shouPersonData = [self createLabel:SCREEN_WIDTH - 20 -70 H:15 X:PosXFromView(shouPerson, 5) Y:top textColor:[UIColor grayColor] text:[NSString stringWithFormat:@"%@ %@",self.singleData.addressData.name,self.singleData.addressData.tel]];
     [headerView addSubview:shouPersonData];
 
     top = PosYFromView(shouPerson, sapce);

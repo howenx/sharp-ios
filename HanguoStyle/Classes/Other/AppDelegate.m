@@ -250,7 +250,7 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];//进入前台取消应用消息图标
 }
 //当应用程序全新启动，或者在后台转到前台，完全激活时，都会调用这个方法
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -290,6 +290,7 @@
     NSString * targetType = [userInfo objectForKey:@"targetType"];
     NSString * url = [userInfo objectForKey:@"url"];
      UIViewController * controller = [self getCurrentVC];
+    
     if([targetType isEqualToString:@"T"]){//主题
         GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
         gsViewController.navigationItem.title = @"商品展示";

@@ -136,7 +136,7 @@
                 _receiptGoodsCount = 0;
                 
                 
-                [self.tableView reloadData];
+                
                 if (_pageNum == 0) {
                     [_totalView addSubview:_tableView];
                     [_totalView addSubview:emptyLab];
@@ -165,6 +165,7 @@
                     }
 
                 }
+                [self.tableView reloadData];
 
             }
             
@@ -363,6 +364,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(((MyOrderData *)_data[indexPath.row]).skuArray.count==1){
+        
         static NSString *identifierOne = @"cellOneID";
         MyOrderOneCell *cell = (MyOrderOneCell*)[tableView dequeueReusableCellWithIdentifier: identifierOne];
         if(cell == nil){
@@ -445,6 +447,9 @@
 }
 
 -(void)backController{
+    [self requestData];
+}
+-(void)reloadData{
     [self requestData];
 }
 @end

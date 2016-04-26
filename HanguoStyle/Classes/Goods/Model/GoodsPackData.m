@@ -8,6 +8,7 @@
 
 #import "GoodsPackData.h"
 #import <JSONKit.h>
+#import "NSString+GG.h"
 @implementation ThemeData
 
 @end
@@ -24,9 +25,13 @@
     if (self) {
         
         self.message = [[node objectForKey:@"message"] objectForKey:@"message"];
-        self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
-        self.pageCount = [[node objectForKey:@"page_count"] integerValue];
+        if(![NSString isNSNull:[[node objectForKey:@"message"] objectForKey:@"code"]]){
+            self.code = [[[node objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        }
         
+        if(![NSString isNSNull:[node objectForKey:@"page_count"]]){
+            self.pageCount = [[node objectForKey:@"page_count"] integerValue];
+        }
         NSMutableArray * arrayS = [NSMutableArray array];
         
         NSArray * sliders = [node objectForKey:@"slider"];
@@ -37,8 +42,14 @@
             sliderData.targetType = [slider objectForKey:@"targetType"];
             NSDictionary * tagDict = [[slider objectForKey:@"url"] objectFromJSONString];
             sliderData.url = [tagDict objectForKey:@"url"];
-            sliderData.width = [[tagDict objectForKey:@"width"]floatValue];
-            sliderData.height = [[tagDict objectForKey:@"height"]floatValue];
+            if(![NSString isNSNull:[tagDict objectForKey:@"width"]]){
+                sliderData.width = [[tagDict objectForKey:@"width"]floatValue];
+            }
+            
+            if(![NSString isNSNull:[tagDict objectForKey:@"height"]]){
+                sliderData.height = [[tagDict objectForKey:@"height"]floatValue];
+            }
+            
             
             [arrayS addObject:sliderData];
         }
@@ -56,8 +67,13 @@
             themeData.themeUrl = [theme objectForKey:@"themeUrl"];
             NSDictionary * tagDict = [[theme objectForKey:@"themeImg"] objectFromJSONString];
             themeData.themeImg = [tagDict objectForKey:@"url"];
-            themeData.width = [[tagDict objectForKey:@"width"]floatValue];
-            themeData.height = [[tagDict objectForKey:@"height"]floatValue];
+            if(![NSString isNSNull:[tagDict objectForKey:@"width"]]){
+                themeData.width = [[tagDict objectForKey:@"width"]floatValue];
+            }
+            if(![NSString isNSNull:[tagDict objectForKey:@"height"]]){
+                themeData.height = [[tagDict objectForKey:@"height"]floatValue];
+            }
+            
             themeData.type = [theme objectForKey:@"type"];
             [arrayT addObject:themeData];
         }
