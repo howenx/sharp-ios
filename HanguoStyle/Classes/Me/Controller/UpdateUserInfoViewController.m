@@ -237,7 +237,7 @@
                      delegate:self
                      cancelButtonTitle:@"取消"
                      destructiveButtonTitle:nil
-                     otherButtonTitles:  @"从手机相册获取",@"照相机",nil];
+                     otherButtonTitles:  @"相册",@"拍照",nil];
     myActionSheet.tag = 1;
     [myActionSheet showInView:self.view];
 }

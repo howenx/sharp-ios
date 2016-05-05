@@ -21,6 +21,7 @@
 @property (nonatomic) NSString * com;
 @property (nonatomic) NSString * state;
 @property (nonatomic) NSString * expressName;
+@property (nonatomic) NSString * message;
 @property (nonatomic) NSMutableArray * flowArray;
 - (SearchLogisticsData *) initWithJSONNode: (id) node;
 @end

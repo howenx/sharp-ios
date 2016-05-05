@@ -17,6 +17,7 @@
 #import "PinGoodsDetailViewController.h"
 #import "MessageViewController.h"
 #import "LoginViewController.h"
+
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -331,6 +332,7 @@
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
     //进入到商品展示页面
     _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
     if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"ordinary"]){

@@ -19,6 +19,7 @@
     long selectOrderId;//被选中进到详情页的订单
     NSInteger _obligationCount;
     NSInteger _receiptGoodsCount;
+    NSInteger _pjCount;
     UILabel * emptyLab;
 }
 @property (nonatomic) UIScrollView * scrollView;
@@ -27,10 +28,12 @@
 @property (nonatomic) UIView * totalView;//全部
 @property (nonatomic) UIView * obligationView;//待付款
 @property (nonatomic) UIView * receiptGoodsView;//待收货
+@property (nonatomic) UIView * pjView;//待评价
 @property (nonatomic) int pageNum;
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UILabel * obligationLabel;
 @property (nonatomic) UILabel * receiptGoodsLabel;
+@property (nonatomic) UILabel * pjLabel;
 @end
 
 @implementation MyOrderViewController
@@ -107,6 +110,10 @@
                         [_data addObject:data];
                     }else if(_pageNum == 2 && [data.orderInfo.orderStatus isEqualToString:@"D"]){
                         [_data addObject:data];
+                    }else if(_pageNum == 3 && [data.orderInfo.orderStatus isEqualToString:@"R"]){
+                        if([data.orderInfo.remark isEqualToString:@"N"]){
+                            [_data addObject:data];
+                        }
                     }
                     
                     
@@ -115,6 +122,11 @@
                         _obligationCount++;
                     }else if([data.orderInfo.orderStatus isEqualToString:@"D"]){
                         _receiptGoodsCount++;
+                    }else if([data.orderInfo.orderStatus isEqualToString:@"R"]){
+                        if([data.orderInfo.remark isEqualToString:@"N"]){
+                            _pjCount++;
+                        }
+                        
                     }
                     
                 }
@@ -126,15 +138,23 @@
                 }else{
                     _obligationLabel.hidden = YES;
                 }
+                
                 if(_receiptGoodsCount>0){
                     _receiptGoodsLabel.hidden = NO;
                     _receiptGoodsLabel.text = [NSString stringWithFormat:@"%ld",_receiptGoodsCount];
                 }else{
                     _receiptGoodsLabel.hidden = YES;
                 }
+                
+                if(_pjCount>0){
+                    _pjLabel.hidden = NO;
+                    _pjLabel.text = [NSString stringWithFormat:@"%ld",_pjCount];
+                }else{
+                    _pjLabel.hidden = YES;
+                }
                 _obligationCount = 0;
                 _receiptGoodsCount = 0;
-                
+                _pjCount = 0;
                 
                 
                 if (_pageNum == 0) {
@@ -164,6 +184,15 @@
                         emptyLab.hidden = YES;
                     }
 
+                }else if(_pageNum == 3){
+                    [_pjView addSubview:_tableView];
+                    [_pjView addSubview:emptyLab];
+                    if(self.data.count == 0){
+                        emptyLab.hidden = NO;
+                    }else{
+                        emptyLab.hidden = YES;
+                    }
+                    
                 }
                 [self.tableView reloadData];
 
@@ -184,6 +213,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         [GiFHUD dismiss];
+        [self.tableView.header endRefreshing];
         [PublicMethod printAlert:@"请求订单数据失败"];
     }];
 }
@@ -195,7 +225,7 @@
     
     UIButton * totalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     totalBtn.tag = 15000;
-    totalBtn.frame = CGRectMake(10, 10, (GGUISCREENWIDTH-20)/3, 20);
+    totalBtn.frame = CGRectMake(10, 10, (GGUISCREENWIDTH-20)/4, 20);
     [totalBtn setTitle:@"全部" forState:UIControlStateNormal];
     [totalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     totalBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
@@ -204,13 +234,13 @@
     
     UIButton * obligationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     obligationBtn.tag = 15001;
-    obligationBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/3, 10, (GGUISCREENWIDTH-20)/3, 20);
+    obligationBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/4, 10, (GGUISCREENWIDTH-20)/4, 20);
     [obligationBtn setTitle:@"待付款" forState:UIControlStateNormal];
     [obligationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     obligationBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [obligationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    _obligationLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/6+20 , 0, 15, 15)];
+    _obligationLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/8+20 , 0, 15, 15)];
     _obligationLabel.textColor = GGMainColor;
     _obligationLabel.textAlignment = NSTextAlignmentCenter;
     _obligationLabel.font = [UIFont boldSystemFontOfSize:11];
@@ -231,18 +261,18 @@
     
     UIButton * receiptGoodsBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     receiptGoodsBtn.tag= 15002;
-    receiptGoodsBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/3, 10, (GGUISCREENWIDTH-20)/3, 20);
+    receiptGoodsBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/4, 10, (GGUISCREENWIDTH-20)/4, 20);
     [receiptGoodsBtn setTitle:@"待收货" forState:UIControlStateNormal];
     [receiptGoodsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     receiptGoodsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [receiptGoodsBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    _receiptGoodsLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/6+20 , 0, 15, 15)];
+    _receiptGoodsLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/8+20 , 0, 15, 15)];
     _receiptGoodsLabel.textColor = GGMainColor;
     _receiptGoodsLabel.textAlignment = NSTextAlignmentCenter;
     _receiptGoodsLabel.font = [UIFont boldSystemFontOfSize:11];
     _receiptGoodsLabel.backgroundColor = [UIColor whiteColor];
-    _receiptGoodsLabel.layer.cornerRadius = CGRectGetHeight(_obligationLabel.bounds)/2;
+    _receiptGoodsLabel.layer.cornerRadius = CGRectGetHeight(_receiptGoodsLabel.bounds)/2;
     _receiptGoodsLabel.layer.masksToBounds = YES;
     _receiptGoodsLabel.layer.borderWidth = 1.0f;
     _receiptGoodsLabel.layer.borderColor = GGMainColor.CGColor;
@@ -255,13 +285,38 @@
 
     
     
+    UIButton * pjBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    pjBtn.tag= 15003;
+    pjBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*3/4, 10, (GGUISCREENWIDTH-20)/4, 20);
+    [pjBtn setTitle:@"待评价" forState:UIControlStateNormal];
+    [pjBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    pjBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    [pjBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _pjLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/8+20 , 0, 15, 15)];
+    _pjLabel.textColor = GGMainColor;
+    _pjLabel.textAlignment = NSTextAlignmentCenter;
+    _pjLabel.font = [UIFont boldSystemFontOfSize:11];
+    _pjLabel.backgroundColor = [UIColor whiteColor];
+    _pjLabel.layer.cornerRadius = CGRectGetHeight(_pjLabel.bounds)/2;
+    _pjLabel.layer.masksToBounds = YES;
+    _pjLabel.layer.borderWidth = 1.0f;
+    _pjLabel.layer.borderColor = GGMainColor.CGColor;
+    
+    if (_pjCount == 0) {
+        _pjLabel.hidden = YES;
+    }
+    
+    [pjBtn addSubview:_pjLabel];
+    
     [barView addSubview:totalBtn];
     [barView addSubview:obligationBtn];
     [barView addSubview:receiptGoodsBtn];
+    [barView addSubview:pjBtn];
 
     
     
-    _lineView = [[UIView alloc]initWithFrame:CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/3, 2)];
+    _lineView = [[UIView alloc]initWithFrame:CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/4, 2)];
     _lineView.backgroundColor = GGMainColor;
     [barView addSubview:_lineView];
     [self.view addSubview:barView];
@@ -278,7 +333,7 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40);
     _scrollView.delegate = self;
-    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 3, 0);
+    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 4, 0);
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     _scrollView.backgroundColor = [UIColor whiteColor];
@@ -298,6 +353,11 @@
     _receiptGoodsView.backgroundColor = GGBgColor;
     [_scrollView addSubview:_receiptGoodsView];
     
+    
+    _pjView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH*3, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-40)];
+    _pjView.backgroundColor = GGBgColor;
+    [_scrollView addSubview:_pjView];
+    
 
 
 
@@ -314,23 +374,29 @@
     _tableView.contentOffset = CGPointMake(0, 0);
     if(_pageNum==0){//全部
         [UIView animateWithDuration:0.5 animations:^{
-            _lineView.frame = CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/3, 2);
+            _lineView.frame = CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/4, 2);
         }];
         
         _scrollView.contentOffset = CGPointMake(0, 0);
         
     }else if(_pageNum==1){//待付款
         [UIView animateWithDuration:0.5 animations:^{
-            _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/3, 40-2, (GGUISCREENWIDTH-20)/3, 2);
+            _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/4, 40-2, (GGUISCREENWIDTH-20)/4, 2);
         }];
         _scrollView.contentOffset = CGPointMake(GGUISCREENWIDTH, 0);
 
         
     }else if(_pageNum==2){
         [UIView animateWithDuration:0.5 animations:^{
-            _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/3, 40-2, (GGUISCREENWIDTH-20)/3, 2);
+            _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/4, 40-2, (GGUISCREENWIDTH-20)/4, 2);
         }];
         _scrollView.contentOffset = CGPointMake(GGUISCREENWIDTH * 2, 0);
+    }
+    else if(_pageNum==3){
+        [UIView animateWithDuration:0.5 animations:^{
+            _lineView.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*3/4, 40-2, (GGUISCREENWIDTH-20)/4, 2);
+        }];
+        _scrollView.contentOffset = CGPointMake(GGUISCREENWIDTH * 3, 0);
     }
 
 }

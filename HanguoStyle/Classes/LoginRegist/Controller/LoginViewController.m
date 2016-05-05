@@ -316,7 +316,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self showHud:@"登陆失败"];
+        [self showHud:@"登录失败"];
     }];
 
 }

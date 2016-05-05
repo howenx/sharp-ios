@@ -688,13 +688,13 @@
         CartData * cData = _data[i];
         if([cData.invArea isEqualToString:data.invArea]){
             if([@"I" isEqualToString: data.state]){
-                cData.selectPostalTaxRate =  cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate intValue] * 0.01;
+                cData.selectPostalTaxRate =  cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
             }else if([@"G" isEqualToString: data.state]){
-                cData.selectPostalTaxRate =  cData.selectPostalTaxRate + data.itemPrice * data.amount * [data.postalTaxRate intValue] * 0.01;
+                cData.selectPostalTaxRate =  cData.selectPostalTaxRate + data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
             }
             TableHeadView *tableHeadView = (TableHeadView *)[self.tableView viewWithTag:2000 + i];
-            if(cData.selectPostalTaxRate>cData.postalStandard){
-                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.postalStandard] ;
+            if(cData.selectPostalTaxRate>cData.postalStandard){//如果行邮税大于行邮税标准，则用正常的行邮税，否则，免税
+                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.selectPostalTaxRate] ;
             }else{
                 if([@"-0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]] || [@"0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]]){
                     tableHeadView.postalTaxLabel.text = @"免税";

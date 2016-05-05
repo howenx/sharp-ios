@@ -36,6 +36,8 @@
             self.state = @"转单";
         }
         self.expressName = [node objectForKey:@"expressName"];
+        self.message = [node objectForKey:@"message"];
+        
         self.flowArray = [NSMutableArray array];
         NSArray * tags = [node objectForKey:@"data"];
         for (id tag in tags) {

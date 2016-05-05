@@ -13,6 +13,7 @@
     UIScrollView * scrollView;
     SearchLogisticsData * _data;
     float flowHeight;
+    UILabel * emptyLab;
     
 }
 @end
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = GGBgColor;
     self.navigationItem.title = @"物流信息";
-    [self headerRefresh];
+        [self headerRefresh];
 }
 - (void) headerRefresh
 {
@@ -41,7 +42,17 @@
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
         _data = [[SearchLogisticsData alloc] initWithJSONNode:object];
-        [self createView];
+        if([_data.message isEqualToString:@"ok"]){
+            [self createView];
+        }else{
+            emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
+            emptyLab.textAlignment = NSTextAlignmentCenter;
+            emptyLab.textColor = [UIColor grayColor];
+            emptyLab.font = [UIFont systemFontOfSize:15];
+            emptyLab.text =@"暂未获取到物流信息，请稍候再查";
+            [self.view addSubview:emptyLab];
+        }
+        
         [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 

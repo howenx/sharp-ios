@@ -28,6 +28,7 @@
 @property (nonatomic) long orderSplitId;
 @property (nonatomic) long countDown;
 @property (nonatomic) NSInteger orderAmount;//商品总数量
+@property (nonatomic) NSString * remark;//N表示已完成的订单未评价，Y代表已完成的订单已评价完成
 
 @end
 
@@ -45,6 +46,7 @@
 @property (nonatomic) NSString * invUrl;
 @property (nonatomic) NSString * itemColor;
 @property (nonatomic) NSString * itemSize;
+@property (nonatomic) NSString * skuType;
 
 @end
 

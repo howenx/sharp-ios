@@ -153,7 +153,7 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [PublicMethod printAlert:@"登陆失败"];
+        [PublicMethod printAlert:@"登录失败"];
     }];
 
 }
