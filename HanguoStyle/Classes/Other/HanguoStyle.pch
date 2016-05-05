@@ -8,7 +8,7 @@
 #import <YYModel.h>
 #import <UIImageView+WebCache.h>
 #import "NetRequestClass.h"
-
+#import <MJRefresh.h>
 #ifndef HanguoStyle_HanguoStyle_pch
 #define HanguoStyle_HanguoStyle_pch
 
@@ -34,7 +34,7 @@
 
 //5.屏幕的高度
 #define GGUISCREENHEIGHT ([UIScreen mainScreen].bounds.size.height)
-
+#define RandomColor [UIColor colorWithRed:(arc4random_uniform(256))/255.0 green:(arc4random_uniform(256))/255.0 blue:(arc4random_uniform(256))/255.0 alpha:1.0]
 //6.去字符串左右两边空格
 #define GGTRIM(str) [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
 
