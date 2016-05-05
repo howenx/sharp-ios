@@ -23,7 +23,7 @@
 #import "MWPhotoBrowser.h"
 #import "RecommendGoodsView.h"
 #import "UIImage+GG.h"
-
+#import "ShowEvaluateViewController.h"
 
 @interface GoodsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ThreeViewCellDelegate,MBProgressHUDDelegate,DetailTwoCellDelegate,DetailThreeCellDelegate,DetaileOneCellDelegate,MWPhotoBrowserDelegate>
 {
@@ -259,7 +259,7 @@
 
 }
 -(void)whenRequestSuccDo{
-    if(_detailData.publicity == nil){
+    if(_detailData.publicity == nil && _detailData.remarkRate == nil){
         numberOfSection = 3;
     }else{
         numberOfSection = 4;
@@ -533,6 +533,7 @@
    
 }
 - (void) shareBtnClicked: (UIButton *) button{
+    
     if(![PublicMethod isConnectionAvailable]){
         return;
     }

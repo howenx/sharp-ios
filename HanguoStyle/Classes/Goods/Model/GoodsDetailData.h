@@ -91,8 +91,7 @@
 
 
 @property (nonatomic) NSMutableArray * pushArray;//推荐列表
-
-
-
+@property (nonatomic) NSString * remarkRate;
+@property (nonatomic) long remarkCount;
 - (GoodsDetailData *) initWithJSONNode: (id) node;
 @end

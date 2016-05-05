@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C43734D2DEF70A8A42659CAA'
+               BlueprintIdentifier = '0034ADB893DD232EE25BAFA7'
                BlueprintName = 'JT3DScrollView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libJT3DScrollView.a'>

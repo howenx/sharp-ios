@@ -14,18 +14,18 @@
 //#define SERVERY4 @"http://172.28.3.78:9005"
 
 
-//#define SERVERY1 @"https://shopping.hanmimei.com"
-//#define SERVERY2 @"https://api.hanmimei.com"
-//#define SERVERY3 @"https://id.hanmimei.com"
-//#define SERVERY4 @"https://promotion.hanmimei.com"
-
-
 #define SERVERY1 @"https://shopping.hanmimei.com"
 #define SERVERY2 @"https://api.hanmimei.com"
 #define SERVERY3 @"https://id.hanmimei.com"
 #define SERVERY4 @"https://promotion.hanmimei.com"
-//                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
+
+//#define SERVERY1 @"https://shopping.hanmimei.com"
+//#define SERVERY2 @"https://api.hanmimei.com"
+//#define SERVERY3 @"https://id.hanmimei.com"
+//#define SERVERY4 @"https://promotion.hanmimei.com"
+//
+//
 //#define SERVERY1 @"http://172.28.3.51:9003"
 //#define SERVERY2 @"http://172.28.3.51:9001"
 //#define SERVERY3 @"http://172.28.3.51:9004"
@@ -331,5 +331,44 @@
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
+//全部评价
++(NSString *)ShowEvaluateUrl
+{
+//    /comm/detail/comment/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+    
+    NSString * url = [NSString stringWithFormat:@"%@/comm/detail/comment/",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+//好评
++(NSString *)ShowgoodEvaluateUrl
+{
+    //   /comm/comment/rank/worst/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+    
+    NSString * url = [NSString stringWithFormat:@"%@/comm/comment/rank/best/",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+//差评
++(NSString *)ShowbadEvaluateUrl
+{
+    //    /comm/comment/rank/best/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+    
+    NSString * url = [NSString stringWithFormat:@"%@/comm/comment/rank/worst/",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+//晒图
++(NSString *)ShowimageEvaluateUrl
+{
+    //    /comm/comment/rank/img/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+    
+    NSString * url = [NSString stringWithFormat:@"%@/comm/comment/rank/img/",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 
 @end

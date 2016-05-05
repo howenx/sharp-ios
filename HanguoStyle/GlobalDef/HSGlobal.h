@@ -52,4 +52,8 @@
 + (NSString *) confirmReceiptUrl;
 +(NSString *) deleteMessageListType;
 +(NSString *) deleteMessageOne;
++(NSString *)ShowEvaluateUrl;
++(NSString *)ShowgoodEvaluateUrl;
++(NSString *)ShowbadEvaluateUrl;
++(NSString *)ShowimageEvaluateUrl;
 @end
