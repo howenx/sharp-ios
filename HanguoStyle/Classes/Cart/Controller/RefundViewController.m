@@ -221,6 +221,9 @@
         [GiFHUD setGifWithImageName:@"hmm.gif"];
         [GiFHUD show];
         [manager POST:[HSGlobal refundUrl] parameters:lastDict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+            
+            
         } success:^(AFHTTPRequestOperation *operation,id responseObject) {
             
             NSLog(@"Success: %@", [[responseObject objectForKey:@"message"] objectForKey:@"message"]);

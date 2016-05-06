@@ -14,16 +14,19 @@
 //#define SERVERY4 @"http://172.28.3.78:9005"
 
 
+//#define SERVERY1 @"http://172.28.3.18:9003"
+//#define SERVERY2 @"http://172.28.3.18:9001"
+//#define SERVERY3 @"http://172.28.3.18:9004"
+//#define SERVERY4 @"http://172.28.3.18:9005"
+
+
 #define SERVERY1 @"https://shopping.hanmimei.com"
 #define SERVERY2 @"https://api.hanmimei.com"
 #define SERVERY3 @"https://id.hanmimei.com"
 #define SERVERY4 @"https://promotion.hanmimei.com"
 
 
-//#define SERVERY1 @"https://shopping.hanmimei.com"
-//#define SERVERY2 @"https://api.hanmimei.com"
-//#define SERVERY3 @"https://id.hanmimei.com"
-//#define SERVERY4 @"https://promotion.hanmimei.com"
+
 //
 //
 //#define SERVERY1 @"http://172.28.3.51:9003"
@@ -32,6 +35,23 @@
 //#define SERVERY4 @"http://172.28.3.51:9005"
 
 @implementation HSGlobal
+
+//评价按钮提交地址
++ (NSString *) assessUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/comment/add",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+//评价中心
++ (NSString *) assessCenterUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/client/comment/center/",SERVERY1];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 //确认收货
 + (NSString *) confirmReceiptUrl
 {

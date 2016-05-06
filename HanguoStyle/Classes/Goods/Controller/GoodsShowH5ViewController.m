@@ -27,7 +27,7 @@
     [self createWebView];
 }
 -(void)createWebView{
-    UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, GGUISCREENWIDTH, GGUISCREENHEIGHT-20)];
+    UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_url]];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
@@ -38,7 +38,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('header')[0].style.display='none';"];
+//    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('header')[0].style.display='none';"];
+    [webView stringByEvaluatingJavaScriptFromString:@"$('.banner').css(\"margin-top\",\"-44px\");"];
+    
     [webView stringByEvaluatingJavaScriptFromString:@"function appRedirect(urlStr) { "
      "var field = '/showWeb' + urlStr;"
      "window.location = field;"

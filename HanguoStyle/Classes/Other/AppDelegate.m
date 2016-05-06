@@ -76,41 +76,9 @@
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    
+    GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
+    self.window.rootViewController = tabBar;
 
-    InitAppDelegate * initDale = [InitAppDelegate new];
-    //判断用户token是否过期，或者将要过期
-    NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
-    if(expiredDate==nil){
-        GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-        self.window.rootViewController = tabBar;
-    }else{
-        NSString * loginFlag = [initDale intervalSinceNow:expiredDate];
-        if([@"2" isEqualToString:loginFlag]){//不需要重新登录
-            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-            self.window.rootViewController = tabBar;
-//            LoginViewController * login = [[LoginViewController alloc]init];
-//            self.window.rootViewController = login;
-        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录
-//            LoginViewController * login = [[LoginViewController alloc]init];
-//            self.window.rootViewController = login;
-            //失效后第一次打开app删除购物车
-//            NSString * haveLoseTokenOnce = [[NSUserDefaults standardUserDefaults]objectForKey:@"haveLoseTokenOnce"];
-//            if([@"Y" isEqualToString:haveLoseTokenOnce]){
-//                [[NSUserDefaults standardUserDefaults]setObject:@"N" forKey:@"haveLoseTokenOnce"];
-//                [initDale deleteCart];
-//            }
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
-            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
-            GGTabBarViewController * tabBar = [[GGTabBarViewController alloc]init];
-            self.window.rootViewController = tabBar;
-        }
-        else if([@"0" isEqualToString:loginFlag]){//需要刷新登录
-            LoginRefViewController * loginRef = [[LoginRefViewController alloc]init];
-            self.window.rootViewController = loginRef;
-        }
-    }
-    
     [self.window makeKeyAndVisible];
         //判断滑动图是否出现过，第一次调用时“isScrollViewAppear” 这个key 对应的值是nil，会进入if中
     if (![@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
@@ -254,6 +222,27 @@
 }
 //当应用程序全新启动，或者在后台转到前台，完全激活时，都会调用这个方法
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    InitAppDelegate * initDale = [InitAppDelegate new];
+    //判断用户token是否过期，或者将要过期
+    NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
+    if(expiredDate!=nil){
+        NSString * loginFlag = [initDale intervalSinceNow:expiredDate];
+        NSLog(@"====%@",loginFlag);
+        if([@"2" isEqualToString:loginFlag]){//不需要重新登录
+
+        }else if([@"1" isEqualToString:loginFlag]){//需要重新登录
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
+            [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
+
+        }else if([@"0" isEqualToString:loginFlag]){//需要刷新登录
+            LoginRefViewController * loginRef = [[LoginRefViewController alloc]init];
+            [loginRef getData];
+        }
+    }
+
+    
+    
     UIPasteboard *pboard = [UIPasteboard generalPasteboard];
     NSString * str = pboard.string;
     if(str.length>9 && [[str substringToIndex:9]isEqualToString:@"KAKAO-HMM"]){

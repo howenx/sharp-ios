@@ -10,6 +10,7 @@
 #import "UIView+frame.h"
 #import "UIImageView+WebCache.h"
 #import "SearchLogisticsViewController.h"
+#import "AssessListViewController.h"
 @interface MyOrderOneCell(){
     UIView * globView;
     UIView * headView;
@@ -27,6 +28,7 @@
     UIButton * payBtn;
     UIButton * qrshBtn;
     UIButton * ckwlBtn;
+    UIButton * pjsdBtn;
     UILabel * amountLab;
 
 }
@@ -91,7 +93,7 @@
     
     if([self.contentView viewWithTag:50004] == nil){
         
-        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 90, 0, 50, 50)];
+        orderStatusLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH - 160, 0, 130, 50)];
         orderStatusLab.font = [UIFont systemFontOfSize:14];
         orderStatusLab.textAlignment = NSTextAlignmentRight;
         orderStatusLab.textColor = [UIColor grayColor];
@@ -101,7 +103,7 @@
     }
     //订单状态
     NSString * status = data.orderInfo.orderStatus;
-    //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
+    //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已完成，D:已经发货，J:拒收
     
     
     if([status isEqualToString:@"C"]){
@@ -111,13 +113,17 @@
         orderStatusLab.text = @"待付款";
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"S"]){
-        orderStatusLab.text = @"待发货";
+        if (data.refund!=nil) {
+            orderStatusLab.text = @"待发货(已锁定)";
+        }else{
+            orderStatusLab.text = @"待发货";
+        }
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"F"]){
         orderStatusLab.text = @"失败";
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"R"]){
-        orderStatusLab.text = @"已收货";
+        orderStatusLab.text = @"已完成";
         orderStatusLab.textColor = UIColorFromRGB(0x16bb5c);//绿色
     }else if([status isEqualToString:@"D"]){
         orderStatusLab.text = @"待收货";
@@ -280,7 +286,7 @@
     [payBtn.layer setMasksToBounds:YES];
     [payBtn.layer setCornerRadius:4.0];
     payBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
-    [payBtn setTitle:@"付款" forState:UIControlStateNormal];
+    [payBtn setTitle:@"付 款" forState:UIControlStateNormal];
     [payBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     [payBtn.layer setBorderColor:GGMainColor.CGColor];
     [payBtn.layer setBorderWidth:1.0];
@@ -288,6 +294,20 @@
     [payBtn addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
     payBtn.tag = 50013;
     [footView addSubview:payBtn];
+    
+    pjsdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pjsdBtn.layer setMasksToBounds:YES];
+    [pjsdBtn.layer setCornerRadius:4.0];
+    pjsdBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+    [pjsdBtn setTitle:@"评价晒单" forState:UIControlStateNormal];
+    [pjsdBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+    [pjsdBtn.layer setBorderColor:GGMainColor.CGColor];
+    [pjsdBtn.layer setBorderWidth:1.0];
+    pjsdBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [pjsdBtn addTarget:self action:@selector(pjsdBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    pjsdBtn.tag = 50025;
+    [footView addSubview:pjsdBtn];
+
 
     
     if([status isEqualToString:@"I"]){//待支付
@@ -298,6 +318,7 @@
         payBtn.hidden = NO;
         ckwlBtn.hidden = YES;
         qrshBtn.hidden = YES;
+        pjsdBtn.hidden = YES;
         
         
 
@@ -307,15 +328,23 @@
         payBtn.hidden = YES;
         ckwlBtn.hidden = NO;
         qrshBtn.hidden = NO;
+        pjsdBtn.hidden = YES;
 
         
         
     }else if([status isEqualToString:@"R"]){
-        ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
         payLab.hidden = YES;
         payBtn.hidden = YES;
         ckwlBtn.hidden = NO;
         qrshBtn.hidden = YES;
+        if([data.orderInfo.remark isEqualToString:@"N"]){
+            ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-160, 10, 70, 30);
+            pjsdBtn.hidden = NO;
+        }else{
+            pjsdBtn.hidden = YES;
+            ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 10, 70, 30);
+        }
+        
     }else{
 
         [[self.contentView viewWithTag:50011] removeFromSuperview];
@@ -323,8 +352,19 @@
         payBtn.hidden = YES;
         ckwlBtn.hidden = YES;
         qrshBtn.hidden = YES;
+        pjsdBtn.hidden = YES;
     }
 
+}
+-(void)pjsdBtnClick{
+    UIViewController * controller = [self getCurrentVC];
+    
+    AssessListViewController * assess = [[AssessListViewController alloc]init];
+    assess.orderId = [NSString stringWithFormat:@"%ld",_data.orderInfo.orderId];
+    [(UINavigationController *)controller pushViewController:assess animated:YES];
+    [assess setBackButtonBlock:^(NSString *str) {
+        
+    }];
 }
 -(void)payBtnClick{
     if(![PublicMethod isConnectionAvailable]){
@@ -333,6 +373,7 @@
 
     [self.delegate checkOrder:_data];
 }
+
 //确认收货
 -(void)qrshBtnClick{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定已收货？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];

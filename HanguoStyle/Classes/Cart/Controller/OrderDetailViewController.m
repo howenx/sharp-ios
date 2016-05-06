@@ -10,6 +10,9 @@
 #import "PayViewController.h"
 #import "GoodsDetailViewController.h"
 #import "RefundViewController.h"
+#import "SearchLogisticsViewController.h"
+#import "AssessListViewController.h"
+#import "PinGoodsDetailViewController.h"
 @interface OrderDetailViewController ()<UIScrollViewDelegate>
 {
     long secondsCountDown;
@@ -19,6 +22,10 @@
     UIButton *payBtn;
     UILabel * orderStatusLab;
     NSInteger delOrCancelFlag;//1:删除订单，2：取消订单
+    
+    UIButton *ckwlBtn;
+    UIButton *ckpjBtn;
+    
 }
 @end
 
@@ -167,6 +174,13 @@
             scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         }
     }
+    else if([_orderData.orderInfo.orderStatus isEqualToString:@"R"])
+    {
+        scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-50);
+        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
+        
+    }
+
     else
     {
         scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
@@ -215,7 +229,7 @@
     orderStatusLab.textColor = [UIColor grayColor];
     //订单状态
     NSString * status = _orderData.orderInfo.orderStatus;
-    //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
+    //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已完成，D:已经发货，J:拒收
     
     
     if([status isEqualToString:@"C"]){
@@ -227,7 +241,7 @@
     }else if([status isEqualToString:@"F"]){
         orderStatusLab.text = @"订单状态：失败";
     }else if([status isEqualToString:@"R"]){
-        orderStatusLab.text = @"订单状态：已收货";
+        orderStatusLab.text = @"订单状态：已完成";
     }else if([status isEqualToString:@"D"]){
         orderStatusLab.text = @"订单状态：待收货";
     }else if([status isEqualToString:@"J"]){
@@ -462,6 +476,10 @@
     {
         
         if (_orderData.refund!=nil) {
+            if([_orderData.orderInfo.orderStatus isEqualToString:@"S"]){
+                 orderStatusLab.text = @"订单状态：待发货(已锁定)";
+            }
+            
             //订单金额
             UIView * refundView = [[UIView alloc]initWithFrame:CGRectMake(0 , PosYFromView(orderPayView, 10), GGUISCREENWIDTH, 115)];
             refundView.backgroundColor = [UIColor whiteColor];
@@ -566,10 +584,62 @@
         
 
     }
+    if([_orderData.orderInfo.orderStatus isEqualToString:@"R"]){
+        //查看物流
+        ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [ckwlBtn.layer setMasksToBounds:YES];
+        [ckwlBtn.layer setCornerRadius:5.0];
+        ckwlBtn.frame = CGRectMake(GGUISCREENWIDTH-220,  GGUISCREENHEIGHT-64-40, 100, 30);
+        [ckwlBtn setTitle:@"查看物流" forState:UIControlStateNormal];
+        ckwlBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [ckwlBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+        [ckwlBtn.layer setBorderColor:UIColorFromRGB(0x333333).CGColor];
+        [ckwlBtn.layer setBorderWidth:1.0];
+        [ckwlBtn addTarget:self action:@selector(ckwlBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:ckwlBtn];
+        [[self.view viewWithTag:50034]removeFromSuperview];
+        //查看评价
+        ckpjBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        ckpjBtn.tag = 50034;
+        [ckpjBtn.layer setMasksToBounds:YES];
+        [ckpjBtn.layer setCornerRadius:5.0];
+        ckpjBtn.frame = CGRectMake(GGUISCREENWIDTH-110,  GGUISCREENHEIGHT-64-40, 100, 30);
+        if([_orderData.orderInfo.remark isEqualToString:@"N"]){
+            [ckpjBtn setTitle:@"评价晒单" forState:UIControlStateNormal];
+        }else{
+            [ckpjBtn setTitle:@"查看评价" forState:UIControlStateNormal];
+        }
+        
+        ckpjBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [ckpjBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [ckpjBtn.layer setBorderColor:GGMainColor.CGColor];
+        [ckpjBtn.layer setBorderWidth:1.0];
+        [ckpjBtn addTarget:self action:@selector(ckpjBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:ckpjBtn];
+        
+        
+    }
+
     
 }
+//查看评价，或者去评价
+-(void)ckpjBtnClick{
+    
+    AssessListViewController * assess = [[AssessListViewController alloc]init];
+    assess.orderId = [NSString stringWithFormat:@"%ld",_selectOrderId];
+    [self.navigationController pushViewController:assess animated:YES];
+    [assess setBackButtonBlock:^(NSString *str) {
+        [self requestData];
+    }];
 
-
+}
+//查看物流
+-(void)ckwlBtnClick{
+    SearchLogisticsViewController * searchLogistics = [[SearchLogisticsViewController alloc]init];
+    searchLogistics.orderId = [NSString stringWithFormat:@"%ld",self.selectOrderId];
+    [self.navigationController pushViewController:searchLogistics animated:YES];
+}
 -(void)payBtnClick{
     if(![PublicMethod isConnectionAvailable]){
         return;
@@ -629,9 +699,16 @@
     }
     NSInteger tag =  recognizer.self.view.tag-24000;
     SkuData * sd = _orderData.skuArray[tag];
-    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-    gdViewController.url = sd.invUrl;
-    [self.navigationController pushViewController:gdViewController animated:YES];
+    if([sd.skuType isEqualToString:@"pin"]){
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = sd.invUrl;
+        [self.navigationController pushViewController:pinViewController animated:YES];
+    }else{
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = sd.invUrl;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+    }
+    
 
 }
 - (void)didReceiveMemoryWarning {

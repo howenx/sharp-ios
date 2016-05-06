@@ -8,5 +8,5 @@
 
 #import "BaseViewController.h"
 @interface LoginRefViewController : BaseViewController
-
+-(void)getData;
 @end

@@ -58,7 +58,7 @@
         if(![NSString isNSNull:[orderDict objectForKey:@"orderId"]]){
             self.orderInfo.orderId = [[orderDict objectForKey:@"orderId"]longValue];
         }
-        
+        self.orderInfo.remark = [orderDict objectForKey:@"remark"];
         self.orderInfo.payTotal = [orderDict objectForKey:@"payTotal"];
         self.orderInfo.payMethod = [orderDict objectForKey:@"payMethod"];
         self.orderInfo.orderCreateAt = [orderDict objectForKey:@"orderCreateAt"];
@@ -111,6 +111,7 @@
             detailData.invUrl = [tag objectForKey:@"invUrl"];
             detailData.itemColor = [tag objectForKey:@"itemColor"];
             detailData.itemSize = [tag objectForKey:@"itemSize"];
+            detailData.skuType = [tag objectForKey:@"skuType"];
 
             [self.skuArray addObject:detailData];
         }
