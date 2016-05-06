@@ -104,14 +104,14 @@
     
     self.view1 = [[UIImageView alloc]initWithFrame:CGRectMake(imageH*0+5, 0, imageH, imageH)];
     self.view1.userInteractionEnabled = YES;
-    self.view1.backgroundColor = RandomColor;
+//    self.view1.backgroundColor = RandomColor;
     
     [self.imageScrollView_ addSubview:self.view1];
      UITapGestureRecognizer * view1Tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap1:)];
     [self.view1 addGestureRecognizer:view1Tap];
     
     self.view2 = [[UIImageView alloc]initWithFrame:CGRectMake(imageH*1+10, 0, imageH, imageH)];
-    self.view2.backgroundColor = RandomColor;
+//    self.view2.backgroundColor = RandomColor;
     self.view2.userInteractionEnabled = YES;
     [self.imageScrollView_ addSubview:self.view2];
     UITapGestureRecognizer * view2Tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap2:)];
@@ -120,7 +120,7 @@
     
     
     self.view3 = [[UIImageView alloc]initWithFrame:CGRectMake(imageH*2+15, 0, imageH, imageH)];
-    self.view3.backgroundColor = RandomColor;
+//    self.view3.backgroundColor = RandomColor;
     self.view3.userInteractionEnabled = YES;
     [self.imageScrollView_ addSubview:self.view3];
     UITapGestureRecognizer * view3Tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap3:)];
@@ -128,7 +128,7 @@
     
     
     self.view4 = [[UIImageView alloc]initWithFrame:CGRectMake(imageH*3+20, 0, imageH, imageH)];
-    self.view4.backgroundColor = RandomColor;
+//    self.view4.backgroundColor = RandomColor;
     self.view4.userInteractionEnabled = YES;
     [self.imageScrollView_ addSubview:self.view4];
     
@@ -138,7 +138,7 @@
     
     
     self.view5 = [[UIImageView alloc]initWithFrame:CGRectMake(imageH*4+25, 0, imageH, imageH)];
-    self.view5.backgroundColor = RandomColor;
+//    self.view5.backgroundColor = RandomColor;
     self.view5.userInteractionEnabled = YES;
     [self.imageScrollView_ addSubview:self.view5];
     
