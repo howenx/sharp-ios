@@ -86,37 +86,41 @@
         [self.imageScrollView_ addSubview:view];
         
         
+        UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(i*SCREEN_WIDTH, SCREEN_HEIGHT-64-150, SCREEN_WIDTH, 150)];
+            downView.backgroundColor = [UIColor colorWithRed:((float)((0x303030 & 0xFF0000) >> 16))/255.0 green:((float)((0x303030 & 0xFF00) >> 8))/255.0 blue:((float)(0x303030 & 0xFF))/255.0 alpha:0.4];
+        
+//        downView.backgroundColor = RandomColor;
+        
+        
+        UIImageView * starView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 66, 10)];
+        starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ldstar",(long)((ShowImageEvaluateModel *)self.array[i]).grade]];
+        
+        
+        
+        UILabel * contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(starView, 10), SCREEN_WIDTH-20, 100)];
+         contentLabel.numberOfLines = 0;
+        contentLabel.font = [UIFont systemFontOfSize:13];
+        //    contentLabel.backgroundColor = [UIColor redColor];
+        contentLabel.text = ((ShowImageEvaluateModel *)self.array[i]).content;
+        contentLabel.textColor = [UIColor whiteColor];
+        
+        
+        CGSize maxSize1 = CGSizeMake(GGUISCREENWIDTH - 20, MAXFLOAT);
+        NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
+        CGSize  lastSize1 = [((ShowImageEvaluateModel *)self.array[i]).content boundingRectWithSize:maxSize1 options:NSStringDrawingTruncatesLastVisibleLine| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute1 context:nil].size;
+        
+        downView.frame =  CGRectMake(i*SCREEN_WIDTH, SCREEN_HEIGHT-64-(lastSize1.height + 10 + 10 + 10+10), SCREEN_WIDTH, lastSize1.height + 10 + 10 + 10+10);
+        starView.frame = CGRectMake(10, 10 , 66, 10);
+        contentLabel.frame = CGRectMake(10, PosYFromView(starView, 10) , SCREEN_WIDTH-20, lastSize1.height);
+         
+        [self.imageScrollView_ addSubview:downView];
+        [downView addSubview:starView];
+        [downView addSubview:contentLabel];
+        
+        
+        
+        
     }
-    
-    UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT-64-150, SCREEN_WIDTH, 150)];
-    downView.backgroundColor = [UIColor colorWithRed:((float)((0x303030 & 0xFF0000) >> 16))/255.0 green:((float)((0x303030 & 0xFF00) >> 8))/255.0 blue:((float)(0x303030 & 0xFF))/255.0 alpha:0.4];
-    
-    //        downView.backgroundColor = RandomColor;
-    
-    
-    UIImageView * starView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 66, 10)];
-    starView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ldstar",(long)((ShowImageEvaluateModel *)self.array[0]).grade]];
-    
-    
-    
-    UILabel * contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, PosYFromView(starView, 10), SCREEN_WIDTH-20, 100)];
-    contentLabel.numberOfLines = 0;
-    contentLabel.font = [UIFont systemFontOfSize:13];
-    contentLabel.text = ((ShowImageEvaluateModel *)self.array[0]).content;
-    contentLabel.textColor = [UIColor whiteColor];
-    
-    
-    CGSize maxSize1 = CGSizeMake(GGUISCREENWIDTH - 20, MAXFLOAT);
-    NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
-    CGSize  lastSize1 = [((ShowImageEvaluateModel *)self.array[0]).content boundingRectWithSize:maxSize1 options:NSStringDrawingTruncatesLastVisibleLine| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute1 context:nil].size;
-    
-    downView.frame =  CGRectMake(SCREEN_WIDTH, SCREEN_HEIGHT-64-(lastSize1.height + 10 + 10 + 10+10), SCREEN_WIDTH, lastSize1.height + 10 + 10 + 10+10);
-    starView.frame = CGRectMake(10, 10 , 66, 10);
-    contentLabel.frame = CGRectMake(10, PosYFromView(starView, 10) , SCREEN_WIDTH-20, lastSize1.height);
-    
-    [self.view addSubview:downView];
-    [downView addSubview:starView];
-    [downView addSubview:contentLabel];
     
     
 
