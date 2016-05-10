@@ -137,7 +137,8 @@
     
     
     UIButton * settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    settingBtn.frame = CGRectMake(GGUISCREENWIDTH-40, 50, 20, 20);
+    settingBtn.frame = CGRectMake(GGUISCREENWIDTH-60, 30, 40, 40);
+    settingBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     [settingBtn setImage:[UIImage imageNamed:@"icon_set"] forState:UIControlStateNormal];
     [settingBtn addTarget:self action:@selector(settingBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:settingBtn];
