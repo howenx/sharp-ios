@@ -351,6 +351,11 @@
     }else{
         idNum =_idNumber.text;
     }
+    //把最后的小写x转成大写X
+    if([[idNum substringFromIndex:17] isEqualToString:@"x"]){
+        idNum =[NSString stringWithFormat:@"%@X",[idNum substringToIndex:17]];
+    }
+
     BOOL validIdNumber = [self validateIDCardNumber:idNum];
     if(!validIdNumber){
         [self showHud:@"身份证不正确"];
@@ -402,7 +407,10 @@
     }else{
         [myDict setObject:@(false) forKey:@"orDefault"];
     }
-
+    //把最后的大写X转成小写x
+    if([[idNum substringFromIndex:17] isEqualToString:@"X"]){
+        idNum =[NSString stringWithFormat:@"%@x",[idNum substringToIndex:17]];
+    }
     [myDict setObject:idNum forKey:@"idCardNum"];
     
     

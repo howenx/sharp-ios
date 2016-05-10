@@ -20,7 +20,9 @@
 @end
 
 @implementation CollectViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [self headerRefresh];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
@@ -34,7 +36,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"CollectCell" bundle:nil] forCellReuseIdentifier:@"CollectCell"];
     
     self.data  = [NSMutableArray array];
-    [self headerRefresh];
+    
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     
     emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT/2, GGUISCREENWIDTH, 40)];
@@ -66,6 +68,7 @@
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         
         if(code == 200){
+            [self.data removeAllObjects];
             NSArray * dataArray = [object objectForKey:@"collectList"];
             
             for (id node in dataArray) {
@@ -178,8 +181,6 @@
                 hud.labelText = @"取消收藏成功";
                 [hud hide:YES afterDelay:1];
                 [self.data removeObjectAtIndex:[indexPath section]];
-                NSLog(@"%d",[indexPath section]);
-                NSLog(@"%d",[indexPath row]);
 
                 [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
                 if(self.data.count == 0){
