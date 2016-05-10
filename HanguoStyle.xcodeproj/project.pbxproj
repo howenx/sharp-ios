@@ -226,6 +226,7 @@
 		8081D9C11BFC724F0098B2E2 /* LoginRefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C01BFC724F0098B2E2 /* LoginRefViewController.m */; };
 		8081D9C41BFC7F720098B2E2 /* GoodsParaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */; };
 		808627E61C11345300ED92AB /* AddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = 808627E51C11345300ED92AB /* AddressData.m */; };
+		808B21631CE05740008DFEDB /* mj.gif in Resources */ = {isa = PBXBuildFile; fileRef = 808B21621CE05740008DFEDB /* mj.gif */; };
 		8096A7021CBCF6E000DD1B1A /* shixao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8096A7001CBCF6E000DD1B1A /* shixao@2x.png */; };
 		8096A7031CBCF6E000DD1B1A /* shixao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8096A7011CBCF6E000DD1B1A /* shixao@3x.png */; };
 		809B02711C52284200030955 /* PublicMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 809B02701C52284200030955 /* PublicMethod.m */; };
@@ -841,6 +842,7 @@
 		8081D9C31BFC7F720098B2E2 /* GoodsParaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsParaView.m; sourceTree = "<group>"; };
 		808627E41C11345300ED92AB /* AddressData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressData.h; sourceTree = "<group>"; };
 		808627E51C11345300ED92AB /* AddressData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressData.m; sourceTree = "<group>"; };
+		808B21621CE05740008DFEDB /* mj.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = mj.gif; sourceTree = "<group>"; };
 		8096A7001CBCF6E000DD1B1A /* shixao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shixao@2x.png"; sourceTree = "<group>"; };
 		8096A7011CBCF6E000DD1B1A /* shixao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shixao@3x.png"; sourceTree = "<group>"; };
 		809B026F1C52284200030955 /* PublicMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicMethod.h; sourceTree = "<group>"; };
@@ -2135,6 +2137,7 @@
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
 				802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */,
+				808B21621CE05740008DFEDB /* mj.gif */,
 				8010346E1CCA18C6004F9CF7 /* hmm.gif */,
 				80ED54D01CCF70A2004AD7C2 /* iconfont_shanchu@2x.png */,
 				80ED54D11CCF70A2004AD7C2 /* iconfont_shanchu@3x.png */,
@@ -2815,6 +2818,7 @@
 				800528621CA3D13900558D9F /* gs_tab_selected@3x.png in Resources */,
 				80ED54C91CCF4AF2004AD7C2 /* foregroundStar@3x.png in Resources */,
 				80FF44B21BD9C99C00966924 /* GoodsDetailViewController.xib in Resources */,
+				808B21631CE05740008DFEDB /* mj.gif in Resources */,
 				B019E3AB1CB4B7D600574DE3 /* message2@2x.png in Resources */,
 				80113BA61CABAAF20010B4E9 /* pingou_liucheng@3x.png in Resources */,
 				80113B791CAB64F00010B4E9 /* hmm_pingou_fail@2x.png in Resources */,
