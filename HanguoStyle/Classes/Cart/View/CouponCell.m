@@ -66,7 +66,11 @@
     
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-30, 15, 20, 20);
+    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 5, 70, 40);
+//    _editBtn.backgroundColor = [UIColor cyanColor];
+    _editBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 50, 10, 0);
+    
+//    _editBtn.backgroundColor = [UIColor cyanColor];
     if(_isCouponEdit){
         [_editBtn setImage:[UIImage imageNamed:@"icon_more_up_hui"] forState:UIControlStateNormal];
     }else{

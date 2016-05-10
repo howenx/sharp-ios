@@ -342,10 +342,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderDetailsPinCell *cell = (OrderDetailsPinCell *)[tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
+    
     if (nil == cell) {
         cell = [[OrderDetailsPinCell alloc] initWithStyle:UITableViewCellStyleDefault
                                      reuseIdentifier:@"OrderCell"];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     SkuData * data =  self.singleData.skuArray[indexPath.row];
     cell.skuData = data;
     

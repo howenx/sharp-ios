@@ -440,6 +440,7 @@
 		B06794F71CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794F61CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m */; };
 		B06794FA1CB754B100545A16 /* MessageTypeDiscountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794F91CB754B100545A16 /* MessageTypeDiscountTableViewCell.m */; };
 		B06794FD1CB759D600545A16 /* MessageTypeCouponTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B06794FC1CB759D600545A16 /* MessageTypeCouponTableViewCell.m */; };
+		B06CF2501CE077EE0035AA43 /* HMMRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B06CF24F1CE077EE0035AA43 /* HMMRefreshHeader.m */; };
 		B0705ED31CAA14AA00E86A30 /* AboutOurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */; };
 		B0705ED41CAA14AA00E86A30 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED21CAA14AA00E86A30 /* FeedbackViewController.m */; };
 		B0705ED81CAA165600E86A30 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0705ED71CAA165600E86A30 /* PlaceholderTextView.m */; };
@@ -1131,6 +1132,8 @@
 		B06794F91CB754B100545A16 /* MessageTypeDiscountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeDiscountTableViewCell.m; sourceTree = "<group>"; };
 		B06794FB1CB759D600545A16 /* MessageTypeCouponTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTypeCouponTableViewCell.h; sourceTree = "<group>"; };
 		B06794FC1CB759D600545A16 /* MessageTypeCouponTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTypeCouponTableViewCell.m; sourceTree = "<group>"; };
+		B06CF24E1CE077EE0035AA43 /* HMMRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMMRefreshHeader.h; sourceTree = "<group>"; };
+		B06CF24F1CE077EE0035AA43 /* HMMRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMMRefreshHeader.m; sourceTree = "<group>"; };
 		B0705ECF1CAA14AA00E86A30 /* AboutOurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutOurViewController.h; sourceTree = "<group>"; };
 		B0705ED01CAA14AA00E86A30 /* AboutOurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutOurViewController.m; sourceTree = "<group>"; };
 		B0705ED11CAA14AA00E86A30 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -1914,6 +1917,8 @@
 		806BFFA81C3D1CB300680AF6 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				B06CF24E1CE077EE0035AA43 /* HMMRefreshHeader.h */,
+				B06CF24F1CE077EE0035AA43 /* HMMRefreshHeader.m */,
 				806BFFA91C3D1CB300680AF6 /* ShareView.h */,
 				806BFFAA1C3D1CB300680AF6 /* ShareView.m */,
 				804F00551C4F9702008CCD75 /* PhotoViewController.h */,
@@ -2978,6 +2983,7 @@
 				B019E38E1CB4B3E700574DE3 /* MessageViewController.m in Sources */,
 				B06794FA1CB754B100545A16 /* MessageTypeDiscountTableViewCell.m in Sources */,
 				8068814B1C23A24C0017B439 /* PayTypeCell.m in Sources */,
+				B06CF2501CE077EE0035AA43 /* HMMRefreshHeader.m in Sources */,
 				B023AB8D1CD98F5400D4524F /* ShowBigImageForShowImageViewController.m in Sources */,
 				8069E4B41BC7B18500742D8F /* UIBarButtonItem+GG.m in Sources */,
 				80ECAC701C1ECFAF00777ACC /* SettingViewController.m in Sources */,
