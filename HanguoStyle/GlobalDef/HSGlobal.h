@@ -60,4 +60,5 @@
 +(NSString *)ShowgoodEvaluateUrl;
 +(NSString *)ShowbadEvaluateUrl;
 +(NSString *)ShowimageEvaluateUrl;
++ (NSString *) wxLoginUrl;
 @end

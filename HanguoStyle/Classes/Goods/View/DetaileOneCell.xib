@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -52,9 +52,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="税率：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sp-IU-ddA">
-                                <rect key="frame" x="10" y="39" width="100" height="15"/>
+                                <rect key="frame" x="10" y="39" width="230" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="01p-WT-8FD"/>
                                     <constraint firstAttribute="height" constant="15" id="XUw-Zg-zsk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -80,11 +79,12 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cF7-XF-9WI">
-                                <rect key="frame" x="292" y="12" width="17" height="15"/>
+                                <rect key="frame" x="281" y="0.0" width="40" height="39"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="17" id="IQd-8L-S6Q"/>
-                                    <constraint firstAttribute="height" constant="15" id="V4i-11-B1z"/>
+                                    <constraint firstAttribute="width" constant="40" id="IQd-8L-S6Q"/>
+                                    <constraint firstAttribute="height" constant="39" id="V4i-11-B1z"/>
                                 </constraints>
+                                <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                                 <state key="normal" image="grayStore.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -93,21 +93,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RDh-iP-rqe" secondAttribute="trailing" constant="11" id="5c8-sg-ATT"/>
-                            <constraint firstItem="cF7-XF-9WI" firstAttribute="leading" secondItem="FGE-ct-72x" secondAttribute="trailing" constant="12" id="F6B-pJ-anG"/>
+                            <constraint firstItem="cF7-XF-9WI" firstAttribute="leading" secondItem="FGE-ct-72x" secondAttribute="trailing" constant="1" id="F6B-pJ-anG"/>
                             <constraint firstAttribute="trailing" secondItem="Ep1-he-MpT" secondAttribute="trailing" constant="11" id="KVj-U8-3Pa"/>
                             <constraint firstItem="yeN-Yk-x9p" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="M4l-S3-oqe"/>
                             <constraint firstItem="7Sp-IU-ddA" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="PmM-Wc-vDJ"/>
                             <constraint firstItem="Ep1-he-MpT" firstAttribute="top" secondItem="RDh-iP-rqe" secondAttribute="bottom" constant="3" id="Xme-FT-Y6a"/>
                             <constraint firstAttribute="height" constant="80" id="db0-xQ-xRE"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="e5M-yX-cbU"/>
-                            <constraint firstAttribute="trailing" secondItem="cF7-XF-9WI" secondAttribute="trailing" constant="12" id="f2h-fy-X7E"/>
-                            <constraint firstItem="cF7-XF-9WI" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="12" id="hN9-pT-la5"/>
+                            <constraint firstAttribute="trailing" secondItem="cF7-XF-9WI" secondAttribute="trailing" id="f2h-fy-X7E"/>
+                            <constraint firstItem="cF7-XF-9WI" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" id="hN9-pT-la5"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="10" id="hiy-xq-vZQ"/>
                             <constraint firstItem="7Sp-IU-ddA" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="hlj-Fn-5rw"/>
                             <constraint firstItem="RDh-iP-rqe" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="lED-Rm-CeB"/>
                             <constraint firstItem="yeN-Yk-x9p" firstAttribute="top" secondItem="7Sp-IU-ddA" secondAttribute="bottom" constant="3" id="lL6-b5-wbX"/>
                             <constraint firstItem="FGE-ct-72x" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="10" id="lXk-Hf-gZj"/>
                             <constraint firstItem="FGE-ct-72x" firstAttribute="leading" secondItem="AYK-I2-NW3" secondAttribute="trailing" constant="8" id="rEv-P0-nu2"/>
+                            <constraint firstItem="RDh-iP-rqe" firstAttribute="leading" secondItem="7Sp-IU-ddA" secondAttribute="trailing" constant="6" id="rn7-6q-0vz"/>
                         </constraints>
                     </view>
                 </subviews>

@@ -44,6 +44,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"组团详情";
@@ -467,6 +468,7 @@
     if(!isLogin){
         self.hidesBottomBarWhenPushed=YES;
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"PinDetailVC";
         [self.navigationController pushViewController:login animated:YES];
         self.hidesBottomBarWhenPushed=NO;
         return;

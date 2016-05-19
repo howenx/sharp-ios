@@ -208,6 +208,7 @@
         [self.navigationController pushViewController:updateUserController animated:YES];
     }else{
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"MeVC";
         [self.navigationController pushViewController:login animated:YES];
     }
     
@@ -250,6 +251,7 @@
         [self pushGoodShowView:indexPath.section];
     }else{
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"MeVC";
         [self.navigationController pushViewController:login animated:NO];
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -28,11 +28,12 @@
                     <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57h-Ev-6jb">
-                            <rect key="frame" x="20" y="15" width="20" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="kBF-cM-W8D"/>
-                                <constraint firstAttribute="width" constant="20" id="maO-n4-jod"/>
+                                <constraint firstAttribute="height" constant="50" id="kBF-cM-W8D"/>
+                                <constraint firstAttribute="width" constant="60" id="maO-n4-jod"/>
                             </constraints>
+                            <inset key="contentEdgeInsets" minX="20" minY="15" maxX="20" maxY="15"/>
                             <state key="normal" image="grayStore.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -69,12 +70,12 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="57h-Ev-6jb" firstAttribute="leading" secondItem="xYa-6B-crT" secondAttribute="leading" constant="20" id="6Sq-62-eIr"/>
+                        <constraint firstItem="57h-Ev-6jb" firstAttribute="leading" secondItem="xYa-6B-crT" secondAttribute="leading" id="6Sq-62-eIr"/>
                         <constraint firstItem="xrg-IF-cFC" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="BKa-lf-HGh"/>
                         <constraint firstItem="xrg-IF-cFC" firstAttribute="leading" secondItem="T0W-nT-HET" secondAttribute="trailing" id="VFH-w1-GJI"/>
                         <constraint firstAttribute="trailing" secondItem="xrg-IF-cFC" secondAttribute="trailing" id="Z7D-f0-IpN"/>
                         <constraint firstItem="T0W-nT-HET" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="ZnF-ZR-oL7"/>
-                        <constraint firstItem="T0W-nT-HET" firstAttribute="leading" secondItem="57h-Ev-6jb" secondAttribute="trailing" constant="21" id="gAY-El-Urz"/>
+                        <constraint firstItem="T0W-nT-HET" firstAttribute="leading" secondItem="57h-Ev-6jb" secondAttribute="trailing" constant="1" id="gAY-El-Urz"/>
                         <constraint firstAttribute="height" constant="50" id="rB4-qm-hJ6"/>
                         <constraint firstAttribute="centerY" secondItem="57h-Ev-6jb" secondAttribute="centerY" id="tSH-3e-EN1"/>
                         <constraint firstItem="T0W-nT-HET" firstAttribute="width" secondItem="xrg-IF-cFC" secondAttribute="width" id="uMd-KR-kqh"/>

@@ -107,6 +107,7 @@
                 <constraint firstItem="gyd-CR-VBK" firstAttribute="top" secondItem="zJG-K1-SM7" secondAttribute="bottom" constant="20" id="xgN-sz-MgF"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="285.5" y="153.5"/>
         </view>
     </objects>
 </document>

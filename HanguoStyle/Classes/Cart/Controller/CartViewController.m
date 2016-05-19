@@ -773,6 +773,7 @@
     if(!isLogin){
         self.hidesBottomBarWhenPushed=YES;
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"CartVC";
         [self.navigationController pushViewController:login animated:YES];
         self.hidesBottomBarWhenPushed=NO;
         return;

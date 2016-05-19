@@ -50,6 +50,9 @@
 @property (nonatomic) NSString * endAt;
 @property (nonatomic) long collectId;//是否已经收藏，0为未收藏
 
+@property (nonatomic) NSInteger  restrictAmount;//限购数量
+
+
 
 
 @end
@@ -74,7 +77,7 @@
 @property (nonatomic) NSString * deliveryArea;//发货区域
 @property (nonatomic) NSString * deliveryTime;//配送时间
 @property (nonatomic) BOOL       orRestrictBuy;//是否限购
-@property (nonatomic) NSInteger  restrictAmount;//限购数量
+//@property (nonatomic) NSInteger  restrictAmount;//限购数量
 @property (nonatomic) BOOL       orShoppingPoll;//是否拼购
 @property (nonatomic) NSString * shareImg;//分享的图片
 

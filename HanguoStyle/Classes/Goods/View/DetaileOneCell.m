@@ -57,6 +57,10 @@
             self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invAreaNm];
             self.postalTaxRateLab.text = [NSString stringWithFormat:@"税率：%@",sizeData.postalTaxRate];
             self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:@"%"];
+            if(sizeData.restrictAmount != 0){
+                NSString * restrictStr = [NSString stringWithFormat:@"      每单限购%ld件",(long)sizeData.restrictAmount];
+                self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:restrictStr];
+            }
             
             
             
