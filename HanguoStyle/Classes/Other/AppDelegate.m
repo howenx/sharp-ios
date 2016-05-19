@@ -229,7 +229,7 @@
     NSDate * expiredDate = [[NSUserDefaults standardUserDefaults]objectForKey:@"expired"];
     if(expiredDate!=nil){
         NSString * loginFlag = [initDale intervalSinceNow:expiredDate];
-        NSLog(@"====%@",loginFlag);
+
         if([@"2" isEqualToString:loginFlag]){//不需要重新登录
 
         }else if([@"1" isEqualToString:loginFlag]){//需要重新登录
