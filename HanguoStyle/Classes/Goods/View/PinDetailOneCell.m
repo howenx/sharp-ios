@@ -36,10 +36,14 @@
     self.titleLab.text = data.pinTitle;
     self.alreadySaleLab.text = [NSString stringWithFormat:@"已售：%ld件",(long)data.soldAmount];
     NSDictionary * dict =  data.floorPrice;
-    
     if([dict allKeys].count>0){
         [self.pinSaleTopBtn setTitle:[NSString stringWithFormat:@"%@元/件起",[dict objectForKey:@"price"]] forState:UIControlStateNormal];
-        [self.pinSaleBottomBtn setTitle:[NSString stringWithFormat:@"最多%@人团",[dict objectForKey:@"person_num"]] forState:UIControlStateNormal];
+        if(data.pinTieredPricesArray.count == 1){
+            [self.pinSaleBottomBtn setTitle:[NSString stringWithFormat:@"%@人团",[dict objectForKey:@"person_num"]] forState:UIControlStateNormal];
+        }else{
+            [self.pinSaleBottomBtn setTitle:[NSString stringWithFormat:@"最多%@人团",[dict objectForKey:@"person_num"]] forState:UIControlStateNormal];
+        }
+
     }
     [self.singleSaleTopBtn setTitle:[NSString stringWithFormat:@"%@元/件",data.invPrice] forState:UIControlStateNormal];
     

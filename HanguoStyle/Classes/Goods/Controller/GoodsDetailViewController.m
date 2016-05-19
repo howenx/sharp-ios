@@ -419,6 +419,7 @@
     isLogin = [PublicMethod checkLogin];
     if(!isLogin){
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"GoodsDetailVC";
         [self.navigationController pushViewController:login animated:YES];
         
 //        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -980,6 +981,7 @@
     if(!isLogin){
         self.hidesBottomBarWhenPushed=YES;
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"GoodsDetailVC";
         [self.navigationController pushViewController:login animated:YES];
         self.hidesBottomBarWhenPushed=NO;
         return;

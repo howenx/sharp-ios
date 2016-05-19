@@ -10,7 +10,6 @@
 #import "RegistViewController.h"
 #import "LosePwdViewController.h"
 #import "UIBarButtonItem+GG.h"
-#import "LoginViewController.h"
 @interface ToLosePwdViewController ()<UITextFieldDelegate>
 {
     NSString * sendCode;
@@ -141,7 +140,7 @@
     
     UIButton * sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     sureBtn.frame = CGRectMake(_noRegistView.width/2, 60, _noRegistView.width/2, 40);
-    [sureBtn setTitle:@"去注册" forState:UIControlStateNormal];
+    [sureBtn setTitle:@"立即注册" forState:UIControlStateNormal];
     [sureBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [sureBtn addTarget:self action:@selector(toRegistClick) forControlEvents:UIControlEventTouchUpInside];
@@ -160,6 +159,12 @@
     _noRegistBg.hidden = YES;
     RegistViewController * rvc = [[RegistViewController alloc]init];
     rvc.phone = _phoneLab.text;
+    rvc.comeFrom = self.comeFrom;
+    rvc.accessToken = self.accessToken;
+    rvc.openId = self.openId;
+    rvc.idType = self.idType;
+    rvc.unionId = self.unionId;
+
     [self.navigationController pushViewController:rvc animated:YES];
 
 
@@ -293,13 +298,15 @@
             
             _noRegistView.hidden = NO;
             _noRegistBg.hidden = NO;
-            [self showHud:@"该手机号码没有注册"];
-            
-            
         }else if(returnResult.code == 5001){//已注册
             
             LosePwdViewController * lpvc = [[LosePwdViewController alloc]init];
             lpvc.phone = _phoneLab.text;
+            lpvc.comeFrom = self.comeFrom;
+            lpvc.accessToken = self.accessToken;
+            lpvc.openId = self.openId;
+            lpvc.idType = self.idType;
+            lpvc.unionId = self.unionId;
             [self.navigationController pushViewController:lpvc animated:YES];
         }else {
             [self showHud:returnResult.message];

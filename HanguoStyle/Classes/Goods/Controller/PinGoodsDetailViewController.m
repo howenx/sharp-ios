@@ -373,6 +373,7 @@
     if(!isLogin){
         self.hidesBottomBarWhenPushed=YES;
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"PinGoodsDetailVC";
         [self.navigationController pushViewController:login animated:YES];
         self.hidesBottomBarWhenPushed=NO;
         return;
@@ -594,14 +595,8 @@
     BOOL isLogin = [PublicMethod checkLogin];
     if(!isLogin){
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"PinGoodsDetailVC";
         [self.navigationController pushViewController:login animated:YES];
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        hud.mode = MBProgressHUDModeText;
-//        hud.labelFont = [UIFont systemFontOfSize:11];
-//        hud.labelText = @"未登录状态下不能收藏商品";
-//        hud.margin = 10.f;
-//        hud.removeFromSuperViewOnHide = YES;
-//        [hud hide:YES afterDelay:1];
         return;
         
     }else{

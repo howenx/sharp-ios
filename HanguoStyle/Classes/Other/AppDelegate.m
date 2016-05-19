@@ -24,6 +24,7 @@
 #import "PinDetailViewController.h"
 #import "GoodsViewController.h"
 #import <CrashMaster/CrashMaster.h>
+
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -31,9 +32,8 @@
 @implementation AppDelegate
 -(void) umConfig{
     [UMSocialData setAppKey:@"567bb26867e58e3f670002fd"];
-    [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:@"http://www.umeng.com/social"];
-    [UMSocialQQHandler setQQWithAppId:@"1104059047" appKey:@"aetDfVl3ae47GrkD" url:@"http://www.drama.wang"];
-    
+    [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:@"http://www.drama.wang"];
     [UMSocialSinaHandler openSSOWithRedirectURL:nil];
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -67,6 +67,7 @@
     return result;
     
 }
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self umConfig];
     [CrashMaster init:@"ee2bb0b0d95af384232362f254137920" channel:@"应用的渠道号" config:[CrashMasterConfig defaultConfig]];

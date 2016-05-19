@@ -70,6 +70,7 @@
     BOOL isLogin = [PublicMethod checkLogin];
     if(!isLogin){
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"GoodsVC";
         [self.navigationController pushViewController:login animated:NO];
         
     }else
@@ -200,16 +201,14 @@
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[0]).url]];
         imv.image = [UIImage imageWithData:data];
         [heView addSubview: imv];
+        [heView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneImageTouch:)]];
         _tableView.tableHeaderView = heView;
     }
-
-    
-    
-
 }
-- (void)didClickPage:(HeadView *)view atIndex:(NSInteger)index
-{
-    
+-(void) oneImageTouch:(UITapGestureRecognizer *)recognizer{
+    [self sliderJump:0];
+}
+-(void) sliderJump :(NSInteger)index{
     SliderData * sliderData = _imageUrls[index];
     if([sliderData.targetType isEqualToString:@"D"]){//跳到普通商品详情页
         self.hidesBottomBarWhenPushed=YES;
@@ -233,6 +232,10 @@
         self.hidesBottomBarWhenPushed=NO;
     }
 
+}
+- (void)didClickPage:(HeadView *)view atIndex:(NSInteger)index
+{
+    [self sliderJump:index];
 }
 - (void) footerRefresh
 {

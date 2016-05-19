@@ -8,7 +8,13 @@
 
 #import "LosePwdViewController.h"
 #import "ReturnResult.h"
-
+#import "CartViewController.h"
+#import "ChooseTeamViewController.h"
+#import "GoodsDetailViewController.h"
+#import "GoodsViewController.h"
+#import "MeViewController.h"
+#import "PinDetailViewController.h"
+#import "PinGoodsDetailViewController.h"
 @interface LosePwdViewController ()<UITextFieldDelegate>
 {
     int secondsCountDown; //倒计时总时长
@@ -258,8 +264,13 @@
 -(void)getData{
     NSString * urlString =[HSGlobal resetPwdUrl];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-    
-    [manager POST:urlString  parameters:@{@"phone":_phone,@"code":GGTRIM(_identCode.text),@"password":GGTRIM(_pwd.text)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * dict;
+    if (self.idType != nil) {
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:_phone,@"phone",_pwd.text,@"password",_identCode.text,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",self.unionId,@"unionId",nil];
+    }else{
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:_phone,@"phone",_pwd.text,@"password",_identCode.text,@"code",nil];
+    }
+    [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
          NSLog(@"---dict %@",dict);
@@ -272,8 +283,6 @@
             NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
             [self sendCart];
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
         }else{
             [self showHud:returnResult.message];
         }
@@ -331,7 +340,7 @@
     return true;
 }
 -(void)sendCart{
-    database = [PublicMethod shareDatabase];
+    
     
     //开始添加事务
     [database beginTransaction];
@@ -362,6 +371,7 @@
         
         [manager POST:urlString  parameters:[mutArray copy] success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
             NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
             NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
             NSLog(@"message= %@",message);
@@ -378,13 +388,60 @@
                 hud.removeFromSuperViewOnHide = YES;
                 [hud hide:YES afterDelay:1];
             }
+            //修改购物车tabbar的badgeValue
+            PublicMethod * pm = [[PublicMethod alloc]init];
+            [pm sendCustNum];
+            [self checkBack];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            //            [HSGlobal printAlert:@"发送购物车数据失败"];
             [self showHud:@"发送购物车数据失败"];
+            [self checkBack];
         }];
         
+    }else{
+        //修改购物车tabbar的badgeValue
+        PublicMethod * pm = [[PublicMethod alloc]init];
+        [pm sendCustNum];
+        [self checkBack];
     }
+    
 }
+-(void)checkBack{
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([self.comeFrom isEqualToString:@"CartVC"] && [temp isKindOfClass:[CartViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"ChooseTeamVC"] && [temp isKindOfClass:[ChooseTeamViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"GoodsDetailVC"] && [temp isKindOfClass:[GoodsDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"GoodsVC"] && [temp isKindOfClass:[GoodsViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"MeVC"] && [temp isKindOfClass:[MeViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"PinDetailVC"] && [temp isKindOfClass:[PinDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"PinGoodsDetailVC"] && [temp isKindOfClass:[PinGoodsDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+    
+    
+}
+
 
 @end

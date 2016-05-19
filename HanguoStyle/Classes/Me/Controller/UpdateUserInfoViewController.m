@@ -86,7 +86,7 @@
     
     
     
-    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 53, GGUISCREENWIDTH-130, 30)];
+    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 48, GGUISCREENWIDTH-130, 40)];
     _nameLab.tag = 10006;
     _nameLab.textAlignment = NSTextAlignmentRight;
     _nameLab.text = self.userName;
@@ -108,7 +108,7 @@
     [self.view addSubview:lineView1];
     
     
-    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 88, GGUISCREENWIDTH - 40, 50)];
+    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 96, GGUISCREENWIDTH - 40, 40)];
     sexLabelTitle.text = @"性别：";
     sexLabelTitle.tag = 10007;
     sexLabelTitle.font = [UIFont systemFontOfSize:14];
@@ -117,7 +117,7 @@
     [self.view addSubview:sexLabelTitle];
     
 
-    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 113, 20, 20)];
+    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 96, 20, 40)];
     [_gLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
     _gLabel.font = [UIFont systemFontOfSize:15];
     _gLabel.tag = 10008;
@@ -134,7 +134,7 @@
     [jianImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
     [self.view addSubview:jianImageView];
     
-    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 138, GGUISCREENWIDTH, 8)];
+    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 136, GGUISCREENWIDTH, 8)];
     lineView2.backgroundColor =  GGBgColor;
     [self.view addSubview:lineView2];
 

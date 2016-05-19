@@ -384,6 +384,7 @@
     if(!isLogin){
         self.hidesBottomBarWhenPushed=YES;
         LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"ChooseTeamVC";
         [self.navigationController pushViewController:login animated:YES];
         self.hidesBottomBarWhenPushed=NO;
         return;

@@ -131,7 +131,11 @@
                 if(![NSString isNSNull:[tag objectForKey:@"collectId"]]){
                     sizeData.collectId = [[tag objectForKey:@"collectId"]longValue];
                 }
-                
+                if(![NSString isNSNull:[tag objectForKey:@"restrictAmount"]]){
+                    sizeData.restrictAmount = [[tag objectForKey:@"restrictAmount"]integerValue];
+                }else{
+                    sizeData.restrictAmount = 0;
+                }
                 
                 
                 

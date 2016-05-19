@@ -249,7 +249,7 @@
     if (index == 100001)
     {
         [UMSocialData defaultData].extConfig.title = _shareStr;
-        [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:_shareUrl];
+        [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
@@ -279,7 +279,7 @@
     }
     else if (index == 100002)
     {
-        [UMSocialWechatHandler setWXAppId:@"wx4ee4a992a10d1253" appSecret:@"b1a54352a4e78028fc54de89b29505a6" url:_shareUrl];
+        [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:_shareUrl];
         
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatSession] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
@@ -311,7 +311,7 @@
     }
     else if (index == 100003)
     {
-        [UMSocialQQHandler setQQWithAppId:@"1104980747" appKey:@"eDLFyqWCM2GzdkMB" url:_shareUrl];
+        [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {

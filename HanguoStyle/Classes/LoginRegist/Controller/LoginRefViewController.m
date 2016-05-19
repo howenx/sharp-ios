@@ -8,7 +8,6 @@
 
 #import "LoginRefViewController.h"
 #import "GGTabBarViewController.h"
-#import "LoginViewController.h"
 #import "ReturnResult.h"
 @interface LoginRefViewController ()
 

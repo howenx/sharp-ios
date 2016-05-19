@@ -36,6 +36,14 @@
 
 @implementation HSGlobal
 
+//微信登录
++ (NSString *) wxLoginUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/api/user/open?",SERVERY3];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 //评价按钮提交地址
 + (NSString *) assessUrl
 {

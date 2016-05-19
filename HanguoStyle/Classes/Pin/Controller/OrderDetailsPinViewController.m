@@ -107,6 +107,9 @@
     }else if([self.singleData.orderInfo.orderStatus isEqualToString:@"R"])
     {
         statusImageView.image = [UIImage imageNamed:@"sign"];
+    }else
+    {
+        statusImageView.image = [UIImage imageNamed:@"oldtime"];
     }
     
     [headerView addSubview:statusImageView];
@@ -140,6 +143,9 @@
     }else if([self.singleData.orderInfo.orderStatus isEqualToString:@"R"])
     {
        statusDataLabel.text =@"已签收";
+    }else
+    {
+        statusDataLabel.text =@"已过期";
     }
     
     statusDataLabel.textColor = GGMainColor;
@@ -177,6 +183,9 @@
         payType = @"支付宝支付";
     }else if([self.singleData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
         payType = @"微信支付";
+    }else
+    {
+        payType = @"";
     }
 
     countPriceLabelframe.text = [NSString stringWithFormat:@"(%@)",payType];
@@ -250,6 +259,11 @@
         peisongType.hidden = NO;
         peisongTypeData.hidden = NO;
         top = PosYFromView(peisongType, 8);
+    }else
+    {
+        peisongType.hidden = YES;
+        peisongTypeData.hidden = YES;
+        top = top;
     }
     
     

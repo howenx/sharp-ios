@@ -15,11 +15,24 @@
 #import "CartData.h"
 #import "ToRegistViewController.h"
 #import "ToLosePwdViewController.h"
+#import "UMSocialSnsPlatformManager.h"
+#import "UMSocialAccountManager.h"
+#import "ToBindingViewController.h"
+#import "CartViewController.h"
+#import "ChooseTeamViewController.h"
+#import "GoodsDetailViewController.h"
+#import "GoodsViewController.h"
+#import "MeViewController.h"
+#import "PinDetailViewController.h"
+#import "PinGoodsDetailViewController.h"
+
+
 
 @interface LoginViewController ()<UITextFieldDelegate>
 {
     FMDatabase * database;
     NSString * sendCode;
+    UILabel * promptLab;
 }
 - (IBAction)loginButton:(UIButton *)sender;
 - (IBAction)registButton:(UIButton *)sender;
@@ -36,6 +49,7 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     self.tabBarController.tabBar.hidden=YES;
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
@@ -52,7 +66,30 @@
     _pwd.tag = 10012;
     _textF.tag = 10014;
     sendCode = @"-1";
+    if(self.phone!= nil){
+        _mobel.text = self.phone;
+    }
+    if(self.idType!= nil){
+        [self.view viewWithTag:51001].hidden = YES;
+        [self.view viewWithTag:51002].hidden = YES;
+        [self.view viewWithTag:51003].hidden = YES;
+        promptLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 20)];
+        promptLab.backgroundColor = GGColor(255, 237, 207);
+        promptLab.textAlignment = NSTextAlignmentCenter;
+        promptLab.textColor = GGMainColor;
+        promptLab.font = [UIFont systemFontOfSize:11];
+        promptLab.text = @"该手机号已经注册，请输入密码";
+        [self.view addSubview:promptLab];
+        [self performSelector:@selector(promptLabHidden) withObject:nil afterDelay:2];
+    }
     [self createVerifyView];
+    
+}
+-(void)promptLabHidden{
+    [UIView animateWithDuration:3 animations:^{
+        promptLab.y = -20;
+    }];
+
 }
 -(void)createVerifyView{
     _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
@@ -284,6 +321,14 @@
 
 - (IBAction)losePwd:(UIButton *)sender {
     ToLosePwdViewController * lpvc = [[ToLosePwdViewController alloc]init];
+    lpvc.comeFrom = self.comeFrom;
+    
+    lpvc.accessToken = self.accessToken;
+    lpvc.openId = self.openId;
+    lpvc.idType = self.idType;
+    lpvc.unionId = self.unionId;
+
+
     [self.navigationController pushViewController:lpvc animated:YES];
 }
 
@@ -292,7 +337,14 @@
 -(void)getData{
     NSString * urlString =[HSGlobal loginUrl];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",nil];
+    NSDictionary * dict;
+    if (self.idType != nil) {
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",self.unionId,@"unionId",nil];
+        
+    }else{
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",nil];
+    }
+    
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -363,13 +415,11 @@
 {
     //校验空
     if([NSString isBlankString:GGTRIM(_mobel.text)]){
-//        [HSGlobal printAlert:@"请输入手机号码"];
         [self showHud:@"请输入手机号码"];
         return false;
     }
     //校验密码长度
     if(GGTRIM(_mobel.text).length !=11){
-//        [HSGlobal printAlert:@"请输入11位手机号码"];
         [self showHud:@"请输入11位手机号码"];
         return false;
     }
@@ -377,7 +427,6 @@
 //    NSString * regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     NSPredicate * pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", telRegex];
     if(![pred evaluateWithObject:GGTRIM(_mobel.text)]){
-//        [HSGlobal printAlert:@"请输入正确手机号码"];
         [self showHud:@"请输入正确手机号码"];
         return false;
     }
@@ -435,24 +484,108 @@
             //修改购物车tabbar的badgeValue
             PublicMethod * pm = [[PublicMethod alloc]init];
             [pm sendCustNum];
-            //1.登陆成功,跳转到下主页面
-            [self.navigationController popViewControllerAnimated:YES];
+            [self checkBack];
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-//            [HSGlobal printAlert:@"发送购物车数据失败"];
             [self showHud:@"发送购物车数据失败"];
-            //1.登陆成功,跳转到下主页面
-            [self.navigationController popViewControllerAnimated:YES];
+            [self checkBack];
         }];
 
     }else{
         //修改购物车tabbar的badgeValue
         PublicMethod * pm = [[PublicMethod alloc]init];
         [pm sendCustNum];
-        //1.登陆成功,跳转到下主页面
-        [self.navigationController popViewControllerAnimated:YES];
+        [self checkBack];
     }
     
-    
 }
+-(void)checkBack{
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([self.comeFrom isEqualToString:@"CartVC"] && [temp isKindOfClass:[CartViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"ChooseTeamVC"] && [temp isKindOfClass:[ChooseTeamViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"GoodsDetailVC"] && [temp isKindOfClass:[GoodsDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"GoodsVC"] && [temp isKindOfClass:[GoodsViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"MeVC"] && [temp isKindOfClass:[MeViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"PinDetailVC"] && [temp isKindOfClass:[PinDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"PinGoodsDetailVC"] && [temp isKindOfClass:[PinGoodsDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+
+
+}
+//微信登录
+- (IBAction)WXLogin:(UIButton *)sender {
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+            
+            NSLog(@"unionId is %@, openId is %@",snsAccount.unionId,snsAccount.openId);
+            NSString * urlString = [NSString stringWithFormat:@"%@idType=WO&unionId=%@&openId=%@",[HSGlobal wxLoginUrl],snsAccount.unionId,snsAccount.openId];
+            AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
+            [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //转换为词典数据
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                //创建数据模型对象,加入数据数组
+                ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+                
+                if(returnResult.code == 200){
+                    //给极光发送别名
+                    [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+                    
+                    //把用户账号存到内存中
+                    [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+                    NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+                    [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+                    [self sendCart];
+                    
+                }else if(returnResult.code == 4001){
+                    [self getVerifyData];
+                }else if(returnResult.code == 4003){//微信未绑定手机号
+                    ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
+                    rvc.comeFrom = self.comeFrom;
+                    rvc.accessToken = snsAccount.accessToken;
+                    rvc.openId = snsAccount.openId;
+                    rvc.idType = @"WO";
+                    rvc.unionId = snsAccount.unionId;
+                    [self.navigationController pushViewController:rvc animated:YES];
+                }else{
+                    [self showHud:returnResult.message];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [self showHud:@"登录失败"];
+            }];
+
+        }
+        
+    });
+}
+
 @end

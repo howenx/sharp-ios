@@ -8,7 +8,6 @@
 
 #import "MessageViewController.h"
 #import "MessageTableViewCell.h"
-#import "LoginViewController.h"
 #import "SystemMessageViewController.h"
 #import "UIBarButtonItem+GG.h"
 @interface MessageViewController ()<UITableViewDataSource,UITableViewDelegate>
