@@ -73,6 +73,11 @@
         [self.view viewWithTag:51001].hidden = YES;
         [self.view viewWithTag:51002].hidden = YES;
         [self.view viewWithTag:51003].hidden = YES;
+        [self.view viewWithTag:51004].hidden = YES;
+        [self.view viewWithTag:51005].hidden = YES;
+        [self.view viewWithTag:51006].hidden = YES;
+        [self.view viewWithTag:51007].hidden = YES;
+        [self.view viewWithTag:51008].hidden = YES;
         promptLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 20)];
         promptLab.backgroundColor = GGColor(255, 237, 207);
         promptLab.textAlignment = NSTextAlignmentCenter;
