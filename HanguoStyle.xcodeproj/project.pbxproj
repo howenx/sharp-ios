@@ -290,6 +290,7 @@
 		80F262CF1C5B100200DC7CEB /* talkbackLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F262A51C5B100200DC7CEB /* talkbackLeft.png */; };
 		80F262D01C5B100200DC7CEB /* talkbackRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F262A61C5B100200DC7CEB /* talkbackRight.png */; };
 		80F262F31C5B353900DC7CEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80F262F21C5B353900DC7CEB /* LaunchScreen.xib */; };
+		80F315F31CF6975900C6BEA2 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F315F21CF6975900C6BEA2 /* WXApiManager.m */; };
 		80F4151D1C3A1E260053D418 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80F4151C1C3A1E260053D418 /* OrderDetailViewController.m */; };
 		80F525411CD34CDD002AFE7A /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F5253F1CD34CDD002AFE7A /* Overlay@2x.png */; };
 		80F525421CD34CDD002AFE7A /* Overlay@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F525401CD34CDD002AFE7A /* Overlay@3x.png */; };
@@ -949,6 +950,8 @@
 		80F262A51C5B100200DC7CEB /* talkbackLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkbackLeft.png; sourceTree = "<group>"; };
 		80F262A61C5B100200DC7CEB /* talkbackRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = talkbackRight.png; sourceTree = "<group>"; };
 		80F262F21C5B353900DC7CEB /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		80F315F11CF6975900C6BEA2 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		80F315F21CF6975900C6BEA2 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		80F4151B1C3A1E260053D418 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		80F4151C1C3A1E260053D418 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
 		80F5253F1CD34CDD002AFE7A /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Overlay@2x.png"; sourceTree = "<group>"; };
@@ -1845,6 +1848,7 @@
 		807F63201C3CB53100345BFE /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				80F315F01CF6975900C6BEA2 /* WXPayAPI */,
 				80F6594B1CF591D700204270 /* umeng_ios_social_sdk_5.1_arm64_custom */,
 				80ED54A51CCF4260004AD7C2 /* TQStarRating */,
 				80ED54811CCF41AB004AD7C2 /* ELCImagePicker */,
@@ -2190,6 +2194,15 @@
 				8005286E1CA3D23D00558D9F /* icon_address1@3x.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		80F315F01CF6975900C6BEA2 /* WXPayAPI */ = {
+			isa = PBXGroup;
+			children = (
+				80F315F11CF6975900C6BEA2 /* WXApiManager.h */,
+				80F315F21CF6975900C6BEA2 /* WXApiManager.m */,
+			);
+			path = WXPayAPI;
 			sourceTree = "<group>";
 		};
 		80F6594B1CF591D700204270 /* umeng_ios_social_sdk_5.1_arm64_custom */ = {
@@ -3055,6 +3068,7 @@
 				807F633A1C3CB53100345BFE /* GiFHUD.m in Sources */,
 				B06794F71CB7447800545A16 /* MessageTypeLogisticsTableViewCell.m in Sources */,
 				8005E72C1BF197B60025B82F /* PhotoAndTextView.m in Sources */,
+				80F315F31CF6975900C6BEA2 /* WXApiManager.m in Sources */,
 				80ED549B1CCF41AB004AD7C2 /* ELCAssetCell.m in Sources */,
 				8069E4B31BC7B18500742D8F /* NSString+GG.m in Sources */,
 				B06794E61CB651C400545A16 /* SystemMessageViewController.m in Sources */,

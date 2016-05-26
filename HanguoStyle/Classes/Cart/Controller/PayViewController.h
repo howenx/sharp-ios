@@ -11,4 +11,6 @@
 @interface PayViewController : BaseViewController
 @property(nonatomic) long orderId;
 @property(nonatomic) NSString * payType;
+@property (nonatomic,strong)     UIAlertView *alertPayResult;
+@property (nonatomic,strong)  UIAlertView *alertViewJD;
 @end

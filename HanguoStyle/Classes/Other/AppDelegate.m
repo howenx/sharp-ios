@@ -25,7 +25,8 @@
 #import "GoodsViewController.h"
 #import <CrashMaster/CrashMaster.h>
 #import "UMSocialSinaSSOHandler.h"
-
+#import "WXApiManager.h"
+static NSString *appId = @"wx578f993da4b29f97";
 @interface AppDelegate ()<UIScrollViewDelegate>
 
 @end
@@ -64,12 +65,16 @@
             }
             return YES;
         }
+        if ([[url absoluteString] rangeOfString:appId].location !=NSNotFound) {
+            return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        }
     }
     return result;
     
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [WXApi registerApp:@"wx578f993da4b29f97" withDescription:@"hmm1.0"];
     [self umConfig];
     [CrashMaster init:@"ee2bb0b0d95af384232362f254137920" channel:@"应用的渠道号" config:[CrashMasterConfig defaultConfig]];
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定
@@ -365,5 +370,7 @@
     UITabBarController *tab = (UITabBarController *)result;
     return tab.selectedViewController;
 }
-
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
 @end
