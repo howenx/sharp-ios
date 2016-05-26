@@ -60,5 +60,5 @@
 +(NSString *)ShowgoodEvaluateUrl;
 +(NSString *)ShowbadEvaluateUrl;
 +(NSString *)ShowimageEvaluateUrl;
-+ (NSString *) wxLoginUrl;
++ (NSString *) checkThreeLoginUrl;
 @end

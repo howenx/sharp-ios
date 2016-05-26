@@ -15,7 +15,7 @@
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
-#import "UMSocialSinaHandler.h"
+//#import "UMSocialSinaHandler.h"
 #import "MiPwdView.h"
 #import "JPUSHService.h"
 #import "GoodsShowViewController.h"
@@ -24,6 +24,7 @@
 #import "PinDetailViewController.h"
 #import "GoodsViewController.h"
 #import <CrashMaster/CrashMaster.h>
+#import "UMSocialSinaSSOHandler.h"
 
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -34,7 +35,7 @@
     [UMSocialData setAppKey:@"567bb26867e58e3f670002fd"];
     [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:@"http://www.drama.wang"];
-    [UMSocialSinaHandler openSSOWithRedirectURL:nil];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"794664710" secret:@"0dc274fafeabec336673331c633a115e" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {

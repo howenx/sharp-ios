@@ -173,6 +173,9 @@
                         <constraint firstAttribute="height" constant="40" id="hVA-1J-pyK"/>
                     </constraints>
                     <state key="normal" title="微信登录" image="qq_login.png"/>
+                    <connections>
+                        <action selector="qqLogin:" destination="-1" eventType="touchUpInside" id="ZGb-fR-vMA"/>
+                    </connections>
                 </button>
                 <button opaque="NO" tag="51007" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crt-Ek-hjr" userLabel="支付宝登录">
                     <rect key="frame" x="236" y="404" width="40" height="40"/>
@@ -180,7 +183,10 @@
                         <constraint firstAttribute="width" constant="40" id="HBj-WL-i1W"/>
                         <constraint firstAttribute="height" constant="40" id="ty4-I0-dSR"/>
                     </constraints>
-                    <state key="normal" title="微信登录" image="zhifubao_login.png"/>
+                    <state key="normal" title="微信登录" image="weibo_login.png"/>
+                    <connections>
+                        <action selector="weiboLogin:" destination="-1" eventType="touchUpInside" id="Fw3-il-uQw"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -232,6 +238,6 @@
         <image name="login_header.png" width="540" height="150"/>
         <image name="qq_login.png" width="39" height="39"/>
         <image name="wechat_login.png" width="40" height="40"/>
-        <image name="zhifubao_login.png" width="40" height="40"/>
+        <image name="weibo_login.png" width="40" height="40"/>
     </resources>
 </document>

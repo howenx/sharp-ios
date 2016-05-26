@@ -8,10 +8,10 @@
 
 #import "HSGlobal.h"
 //wayne
-#define SERVERY1 @"http://172.28.3.78:9003"
-#define SERVERY2 @"http://172.28.3.78:9001"
-#define SERVERY3 @"http://172.28.3.78:9004"
-#define SERVERY4 @"http://172.28.3.78:9005"
+//#define SERVERY1 @"http://172.28.3.78:9003"
+//#define SERVERY2 @"http://172.28.3.78:9001"
+//#define SERVERY3 @"http://172.28.3.78:9004"
+//#define SERVERY4 @"http://172.28.3.78:9005"
 
 
 //#define SERVERY1 @"http://172.28.3.18:9003"
@@ -26,18 +26,15 @@
 //#define SERVERY4 @"https://promotion.hanmimei.com"
 
 
-
-//
-//
-//#define SERVERY1 @"http://172.28.3.51:9003"
-//#define SERVERY2 @"http://172.28.3.51:9001"
-//#define SERVERY3 @"http://172.28.3.51:9004"
-//#define SERVERY4 @"http://172.28.3.51:9005"
+#define SERVERY1 @"http://172.28.3.51:9003"
+#define SERVERY2 @"http://172.28.3.51:9001"
+#define SERVERY3 @"http://172.28.3.51:9004"
+#define SERVERY4 @"http://172.28.3.51:9005"
 
 @implementation HSGlobal
 
 //微信登录
-+ (NSString *) wxLoginUrl
++ (NSString *) checkThreeLoginUrl
 {
     NSString * url = [NSString stringWithFormat:@"%@/api/user/open?",SERVERY3];
     

@@ -344,8 +344,11 @@
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     NSDictionary * dict;
     if (self.idType != nil) {
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",self.unionId,@"unionId",nil];
-        
+        if([self.idType isEqualToString:@"Q"]||[self.idType isEqualToString:@"S"]){
+            dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",nil];
+        }else if([self.idType isEqualToString:@"WO"]){
+            dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",self.unionId,@"unionId",nil];
+        }
     }else{
         dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",nil];
     }
@@ -552,7 +555,7 @@
             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
             
             NSLog(@"unionId is %@, openId is %@",snsAccount.unionId,snsAccount.openId);
-            NSString * urlString = [NSString stringWithFormat:@"%@idType=WO&unionId=%@&openId=%@",[HSGlobal wxLoginUrl],snsAccount.unionId,snsAccount.openId];
+            NSString * urlString = [NSString stringWithFormat:@"%@idType=WO&unionId=%@&openId=%@",[HSGlobal checkThreeLoginUrl],snsAccount.unionId,snsAccount.openId];
             AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
             [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 //转换为词典数据
@@ -579,7 +582,7 @@
                     rvc.openId = snsAccount.openId;
                     rvc.idType = @"WO";
                     rvc.unionId = snsAccount.unionId;
-                    [self.navigationController pushViewController:rvc animated:YES];
+                    [self.navigationController pushViewController:rvc animated:NO];
                 }else{
                     [self showHud:returnResult.message];
                 }
@@ -592,5 +595,105 @@
         
     });
 }
+- (IBAction)qqLogin:(UIButton *)sender {
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
+            NSLog(@"snsAccount.accessToken is %@， openId is %@",snsAccount.accessToken,snsAccount.openId);
 
+            //idType:第三方平台，W：微信，Q:腾讯，A:阿里，WO:微信开放平台
+            NSString * urlString = [NSString stringWithFormat:@"%@idType=Q&openId=%@",[HSGlobal checkThreeLoginUrl],snsAccount.openId];
+            AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
+            [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //转换为词典数据
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                //创建数据模型对象,加入数据数组
+                ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+                
+                if(returnResult.code == 200){
+                    //给极光发送别名
+                    [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+                    
+                    //把用户账号存到内存中
+                    [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+                    NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+                    [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+                    [self sendCart];
+                    
+                }else if(returnResult.code == 4001){
+                    [self getVerifyData];
+                }else if(returnResult.code == 4003){//qq未绑定手机号
+                    ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
+                    rvc.comeFrom = self.comeFrom;
+                    rvc.accessToken = snsAccount.accessToken;
+                    rvc.openId = snsAccount.openId;
+                    rvc.idType = @"Q";
+//                    rvc.unionId = snsAccount.unionId;
+                    [self.navigationController pushViewController:rvc animated:NO];
+                }else{
+                    [self showHud:returnResult.message];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [self showHud:@"登录失败"];
+            }];
+
+            
+        }});
+}
+- (IBAction)weiboLogin:(UIButton *)sender {
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        
+        //          获取微博用户名、uid、token等
+        
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
+            NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n  message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.message);
+            //idType:第三方平台，W：微信，Q:腾讯，A:阿里，WO:微信开放平台,S:新浪微博
+            NSString * urlString = [NSString stringWithFormat:@"%@idType=S&openId=%@",[HSGlobal checkThreeLoginUrl],snsAccount.usid];
+            AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
+            [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                //转换为词典数据
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                //创建数据模型对象,加入数据数组
+                ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+                
+                if(returnResult.code == 200){
+                    //给极光发送别名
+                    [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+                    
+                    //把用户账号存到内存中
+                    [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+                    NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+                    [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+                    [self sendCart];
+                    
+                }else if(returnResult.code == 4001){
+                    [self getVerifyData];
+                }else if(returnResult.code == 4003){
+                    ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
+                    rvc.comeFrom = self.comeFrom;
+                    rvc.accessToken = snsAccount.accessToken;
+                    rvc.openId = snsAccount.usid;
+                    rvc.idType = @"S";
+                    // rvc.unionId = snsAccount.unionId;
+                    [self.navigationController pushViewController:rvc animated:NO];
+                }else{
+                    [self showHud:returnResult.message];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [self showHud:@"登录失败"];
+            }];
+            
+
+            
+        }});}
 @end

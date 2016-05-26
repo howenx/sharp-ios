@@ -252,8 +252,12 @@
         [self.view addSubview:noNetView];
         return;
     }
-    [GiFHUD setGifWithImageName:@"hmm.gif"];
-    [GiFHUD show];
+    if ([@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
+        
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+    }
+    
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
         if(_addon == 2){
@@ -297,8 +301,8 @@
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:1];
         }
+            [GiFHUD dismiss];
         
-        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.footer endRefreshing];
         [GiFHUD dismiss];
