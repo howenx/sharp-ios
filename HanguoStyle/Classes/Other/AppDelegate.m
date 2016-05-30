@@ -26,6 +26,7 @@
 #import <CrashMaster/CrashMaster.h>
 #import "UMSocialSinaSSOHandler.h"
 #import "WXApiManager.h"
+#import "Pingpp.h"
 static NSString *appId = @"wx578f993da4b29f97";
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -40,6 +41,7 @@ static NSString *appId = @"wx578f993da4b29f97";
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    NSLog(@"返回的url:%@",url);
     BOOL result = [UMSocialSnsService handleOpenURL:url];//hmmapp://data/pinTieredPrice/pin/888361/112522
     if (result == FALSE) {
         //从网页跳转到app
@@ -68,6 +70,13 @@ static NSString *appId = @"wx578f993da4b29f97";
         if ([[url absoluteString] rangeOfString:appId].location !=NSNotFound) {
             return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
         }
+        
+        if ([[url absoluteString] rangeOfString:@"hmmapp://safepay"].location !=NSNotFound) {
+            return [Pingpp handleOpenURL:url withCompletion:nil];
+        }
+        
+        
+        
     }
     return result;
     
@@ -371,6 +380,14 @@ static NSString *appId = @"wx578f993da4b29f97";
     return tab.selectedViewController;
 }
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    
+    
+    if ([[url absoluteString] rangeOfString:appId].location !=NSNotFound) {
+        return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }else
+    {
+       return [Pingpp handleOpenURL:url withCompletion:nil];
+    }
+
 }
 @end
