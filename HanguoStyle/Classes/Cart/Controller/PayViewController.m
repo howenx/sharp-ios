@@ -14,6 +14,8 @@
 
 #import "WXApi.h"
 #import "WXApiManager.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "Pingpp.h"
 
 @interface PayViewController ()<UIAlertViewDelegate,UIWebViewDelegate,WXApiManagerDelegate>
 {
@@ -101,6 +103,21 @@
             }
             
         }
+    }  else if (alertView == self.alertAliResult) {
+        
+        if (buttonIndex == 0) {
+            //继续支付
+            NSLog(@"继续支付!!");
+            [webView goBack];
+        }else
+        {
+            //返回订单
+            
+            MyOrderViewController * myOrder = [[MyOrderViewController alloc]init];
+            [self.navigationController pushViewController:myOrder animated:YES];
+        }
+        
+        
     }
     
 }
@@ -147,6 +164,11 @@
      "window.location = field2;"
      "}"];
     
+    [webView stringByEvaluatingJavaScriptFromString:@"function alipayapp(orderStr) { "
+     "var field3 = '/alipayapp' + orderStr;"
+     "window.location = field3;"
+     "}"];
+    
 }
 #pragma mark - webViewDelegate
 
@@ -189,12 +211,35 @@
         req.package             = array[4];
         req.sign                = array[7];
         [WXApi sendReq:req];
-        //日志输出
-        NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",array[1],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
         
         
         return false;
     }
+    
+    
+    
+    if ([request.mainDocumentURL.relativePath rangeOfString:@"/alipayapp"].location != NSNotFound) {
+        
+        NSArray *array = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"/alipayapp"]; //从字符A中分隔成2个元素的数组
+        NSString * signedString = array[1];
+        if (signedString != nil) {
+            [[AlipaySDK defaultService] payOrder:signedString fromScheme:@"hmmapp" callback:^(NSDictionary *resultDic) {
+                NSString* resultCode = resultDic[@"resultStatus"];
+                
+                if ([resultCode isEqualToString:@"9000"] ) {
+                    //支付成功，返回app首页
+                }else
+                {
+                    self.alertAliResult = [[UIAlertView alloc] initWithTitle:@"支付结果" message:@"支付结果：失败！" delegate:self cancelButtonTitle:@"继续支付" otherButtonTitles:@"放弃支付", nil];
+                    [self.alertAliResult show];
+                }
+                
+            }];
+        }
+        return false;
+    }
+    
+    
     
     return  true;
 }

@@ -13,4 +13,5 @@
 @property(nonatomic) NSString * payType;
 @property (nonatomic,strong)     UIAlertView *alertPayResult;
 @property (nonatomic,strong)  UIAlertView *alertViewJD;
+@property (nonatomic,strong)     UIAlertView *alertAliResult;
 @end
