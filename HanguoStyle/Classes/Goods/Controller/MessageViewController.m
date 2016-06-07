@@ -34,8 +34,8 @@
     
     [self createSettingView];
 
-//    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
-//    
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImage:@"icon_back" highImage:@"icon_back" target:self action:@selector(backViewController)];
+    
 //    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icongengduo"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
 //    self.navigationItem.rightBarButtonItem = anotherButton;
     [self setModel];

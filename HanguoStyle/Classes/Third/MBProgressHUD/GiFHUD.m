@@ -150,6 +150,7 @@ static UIImage *animatedImageWithAnimatedGIFReleasingImageSource(CGImageSourceRe
 
 @property (nonatomic, strong) UIView *overlayView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView * bgView;
 @property (nonatomic, assign) BOOL shown;
 
 @end
@@ -184,8 +185,16 @@ static GiFHUD *instance;
 //        [self.layer setCornerRadius:10];
         [self.layer setMasksToBounds:YES];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/2 -25,(GGUISCREENHEIGHT-64-50)/2, 50, 50)];
-        [self addSubview:self.imageView];
+        self.bgView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2 -50, (GGUISCREENHEIGHT-64-50)/2, 100, 100)];
+        self.bgView.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF0000))/255.0 alpha:0.6];
+//        self.bgView.backgroundColor = [UIColor blueColor];
+        self.bgView.layer.cornerRadius = 20;
+//        self.bgView.layer.edgeAntialiasingMask = YES;
+        
+        [self addSubview:self.bgView];
+        
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,30, 60, 40)];
+        [self.bgView addSubview:self.imageView];
         
         [APPDELEGATE.window addSubview:self];
     }
