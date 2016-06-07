@@ -133,7 +133,14 @@
                     //                     NSLog(@"%ld",count);
                     NSUInteger lastCount = count/(1024.f);
                     //                    NSLog(@"%ld",lastCount);
-                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ldKB",lastCount];
+                    
+                    if (lastCount>1024) {
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.2fM",lastCount/1024.0];
+                    }else
+                    {
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ldKB",lastCount];
+                    }
+                    
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clean"]];
                     iv.frame = CGRectMake(18, 19, 18, 18);
                     [cell.contentView addSubview:iv];

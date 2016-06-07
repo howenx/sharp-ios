@@ -29,12 +29,27 @@
 -(void)createWebView{
     UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
+    [ (UIScrollView *)[[webView subviews] objectAtIndex:0] setBounces:NO];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:_url]];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
     request = [mutableRequest copy];
+    
+    [self hideGradientBackground:webView];
+    
+    
     [self.view addSubview: webView];
     [webView loadRequest:request];
     
+}
+
+-(void)hideGradientBackground:(UIView *)theView
+{
+    for (UIView * subView in  theView.subviews ) {
+        if ([subView isKindOfClass:[UIImageView class]]) {
+            subView.hidden = YES;
+        }
+        [self hideGradientBackground:subView];
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

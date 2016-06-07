@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HanguoStyle/Classes/Other/AppDelegate.m"
-            timestampString = "486027734.240426"
+            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsViewController.m"
+            timestampString = "486891886.797527"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
-            landmarkName = "-application:handleOpenURL:"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
+            landmarkName = "-backController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

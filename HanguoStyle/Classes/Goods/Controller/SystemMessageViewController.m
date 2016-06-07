@@ -15,6 +15,7 @@
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 #import "PinDetailViewController.h"
+#import "CouponViewController.h"
 @interface SystemMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -393,9 +394,15 @@
             PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
             detailVC.url = model.msgUrl;
             [self.navigationController pushViewController:detailVC animated:YES];
+        }else if([model.targetType isEqualToString:@"C"])
+        {
+            CouponViewController * coupon = [[CouponViewController alloc]init];
+            [self.navigationController pushViewController:coupon animated:YES];
         }
+
         self.hidesBottomBarWhenPushed=NO;
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

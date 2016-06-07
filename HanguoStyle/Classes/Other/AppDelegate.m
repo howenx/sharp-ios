@@ -27,6 +27,8 @@
 #import "UMSocialSinaSSOHandler.h"
 #import "WXApiManager.h"
 #import "Pingpp.h"
+#import "GoodsShowH5ViewController.h"
+#import "CouponViewController.h"
 static NSString *appId = @"wx578f993da4b29f97";
 @interface AppDelegate ()<UIScrollViewDelegate>
 
@@ -318,8 +320,13 @@ static NSString *appId = @"wx578f993da4b29f97";
         GoodsViewController * gContro = [[GoodsViewController alloc]init];
         [(UINavigationController *)controller pushViewController:gContro animated:YES];
     } else if([targetType isEqualToString:@"U"]){//一个促销活动的链接
-        GoodsViewController * gContro = [[GoodsViewController alloc]init];
+        GoodsShowH5ViewController * gContro = [[GoodsShowH5ViewController alloc]init];
+        gContro.url = url;
         [(UINavigationController *)controller pushViewController:gContro animated:YES];
+    }
+    else if([targetType isEqualToString:@"C"]){//优惠券列表
+        CouponViewController * coupon = [[CouponViewController alloc]init];
+        [(UINavigationController *)controller pushViewController:coupon animated:YES];
     }
 
 
