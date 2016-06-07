@@ -31,7 +31,20 @@
 //#define SERVERY3 @"http://172.28.3.51:9004"
 //#define SERVERY4 @"http://172.28.3.51:9005"
 
+//#define SERVERY1 @"http://172.28.3.46:9003"
+//#define SERVERY2 @"http://172.28.3.46:9001"
+//#define SERVERY3 @"http://172.28.3.46:9004"
+//#define SERVERY4 @"http://172.28.3.46:9005"
+
 @implementation HSGlobal
+
+//韩秘美条款地址
++ (NSString *) hmmClauseUrl
+{
+    NSString * url = [NSString stringWithFormat:@"%@/comm/views/agreement",SERVERY2];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 //微信登录
 + (NSString *) checkThreeLoginUrl

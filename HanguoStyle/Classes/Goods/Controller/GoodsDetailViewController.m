@@ -364,13 +364,11 @@
     if((indexPath.section == 3 && numberOfSection == 4)|| (numberOfSection == 3 &&indexPath.section == 2)){
         // _otherRowHeight是上面三个cell的高度
         _otherRowHeight =_sectionZeroHeight + twoCellHeight + threeCellHeight;
-
-
         //64为导航条和状态栏，40为下面购物车一行高度
-        if(_tableView.contentOffset.y > _otherRowHeight - 64){
-            
-            [_tableView setContentOffset:CGPointMake(0, _otherRowHeight - 64 )];
-        }
+//        if(_tableView.contentOffset.y > _otherRowHeight + 64){
+//            
+//            [_tableView setContentOffset:CGPointMake(0, _otherRowHeight + 64 )];
+//        }
         tableContOffSet = 0;
         if(_pageNum == 0){
             if(oneView == nil || oneViewAlreadyLoad){
@@ -421,14 +419,6 @@
         LoginViewController * login = [[LoginViewController alloc]init];
         login.comeFrom = @"GoodsDetailVC";
         [self.navigationController pushViewController:login animated:YES];
-        
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        hud.mode = MBProgressHUDModeText;
-//        hud.labelFont = [UIFont systemFontOfSize:11];
-//        hud.labelText = @"未登录状态下不能收藏商品";
-//        hud.margin = 10.f;
-//        hud.removeFromSuperViewOnHide = YES;
-//        [hud hide:YES afterDelay:1];
         return;
         
     }else{
@@ -691,8 +681,8 @@
         [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     if(tableContOffSet != 0){
-        if(tableContOffSet >= _otherRowHeight - 64){
-            [_tableView setContentOffset:CGPointMake(0,_otherRowHeight + 20)];//为了刷新下这个section，不然不会刷新
+        if(tableContOffSet >= _otherRowHeight){
+            [_tableView setContentOffset:CGPointMake(0,_otherRowHeight)];//为了刷新下这个section，不然不会刷新
         }else{
             [_tableView setContentOffset:CGPointMake(0,tableContOffSet)];
         }

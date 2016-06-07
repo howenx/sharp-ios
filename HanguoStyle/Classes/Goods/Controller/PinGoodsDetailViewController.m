@@ -209,10 +209,10 @@
         
         
         //64为导航条和状态栏，40为下面购物车一行高度
-        if(_tableView.contentOffset.y > _sectionZeroHeight - 64){
-            
-            [_tableView setContentOffset:CGPointMake(0, _sectionZeroHeight - 64 )];
-        }
+//        if(_tableView.contentOffset.y > _sectionZeroHeight - 64){
+//            
+//            [_tableView setContentOffset:CGPointMake(0, _sectionZeroHeight - 64 )];
+//        }
 
         if(_pageNum == 0){
             if(oneView == nil || oneViewAlreadyLoad){
@@ -481,8 +481,8 @@
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
     [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     if(tableContOffSet != 0){
-        if(tableContOffSet >= _sectionZeroHeight - 64){
-            [_tableView setContentOffset:CGPointMake(0,_sectionZeroHeight + 20)];//为了刷新下这个section，不然不会刷新
+        if(tableContOffSet >= _sectionZeroHeight){
+            [_tableView setContentOffset:CGPointMake(0,_sectionZeroHeight)];
         }else{
             [_tableView setContentOffset:CGPointMake(0,tableContOffSet)];
         }

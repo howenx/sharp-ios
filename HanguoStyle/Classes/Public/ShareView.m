@@ -14,6 +14,7 @@
 #import "UMSocialSnsPlatformManager.h"
 #import "UMSocialDataService.h"
 #import "MBProgressHUD.h"
+#import "UMSocialSnsService.h"
 @implementation ShareView
 
 /*
@@ -39,28 +40,27 @@
     bgView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.3];
     [self addSubview:bgView];
     
-    float bWidth =GGUISCREENWIDTH/4-20;
     
     [bgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
     
-    UIView *shareView = [[UIView alloc ]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, 50+bWidth+20+20+20+40+10)];
+    UIView *shareView = [[UIView alloc ]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, 291)];//25+48+15+20+20+48+15+20+20+60
     [UIView animateWithDuration:0.3 animations:^{
-        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT -(50+bWidth+20+20+20+40+10), self.frame.size.width, 50+bWidth+20+20+20+40+10);
+        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT -291, self.frame.size.width, 291);
     }];
     shareView.tag = 70;
     shareView.backgroundColor = [UIColor whiteColor];
     shareView.userInteractionEnabled = YES;
     [self addSubview:shareView];
     
-    UILabel *tishi = [[UILabel alloc]initWithFrame:CGRectMake((self.frame.size.width-200)/2, 20, 200, 20)];
-    
-    tishi.text = @"分享到";
-    tishi.font = [UIFont systemFontOfSize:18];
-    tishi.numberOfLines = 0;
-    tishi.lineBreakMode = NSLineBreakByWordWrapping;
-    tishi.textAlignment = NSTextAlignmentCenter;
-    [shareView addSubview:tishi];
-    
+//    UILabel *tishi = [[UILabel alloc]initWithFrame:CGRectMake((self.frame.size.width-200)/2, 20, 200, 20)];
+//    
+//    tishi.text = @"分享到";
+//    tishi.font = [UIFont systemFontOfSize:18];
+//    tishi.numberOfLines = 0;
+//    tishi.lineBreakMode = NSLineBreakByWordWrapping;
+//    tishi.textAlignment = NSTextAlignmentCenter;
+//    [ shareView  addSubview:tishi];
+//    
     
     //    UIButton * copyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     //    copyButton.frame = CGRectMake(20, 50, 40, 40);
@@ -82,9 +82,10 @@
     //    [shareView addSubview:copyLab];
     //
     
-    
+    float btnWidth = 48;
+    float gap = (GGUISCREENWIDTH - 48*4)/5;
     UIButton * mklButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    mklButton.frame = CGRectMake(10, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20);
+    mklButton.frame = CGRectMake(gap, 25, btnWidth, btnWidth);
     
     [mklButton setBackgroundImage:[UIImage imageNamed:@"mimeiPwd"] forState:UIControlStateNormal];
     [mklButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -93,37 +94,37 @@
     
     
     
-    UILabel *mklLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 50 + self.frame.size.width/4, self.frame.size.width/4, 20)];
+    UILabel *mklLab = [[UILabel alloc]initWithFrame:CGRectMake(gap, 40 + btnWidth, btnWidth, 20)];
     
     mklLab.text = @"秘口令";
     mklLab.font = [UIFont systemFontOfSize:14];
     mklLab.numberOfLines = 0;
     mklLab.lineBreakMode = NSLineBreakByWordWrapping;
     mklLab.textAlignment = NSTextAlignmentCenter;
-    mklLab.textColor = [UIColor lightGrayColor];
+    mklLab.textColor = UIColorFromRGB(0x333333);
     [shareView addSubview:mklLab];
     
     
     
-    float btnWidth = self.frame.size.width/4;
+    
     float width_wx = 0;
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
     {
-        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-        wxBtn.layer.cornerRadius = 5;
-        wxBtn.clipsToBounds = YES;
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth ,25, btnWidth, btnWidth)];
+//        wxBtn.layer.cornerRadius = 5;
+//        wxBtn.clipsToBounds = YES;
         wxBtn.tag = 100001;
         [wxBtn setBackgroundImage:[UIImage imageNamed:@"pengyouquan"] forState:UIControlStateNormal];
         [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wxBtn];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1 , 50 + self.frame.size.width/4, btnWidth, 20)];
-        l.textColor = [UIColor lightGrayColor];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth , 40 + btnWidth, btnWidth, 20)];
+        l.textColor = UIColorFromRGB(0x333333);
         l.text =@"朋友圈";
         l.textAlignment = NSTextAlignmentCenter;
         l.font = [UIFont systemFontOfSize:14];
         [shareView addSubview:l];
-        width_wx = btnWidth;
+        width_wx = btnWidth + gap;
     }
     else
     {
@@ -133,20 +134,20 @@
     float width_hy = 0;
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
     {
-        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth * 1 + width_wx , 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-        wxBtn.layer.cornerRadius = 5;
-        wxBtn.clipsToBounds = YES;
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx , 25, btnWidth, btnWidth)];
+//        wxBtn.layer.cornerRadius = 5;
+//        wxBtn.clipsToBounds = YES;
         wxBtn.tag = 100002;
         [wxBtn setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
         [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wxBtn];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth * 1+ width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
-        l.textColor = [UIColor lightGrayColor];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx-10 , 40 + btnWidth, btnWidth+20, 20)];
+        l.textColor = UIColorFromRGB(0x333333);
         l.text =@"微信好友";
         l.textAlignment = NSTextAlignmentCenter;
         l.font = [UIFont systemFontOfSize:14];
         [shareView addSubview:l];
-        width_hy = btnWidth;
+        width_hy = btnWidth + gap;
     }
     else
     {
@@ -157,15 +158,15 @@
     
     if ([QQApiInterface isQQInstalled]&&[QQApiInterface isQQSupportApi])
     {
-        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(10 + btnWidth*1 + width_wx +width_hy, 50, self.frame.size.width/4 - 20, self.frame.size.width/4 - 20)];
-        wxBtn.layer.cornerRadius = 5;
-        wxBtn.clipsToBounds = YES;
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx + width_hy, 25, btnWidth, btnWidth)];
+//        wxBtn.layer.cornerRadius = 5;
+//        wxBtn.clipsToBounds = YES;
         wxBtn.tag = 100003;
         [wxBtn setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
         [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wxBtn];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(btnWidth*2 + width_wx , 50 + self.frame.size.width/4, btnWidth, 20)];
-        l.textColor = [UIColor lightGrayColor];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx + width_hy-10 , 40 + btnWidth, btnWidth+20, 20)];
+        l.textColor = UIColorFromRGB(0x333333);
         l.text =@"QQ好友";
         l.textAlignment = NSTextAlignmentCenter;
         l.font = [UIFont systemFontOfSize:14];
@@ -176,18 +177,40 @@
         
     }
     
+//    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibo://wb794664710"]])
+//    {
+        UIButton *wbButton = [[UIButton alloc]initWithFrame:CGRectMake(gap, 128, btnWidth, btnWidth)];
+        //        wxBtn.layer.cornerRadius = 5;
+        //        wxBtn.clipsToBounds = YES;
+        wbButton.tag = 100004;
+        [wbButton setBackgroundImage:[UIImage imageNamed:@"weibo"] forState:UIControlStateNormal];
+        [wbButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [shareView addSubview:wbButton];
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap-10 , 95 + btnWidth*2, btnWidth+20, 20)];
+        l.textColor = UIColorFromRGB(0x333333);
+        l.text =@"新浪微博";
+        l.textAlignment = NSTextAlignmentCenter;
+        l.font = [UIFont systemFontOfSize:14];
+        [shareView addSubview:l];
+//    }
+//    else
+//    {
+//        
+//    }
+
     
-    
-    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(gap, 135 + btnWidth*2, GGUISCREENWIDTH-gap*2, 1)];
+    line.backgroundColor = UIColorFromRGB(0x959595);
+    [shareView addSubview:line];
     
     UIButton * cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelBtn.frame = CGRectMake((self.frame.size.width-300)/2,shareView.frame.size.height-50, 300, 40);
-    [cancelBtn setImage:[UIImage imageNamed:@"cancel"] forState:UIControlStateNormal];
-    
+    cancelBtn.frame = CGRectMake(0,136 + btnWidth*2, GGUISCREENWIDTH, 59);
+    [cancelBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     
     [cancelBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    //    wbButton.tag = 100004;
     [shareView addSubview:cancelBtn];
     
     
@@ -340,7 +363,7 @@
         }
     }
     else if (sender.tag == 100004) {
-        
+         [UMSocialSnsService presentSnsIconSheetView:[self getCurrentVC] appKey:@"567bb26867e58e3f670002fd" shareText:shareText shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_shareImage]]] shareToSnsNames:@[UMShareToSina] delegate:[self getCurrentVC]];
     }else if (sender.tag == 100005) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = _shareDetailPage;
@@ -361,9 +384,8 @@
 -(void)tap:(UIGestureRecognizer *)sender
 {
     UIView *shareView = [self viewWithTag:70];
-    float bWidth =GGUISCREENWIDTH/4-20;
     [UIView animateWithDuration:0.3 animations:^{
-        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, 50+bWidth+20+20+20+40+10);
+        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, 291);
     } completion:^(BOOL finished) {
         if (finished) {
             [self removeFromSuperview];
@@ -392,4 +414,35 @@
 -(void)removeShareView{
     [self removeFromSuperview];
 }
+//获取当前屏幕显示的viewcontroller
+- (UIViewController *)getCurrentVC
+{
+    UIViewController *result = nil;
+    
+    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
+    if (window.windowLevel != UIWindowLevelNormal)
+    {
+        NSArray *windows = [[UIApplication sharedApplication] windows];
+        for(UIWindow * tmpWin in windows)
+        {
+            if (tmpWin.windowLevel == UIWindowLevelNormal)
+            {
+                window = tmpWin;
+                break;
+            }
+        }
+    }
+    
+    UIView *frontView = [[window subviews] objectAtIndex:0];
+    id nextResponder = [frontView nextResponder];
+    
+    if ([nextResponder isKindOfClass:[UIViewController class]])
+        result = nextResponder;
+    else
+        result = window.rootViewController;
+    
+    UITabBarController *tab = (UITabBarController *)result;
+    return tab.selectedViewController;
+}
+
 @end

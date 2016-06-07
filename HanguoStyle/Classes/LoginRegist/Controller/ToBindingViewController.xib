@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToBindingViewController">
@@ -16,7 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="uyL-d4-JaX">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKX-dl-myR">
+                    <rect key="frame" x="0.0" y="59" width="375" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="PAl-bK-URw"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="uyL-d4-JaX">
                     <rect key="frame" x="70" y="66" width="285" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="E4P-6D-Ak5"/>
@@ -64,16 +70,19 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="GkW-7V-P7Q" firstAttribute="top" secondItem="uyL-d4-JaX" secondAttribute="bottom" constant="25" id="06v-qS-a3h"/>
                 <constraint firstItem="iVK-AS-qBx" firstAttribute="top" secondItem="EN6-LR-Row" secondAttribute="bottom" constant="24" id="68o-Xl-YFt"/>
                 <constraint firstItem="uyL-d4-JaX" firstAttribute="leading" secondItem="iVK-AS-qBx" secondAttribute="trailing" constant="8" id="BtC-fM-VXE"/>
+                <constraint firstItem="ZKX-dl-myR" firstAttribute="top" secondItem="EN6-LR-Row" secondAttribute="bottom" constant="13" id="HI5-xh-UWJ"/>
+                <constraint firstAttribute="trailing" secondItem="ZKX-dl-myR" secondAttribute="trailing" id="In0-81-SIY"/>
                 <constraint firstItem="uyL-d4-JaX" firstAttribute="top" secondItem="EN6-LR-Row" secondAttribute="bottom" constant="20" id="L4l-ut-W5M"/>
                 <constraint firstItem="EN6-LR-Row" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Npp-Sm-CvQ"/>
                 <constraint firstItem="EN6-LR-Row" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="RGr-2f-fSa"/>
                 <constraint firstItem="iVK-AS-qBx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="W3P-7f-Itv"/>
                 <constraint firstAttribute="trailing" secondItem="uyL-d4-JaX" secondAttribute="trailing" constant="20" id="lQj-Zy-tdn"/>
+                <constraint firstItem="ZKX-dl-myR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pqT-iH-StB"/>
                 <constraint firstAttribute="trailing" secondItem="GkW-7V-P7Q" secondAttribute="trailing" constant="20" id="tA7-2s-BqT"/>
                 <constraint firstItem="GkW-7V-P7Q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="x0w-Db-7vM"/>
             </constraints>

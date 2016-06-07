@@ -61,4 +61,5 @@
 +(NSString *)ShowbadEvaluateUrl;
 +(NSString *)ShowimageEvaluateUrl;
 + (NSString *) checkThreeLoginUrl;
++ (NSString *) hmmClauseUrl;
 @end

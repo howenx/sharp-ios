@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ToRegistViewController">
@@ -16,6 +15,13 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6D-dl-CEt">
+                    <rect key="frame" x="0.0" y="59" width="375" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="hBO-wN-jmy"/>
+                    </constraints>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们将发送验证码到您的手机" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJG-K1-SM7">
                     <rect key="frame" x="20" y="25" width="164" height="21"/>
                     <constraints>
@@ -26,7 +32,7 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-CR-VBK">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-CR-VBK">
                     <rect key="frame" x="70" y="66" width="285" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="mXY-uN-YGm"/>
@@ -89,10 +95,11 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Wfb-S8-XSL" firstAttribute="top" secondItem="gyd-CR-VBK" secondAttribute="bottom" constant="25" id="2vy-lp-Gz2"/>
                 <constraint firstItem="pTW-8C-WgI" firstAttribute="top" secondItem="Wfb-S8-XSL" secondAttribute="bottom" constant="23" id="4zT-4o-jHT"/>
+                <constraint firstItem="n6D-dl-CEt" firstAttribute="top" secondItem="zJG-K1-SM7" secondAttribute="bottom" constant="13" id="5NA-on-8W4"/>
                 <constraint firstAttribute="trailing" secondItem="jjR-NE-N1a" secondAttribute="trailing" constant="20" id="BUv-kZ-1Kl"/>
                 <constraint firstItem="zJG-K1-SM7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="25" id="CLW-Ro-dbv"/>
                 <constraint firstItem="a91-Fg-wZf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="CRQ-wJ-YxR"/>
@@ -104,6 +111,8 @@
                 <constraint firstAttribute="trailing" secondItem="gyd-CR-VBK" secondAttribute="trailing" constant="20" id="fiw-ts-JUQ"/>
                 <constraint firstItem="gyd-CR-VBK" firstAttribute="leading" secondItem="a91-Fg-wZf" secondAttribute="trailing" constant="8" id="glg-Sw-Ojg"/>
                 <constraint firstAttribute="trailing" secondItem="Wfb-S8-XSL" secondAttribute="trailing" constant="20" id="nYR-WA-rzU"/>
+                <constraint firstAttribute="trailing" secondItem="n6D-dl-CEt" secondAttribute="trailing" id="phn-lh-ScR"/>
+                <constraint firstItem="n6D-dl-CEt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rnP-FL-gKs"/>
                 <constraint firstItem="gyd-CR-VBK" firstAttribute="top" secondItem="zJG-K1-SM7" secondAttribute="bottom" constant="20" id="xgN-sz-MgF"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

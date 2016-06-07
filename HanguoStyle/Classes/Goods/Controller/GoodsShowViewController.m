@@ -163,6 +163,7 @@
         NSLog(@"message= %@",message);
         if(code == 200){
             [self.data removeAllObjects];
+            self.navigationItem.title = [[object objectForKey:@"themeList"] objectForKey:@"title"];
             NSDictionary * themeDict = [NSDictionary dictionaryWithObjectsAndKeys:[[object objectForKey:@"themeList"] objectForKey:@"themeImg"],@"itemImg",[[object objectForKey:@"themeList"] objectForKey:@"masterItemTag"],@"masterItemTag",@"Y",@"state",nil];
             
             NSArray * dataArray = [[object objectForKey:@"themeList"]objectForKey:@"themeItemList"];

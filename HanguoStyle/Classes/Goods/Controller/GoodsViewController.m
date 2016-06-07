@@ -225,7 +225,7 @@
     }else if([sliderData.targetType isEqualToString:@"T"]){//跳到列表页，后台控制不会跳到h5的列表页
         self.hidesBottomBarWhenPushed=YES;
         GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
-        gsViewController.navigationItem.title = @"商品展示";
+//        gsViewController.navigationItem.title = @"商品展示";
         //下个页面要跳转的url
         gsViewController.url = sliderData.itemTarget;
         [self.navigationController pushViewController:gsViewController animated:YES];
@@ -356,7 +356,7 @@
 -(void)pushGoodShowView {
 
     GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
-    gsViewController.navigationItem.title = @"商品展示";
+//    gsViewController.navigationItem.title = @"商品展示";
     //下个页面要跳转的url
     gsViewController.url = _pushUrl;
     [self.navigationController pushViewController:gsViewController animated:YES];

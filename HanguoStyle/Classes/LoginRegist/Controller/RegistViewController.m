@@ -15,7 +15,7 @@
 #import "MeViewController.h"
 #import "PinDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
-
+#import "HmmClauseViewController.h"
 @interface RegistViewController ()<UITextFieldDelegate>
 {
     int secondsCountDown; //倒计时总时长
@@ -53,14 +53,14 @@
     [self getTestCode];
     _phoneLab.text = [NSString stringWithFormat:@"已经发送验证码至 %@****%@",[_phone substringToIndex:3],[_phone substringFromIndex:8]];
 }
--(void)viewDidDisappear:(BOOL)animated
-{
-    if(countDownTimer != nil){
-        //关闭定时器
-        [countDownTimer invalidate];
-        countDownTimer = nil;
-    }
-}
+//-(void)viewDidDisappear:(BOOL)animated
+//{
+//    if(countDownTimer != nil){
+//        //关闭定时器
+//        [countDownTimer invalidate];
+//        countDownTimer = nil;
+//    }
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -439,4 +439,10 @@
     
     
 }
+- (IBAction)clauseClick:(UIButton *)sender {
+//    [countDownTimer setFireDate:[NSDate distantFuture]];
+    HmmClauseViewController * hcc = [[HmmClauseViewController alloc]init];
+    [self.navigationController pushViewController:hcc animated:YES];
+}
+
 @end

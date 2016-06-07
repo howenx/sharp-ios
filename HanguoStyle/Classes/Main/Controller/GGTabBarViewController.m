@@ -71,7 +71,7 @@
     //1.精选商品
     GoodsViewController * gContro = [[GoodsViewController alloc]init];
 //    gContro.tabBarItem.badgeValue = @"21";
-    [self setupChildViewController:gContro title:@"首页" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    [self setupChildViewController:gContro title:@"韩秘美" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];
 //    messageContro.tabBarItem.badgeValue = @"400";

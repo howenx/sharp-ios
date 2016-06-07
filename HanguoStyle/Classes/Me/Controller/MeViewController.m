@@ -22,6 +22,7 @@
 {
     MineData * mineData;
     BOOL agoIsLogin;
+    UIView * headView;
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -53,6 +54,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"我的信息";
+    
     [self progessIn];
     
 }
@@ -66,6 +68,10 @@
     [self setTableViewDataSource];
     BOOL isLogin = [PublicMethod checkLogin];
     agoIsLogin = [PublicMethod checkLogin];
+    headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 200)];
+    headView.backgroundColor = GGMainColor;
+    [self.view addSubview:headView];
+
     if(isLogin){
         [self footerRefresh];
     }else{
@@ -107,8 +113,7 @@
 
 
 - (void)createHeadView{
-    UIView * headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 200)];
-    headView.backgroundColor = GGMainColor;
+
     //设置头像
     _photoBtn = [[UIImageView alloc]init];
     _photoBtn.frame = CGRectMake(GGUISCREENWIDTH/2-80/2, 60, 80, 80);
@@ -173,8 +178,7 @@
         }
         [headView addSubview:_genderImageView];
     }
-    
-    [self.view addSubview:headView];
+
     //设置名字
 //    _tableView.tableHeaderView = headView;
   
