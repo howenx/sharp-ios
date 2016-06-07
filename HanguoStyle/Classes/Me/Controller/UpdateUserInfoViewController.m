@@ -315,7 +315,7 @@
 //        _localImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         _localImage = [info objectForKey:UIImagePickerControllerEditedImage];;
         
-        UIImage *smallImage =[self scaleFromImage:_localImage toSize:CGSizeMake(80.0f, 80.0f)];
+        UIImage *smallImage =[self scaleFromImage:_localImage toSize:CGSizeMake(160.0f, 160.0f)];
         
         NSData *data;
         if (UIImagePNGRepresentation(smallImage) == nil)
