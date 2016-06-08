@@ -266,7 +266,7 @@
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     NSDictionary * dict;
     if (self.idType != nil) {
-        if([self.idType isEqualToString:@"Q"]||[self.idType isEqualToString:@"S"]){
+        if([self.idType isEqualToString:@"Q"]||[self.idType isEqualToString:@"S"]||[self.idType isEqualToString:@"B"]){
             dict = [NSDictionary dictionaryWithObjectsAndKeys:_phone,@"phone",_pwd.text,@"password",_identCode.text,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",nil];
         }else if([self.idType isEqualToString:@"WO"]){
             dict = [NSDictionary dictionaryWithObjectsAndKeys:_phone,@"phone",_pwd.text,@"password",_identCode.text,@"code",self.accessToken,@"accessToken",self.openId,@"openId",self.idType,@"idType",self.unionId,@"unionId",nil];

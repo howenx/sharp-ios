@@ -58,7 +58,7 @@
 {
     [super viewWillAppear:animated];
     //右侧按钮
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconshezhi"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
     self.navigationItem.rightBarButtonItem = anotherButton;
 }
 
@@ -77,9 +77,13 @@
         
         
         if (_arrayData.count<=0) {
-            UIImageView * bgImageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-            bgImageView.image = [UIImage imageNamed:@"icon_delete"];
-            [self.view addSubview:bgImageView];
+            UIView * _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+            _bgView.backgroundColor = GGBgColor;
+            UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -160)/2, GGUISCREENHEIGHT/8, 160, 190)];
+            bgImageView.image = [UIImage imageNamed:@"no_message"];
+            [_bgView addSubview:bgImageView];
+            [self.view addSubview:_bgView];
+            [self.navigationController popViewControllerAnimated:YES];
         }
         
         

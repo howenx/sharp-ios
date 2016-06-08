@@ -53,6 +53,7 @@
     
 }
 -(void)backViewController{
+    [GiFHUD dismiss];
     for (UIViewController *temp in self.navigationController.viewControllers) {
         if ([temp isKindOfClass:[ChooseTeamViewController class]]) {
             [self.navigationController popToViewController:temp animated:YES];

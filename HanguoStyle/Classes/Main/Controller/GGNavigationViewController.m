@@ -8,6 +8,7 @@
 
 #import "GGNavigationViewController.h"
 #import "UIBarButtonItem+GG.h"
+#import "GiFHUD.h"
 @interface GGNavigationViewController ()
 
 @end
@@ -72,7 +73,7 @@
 
 }
 - (void)back{
-    
+    [GiFHUD dismiss];
     [self popViewControllerAnimated:YES];
 }
 

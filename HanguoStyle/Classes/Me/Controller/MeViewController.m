@@ -113,7 +113,10 @@
 
 
 - (void)createHeadView{
-
+    for(UIView *v in [headView subviews])
+    {
+        [v removeFromSuperview];
+    }
     //设置头像
     _photoBtn = [[UIImageView alloc]init];
     _photoBtn.frame = CGRectMake(GGUISCREENWIDTH/2-80/2, 60, 80, 80);

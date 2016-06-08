@@ -20,7 +20,6 @@
     NSInteger _obligationCount;
     NSInteger _receiptGoodsCount;
     NSInteger _pjCount;
-    UILabel * emptyLab;
 }
 @property (nonatomic) UIScrollView * scrollView;
 @property (nonatomic) UIView * lineView;
@@ -34,6 +33,7 @@
 @property (nonatomic) UILabel * obligationLabel;
 @property (nonatomic) UILabel * receiptGoodsLabel;
 @property (nonatomic) UILabel * pjLabel;
+@property (nonatomic) UIView * bgView;//全部
 @end
 
 @implementation MyOrderViewController
@@ -55,12 +55,15 @@
     [self createTableView];
 
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
-    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
-    emptyLab.textAlignment = NSTextAlignmentCenter;
-    emptyLab.textColor = [UIColor grayColor];
-    emptyLab.font = [UIFont systemFontOfSize:15];
-    emptyLab.text =@"暂无订单";
+    [self createNoOrderView];
 
+}
+-(void)createNoOrderView{
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _bgView.backgroundColor = GGBgColor;
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -152)/2, GGUISCREENHEIGHT/8, 152, 190)];
+    bgImageView.image = [UIImage imageNamed:@"no_order"];
+    [_bgView addSubview:bgImageView];
 }
 -(void)requestData{
     NSString * urlString;
@@ -159,38 +162,38 @@
                 
                 if (_pageNum == 0) {
                     [_totalView addSubview:_tableView];
-                    [_totalView addSubview:emptyLab];
+                    [_totalView addSubview:_bgView];
                     if(self.data.count == 0){
-                        emptyLab.hidden = NO;
+                        _bgView.hidden = NO;
                     }else{
-                        emptyLab.hidden = YES;
+                        _bgView.hidden = YES;
                     }
 
                 }else if(_pageNum == 1){
                     [_obligationView addSubview:_tableView];
-                    [_obligationView addSubview:emptyLab];
+                    [_obligationView addSubview:_bgView];
                     if(self.data.count == 0){
-                        emptyLab.hidden = NO;
+                        _bgView.hidden = NO;
                     }else{
-                        emptyLab.hidden = YES;
+                        _bgView.hidden = YES;
                     }
 
                 }else if(_pageNum == 2){
                     [_receiptGoodsView addSubview:_tableView];
-                    [_receiptGoodsView addSubview:emptyLab];
+                    [_receiptGoodsView addSubview:_bgView];
                     if(self.data.count == 0){
-                        emptyLab.hidden = NO;
+                        _bgView.hidden = NO;
                     }else{
-                        emptyLab.hidden = YES;
+                        _bgView.hidden = YES;
                     }
 
                 }else if(_pageNum == 3){
                     [_pjView addSubview:_tableView];
-                    [_pjView addSubview:emptyLab];
+                    [_pjView addSubview:_bgView];
                     if(self.data.count == 0){
-                        emptyLab.hidden = NO;
+                        _bgView.hidden = NO;
                     }else{
-                        emptyLab.hidden = YES;
+                        _bgView.hidden = YES;
                     }
                     
                 }
@@ -292,7 +295,6 @@
     [pjBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     pjBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [pjBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     _pjLabel = [[UILabel alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH-20)/8+20 , 0, 15, 15)];
     _pjLabel.textColor = GGMainColor;
     _pjLabel.textAlignment = NSTextAlignmentCenter;
@@ -404,6 +406,7 @@
     [super didReceiveMemoryWarning];
 }
 -(void)backViewController{
+    [GiFHUD dismiss];
     for (UIViewController *temp in self.navigationController.viewControllers) {
         if ([temp isKindOfClass:[GoodsDetailViewController class]]) {
             [self.navigationController popToViewController:temp animated:YES];

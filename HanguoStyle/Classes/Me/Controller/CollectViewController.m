@@ -12,11 +12,8 @@
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 @interface CollectViewController ()<UITableViewDataSource,UITableViewDelegate>
-{
-    UILabel * emptyLab;
-}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (nonatomic) UIView * bgView;
 @end
 
 @implementation CollectViewController
@@ -38,14 +35,18 @@
     self.data  = [NSMutableArray array];
 
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    [self createNoCollectView];
     
-    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT/2, GGUISCREENWIDTH, 40)];
-    emptyLab.textAlignment = NSTextAlignmentCenter;
-    emptyLab.textColor = [UIColor grayColor];
-    emptyLab.font = [UIFont systemFontOfSize:15];
-    emptyLab.text =@"暂无收藏商品";
-    [self.view addSubview:emptyLab];
-    emptyLab.hidden = YES;
+    
+}
+-(void)createNoCollectView{
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _bgView.backgroundColor = GGBgColor;
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -162)/2, GGUISCREENHEIGHT/8, 162, 190)];
+    bgImageView.image = [UIImage imageNamed:@"no_collect"];
+    [_bgView addSubview:bgImageView];
+    [self.view addSubview:_bgView];
+    _bgView.hidden = YES;
 }
 -(void)headerRefresh{
     
@@ -76,9 +77,9 @@
                 [self.data addObject:data];
             }
             if(self.data.count == 0){
-                emptyLab.hidden = NO;
+                _bgView.hidden = NO;
             }else{
-                emptyLab.hidden = YES;
+                _bgView.hidden = YES;
             }
             [self.tableView reloadData];
         }else{
@@ -184,9 +185,9 @@
 
                 [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
             }else{
                 hud.labelText = @"取消收藏失败";

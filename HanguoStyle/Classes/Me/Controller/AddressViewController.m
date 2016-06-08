@@ -11,11 +11,9 @@
 #import "AddressCell.h"
 
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,AddressCellDelegate>
-{
-    UILabel * emptyLab;
-}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray * data;
+@property (nonatomic) UIView * bgView;
 @end
 
 @implementation AddressViewController
@@ -35,14 +33,7 @@
     self.data = [NSMutableArray array];
     
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-    
-    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT/2, GGUISCREENWIDTH, 40)];
-    emptyLab.textAlignment = NSTextAlignmentCenter;
-    emptyLab.textColor = [UIColor grayColor];
-    emptyLab.font = [UIFont systemFontOfSize:15];
-    emptyLab.text =@"暂无收货地址";
-    [self.view addSubview:emptyLab];
-    emptyLab.hidden = YES;
+    [self createNoAddressView];
     
     //右上角添加按钮
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
@@ -51,7 +42,20 @@
     [rightButton addTarget:self action:@selector(addAddress)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
+    
+    
+    
 }
+-(void)createNoAddressView{
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _bgView.backgroundColor = GGBgColor;
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -162)/2, GGUISCREENHEIGHT/8, 162, 190)];
+    bgImageView.image = [UIImage imageNamed:@"no_address"];
+    [_bgView addSubview:bgImageView];
+    [self.view addSubview:_bgView];
+    _bgView.hidden = YES;
+}
+
 -(void)addAddress{
     if(![PublicMethod isConnectionAvailable]){
         return;
@@ -93,9 +97,9 @@
                 [self.data addObject:data];
             }
             if(self.data.count == 0){
-                emptyLab.hidden = NO;
+                _bgView.hidden = NO;
             }else{
-                emptyLab.hidden = YES;
+                _bgView.hidden = YES;
             }
             [self.tableView reloadData];
 
@@ -212,9 +216,9 @@
                 [self.data removeObjectAtIndex:[indexPath row]];
                 [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
             }else{
                 hud.labelText = @"删除失败";

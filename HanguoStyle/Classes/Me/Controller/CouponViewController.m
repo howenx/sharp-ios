@@ -11,7 +11,6 @@
 #import "MyCouponCell.h"
 @interface CouponViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
-    UILabel * emptyLab;
     int Ncount;
     int Ycount;
     int Scount;
@@ -27,6 +26,7 @@
 @property (nonatomic) UIView * receiptGoodsView;//未使用
 @property (nonatomic) int pageNum;
 @property (nonatomic) UITableView * tableView;
+@property (nonatomic) UIView * bgView;
 @end
 
 @implementation CouponViewController
@@ -43,14 +43,17 @@
     [self createScrollView];
     _data = [NSMutableArray array];
     [self createTableView];
-    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
-    emptyLab.textAlignment = NSTextAlignmentCenter;
-    emptyLab.textColor = [UIColor grayColor];
-    emptyLab.font = [UIFont systemFontOfSize:15];
-    emptyLab.text =@"暂无优惠券";
     [self requestData];
+    [self createNoCouponView];
     
     
+}
+-(void)createNoCouponView{
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _bgView.backgroundColor = GGBgColor;
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -162)/2, GGUISCREENHEIGHT/8, 162, 190)];
+    bgImageView.image = [UIImage imageNamed:@"no_coupon"];
+    [_bgView addSubview:bgImageView];
 }
 -(void)requestData{
     NSString * urlString = [HSGlobal couponUrl];
@@ -107,11 +110,11 @@
                 [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
 
                 [_totalView addSubview:_tableView];
-                [_totalView addSubview:emptyLab];
+                [_totalView addSubview:_bgView];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
                 
             }else if(_pageNum == 1){
@@ -119,11 +122,11 @@
                 [obligationBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
                 [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
                 [_obligationView addSubview:_tableView];
-                [_obligationView addSubview:emptyLab];
+                [_obligationView addSubview:_bgView];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
                 
             }else if(_pageNum == 2){
@@ -131,11 +134,11 @@
                 [obligationBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
                 [receiptGoodsBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
                 [_receiptGoodsView addSubview:_tableView];
-                [_receiptGoodsView addSubview:emptyLab];
+                [_receiptGoodsView addSubview:_bgView];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
             }
          

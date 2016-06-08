@@ -13,7 +13,6 @@
     UIScrollView * scrollView;
     SearchLogisticsData * _data;
     float flowHeight;
-    UILabel * emptyLab;
     
 }
 @end
@@ -45,12 +44,12 @@
         if([_data.message isEqualToString:@"ok"]){
             [self createView];
         }else{
-            emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
-            emptyLab.textAlignment = NSTextAlignmentCenter;
-            emptyLab.textColor = [UIColor grayColor];
-            emptyLab.font = [UIFont systemFontOfSize:15];
-            emptyLab.text =@"暂未获取到物流信息，请稍候再查";
-            [self.view addSubview:emptyLab];
+            UIView * _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+            _bgView.backgroundColor = GGBgColor;
+            UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -152)/2, GGUISCREENHEIGHT/8, 152, 190)];
+            bgImageView.image = [UIImage imageNamed:@"no_logistics"];
+            [_bgView addSubview:bgImageView];
+            [self.view addSubview:_bgView];
         }
         
         [GiFHUD dismiss];

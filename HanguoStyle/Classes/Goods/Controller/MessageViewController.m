@@ -78,10 +78,12 @@
                 NSArray * array =  [object objectForKey:@"msgTypeDTOList"];
                 
                 if (array.count<=0) {
-                
-                    UIImageView * bgImageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-                    bgImageView.image = [UIImage imageNamed:@"message_wu"];
-                    [self.view addSubview:bgImageView];
+                    UIView * _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+                    _bgView.backgroundColor = GGBgColor;
+                    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -160)/2, GGUISCREENHEIGHT/8, 160, 190)];
+                    bgImageView.image = [UIImage imageNamed:@"no_message"];
+                    [_bgView addSubview:bgImageView];
+                    [self.view addSubview:_bgView];
                      [GiFHUD dismiss];
                     return ;
                 }

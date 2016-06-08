@@ -53,6 +53,7 @@
 }
 
 -(void)backViewController{
+    [GiFHUD dismiss];
     if([self.payType isEqualToString:@"item"]){
         self.alertViewJD = [[UIAlertView alloc] initWithTitle:@"确认要离开收银台" message:@"下单后24小时订单将被取消，请尽快完成支付" delegate:self cancelButtonTitle:@"继续支付" otherButtonTitles:@"确定离开", nil];
         

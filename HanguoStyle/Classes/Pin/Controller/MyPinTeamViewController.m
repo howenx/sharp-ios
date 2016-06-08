@@ -12,14 +12,13 @@
 #import "PinDetailViewController.h"
 #import "OrderDetailsPinViewController.h"
 @interface MyPinTeamViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,MBProgressHUDDelegate,MyPinTeamCellDelegate>
-{
-    UILabel * emptyLab;
-}
+
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UIScrollView * scrollView;
 @property (nonatomic) UIView * lineView;
 @property (nonatomic) UIView * totalView;//我的开团
 @property (nonatomic) UIView * obligationView;//我的参团
+@property (nonatomic) UIView * bgView;//没有订单的背景
 
 @property (nonatomic) int pageNum;
 @end
@@ -42,12 +41,15 @@
     [self createScrollView];
     [self createTableView];
     [self requestData];
-    emptyLab = [[UILabel alloc]initWithFrame:CGRectMake(0, (GGUISCREENHEIGHT-104)/2-40, GGUISCREENWIDTH, 40)];
-    emptyLab.textAlignment = NSTextAlignmentCenter;
-    emptyLab.textColor = [UIColor grayColor];
-    emptyLab.font = [UIFont systemFontOfSize:15];
-    emptyLab.text =@"暂无拼团商品";
+    [self createNoOrderView];
 
+}
+-(void)createNoOrderView{
+    _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
+    _bgView.backgroundColor = GGBgColor;
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -152)/2, GGUISCREENHEIGHT/8, 152, 190)];
+    bgImageView.image = [UIImage imageNamed:@"no_groupon"];
+    [_bgView addSubview:bgImageView];
 }
 - (void) requestData
 {
@@ -90,19 +92,19 @@
             [self.tableView reloadData];
             if (_pageNum == 0) {
                 [_totalView addSubview:_tableView];
-                [_totalView addSubview:emptyLab];
+                [_totalView addSubview:_bgView];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
             }else if(_pageNum == 1){
                 [_obligationView addSubview:_tableView];
-                [_obligationView addSubview:emptyLab];
+                [_obligationView addSubview:_bgView];
                 if(self.data.count == 0){
-                    emptyLab.hidden = NO;
+                    _bgView.hidden = NO;
                 }else{
-                    emptyLab.hidden = YES;
+                    _bgView.hidden = YES;
                 }
             }
 

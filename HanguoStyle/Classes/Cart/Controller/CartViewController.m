@@ -108,20 +108,25 @@
 -(void)createNoCartView{
     _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
     _bgView.backgroundColor = GGBgColor;
-    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -319)/2, 150, 319, 133)];
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -200)/2, GGUISCREENHEIGHT/8, 200, 200)];
     bgImageView.image = [UIImage imageNamed:@"shoppingcart"];
     
     
     UIButton * bgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    bgButton.frame = CGRectMake((GGUISCREENWIDTH-80)/2, bgImageView.y + bgImageView.height +20, 80, 30) ;
-    bgButton.backgroundColor = GGMainColor;
+    bgButton.frame = CGRectMake((GGUISCREENWIDTH-100)/2, bgImageView.y + bgImageView.height +20, 100, 30) ;
     
-    [bgButton setTitle:@"去逛逛" forState:UIControlStateNormal];
+    [bgButton setTitle:@"随便逛逛" forState:UIControlStateNormal];
     bgButton.titleLabel.font = [UIFont systemFontOfSize:16];
+    [bgButton.layer setMasksToBounds:YES];
+    [bgButton.layer setCornerRadius:4.0];
+    [bgButton setTitleColor:GGMainColor forState:UIControlStateNormal];
+    [bgButton.layer setBorderColor:GGMainColor.CGColor];
+    [bgButton.layer setBorderWidth:1.0];
     [bgButton addTarget:self  action:@selector(bgButtonClick)  forControlEvents:UIControlEventTouchUpInside];
     [_bgView addSubview:bgButton];
     [_bgView addSubview:bgImageView];
     [self.view addSubview:_bgView];
+    _bgView.hidden = YES;
 }
 -(void)bgButtonClick{
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"home",@"jumpKey", nil];
