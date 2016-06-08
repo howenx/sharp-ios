@@ -26,9 +26,11 @@
 #import "PinDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 
+#import "BaiduOAuthSDK.h"
+#import "BaiduDelegate.h"
+#import "BaiduAuthCodeDelegate.h"
 
-
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,BaiduAuthorizeDelegate,BaiduAuthCodeDelegate>
 {
     FMDatabase * database;
     NSString * sendCode;
@@ -49,8 +51,9 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
-
+    
     [super viewDidLoad];
+    [BaiduOAuthSDK initWithAPIKey:@"7TjGqkwAU5rQPcC6LKGMjpKd" appId:@"2014185"];
     self.tabBarController.tabBar.hidden=YES;
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.navigationItem.title = @"登录";
@@ -697,54 +700,107 @@
         }});
 }
 - (IBAction)baiduLogin:(UIButton *)sender {
-    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-    
-    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-        
-        //          获取微博用户名、uid、token等
-        
-        if (response.responseCode == UMSResponseCodeSuccess) {
-            
-            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-            NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n  message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.message);
-            //idType:第三方平台，W：微信，Q:腾讯，A:阿里，WO:微信开放平台,S:新浪微博,B:百度
-            NSString * urlString = [NSString stringWithFormat:@"%@idType=B&openId=%@",[HSGlobal checkThreeLoginUrl],snsAccount.usid];
-            AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-            [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                //转换为词典数据
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                //创建数据模型对象,加入数据数组
-                ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-                
-                if(returnResult.code == 200){
-                    //给极光发送别名
-                    [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
-                    
-                    //把用户账号存到内存中
-                    [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
-                    NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
-                    [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
-                    [self sendCart];
-                    
-                }else if(returnResult.code == 4001){
-                    [self getVerifyData];
-                }else if(returnResult.code == 4003){
-                    ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
-                    rvc.comeFrom = self.comeFrom;
-                    rvc.accessToken = snsAccount.accessToken;
-                    rvc.openId = snsAccount.usid;
-                    rvc.idType = @"B";
-                    // rvc.unionId = snsAccount.unionId;
-                    [self.navigationController pushViewController:rvc animated:NO];
-                }else{
-                    [self showHud:returnResult.message];
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error: %@", error);
-                [self showHud:@"登录失败"];
-            }];
-            
-        }});
+        [self doUserAuthCodeLogin:nil];
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark -Authorization Code 授权方式登录
+- (void)doUserAuthCodeLogin:(id)sender {
+    [BaiduOAuthSDK initWithAPIKey:@"ASScu4RtVH2iFiDxf035rfN2" appId:@"3183406"];
+    [BaiduOAuthSDK authorizationCodeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" redirctUrl:@"http://x.baidu.com/plug-in-services/demo/easysleepdiary/auth.php" needSignUp:YES andDelegaet:self];
+}
+
+- (void)doGetAuthCodeBySms:(id)sender {
+    
+    [BaiduOAuthSDK initWithAPIKey:@"ASScu4RtVH2iFiDxf035rfN2" appId:@"3183406"];
+    [BaiduOAuthSDK smsAuthCodeWithTargetViewController:self
+                                                 scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video"
+                                                mobile:@""
+                                            redirctUrl:@"http://x.baidu.com/plug-in-services/demo/easysleepdiary/auth.php"
+                                            needSignUp:NO
+                                           andDelegate:self];
+}
+
+#pragma mark -获取Authorization Code成功
+- (void)authorizationCodeSuccessWithCode:(NSString *)code
+{
+    NSString *message = [NSString stringWithFormat:@"Authorization Code 是 %@",code];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+    NSLog(@"((((((((((((((%@",code);
+    //idType:第三方平台，W：微信，Q:腾讯，A:阿里，WO:微信开放平台,S:新浪微博,B:百度
+    NSString * urlString = [NSString stringWithFormat:@"%@idType=B&openId=%@",[HSGlobal checkThreeLoginUrl],code];
+    AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
+    [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //转换为词典数据
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        //创建数据模型对象,加入数据数组
+        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+        
+        if(returnResult.code == 200){
+            //给极光发送别名
+            [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+            
+            //把用户账号存到内存中
+            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+            [self sendCart];
+            
+        }else if(returnResult.code == 4001){
+            [self getVerifyData];
+        }else if(returnResult.code == 4003){
+            ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
+            rvc.comeFrom = self.comeFrom;
+            rvc.accessToken = @"basic,super_msg,netdisk,pcs_doc,pcs_video";
+            rvc.openId = code;
+            rvc.idType = @"B";
+            // rvc.unionId = snsAccount.unionId;
+            [self.navigationController pushViewController:rvc animated:NO];
+        }else{
+            [self showHud:returnResult.message];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self showHud:@"登录失败"];
+    }];
+
+//    if ([BaiduOAuthSDK isUserTokenValid]) {
+//        NSLog(@"%@",@"asdadsasdasdasdasasdadasd");
+//    } else {
+//        [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
+//    }
+
+
+}
+
+- (void)authorizationCodeWithError:(NSError*)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] ;
+    [alertView show];
+}
+
+- (void)loginDidCancel
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:@"授权取消" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)loginFailedWithError:(NSError*)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+}
 @end
