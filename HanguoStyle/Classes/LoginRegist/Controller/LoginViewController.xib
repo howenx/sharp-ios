@@ -17,10 +17,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6o-As-fYW" userLabel="backView">
-                    <rect key="frame" x="0.0" y="195" width="375" height="472"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytv-44-16d">
                     <rect key="frame" x="17" y="116" width="55" height="26"/>
                     <constraints>
@@ -157,7 +153,7 @@
                         <action selector="weiboLogin:" destination="-1" eventType="touchUpInside" id="Fw3-il-uQw"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
+                <button opaque="NO" tag="51009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
                     <rect key="frame" x="270" y="381" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="0Rl-QK-iu5"/>
@@ -218,6 +214,10 @@
                         <constraint firstItem="d4K-07-xmq" firstAttribute="leading" secondItem="1IQ-Xr-oZ0" secondAttribute="leading" constant="21" id="tRp-5w-oYG"/>
                         <constraint firstAttribute="width" constant="160" id="uUt-Wx-Ai1"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6o-As-fYW" userLabel="backView">
+                    <rect key="frame" x="0.0" y="195" width="375" height="472"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
