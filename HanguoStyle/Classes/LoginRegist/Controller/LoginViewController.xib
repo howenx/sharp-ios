@@ -17,6 +17,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OtE-yn-UuF">
+                    <rect key="frame" x="0.0" y="195" width="375" height="472"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytv-44-16d">
                     <rect key="frame" x="17" y="116" width="55" height="26"/>
                     <constraints>
@@ -153,13 +157,13 @@
                         <action selector="weiboLogin:" destination="-1" eventType="touchUpInside" id="Fw3-il-uQw"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="51009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
                     <rect key="frame" x="270" y="381" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="0Rl-QK-iu5"/>
                         <constraint firstAttribute="width" constant="40" id="8Gt-09-N5w"/>
                     </constraints>
-                    <state key="normal" image="weibo_login.png">
+                    <state key="normal" image="baidu_login.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -215,10 +219,6 @@
                         <constraint firstAttribute="width" constant="160" id="uUt-Wx-Ai1"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N6o-As-fYW" userLabel="backView">
-                    <rect key="frame" x="0.0" y="195" width="375" height="472"/>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -229,6 +229,7 @@
                 <constraint firstItem="twR-4q-Ljw" firstAttribute="top" secondItem="Adg-6W-acJ" secondAttribute="bottom" constant="17" id="5Ay-KB-dA4"/>
                 <constraint firstItem="uMK-j2-CLJ" firstAttribute="top" secondItem="LqW-45-zXZ" secondAttribute="top" id="82O-r1-vly"/>
                 <constraint firstAttribute="centerX" secondItem="YjF-7O-7en" secondAttribute="centerX" id="95N-Qt-jyJ"/>
+                <constraint firstItem="OtE-yn-UuF" firstAttribute="top" secondItem="3CL-R5-1Dy" secondAttribute="bottom" constant="8" id="BMq-UW-dxp"/>
                 <constraint firstItem="WU6-Dy-Xy5" firstAttribute="top" secondItem="1IQ-Xr-oZ0" secondAttribute="bottom" constant="26" id="BxT-X2-wBz"/>
                 <constraint firstItem="Adg-6W-acJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Ckt-Kk-ojh"/>
                 <constraint firstItem="OB1-Dj-ioM" firstAttribute="leading" secondItem="ytv-44-16d" secondAttribute="trailing" constant="8" id="F3J-8Q-hY9"/>
@@ -245,11 +246,13 @@
                 <constraint firstAttribute="trailing" secondItem="s68-9M-MqJ" secondAttribute="trailing" id="ZhH-Dt-ecT"/>
                 <constraint firstItem="3CL-R5-1Dy" firstAttribute="top" secondItem="OB1-Dj-ioM" secondAttribute="bottom" constant="15" id="ar7-Sr-qXa"/>
                 <constraint firstItem="OB1-Dj-ioM" firstAttribute="top" secondItem="s68-9M-MqJ" secondAttribute="bottom" constant="8" id="bXJ-NZ-WeQ"/>
+                <constraint firstAttribute="trailing" secondItem="OtE-yn-UuF" secondAttribute="trailing" id="eJR-t7-kc7"/>
                 <constraint firstItem="s68-9M-MqJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ev3-BG-FDs"/>
                 <constraint firstItem="s68-9M-MqJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="evx-xV-1Xx"/>
                 <constraint firstAttribute="centerX" secondItem="1IQ-Xr-oZ0" secondAttribute="centerX" id="hD8-7S-puy"/>
                 <constraint firstAttribute="trailing" secondItem="3CL-R5-1Dy" secondAttribute="trailing" constant="9" id="hRs-3n-Qyh"/>
                 <constraint firstItem="3CL-R5-1Dy" firstAttribute="leading" secondItem="pOr-SZ-Jdh" secondAttribute="trailing" constant="8" id="hUg-2y-hBq"/>
+                <constraint firstAttribute="bottom" secondItem="OtE-yn-UuF" secondAttribute="bottom" id="i1e-3D-pTJ"/>
                 <constraint firstItem="crt-Ek-hjr" firstAttribute="top" secondItem="uMK-j2-CLJ" secondAttribute="top" id="jnq-SA-7Pf"/>
                 <constraint firstItem="WU6-Dy-Xy5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="k0a-SM-ScC"/>
                 <constraint firstItem="uMK-j2-CLJ" firstAttribute="leading" secondItem="LqW-45-zXZ" secondAttribute="trailing" constant="28" id="lZl-A8-kx1"/>
@@ -262,6 +265,7 @@
                 <constraint firstAttribute="trailing" secondItem="OB1-Dj-ioM" secondAttribute="trailing" constant="9" id="wT0-kI-kyf"/>
                 <constraint firstAttribute="bottom" secondItem="YjF-7O-7en" secondAttribute="bottom" constant="8" id="wm1-2G-ahu"/>
                 <constraint firstItem="crt-Ek-hjr" firstAttribute="leading" secondItem="uMK-j2-CLJ" secondAttribute="trailing" constant="29" id="xrY-y2-zgG"/>
+                <constraint firstItem="OtE-yn-UuF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yEX-7k-MLf"/>
                 <constraint firstItem="ytv-44-16d" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="17" id="zJ4-fN-Aba"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -273,8 +277,9 @@
         </view>
     </objects>
     <resources>
+        <image name="baidu_login.png" width="40" height="40"/>
         <image name="login_header.png" width="540" height="150"/>
-        <image name="qq_login.png" width="39" height="39"/>
+        <image name="qq_login.png" width="40" height="40"/>
         <image name="wechat_login.png" width="40" height="40"/>
         <image name="weibo_login.png" width="40" height="40"/>
     </resources>
