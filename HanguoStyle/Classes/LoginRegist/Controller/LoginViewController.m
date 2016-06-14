@@ -30,11 +30,12 @@
 #import "BaiduDelegate.h"
 #import "BaiduAuthCodeDelegate.h"
 
-@interface LoginViewController ()<UITextFieldDelegate,BaiduAuthorizeDelegate,BaiduAuthCodeDelegate>
+@interface LoginViewController ()<UITextFieldDelegate,BaiduAuthorizeDelegate,BaiduAuthCodeDelegate,BaiduAPIRequestDelegate>
 {
     FMDatabase * database;
     NSString * sendCode;
     UILabel * promptLab;
+    NSString * tokenBaidu;
 }
 - (IBAction)loginButton:(UIButton *)sender;
 - (IBAction)registButton:(UIButton *)sender;
@@ -53,7 +54,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [BaiduOAuthSDK initWithAPIKey:@"7TjGqkwAU5rQPcC6LKGMjpKd" appId:@"2014185"];
+    [BaiduOAuthSDK initWithAPIKey:@"x6opgN1tKTyIy3GuzA4camG6reNnGtiT" appId:@"8228990"];
     self.tabBarController.tabBar.hidden=YES;
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.navigationItem.title = @"登录";
@@ -700,14 +701,58 @@
         }});
 }
 - (IBAction)baiduLogin:(UIButton *)sender {
-        [self doUserAuthCodeLogin:nil];
+        [BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
+}
+
+- (void)loginDidSuccessWithTokenInfo:(BaiduTokenInfo *)tokenInfo
+{
+//    NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
+    tokenBaidu = tokenInfo.accessToken;
+    
+    [BaiduOAuthSDK apiRequestWithUrl:@"https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser" httpMethod:@"GET" params:nil andDelegate:self];
 }
 
 
 
-
-
-
+-(void)alreadyLogin :(id)tokenInfo
+{
+        NSString * urlString = [NSString stringWithFormat:@"%@idType=B&openId=%@",[HSGlobal checkThreeLoginUrl],tokenInfo[@"uid"]];
+        AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
+        [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //转换为词典数据
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+            //创建数据模型对象,加入数据数组
+            ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
+    
+            if(returnResult.code == 200){
+                //给极光发送别名
+                [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
+    
+                //把用户账号存到内存中
+                [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
+                NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
+                [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
+                [self sendCart];
+    
+            }else if(returnResult.code == 4001){
+                [self getVerifyData];
+            }else if(returnResult.code == 4003){
+                ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
+                rvc.comeFrom = self.comeFrom;
+                rvc.accessToken = tokenBaidu;
+                rvc.openId = tokenInfo[@"uid"];
+                rvc.idType = @"B";
+                // rvc.unionId = snsAccount.unionId;
+                [self.navigationController pushViewController:rvc animated:NO];
+            }else{
+                [self showHud:returnResult.message];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [self showHud:@"登录失败"];
+        }];
+    
+}
 
 
 
@@ -718,72 +763,12 @@
 
 #pragma mark -Authorization Code 授权方式登录
 - (void)doUserAuthCodeLogin:(id)sender {
-    [BaiduOAuthSDK initWithAPIKey:@"ASScu4RtVH2iFiDxf035rfN2" appId:@"3183406"];
-    [BaiduOAuthSDK authorizationCodeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" redirctUrl:@"http://x.baidu.com/plug-in-services/demo/easysleepdiary/auth.php" needSignUp:YES andDelegaet:self];
+    [BaiduOAuthSDK initWithAPIKey:@"x6opgN1tKTyIy3GuzA4camG6reNnGtiT" appId:@"8228990"];
+    [BaiduOAuthSDK authorizationCodeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" redirctUrl:@"bdconnect://success" needSignUp:NO andDelegaet:self];
 }
-
-- (void)doGetAuthCodeBySms:(id)sender {
-    
-    [BaiduOAuthSDK initWithAPIKey:@"ASScu4RtVH2iFiDxf035rfN2" appId:@"3183406"];
-    [BaiduOAuthSDK smsAuthCodeWithTargetViewController:self
-                                                 scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video"
-                                                mobile:@""
-                                            redirctUrl:@"http://x.baidu.com/plug-in-services/demo/easysleepdiary/auth.php"
-                                            needSignUp:NO
-                                           andDelegate:self];
-}
-
 #pragma mark -获取Authorization Code成功
 - (void)authorizationCodeSuccessWithCode:(NSString *)code
 {
-    NSString *message = [NSString stringWithFormat:@"Authorization Code 是 %@",code];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-    NSLog(@"((((((((((((((%@",code);
-    //idType:第三方平台，W：微信，Q:腾讯，A:阿里，WO:微信开放平台,S:新浪微博,B:百度
-    NSString * urlString = [NSString stringWithFormat:@"%@idType=B&openId=%@",[HSGlobal checkThreeLoginUrl],code];
-    AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
-    [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //转换为词典数据
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        //创建数据模型对象,加入数据数组
-        ReturnResult * returnResult = [[ReturnResult alloc]initWithJSONNode:dict];
-        
-        if(returnResult.code == 200){
-            //给极光发送别名
-            [JPUSHService setAlias:returnResult.alias callbackSelector:nil object:self];
-            
-            //把用户账号存到内存中
-            [[NSUserDefaults standardUserDefaults]setObject:returnResult.token forKey:@"userToken"];
-            NSDate * lastDate = [[NSDate alloc] initWithTimeInterval:returnResult.expired sinceDate:[NSDate date]];
-            [[NSUserDefaults standardUserDefaults]setObject:lastDate forKey:@"expired"];
-            [self sendCart];
-            
-        }else if(returnResult.code == 4001){
-            [self getVerifyData];
-        }else if(returnResult.code == 4003){
-            ToBindingViewController * rvc = [[ToBindingViewController alloc]init];
-            rvc.comeFrom = self.comeFrom;
-            rvc.accessToken = @"basic,super_msg,netdisk,pcs_doc,pcs_video";
-            rvc.openId = code;
-            rvc.idType = @"B";
-            // rvc.unionId = snsAccount.unionId;
-            [self.navigationController pushViewController:rvc animated:NO];
-        }else{
-            [self showHud:returnResult.message];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [self showHud:@"登录失败"];
-    }];
-
-//    if ([BaiduOAuthSDK isUserTokenValid]) {
-//        NSLog(@"%@",@"asdadsasdasdasdasasdadasd");
-//    } else {
-//        [BaiduOAuthSDK authorizeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
-//    }
-
-
 }
 
 - (void)authorizationCodeWithError:(NSError*)error
@@ -803,4 +788,15 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alertView show];
 }
+
+- (void)apiRequestDidFinishLoadWithResult:(id)result
+{
+    //API请求成功，解析请求结果
+    [self alreadyLogin:result];
+}
+- (void)apiRequestDidFailLoadWithError:(NSError*)error
+{
+    //API请求失败的处理
+}
+
 @end
