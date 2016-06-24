@@ -139,7 +139,8 @@
 
     [_photoBtn.layer setMasksToBounds:YES];
     [_photoBtn.layer setCornerRadius:40.0];
-    
+    _photoBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    _photoBtn.layer.borderWidth = 1;
 
     [headView addSubview:_photoBtn];
     

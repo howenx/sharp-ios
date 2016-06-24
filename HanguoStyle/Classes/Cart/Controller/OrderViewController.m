@@ -35,7 +35,7 @@
     NSString * sendTime;
     int sendTimeId;
     NSString * payType;
-    NSString * payTypeId;
+//    NSString * payTypeId;
     NSString * coupon;
     NSString * _couponId;
     
@@ -44,9 +44,10 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *footView;
+
 @property (nonatomic) UILabel * payLab;
 @property (nonatomic) UIButton * payBtn;
-
+@property (nonatomic) UILabel * noticeLab;
 @end
 
 @implementation OrderViewController
@@ -60,8 +61,14 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self loadBasic];
     [self createFootView];
-
-    
+    _noticeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-60-64, GGUISCREENWIDTH, 20)];
+    _noticeLab.textAlignment = NSTextAlignmentCenter;
+    _noticeLab.font = [UIFont systemFontOfSize:12];
+    _noticeLab.text = @"海关规定跨境商品支付金额不小于1元";
+    _noticeLab.backgroundColor = UIColorFromRGB(0xFFEDCF);
+    _noticeLab.textColor = GGMainColor;
+    [self.view addSubview:_noticeLab];
+    _noticeLab.hidden = YES;
 }
 
 
@@ -74,9 +81,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     sendTime = @"工作日双休日与假期均可送货";
     payType = @"在线支付";
-    coupon = @"未选择";
+    coupon = @"0";
     _couponId= @"";
-    payTypeId = @"JD";
+//    payTypeId = @"JD";
     sendTimeId = 1;
     isTimeEdit = NO;
     isPayTypeEdit = NO;
@@ -127,7 +134,7 @@
     [lastDict setObject: [NSNumber numberWithInt:sendTimeId] forKey:@"shipTime"];//送货时间
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
     [lastDict setObject: @"" forKey:@"orderDesc"];
-    [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
+//    [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
     [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
     [lastDict setObject: [NSNumber numberWithLong:_pinActiveId] forKey:@"pinActiveId"];
     
@@ -213,7 +220,8 @@
         sendGoodTimeCell.sendTime =  sendTime;
         [sendGoodTimeCell createView];
         sendGoodTimeCell.delegate = self;
-        [sendGoodTimeCell.editBtn addTarget:self action:@selector(editTimeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [sendGoodTimeCell.editBtn addTarget:self action:@selector(editTimeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [sendGoodTimeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTimeBtnClicked)]];
         sendGoodTimeCell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         return sendGoodTimeCell;
@@ -225,7 +233,8 @@
         payTypeCell.payType =  payType;
         [payTypeCell createView];
         payTypeCell.delegate = self;
-        [payTypeCell.editBtn addTarget:self action:@selector(editPayTypeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [payTypeCell.editBtn addTarget:self action:@selector(editPayTypeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [payTypeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editPayTypeBtnClicked)]];
         payTypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return payTypeCell;
@@ -238,7 +247,8 @@
         couponCell.realityPay = _realityPay;
         couponCell.delegate = self;
         couponCell.data = self.orderData;
-        [couponCell.editBtn addTarget:self action:@selector(couponBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [couponCell.editBtn addTarget:self action:@selector(couponBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [couponCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(couponBtnClicked)]];
         couponCell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return couponCell;
@@ -289,7 +299,7 @@
 
     }
 }
-- (void) editTimeBtnClicked: (UIButton *) button
+- (void) editTimeBtnClicked
 {
     isTimeEdit = !isTimeEdit;
 
@@ -300,7 +310,7 @@
     }
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
-- (void) editPayTypeBtnClicked: (UIButton *) button
+- (void) editPayTypeBtnClicked
 {
     isPayTypeEdit = !isPayTypeEdit;
     
@@ -312,7 +322,7 @@
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void) couponBtnClicked: (UIButton *) button
+- (void) couponBtnClicked
 {
     isCouponEdit = !isCouponEdit;
     
@@ -350,14 +360,20 @@
 
 -(void)payTypeFlag:(NSString *)payTypeFlag{
     payType = payTypeFlag ;
-    payTypeId = @"JD";
+//    payTypeId = @"JD";
 }
 -(void)couponFlag:(NSString *)couponFlag andCouponId:(NSString *)couponId{
     coupon = couponFlag;
     _couponId = couponId;
-    if(![couponFlag isEqualToString:@"不使用优惠券"]){
+    
+    if([couponFlag floatValue]>[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]){
+        _payLab.text = [NSString stringWithFormat:@"应支付：￥1"];
+        _noticeLab.hidden = NO;
+    }else{
         _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]-[couponFlag floatValue]];
+        _noticeLab.hidden = YES;
     }
+
 }
 
 
@@ -372,7 +388,7 @@
         [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
         [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
         [lastDict setObject: @"" forKey:@"orderDesc"];
-        [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
+//        [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
         [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
 
             NSString * urlString =[HSGlobal sendCartToOrder];

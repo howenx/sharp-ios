@@ -409,7 +409,7 @@
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
-    [lastDict setObject: @"JD" forKey:@"payMethod"];
+//    [lastDict setObject: @"JD" forKey:@"payMethod"];
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"buyNow"];//立即支付
     NSString * urlString =[HSGlobal sendCartToOrder];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];

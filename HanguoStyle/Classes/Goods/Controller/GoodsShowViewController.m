@@ -12,8 +12,7 @@
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 #import "CartViewController.h"
-//section之间空隙，和item的空隙，这里都设置成5
-#define gap 5
+
 
 
 
@@ -57,15 +56,15 @@
     [rightButton addTarget:self action:@selector(enterCust)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(17 , -5, 15, 15)];
-    _cntLabel.textColor = GGMainColor;
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(11 , -2, 15, 15)];
+    _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
-    _cntLabel.font = [UIFont boldSystemFontOfSize:11];
-    _cntLabel.backgroundColor = [UIColor whiteColor];
+    _cntLabel.font = [UIFont systemFontOfSize:10];
+    _cntLabel.backgroundColor = GGMainColor;
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
-    _cntLabel.layer.borderColor = GGMainColor.CGColor;
+    _cntLabel.layer.borderColor = GGBgColor.CGColor;
 
     if (_cnt == 0) {
         _cntLabel.hidden = YES;
@@ -204,11 +203,11 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
 
         //上下两个item的空隙
-        layout.minimumLineSpacing = gap*2;
+        layout.minimumLineSpacing = 10;
         //左右2个item的空隙
         layout.minimumInteritemSpacing = 0;
         //上左下右的空隙
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, gap*2, 0);
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
         //滚动方向
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
@@ -285,7 +284,7 @@
     }
     else //其他组
     {
-        return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2);
+        return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2+56);
     }
 }
 

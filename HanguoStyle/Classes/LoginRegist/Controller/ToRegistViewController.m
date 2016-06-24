@@ -134,6 +134,8 @@
     NSString * urlString =[HSGlobal checkRegist];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneLab.text,@"phone",@"-1",@"code",nil];
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -151,7 +153,9 @@
             _verifyView.hidden = NO;
             _verifyBg.hidden = NO;
         }
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
         NSLog(@"Error: %@", error);
         [PublicMethod printAlert:@"登录失败"];
     }];

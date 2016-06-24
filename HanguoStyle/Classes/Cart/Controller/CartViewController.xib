@@ -106,7 +106,7 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    友情提示：同一保税区商品总额有限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1v-d2-9Ch" userLabel="notifyLabel">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="15"/>
-                    <color key="backgroundColor" red="1" green="0.93102384868421051" blue="0.81008429276315785" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="1" green="0.92941176470588238" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="KPp-PO-zpO"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="xAD-FX-6bX"/>

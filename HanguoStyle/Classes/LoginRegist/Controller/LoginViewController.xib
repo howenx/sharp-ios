@@ -157,7 +157,7 @@
                         <action selector="weiboLogin:" destination="-1" eventType="touchUpInside" id="Fw3-il-uQw"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
+                <button opaque="NO" tag="51009" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tu5-gZ-PEr">
                     <rect key="frame" x="270" y="381" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="0Rl-QK-iu5"/>

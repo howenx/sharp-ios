@@ -20,7 +20,7 @@
 
 -(void)createBestSale:(NSArray *)pushArray{
     array = pushArray;
-    gap = 215;
+    gap = GGUISCREENWIDTH/2+58;
     self.backgroundColor = GGBgColor;
     CGRect rect = CGRectMake(0, 0, GGUISCREENWIDTH, 0);
     
@@ -57,33 +57,33 @@
     [view addSubview:rightView];
     
     
-    UIImageView * goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, viewW-10, 155)];
+    UIImageView * goodsImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 0, viewW-10, viewW-10)];
     goodsImageView.contentMode = UIViewContentModeScaleAspectFit;
     [goodsImageView sd_setImageWithURL:[NSURL URLWithString:showData.itemImg]];
     [view addSubview:goodsImageView];
     
     
-    UIView* lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 156, GGUISCREENWIDTH/2, 1)];
-    lineView.backgroundColor = GGBgColor;
-    [view addSubview:lineView];
+//    UIView* lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 156, GGUISCREENWIDTH/2, 1)];
+//    lineView.backgroundColor = GGBgColor;
+//    [view addSubview:lineView];
     
-    UILabel  * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 157, viewW-20, 30)];
-    titleLabel.font = [UIFont systemFontOfSize:10];
-    titleLabel.textColor = [UIColor lightGrayColor];
+    UILabel  * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, goodsImageView.height +4, viewW-20, 32)];
+    titleLabel.font = [UIFont systemFontOfSize:13];
+    titleLabel.textColor = UIColorFromRGB(0x333333);
     titleLabel.numberOfLines = 2;
     titleLabel.text = showData.itemTitle;
     [view addSubview:titleLabel];
     
     
-    UILabel  * moneyLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 189, 100, 21)];
+    UILabel  * moneyLab = [[UILabel alloc]initWithFrame:CGRectMake(10, titleLabel.y+titleLabel.height + 6, 100, 21)];
     moneyLab.font = [UIFont systemFontOfSize:14];
     moneyLab.textColor = GGMainColor;
     moneyLab.numberOfLines = 1;
-    moneyLab.text = [NSString stringWithFormat:@"￥ %.2f",showData.itemPrice];
+    moneyLab.text = [NSString stringWithFormat:@"￥ %@",showData.itemPrice];
     [view addSubview:moneyLab];
     
     
-    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 210, viewW, 5)];
+    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, moneyLab.y + moneyLab.height, viewW, 5)];
     bottomView.backgroundColor = GGBgColor;
     [view addSubview:bottomView];
     
@@ -121,7 +121,7 @@
             _pinTimeLab.text  = strTime;
             
             
-            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, 210)];
+            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, gap)];
             willSaleView.backgroundColor = [UIColor blackColor];
             willSaleView.alpha = 0.5;
             [view addSubview:willSaleView];
@@ -150,7 +150,7 @@
     }else{
         if([@"P" isEqualToString: showData.state]){
             
-            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, 210)];
+            UIView* willSaleView =[[UIView alloc]initWithFrame:CGRectMake(5, 0, GGUISCREENWIDTH/2-10, gap)];
             willSaleView.backgroundColor = [UIColor blackColor];
             willSaleView.alpha = 0.5;
             [view addSubview:willSaleView];

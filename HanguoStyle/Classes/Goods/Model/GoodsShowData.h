@@ -27,9 +27,9 @@
 @property (nonatomic) NSString * itemUrl;//商品详细页面链接
 
 @property (nonatomic) NSString * itemTitle;//商品标题
-@property (nonatomic) float  itemPrice;//商品价格
+@property (nonatomic) NSString * itemPrice;//商品价格
 @property (nonatomic) float  itemSrcPrice;//商品原价
-@property (nonatomic) float  itemDiscount;//商品折扣
+@property (nonatomic) NSString * itemDiscount;//商品折扣
 
 @property (nonatomic) NSString * itemSoldAmount;//商品销量
 @property (nonatomic) NSArray * masterItemTag;//如果是主打宣传商品，会需要tag json串

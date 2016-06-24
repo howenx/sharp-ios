@@ -99,6 +99,13 @@
             [myDict setObject:[rs stringForColumn:@"state"] forKey:@"state"];
             [myDict setObject:[rs stringForColumn:@"sku_type"] forKey:@"skuType"];
             [myDict setObject:[NSNumber numberWithLong:[rs longForColumn:@"sku_type_id"]] forKey:@"skuTypeId"];
+            
+            if([@"G"isEqualToString:[rs stringForColumn:@"state"]]){
+                [myDict setObject:@"Y" forKey:@"orCheck"];
+            }else{
+                [myDict setObject:@"" forKey:@"orCheck"];
+            }
+            [myDict setObject:[NSNumber numberWithInt:3] forKey:@"cartSource"];
             [mutArray addObject:myDict];
         }
     }
@@ -387,7 +394,7 @@
             }
         }
         if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
-            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
+            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }
@@ -499,9 +506,15 @@
     [myDict setObject:[NSNumber numberWithLong:data.skuId] forKey:@"skuId"];
     [myDict setObject:[NSNumber numberWithLong:data.cartId] forKey:@"cartId"];
     [myDict setObject:[NSNumber numberWithLong:data.amount] forKey:@"amount"];
-    [myDict setObject:@"I" forKey:@"state"];
+    [myDict setObject:data.state forKey:@"state"];
     [myDict setObject:data.skuType forKey:@"skuType"];
     [myDict setObject:[NSNumber numberWithLong:data.skuTypeId] forKey:@"skuTypeId"];
+    if([@"G"isEqualToString:data.state]){
+        [myDict setObject:@"Y" forKey:@"orCheck"];
+    }else{
+        [myDict setObject:@"" forKey:@"orCheck"];
+    }
+    [myDict setObject:[NSNumber numberWithInt:3] forKey:@"cartSource"];
     [mutArray addObject:myDict];
     for (int i=0; i<_data.count; i++) {
         CartData * cData = _data[i];
@@ -649,7 +662,14 @@
         _goSettle.backgroundColor = GGMainColor;
     }
 }
+
+//勾选按钮（登录状态）
 -(void)sendSelectData:(CartDetailData *)data{
+    
+    
+    
+    
+    
     [self updataNotify];
     if([@"I" isEqualToString: data.state]){
         selectCount = selectCount - data.amount;
@@ -701,7 +721,7 @@
             if(cData.selectPostalTaxRate>cData.postalStandard){//如果行邮税大于行邮税标准，则用正常的行邮税，否则，免税
                 tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.selectPostalTaxRate] ;
             }else{
-                if([@"-0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]] || [@"0" isEqualToString:[NSString stringWithFormat:@"%.f",cData.selectPostalTaxRate]]){
+                if([@"-0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]] || [@"0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]]){
                     tableHeadView.postalTaxLabel.text = @"免税";
                 }else{
                     tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f(免)",cData.selectPostalTaxRate] ;
@@ -712,10 +732,7 @@
         }
     }
 
-    
-    
-    
-    //这段逻辑为了你判断一个保税区里面的商品是否超过1000
+    //这段逻辑为了你判断一个保税区里面的商品是否超过限制金额
 //    _tiShiLab.text = @"";
 //    _goSettle.enabled = YES;
 //    _goSettle.backgroundColor = GGMainColor;
@@ -730,7 +747,7 @@
             }
         }
         if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
-            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥1000",cData.invAreaNm];
+            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }
@@ -834,7 +851,7 @@
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
-    [lastDict setObject: @"JD" forKey:@"payMethod"];
+//    [lastDict setObject: @"JD" forKey:@"payMethod"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"buyNow"];
 
     

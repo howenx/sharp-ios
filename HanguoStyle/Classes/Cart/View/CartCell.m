@@ -92,16 +92,69 @@
     }
     //登陆状态
     if(isLogin){
-//        CartDetailData * data  = [[CartDetailData alloc]init];
-//        data = self.data;
+
+        //给后台发送勾选信息
+        NSString * urlString =[HSGlobal selectCustUrl];
+        NSMutableArray * mutArray = [NSMutableArray array];
+        
+        NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+        [myDict setObject:[NSNumber numberWithLong:_data.skuId] forKey:@"skuId"];
+        [myDict setObject:[NSNumber numberWithInteger:_data.cartId] forKey:@"cartId"];
+        [myDict setObject:[NSNumber numberWithInteger:_data.amount] forKey:@"amount"];
         if([@"I" isEqualToString: _data.state]){//未选中
-            _data.state = @"G";
-            [self.stateBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+            [myDict setObject:@"G" forKey:@"state"];
         }else if([@"G" isEqualToString: _data.state]){//选中
-            _data.state = @"I";
-            [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+            [myDict setObject:@"I" forKey:@"state"];
         }
-        [self.delegate sendSelectData:_data];
+        
+        [myDict setObject:[NSNumber numberWithLong:_data.skuTypeId] forKey:@"skuTypeId"];
+        [myDict setObject:_data.skuType forKey:@"skuType"];
+        //未修改之前未勾选给后台传想要勾选
+        if([@"I" isEqualToString: _data.state]){
+            [myDict setObject:@"Y" forKey:@"orCheck"];
+        }else if([@"G" isEqualToString: _data.state]){
+            [myDict setObject:@"N" forKey:@"orCheck"];
+        }
+        
+        [myDict setObject:[NSNumber numberWithInt:3] forKey:@"cartSource"];
+        
+        [mutArray addObject:myDict];
+        
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        [GiFHUD setGifWithImageName:@"hmm.gif"];
+        [GiFHUD show];
+        [manager POST:urlString  parameters:mutArray success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
+            NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            NSLog(@"message= %@",message);
+            if(code == 200 ){
+                if([@"I" isEqualToString: _data.state]){//未选中
+                    _data.state = @"G";
+                    [self.stateBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateNormal];
+                }else if([@"G" isEqualToString: _data.state]){//选中
+                    _data.state = @"I";
+                    [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+                }
+                [self.delegate sendSelectData:_data];
+                
+            }else{
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = message;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+            }
+            [GiFHUD dismiss];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [GiFHUD dismiss];
+        }];
+
     
     }else{
         

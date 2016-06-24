@@ -56,21 +56,21 @@
 -(CGRect)titleRectForContentRect:(CGRect)contentRect
 {
     CGFloat x = 0;
-    CGFloat y = contentRect.size.height * IWabBarHight;
+    CGFloat y = contentRect.size.height * IWabBarHight+10;
     CGFloat w = contentRect.size.width;
     CGFloat h = contentRect.size.height - y;
     return  CGRectMake(x, y, w, h);
 }
 -(void)setBadge{
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6+8 , 2, 15, 15)];
-    _cntLabel.textColor = GGMainColor;
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6 , 5, 15, 15)];
+    _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
-    _cntLabel.font = [UIFont boldSystemFontOfSize:11];
-    _cntLabel.backgroundColor = [UIColor whiteColor];
+    _cntLabel.font = [UIFont systemFontOfSize:10];
+    _cntLabel.backgroundColor = GGMainColor;
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
-    _cntLabel.layer.borderColor = GGMainColor.CGColor;
+    _cntLabel.layer.borderColor = GGBgColor.CGColor;
     _cntLabel.hidden = YES;
     [self addSubview:_cntLabel];
 

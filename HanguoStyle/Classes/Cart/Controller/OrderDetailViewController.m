@@ -259,12 +259,16 @@
     payTypeLab.font = [UIFont systemFontOfSize:12];
     payTypeLab.textColor = [UIColor grayColor];
     NSString * payType;
-    if([_orderData.orderInfo.payMethod isEqualToString:@"JD"]){
-        payType = @"京东支付";
-    }else if([_orderData.orderInfo.payMethod isEqualToString:@"APAY"]){
-        payType = @"支付宝支付";
-    }else if([_orderData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
-        payType = @"微信支付";
+    if(![NSString isNSNull:_orderData.orderInfo.payMethod]){
+        if([_orderData.orderInfo.payMethod isEqualToString:@"JD"]){
+            payType = @"京东支付";
+        }else if([_orderData.orderInfo.payMethod isEqualToString:@"APAY"]){
+            payType = @"支付宝支付";
+        }else if([_orderData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
+            payType = @"微信支付";
+        }
+    }else{
+        payType = @"在线支付";
     }
     payTypeLab.text = [NSString stringWithFormat:@"支付方式：%@",payType];
     [orderIdView addSubview:payTypeLab];

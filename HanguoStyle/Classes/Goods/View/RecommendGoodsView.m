@@ -10,7 +10,6 @@
 #import "GoodsShowCell.h"
 #import "PinGoodsDetailViewController.h"
 #import "GoodsDetailViewController.h"
-#define gap 5
 
 @interface RecommendGoodsView()
 {
@@ -42,9 +41,9 @@
     
     [bgView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)]];
     
-    pushView = [[UIView alloc ]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, (GGUISCREENWIDTH-gap*3)/2+10)];
+    pushView = [[UIView alloc ]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, GGUISCREENWIDTH/2+56+10)];
     [UIView animateWithDuration:0.3 animations:^{
-        pushView.frame =CGRectMake(0, GGUISCREENHEIGHT - (GGUISCREENWIDTH-gap*3)/2 -10, self.frame.size.width, (GGUISCREENWIDTH-gap*3)/2 +10);
+        pushView.frame =CGRectMake(0, GGUISCREENHEIGHT - (GGUISCREENWIDTH/2+56+10), self.frame.size.width, GGUISCREENWIDTH/2+56+10);
     }];
     pushView.tag = 70;
     pushView.backgroundColor = GGBgColor;
@@ -72,15 +71,12 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         
 
-
-        //上左下右的空隙
-        layout.sectionInset = UIEdgeInsetsMake(0, gap, gap, gap);
         //滚动方向
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
         
         //创建一个collectionView
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, GGUISCREENWIDTH, (GGUISCREENWIDTH-gap*3)/2) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 5, GGUISCREENWIDTH, GGUISCREENWIDTH/2+56) collectionViewLayout:layout];
         _collectionView.backgroundColor = GGBgColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -88,6 +84,11 @@
     }
     
     return _collectionView;
+}
+//去掉一横排两个cell之间的空隙
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
 }
 /**
  有多少组
@@ -127,7 +128,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    return CGSizeMake((GGUISCREENWIDTH-gap*3)/2, (GGUISCREENWIDTH-gap*3)/2);
+    return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2+56);
 }
 
 /**
@@ -191,7 +192,7 @@
 {
     UIView *shareView = [self viewWithTag:70];
     [UIView animateWithDuration:0.3 animations:^{
-        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, (GGUISCREENWIDTH-gap*3)/2+10);
+        shareView.frame =CGRectMake(0, GGUISCREENHEIGHT, self.frame.size.width, GGUISCREENWIDTH/2+56+10);
     } completion:^(BOOL finished) {
         if (finished) {
             [self removeFromSuperview];

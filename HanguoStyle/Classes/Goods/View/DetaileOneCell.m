@@ -41,18 +41,19 @@
     for(SizeData * sizeData in data.sizeArray){
         if(sizeData.orMasterInv){
             _scrollArr = sizeData.itemPreviewImgs;
-            _costPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemSrcPrice];
-            _currentPriceLab.text = [NSString stringWithFormat:@"%.2f",sizeData.itemPrice];
-            if([[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] isEqualToString:@"0.0"]){
+            _costPriceLab.text = sizeData.itemSrcPrice;
+            _currentPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemPrice];
+            itemDiscountCount = (int)[sizeData.itemDiscount length] + 3;
+            if([NSString isBlankString:sizeData.itemDiscount]){
                  _detailLab.text = sizeData.invTitle;
             }else{
-                _detailLab.text = [[[@"[" stringByAppendingString:[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount]] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
+                _detailLab.text = [[[@"[" stringByAppendingString:sizeData.itemDiscount] stringByAppendingString:@"折]"] stringByAppendingString:sizeData.invTitle];
                 NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
                 [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(0,itemDiscountCount)];
                 _detailLab.attributedText = str;
             }
             
-            itemDiscountCount = (int)[[NSString stringWithFormat:@"%.1f",sizeData.itemDiscount] length] + 3;
+            
             
             self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invAreaNm];
             self.postalTaxRateLab.text = [NSString stringWithFormat:@"税率：%@",sizeData.postalTaxRate];

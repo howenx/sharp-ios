@@ -13,6 +13,7 @@
 {
 
     NSString * couponSave;
+    UILabel * discountAmtPriceLab;
 }
 @end
 @implementation CouponCell
@@ -51,8 +52,8 @@
     
     
     _couponLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2-30, 50)];
-    if([_coupon isEqualToString:@"不使用优惠券"] || [_coupon isEqualToString:@"未选择"]){
-        _couponLab.text =  _coupon;
+    if([_coupon isEqualToString:@"0"]){
+        _couponLab.text = @"不使用优惠券";
     }else{
         _couponLab.text = [@"-" stringByAppendingString: _coupon];
     }
@@ -102,7 +103,7 @@
         [oneBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
         [oneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         oneBtn.tag = 10000;
-        if([_coupon isEqualToString:[oneBtn currentTitle]]){
+        if([_coupon isEqualToString:@"0"]){
             oneBtn.selected = YES;
         }
         [selectView addSubview:oneBtn];
@@ -114,7 +115,12 @@
         [selectView addSubview:line3];
         for(int i = 1;i <= data.couponsArray.count;i++){
             CouponsData * couponsData = data.couponsArray[i-1];
-            NSString * str = [NSString stringWithFormat:@"满%@减%@",couponsData.limitQuota , couponsData.denomination];
+            NSString * str;
+            if([couponsData.limitQuota isEqualToString:@"0"]){
+                str = [NSString stringWithFormat:@"%@元，无限额", couponsData.denomination];
+            }else{
+                str = [NSString stringWithFormat:@"%@元，满%@元可用", couponsData.denomination,couponsData.limitQuota];
+            }
             
             
             ResetButton * btn = [ResetButton buttonWithType:UIButtonTypeCustom];
@@ -165,7 +171,7 @@
     totalPriceLab.textColor = GGMainColor;
     [totalView addSubview:totalPriceLab];
     UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line4.backgroundColor = [UIColor lightGrayColor];
+    line4.backgroundColor = GGBgColor;
     [totalView addSubview:line4];
     
     
@@ -180,18 +186,15 @@
     discountAmtLab.textColor = [UIColor grayColor];
     [discountAmtView addSubview:discountAmtLab];
     
-    UILabel * discountAmtPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
-    if([_coupon isEqualToString:@"不使用优惠券"] || [_coupon isEqualToString:@"未选择"]){
-        discountAmtPriceLab.text = @"￥0";
-    }else{
-        discountAmtPriceLab.text = [NSString stringWithFormat:@"￥%@",_coupon];
-    }
+    discountAmtPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
+    discountAmtPriceLab.text = [NSString stringWithFormat:@"￥%@",_coupon];
+
     discountAmtPriceLab.textAlignment = NSTextAlignmentRight;
     discountAmtPriceLab.font = [UIFont systemFontOfSize:14];
     discountAmtPriceLab.textColor = GGMainColor;
     [discountAmtView addSubview:discountAmtPriceLab];
     UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line5.backgroundColor = [UIColor lightGrayColor];
+    line5.backgroundColor = GGBgColor;
     [discountAmtView addSubview:line5];
     
     
@@ -211,7 +214,7 @@
     portalFeePriceLab.textColor = GGMainColor;
     [portalFeeView addSubview:portalFeePriceLab];
     UIView * line6 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line6.backgroundColor = [UIColor lightGrayColor];
+    line6.backgroundColor = GGBgColor;
     [portalFeeView addSubview:line6];
 
     
@@ -230,9 +233,7 @@
     shipPriceLab.font = [UIFont systemFontOfSize:14];
     shipPriceLab.textColor = GGMainColor;
     [shipView addSubview:shipPriceLab];
-    UIView * line7 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line7.backgroundColor = [UIColor lightGrayColor];
-    [shipView addSubview:line7];
+
 
 }
 -(void)btnClick:(UIButton *)button{
@@ -241,10 +242,12 @@
         btn.selected = NO;
         if(button.tag == 10000){
             _couponLab.text = @"不使用优惠券";
-            [self.delegate couponFlag:@"不使用优惠券"  andCouponId:@""];
+            discountAmtPriceLab.text = @"￥0";
+            [self.delegate couponFlag:@"0"  andCouponId:@""];
             
         }else if(button.tag == btn.tag){
             _couponLab.text = [@"-" stringByAppendingString: ((CouponsData *)_data.couponsArray[i-1]).denomination];
+            discountAmtPriceLab.text = [NSString stringWithFormat:@"￥%@",((CouponsData *)_data.couponsArray[i-1]).denomination];
             [self.delegate couponFlag:((CouponsData *)_data.couponsArray[i-1]).denomination andCouponId:((CouponsData *)_data.couponsArray[i-1]).coupId];
         }
     }

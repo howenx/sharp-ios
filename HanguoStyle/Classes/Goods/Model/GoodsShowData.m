@@ -36,20 +36,16 @@
         
         
         self.itemTitle = [node objectForKey:@"itemTitle"];
-        if(![NSString isNSNull:[node objectForKey:@"itemPrice"]]){
-            self.itemPrice = [[node objectForKey:@"itemPrice"]floatValue];
-        }
+
+        self.itemPrice = [node objectForKey:@"itemPrice"];
+
         
         if(![NSString isNSNull:[node objectForKey:@"itemSrcPrice"]]){
             self.itemSrcPrice = [[node objectForKey:@"itemSrcPrice"]floatValue];
         }
         
-        if(![NSString isNSNull:[node objectForKey:@"itemDiscount"]]){
-            self.itemDiscount = [[node objectForKey:@"itemDiscount"]floatValue];
-        }
-        
-        
-        
+        self.itemDiscount = [node objectForKey:@"itemDiscount"];
+
         self.itemSoldAmount = [node objectForKey:@"itemSoldAmount"];
         if(![NSString isNSNull:[node objectForKey:@"collectCount"]]){
             self.collectCount = [[node objectForKey:@"collectCount"] integerValue];

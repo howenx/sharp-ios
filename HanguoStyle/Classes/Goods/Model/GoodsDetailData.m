@@ -59,17 +59,12 @@
                 sizeData.itemColor = [tag objectForKey:@"itemColor"];
                 sizeData.itemSize = [tag objectForKey:@"itemSize"];
                 sizeData.itemSize = [sizeData.itemColor stringByAppendingString:sizeData.itemSize];//吧颜色和尺寸拼接到一起作为一个选项显示
-                if(![NSString isNSNull:[tag objectForKey:@"itemPrice"]]){
-                    sizeData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
-                }
-                sizeData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
-                if(![NSString isNSNull:[tag objectForKey:@"itemSrcPrice"]]){
-                    sizeData.itemSrcPrice = [[tag objectForKey:@"itemSrcPrice"]floatValue];
-                }
+
+                sizeData.itemPrice = [tag objectForKey:@"itemPrice"];
                 
-                if(![NSString isNSNull:[tag objectForKey:@"itemDiscount"]]){
-                    sizeData.itemDiscount = [[tag objectForKey:@"itemDiscount"]floatValue];
-                }
+                sizeData.itemSrcPrice = [tag objectForKey:@"itemSrcPrice"];
+
+                sizeData.itemDiscount = [tag objectForKey:@"itemDiscount"];
                 
                 if(![NSString isNSNull:[tag objectForKey:@"restAmount"]]){
                     sizeData.restAmount = [[tag objectForKey:@"restAmount"]integerValue];

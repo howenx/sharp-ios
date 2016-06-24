@@ -177,15 +177,16 @@
                                                                                            , 0), top, SCREEN_WIDTH-20-5-20-lastSize1.width, 15)];
     NSString * payType = @"";
     countPriceLabelframe.font = [UIFont systemFontOfSize:14];
-    if([self.singleData.orderInfo.payMethod isEqualToString:@"JD"]){
-        payType = @"京东支付";
-    }else if([self.singleData.orderInfo.payMethod isEqualToString:@"APAY"]){
-        payType = @"支付宝支付";
-    }else if([self.singleData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
-        payType = @"微信支付";
-    }else
-    {
-        payType = @"";
+    if(![NSString isNSNull:self.singleData.orderInfo.payMethod]){
+        if([self.singleData.orderInfo.payMethod isEqualToString:@"JD"]){
+            payType = @"京东支付";
+        }else if([self.singleData.orderInfo.payMethod isEqualToString:@"APAY"]){
+            payType = @"支付宝支付";
+        }else if([self.singleData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
+            payType = @"微信支付";
+        }
+    }else{
+        payType = @"在线支付";
     }
 
     countPriceLabelframe.text = [NSString stringWithFormat:@"(%@)",payType];

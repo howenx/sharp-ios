@@ -107,7 +107,7 @@
     self.navigationItem.title = @"商品详情";
 
     
-
+//    _cartButton.imageEdgeInsets = UIEdgeInsetsMake(10,10,10,10);
     _cartButton.hidden = NO;
     _cntLabel.hidden = NO;
     [self makeCartUI];
@@ -136,15 +136,15 @@
 }
 -(void)makeCartUI{
     
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -7, _cartButton.y-3, 15, 15)];
-    _cntLabel.textColor = GGMainColor;
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(_cartButton.x + _cartButton.width -15, _cartButton.y, 15, 15)];
+    _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
-    _cntLabel.font = [UIFont boldSystemFontOfSize:10];
-    _cntLabel.backgroundColor = [UIColor whiteColor];
+    _cntLabel.font = [UIFont systemFontOfSize:10];
+    _cntLabel.backgroundColor = GGMainColor;
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
-    _cntLabel.layer.borderColor = GGMainColor.CGColor;
+    _cntLabel.layer.borderColor = [UIColor whiteColor].CGColor;
     if (_cnt == 0) {
         _cntLabel.hidden = YES;
     }
@@ -200,7 +200,6 @@
                     _cntLabel.hidden = NO;
                     _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
                 }
-    
             }
 
             [GiFHUD dismiss];
@@ -286,7 +285,7 @@
         
         
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 60, GGUISCREENWIDTH, 20) ;
+        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 70-64, GGUISCREENWIDTH, 20) ;
         otherPinGoodsBtn.backgroundColor = GGMainColor;
         
         [otherPinGoodsBtn setTitle:@"该商品已下架，去看看其他商品吧" forState:UIControlStateNormal];
@@ -769,9 +768,11 @@
         [myDict setObject:[NSNumber numberWithInt:[sizeId intValue]] forKey:@"skuId"];
         [myDict setObject:[NSNumber numberWithInt:0] forKey:@"cartId"];
         [myDict setObject:[NSNumber numberWithInt:1] forKey:@"amount"];
-        [myDict setObject:@"I" forKey:@"state"];
+        [myDict setObject:@"G" forKey:@"state"];
         [myDict setObject:[NSNumber numberWithLong:skuTypeId] forKey:@"skuTypeId"];
         [myDict setObject:skuType forKey:@"skuType"];
+        [myDict setObject:@"Y" forKey:@"orCheck"];
+        [myDict setObject:[NSNumber numberWithInt:2] forKey:@"cartSource"];
 
         [mutArray addObject:myDict];
         [self requestData:[mutArray copy]];
@@ -872,7 +873,7 @@
                     NSString * sql = @"insert into Shopping_Cart (pid,cart_id,pid_amount,state,sku_type,sku_type_id) values (?,?,?,?,?,?)";
                     
                     //插入
-                    BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"I",skuType,[NSNumber numberWithLong:skuTypeId]];
+                    BOOL isInsertOK = [database executeUpdate:sql,[NSNumber numberWithInt:[sizeId intValue]],0,[NSNumber numberWithInt:1],@"G",skuType,[NSNumber numberWithLong:skuTypeId]];
                     
                     if (isInsertOK)
                     {
@@ -1020,7 +1021,7 @@
             [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
             [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
             [lastDict setObject: @"" forKey:@"orderDesc"];
-            [lastDict setObject: @"JD" forKey:@"payMethod"];
+//            [lastDict setObject: @"JD" forKey:@"payMethod"];
             [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"buyNow"];//立即支付
             NSString * urlString =[HSGlobal sendCartToOrder];
             AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
@@ -1046,7 +1047,7 @@
                         cdData.invTitle = sizeData.invTitle;
                         cdData.invImg = sizeData.invImg;
                         cdData.amount = 1;
-                        cdData.itemPrice = sizeData.itemPrice;
+                        cdData.itemPrice = [sizeData.itemPrice floatValue];
                         [odData.cartDataArray addObject:cdData];
 
                     }
@@ -1056,7 +1057,7 @@
                     order.orderData = orderData;
                     order.mutArray = mutArray;
                     order.buyNow = 1;
-                    order.realityPay = [NSString stringWithFormat:@"%.2f",sizeData.itemPrice];
+                    order.realityPay = sizeData.itemPrice;
                     [self.navigationController pushViewController:order animated:YES];
                 }else{
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

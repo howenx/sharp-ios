@@ -30,6 +30,8 @@
     NSString * urlString =[HSGlobal refreshToken];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
 //    NSString * oldToken = [[NSUserDefaults standardUserDefaults]objectForKey:@"userToken"];
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -47,7 +49,9 @@
         }else{
             [self showHud:returnResult.message];
         }
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
         NSLog(@"Error: %@", error);
         [PublicMethod printAlert:@"登录失败"];
     }];

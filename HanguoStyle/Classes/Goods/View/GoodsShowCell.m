@@ -15,12 +15,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *describeLab;
 
 @property (weak, nonatomic) IBOutlet UILabel *saleOutLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
 
 @property (weak, nonatomic) IBOutlet UILabel *moneyLab;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
+//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moneyFlagConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageAndTitleConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleAndMoneyConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *priceBottomConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titlePicLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *titlePicRightConstraint;
@@ -32,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIView *willSaleView;
 @property (weak, nonatomic) IBOutlet UIImageView *willSaleImageView;
 
+@property (weak, nonatomic) IBOutlet UILabel *lowDiscountLab;
 
 
 //@property (nonatomic ,strong) UIButton * textView;
@@ -56,6 +59,7 @@
         
         _pinFlagImageView.hidden = NO;
         _pinTimeLab.hidden = NO;
+        _lowDiscountLab.hidden = NO;
 
         //在售
         if([@"Y" isEqualToString: data.state]){
@@ -86,7 +90,16 @@
             _pinTimeLab.text  = strTime;
             _willSaleView.hidden = YES;
         }
-
+        
+        _lowDiscountLab.text = [NSString stringWithFormat:@"低至%@折",data.itemDiscount];
+        NSString * lowStr = @"最低";
+        NSString * moneystr = [NSString stringWithFormat:@"%@  %@",data.itemPrice,lowStr];
+        long len1 = [data.itemPrice length]+2;
+        long len2 = [lowStr length];
+        NSMutableAttributedString * str2 = [[NSMutableAttributedString alloc]initWithString:moneystr];
+        [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(len1,len2)];
+        [str2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11.0f] range:NSMakeRange(len1,len2)];
+        self.moneyLab.attributedText = str2;
     }else{
         if([@"Y" isEqualToString: data.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
             _saleOutLab.hidden = YES;
@@ -102,12 +115,14 @@
         
         _pinFlagImageView.hidden = YES;
         _pinTimeLab.hidden = YES;
+        _lowDiscountLab.hidden = YES;
+        self.moneyLab.text = data.itemPrice;
     }
     
     [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:data.itemImg] placeholderImage:[UIImage imageNamed:@"load2ing"]];
 //    [self.titleImageView setImage:[UIImage imageNamed:@"zhanwei"]];
     self.describeLab.text = data.itemTitle;
-    self.moneyLab.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];
+    
     if(data.itemTitle ==nil || [@""isEqualToString: data.itemTitle]){
         _titleConstraint.constant = 0;
         _moneyFlagConstraint.constant = 0;
@@ -115,14 +130,16 @@
         _titleAndMoneyConstraint.constant = 0;
         _titlePicLeftConstraint.constant = 0;
         _titlePicRightConstraint.constant = 0;
+        _priceBottomConstraint.constant = 0;
         
     }else{
-        _titleConstraint.constant = 30;
+        _titleConstraint.constant = 32;
         _moneyFlagConstraint.constant = 21;
-        _imageAndTitleConstraint.constant = 2;
-        _titleAndMoneyConstraint.constant = 2;
+        _imageAndTitleConstraint.constant = 4;
+        _titleAndMoneyConstraint.constant = 6;
         _titlePicLeftConstraint.constant = 5;
         _titlePicRightConstraint.constant = 5;
+        _priceBottomConstraint.constant = 3;
     }
     _titleImageView.userInteractionEnabled = YES;
     if(data.masterItemTag!=nil){

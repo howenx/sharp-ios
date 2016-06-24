@@ -11,7 +11,8 @@
 #import "AboutOurViewController.h"
 #import "FeedbackViewController.h"
 #import <SDImageCache.h>
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+#import <StoreKit/StoreKit.h>
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,SKStoreProductViewControllerDelegate>
 
 @end
 
@@ -68,7 +69,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,6 +156,15 @@
                     [cell.contentView addSubview:iv];
                 }
                     break;
+                    
+                case 5: {
+                    cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"评分"];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mark"]];
+                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    [cell.contentView addSubview:iv];
+                }
+                    break;
             }
             break;
     }
@@ -210,6 +220,11 @@
                     //版本号
                 }
                     break;
+                case 5: {
+                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1094170979"]];
+                }
+                    break;
+
                     
                 default: {
                     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]
@@ -258,6 +273,38 @@
     [hud hide:YES afterDelay:1];
     
     [self performSelector:@selector(reloadData) withObject:nil afterDelay:1];
+}
+
+#pragma 评分
+
+- (void)evaluate{
+    
+    //初始化控制器
+    SKStoreProductViewController *storeProductViewContorller = [[SKStoreProductViewController alloc] init];
+    //设置代理请求为当前控制器本身
+    storeProductViewContorller.delegate = self;
+    //加载一个新的视图展示
+    [storeProductViewContorller loadProductWithParameters:
+     //appId唯一的
+     @{SKStoreProductParameterITunesItemIdentifier : @"1094170979"} completionBlock:^(BOOL result, NSError *error) {
+         //block回调
+         if(error){
+             NSLog(@"error %@ with userInfo %@",error,[error userInfo]);
+         }else{
+             //模态弹出appstore
+             [self presentViewController:storeProductViewContorller animated:YES completion:^{
+                 
+             }
+              ];
+         }
+     }];
+}
+
+//取消按钮监听
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 -(void)reloadData
 {

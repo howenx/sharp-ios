@@ -44,7 +44,16 @@
             if(![NSString isNSNull:[tag objectForKey:@"itemPrice"]]){
                 detailData.itemPrice = [[tag objectForKey:@"itemPrice"]floatValue];
             }
+            
+            detailData.orCheck = [tag objectForKey:@"orCheck"];
             detailData.state = [tag objectForKey:@"state"];
+            if(![detailData.state isEqualToString:@"S"]){
+                if (![NSString isNSNull:detailData.orCheck] && [detailData.orCheck isEqualToString:@"Y"]) {
+                    detailData.state = @"G";
+                }else{
+                    detailData.state = @"I";
+                }
+            }
             detailData.invArea = [tag objectForKey:@"invArea"];
             detailData.invAreaNm = [node objectForKey:@"invAreaNm"];
             if(![NSString isNSNull:[tag objectForKey:@"restrictAmount"]]){

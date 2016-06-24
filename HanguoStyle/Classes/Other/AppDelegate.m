@@ -169,6 +169,15 @@ static NSString *appId = @"wx578f993da4b29f97";
         imageView.image = image;
         
         [_scrollView addSubview:imageView];
+        if(i == 0){
+            UIImageView * jumpImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-69, 18, 51, 51)];
+            jumpImgV.image = [UIImage imageNamed:@"tiaoguo"];
+            jumpImgV.alpha = 0.8;
+            jumpImgV.userInteractionEnabled = YES;
+            [jumpImgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewDisappear)]];
+            [_scrollView addSubview:jumpImgV];
+        }
+
         if(i == 3){
             UIImageView * enterImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH * i +(GGUISCREENWIDTH-167)/2, GGUISCREENHEIGHT*0.8, 167, 40)];
             enterImgV.image = [UIImage imageNamed:@"openApp"];

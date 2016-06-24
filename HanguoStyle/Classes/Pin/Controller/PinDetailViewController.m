@@ -506,7 +506,7 @@
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
-    [lastDict setObject: @"JD" forKey:@"payMethod"];
+//    [lastDict setObject: @"JD" forKey:@"payMethod"];
     [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"buyNow"];//立即支付
     [lastDict setObject: [NSNumber numberWithLong:_data.pinActiveId] forKey:@"pinActiveId"];
     NSString * urlString =[HSGlobal sendCartToOrder];

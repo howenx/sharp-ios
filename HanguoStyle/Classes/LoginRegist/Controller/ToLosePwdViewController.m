@@ -288,6 +288,8 @@
     NSString * urlString =[HSGlobal checkRegist];
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:_phoneLab.text,@"phone",sendCode,@"code",nil];
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -311,7 +313,9 @@
         }else {
             [self showHud:returnResult.message];
         }
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
         NSLog(@"Error: %@", error);
         [self showHud:@"请求失败"];
     }];

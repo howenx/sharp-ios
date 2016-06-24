@@ -102,7 +102,7 @@
 
 }
 -(void)createVerifyView{
-    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 64, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
+    _verifyBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _verifyBg.backgroundColor = [UIColor blackColor];
     _verifyBg.alpha = 0.3;
     [self.view addSubview:_verifyBg];
@@ -230,7 +230,7 @@
         [UIView beginAnimations:@"up" context:nil];
         [UIView setAnimationDuration:0.5];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-         self.view.frame = CGRectMake(0, -(viewY-keyY), GGUISCREENWIDTH, GGUISCREENHEIGHT);
+         self.view.frame = CGRectMake(0, -(viewY-keyY)+64, GGUISCREENWIDTH, GGUISCREENHEIGHT);
         [UIView commitAnimations];
     }
 }
@@ -319,6 +319,11 @@
     if(![self check]){
         return;
     }
+    [self.mobel resignFirstResponder];
+    
+    [self.pwd resignFirstResponder];
+    
+
     [self getData];
 }
 
@@ -357,7 +362,8 @@
     }else{
         dict = [NSDictionary dictionaryWithObjectsAndKeys:_mobel.text,@"phone",_pwd.text,@"password",sendCode,@"code",nil];
     }
-    
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager POST:urlString  parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -379,7 +385,9 @@
         }else{
             [self showHud:returnResult.message];
         }
+        [GiFHUD dismiss];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
         NSLog(@"Error: %@", error);
         [self showHud:@"登录失败"];
     }];
@@ -459,9 +467,16 @@
         [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid"]] forKey:@"skuId"];
         [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"cart_id"]] forKey:@"cartId"];
         [myDict setObject:[NSNumber numberWithInt:[rs intForColumn:@"pid_amount"]] forKey:@"amount"];
-        [myDict setObject:@"I" forKey:@"state"];
+        [myDict setObject:[rs stringForColumn:@"state"] forKey:@"state"];
         [myDict setObject:[rs stringForColumn:@"sku_type"] forKey:@"skuType"];
         [myDict setObject:[NSNumber numberWithLong:[rs longForColumn:@"sku_type_id"]] forKey:@"skuTypeId"];
+        if([@"G"isEqualToString:[rs stringForColumn:@"state"]]){
+            [myDict setObject:@"Y" forKey:@"orCheck"];
+        }else{
+            [myDict setObject:@"" forKey:@"orCheck"];
+        }
+        [myDict setObject:[NSNumber numberWithInt:1] forKey:@"cartSource"];
+        
         [mutArray addObject:myDict];
         
     }

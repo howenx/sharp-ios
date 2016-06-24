@@ -93,11 +93,13 @@
     CGFloat viewY = firstResponder.frame.origin.y + firstResponder.frame.size.height + 10 +64;
     //键盘上端的frame的y值
     CGFloat keyY = GGUISCREENHEIGHT - keyboardSize.height;
+    NSLog(@"viewY=%f",viewY);
+    NSLog(@"keyY=%f",keyY);
     if(viewY >= keyY){
         [UIView beginAnimations:@"up" context:nil];
         [UIView setAnimationDuration:0.5];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        self.view.frame = CGRectMake(0, -(viewY-keyY), GGUISCREENWIDTH, GGUISCREENHEIGHT);
+        self.view.frame = CGRectMake(0, -(viewY-keyY)+64, GGUISCREENWIDTH, GGUISCREENHEIGHT);
         [UIView commitAnimations];
     }
 }
