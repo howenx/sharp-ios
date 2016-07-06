@@ -12,8 +12,9 @@
 #import "FeedbackViewController.h"
 #import <SDImageCache.h>
 #import <StoreKit/StoreKit.h>
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,SKStoreProductViewControllerDelegate>
-
+#import <MessageUI/MFMailComposeViewController.h>
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,SKStoreProductViewControllerDelegate,MFMailComposeViewControllerDelegate>
+@property (nonatomic, strong, readwrite) MFMailComposeViewController *mailVC;
 @end
 
 @implementation SettingViewController
@@ -197,8 +198,44 @@
                     
                 case 1: {
                     //                    意见反馈
-                    FeedbackViewController * vc = [FeedbackViewController new];
-                    [self.navigationController pushViewController:vc animated:YES];
+//                    FeedbackViewController * vc = [FeedbackViewController new];
+//                    [self.navigationController pushViewController:vc animated:YES];
+                    
+                    
+                    if ([self canSendMail])
+                    {
+                        
+                        if (_mailVC == nil) {
+                            [self createMailComposeViewController];
+                        }
+                        
+                        if (IOS7)
+                        {
+                            [[self.mailVC navigationBar] setTintColor:[UIColor blackColor]];
+                            
+                            [self presentViewController:self.mailVC animated:YES completion:^{
+                                //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+                            }];
+                            //        [self.navigationController pushViewController:self.mailVC animated:NO];
+                        }
+                        else
+                        {
+                            [self presentViewController:self.mailVC animated:YES completion:nil];
+                        }
+                        
+                        
+                        
+                    }else
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                        message:@"请在手机里面配置邮箱服务!"
+                                                                       delegate:self
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles:nil];
+                        [alert show];
+                    }
+
+                    
                 }
                     break;
                     
@@ -310,5 +347,86 @@
 {
     [tableView_ reloadData];
 }
+
+
+- (BOOL)canSendMail
+{
+    return [MFMailComposeViewController canSendMail];
+}
+
+
+- (void)createMailComposeViewController
+{
+    if (!self.canSendMail) {
+        return;
+    }
+    
+    NSString *content = [NSString stringWithFormat:@"\n"
+                         "\n"
+                         "User: %@\n"
+                         "iOS Version: %@\n"
+                         "Platform: %@\n"
+                         "HMM iOS App "
+                         "Version: %@\n",
+                         [[NSUserDefaults standardUserDefaults] objectForKey:@"userName"],
+                         [[UIDevice currentDevice] systemVersion],
+                         [[UIDevice currentDevice] model],
+                         [NSString stringWithFormat:@"%@(%@)", kSAAPPVERSION, kSABUILDVERSION]];
+    
+    
+    self.mailVC = [[MFMailComposeViewController alloc] init];
+    self.mailVC.mailComposeDelegate = self;
+    [self.mailVC setMessageBody:content isHTML:NO];
+    [self.mailVC setTitle:@"HMM iOS Feedbac"];
+    [self.mailVC setSubject:@"HMM iOS Feedback"];
+    [self.mailVC setToRecipients:[[NSArray alloc] initWithObjects:@"services@hanmimei.com", nil]];
+}
+
+#pragma mark - - cell click event
+#pragma mark - MFMailComposeViewControllerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error
+{
+    if (MFMailComposeResultSent == result) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = [NSString stringWithFormat:@"正在发送..."];
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
+        
+    }else if (result == MFMailComposeResultSaved)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = [NSString stringWithFormat:@"保存邮件."];
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
+        
+    }else if (result == MFMailComposeResultFailed)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = [NSString stringWithFormat:@"发送错误."];
+        hud.labelFont = [UIFont systemFontOfSize:11];
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:1];
+        
+    }
+    
+    
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+    
+    _mailVC = nil;
+}
+
 
 @end
