@@ -103,7 +103,7 @@
     }
     //订单状态
     NSString * status = data.orderInfo.orderStatus;
-    //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已完成，D:已经发货，J:拒收
+    //		I:初始化即未支付状态，S:成功，C：取消， F:交易失败，R:已完成，D:已经发货，J:拒收
     
     
     if([status isEqualToString:@"C"]){
@@ -120,7 +120,7 @@
         }
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"F"]){
-        orderStatusLab.text = @"失败";
+        orderStatusLab.text = @"交易失败";
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"R"]){
         orderStatusLab.text = @"已完成";
@@ -131,6 +131,9 @@
     }else if([status isEqualToString:@"J"]){
         orderStatusLab.text = @"拒收货";
         orderStatusLab.textColor = GGMainColor;
+    }else if([status isEqualToString:@"T"]){
+        orderStatusLab.text = @"已退款";
+        orderStatusLab.textColor = UIColorFromRGB(0x333333);
     }else if([status isEqualToString:@"T"]){
         orderStatusLab.text = @"已退款";
         orderStatusLab.textColor = UIColorFromRGB(0x333333);
@@ -332,7 +335,7 @@
 
         
         
-    }else if([status isEqualToString:@"R"]){
+    }else if([status isEqualToString:@"R"]){//已完成
         payLab.hidden = YES;
         payBtn.hidden = YES;
         ckwlBtn.hidden = NO;

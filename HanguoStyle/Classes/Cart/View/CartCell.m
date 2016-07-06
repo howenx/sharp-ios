@@ -197,7 +197,6 @@
         
 //        CartDetailData * data  = [CartDetailData new];
 //        data = cartDetailData;
-        _data.amount = _data.amount-1;
         [self.delegate sendUpdateData:_data andJJFlag:@"jian"];
         
     }else{
@@ -270,7 +269,6 @@
     isLogin = [PublicMethod checkLogin];
     //登陆状态
     if(isLogin){
-        _data.amount = _data.amount+1;
         [self.delegate sendUpdateData:_data andJJFlag:@"jia"];
         
     }else{

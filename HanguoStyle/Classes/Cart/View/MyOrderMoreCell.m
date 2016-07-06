@@ -118,7 +118,7 @@
         }
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"F"]){
-        orderStatusLab.text = @"失败";
+        orderStatusLab.text = @"交易失败";
         orderStatusLab.textColor = GGMainColor;
     }else if([status isEqualToString:@"R"]){
         orderStatusLab.text = @"已完成";

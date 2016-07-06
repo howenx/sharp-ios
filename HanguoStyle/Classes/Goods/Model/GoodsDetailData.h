@@ -20,8 +20,8 @@
 @property (nonatomic) NSString * sizeId;//库存ID
 @property (nonatomic) NSString * itemColor;//颜色
 @property (nonatomic) NSString * itemSize;//尺寸
-@property (nonatomic) NSString * itemPrice;//原价
-@property (nonatomic) NSString * itemSrcPrice;//售价
+@property (nonatomic) NSString * itemPrice;//售价
+@property (nonatomic) NSString * itemSrcPrice;//原价
 @property (nonatomic) NSString * itemDiscount;//折扣
 @property (nonatomic) NSInteger  restAmount;//剩余数量
 //@property (nonatomic) BOOL       orSoldOut;//是否卖光

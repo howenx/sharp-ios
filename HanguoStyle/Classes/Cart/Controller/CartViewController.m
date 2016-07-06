@@ -31,13 +31,14 @@
     float totalAmt;
     float realityAmount;
     BOOL isJiaJianReload;
+    NSString * jiaJianFlag;
     OrderData * orderData;
     
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 //@property (weak, nonatomic) IBOutlet UILabel *goodsCount;
-@property (weak, nonatomic) IBOutlet UILabel *totalAmount;
+//@property (weak, nonatomic) IBOutlet UILabel *totalAmount;
 //- (IBAction)allSelectBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *realityPay;
 @property (weak, nonatomic) IBOutlet UILabel *save;
@@ -80,7 +81,7 @@
     totalAmt = 0;
     realityAmount = 0;
 }
-
+//进到购物车组织请求参数
 -(void)headerRefresh{
     
     NSMutableArray *mutArray = [NSMutableArray array];
@@ -112,6 +113,7 @@
     isJiaJianReload = NO;
     [self requestData:[mutArray copy]];
 }
+//没有数据情况显示的页面
 -(void)createNoCartView{
     _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
     _bgView.backgroundColor = GGBgColor;
@@ -139,6 +141,7 @@
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"home",@"jumpKey", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
 }
+//请求数据入口
 -(void)requestData:(NSArray *) array{
 
 
@@ -149,6 +152,7 @@
     if(isLogin){
         manager = [PublicMethod shareRequestManager];
         if(manager == nil){
+            //断网情况显示断网页面
             NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
             noNetView.delegate = self;
             [self.view addSubview:noNetView];
@@ -165,10 +169,12 @@
         }
         
         if(array.count <= 0){
+            //未登录没有数据情况
             array = nil;
             [self.data removeAllObjects];
             [self.tableView reloadData];
             _bgView.hidden = NO;
+            //修改购物车badgeValue
             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"",@"badgeValue", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"CustBadgeValue" object:nil userInfo:dict];
 
@@ -184,7 +190,7 @@
     [GiFHUD setGifWithImageName:@"hmm.gif"];
     [GiFHUD show];
     if(isLogin){
-        //非购物车点加减按钮，时候刷新数据
+        //登录状态非购物车点加减按钮，时候刷新数据
         if(!isJiaJianReload){
              NSString * urlString = [HSGlobal sendCartUrl];
             [manager GET:urlString  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -209,7 +215,9 @@
                         [self.data addObject:data];
                     }
                     if(_data.count > 0){
+                        //更新购物车上面提示栏
                         [self updataNotify];
+                        //更新购物车上面提示栏和下面的总额，去结算按钮等
                         [self updateOtherMessage:_data];
                         [self.footView setHidden:NO];
                         [self.notifyLab setHidden:NO];
@@ -240,8 +248,24 @@
 
         
         }else{
+            //重新组织参数，去掉sendUpdateData方法传过来的那三个参数
+            NSDictionary * dict1 =  array[0];
+            NSMutableArray * mutArray1 = [NSMutableArray array];
+            
+            NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+            [myDict setObject:[dict1 objectForKey:@"skuId"] forKey:@"skuId"];
+            [myDict setObject:[dict1 objectForKey:@"cartId"] forKey:@"cartId"];
+            [myDict setObject:[dict1 objectForKey:@"amount"] forKey:@"amount"];
+            [myDict setObject:[dict1 objectForKey:@"state"]forKey:@"state"];
+            [myDict setObject:[dict1 objectForKey:@"skuType"] forKey:@"skuType"];
+            [myDict setObject:[dict1 objectForKey:@"skuTypeId"] forKey:@"skuTypeId"];
+            [myDict setObject:[dict1 objectForKey:@"orCheck"] forKey:@"orCheck"];
+            [myDict setObject:[dict1 objectForKey:@"cartSource"] forKey:@"cartSource"];
+            
+            [mutArray1 addObject:myDict];
+            //登录状态购物车点加减按钮，只要返回的成功或失败，
             NSString * urlString =[HSGlobal addToCartUrl];
-            [manager POST:urlString  parameters:array success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [manager POST:urlString  parameters:mutArray1 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
                 [self.tableView.header endRefreshing];
 
@@ -250,6 +274,43 @@
                 NSLog(@"message= %@",message);
                 if(code == 200 ||code == 1015 ){//1015 表示购物车为空
                     if(_data.count > 0){
+                        
+                        NSDictionary * dict =  array[0];
+                        long skuId = [[dict objectForKey:@"skuId"]longValue];
+                        NSString * skuType = [dict objectForKey:@"skuType"];
+                        long skuTypeId = [[dict objectForKey:@"skuTypeId"]longValue];
+                        NSString * invArea = [dict objectForKey:@"invArea"];
+                        NSString *state = [dict objectForKey:@"state"];
+                        //更新全局_data
+                        for (int i=0; i<_data.count; i++) {
+                            CartData * cData = _data[i];
+                            //更新数量
+                            for(int j=0; j < cData.cartDetailArray.count; j++){
+                                CartDetailData * cdData =  cData.cartDetailArray[j];
+                                if(skuId == cdData.skuId && [cdData.skuType isEqualToString:skuType] && skuTypeId == cdData.skuTypeId){
+                                    if([jiaJianFlag isEqualToString:@"jia"]){
+                                        cdData.amount = cdData.amount + 1;
+                                    }else if([jiaJianFlag isEqualToString:@"jian"]){
+                                        cdData.amount = cdData.amount - 1;
+                                    }
+                                    break;
+                                }
+
+                            }
+                            //更新行邮税
+                            if([cData.invArea isEqualToString:invArea]){
+                                if([state isEqualToString:@"G"]){
+                                    if([jiaJianFlag isEqualToString:@"jia"]){
+                                        cData.selectPostalTaxRate = cData.selectPostalTaxRate + [[dict objectForKey:@"itemPrice"] floatValue] * [[dict objectForKey:@"postalTaxRate"] floatValue]* 0.01;
+                                    }else if([jiaJianFlag isEqualToString:@"jian"]){
+                                        cData.selectPostalTaxRate = cData.selectPostalTaxRate - [[dict objectForKey:@"itemPrice"] floatValue] * [[dict objectForKey:@"postalTaxRate"] floatValue] * 0.01;
+                                    }
+                                }
+                            }
+
+                            
+                        }
+                        
                         [self updataNotify];
                         [self updateOtherMessage:_data];
                         [self.footView setHidden:NO];
@@ -263,27 +324,9 @@
                     [self.tableView reloadData];
                     PublicMethod * pm = [[PublicMethod alloc]init];
                     [pm sendCustNum];
-                }else{
-                    //登陆状态下点击加号的时候，并且超过限购数量的时候，由于前面点击的时候在全局data此商品数量已经加1，所有这情况没成功，就要减1
-                    if(isJiaJianReload){
-                        NSDictionary * dict =  array[0] ;
-                        long skuId = [[dict objectForKey:@"skuId"]longValue];
-                        NSString * skuType = [dict objectForKey:@"skuType"];
-                        long skuTypeId = [[dict objectForKey:@"skuTypeId"]longValue];
-                        //更新全局_data
-                        for (int i=0; i<_data.count; i++) {
-                            CartData * cData = _data[i];
-                            for(int j=0; j < cData.cartDetailArray.count; j++){
-                                CartDetailData * cdData =  cData.cartDetailArray[j];
-                                if(skuId == cdData.skuId && [cdData.skuType isEqualToString:skuType] && skuTypeId == cdData.skuTypeId){
-                                    cdData.amount = cdData.amount - 1;
-                                    break;
-                                }
-                            }
-                            
-                        }
                     
-                    }
+                }else{
+                    
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                     hud.mode = MBProgressHUDModeText;
                     hud.labelText = message;
@@ -413,11 +456,11 @@
 //        _goSettle.backgroundColor = GGMainColor;
     }
     if(totalAmt == 0){
-        self.totalAmount.text = @"￥0";
-        self.realityPay.text = @"应付:￥0";
+//        self.totalAmount.text = @"￥0";
+        self.realityPay.text = @"总计:￥0";
     }else{
-        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
-        self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
+//        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
+        self.realityPay.text = [NSString stringWithFormat:@"总计:￥%.2f",realityAmount];
     }
 
     
@@ -494,18 +537,28 @@
     [database executeUpdate:@"DELETE FROM Shopping_Cart WHERE pid =? and sku_type = ? and sku_type_id = ?",[NSNumber numberWithLong:detailData.skuId],detailData.skuType,[NSNumber numberWithLong:detailData.skuTypeId]];
     [database commit];
 }
+
+
 -(void)loadDataNotify{
     [self headerRefresh];
 }
--(void)sendUpdateData:(CartDetailData *)data andJJFlag:(NSString *)jjFlag{
 
+
+
+//登录状态点击加减按钮回调方法
+-(void)sendUpdateData:(CartDetailData *)data andJJFlag:(NSString *)jjFlag{
+    jiaJianFlag = jjFlag;
     isJiaJianReload = YES;
     NSMutableArray * mutArray = [NSMutableArray array];
     
     NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
     [myDict setObject:[NSNumber numberWithLong:data.skuId] forKey:@"skuId"];
     [myDict setObject:[NSNumber numberWithLong:data.cartId] forKey:@"cartId"];
-    [myDict setObject:[NSNumber numberWithLong:data.amount] forKey:@"amount"];
+    if([jjFlag isEqualToString:@"jia"]){
+        [myDict setObject:[NSNumber numberWithLong:data.amount+1] forKey:@"amount"];
+    }else if([jjFlag isEqualToString:@"jian"]){
+        [myDict setObject:[NSNumber numberWithLong:data.amount-1] forKey:@"amount"];
+    }
     [myDict setObject:data.state forKey:@"state"];
     [myDict setObject:data.skuType forKey:@"skuType"];
     [myDict setObject:[NSNumber numberWithLong:data.skuTypeId] forKey:@"skuTypeId"];
@@ -515,24 +568,18 @@
         [myDict setObject:@"" forKey:@"orCheck"];
     }
     [myDict setObject:[NSNumber numberWithInt:3] forKey:@"cartSource"];
+    //下面三个参数不是传给后台的请求参数，是请求成功后重新组织_data用的参数
+    [myDict setObject:data.invArea forKey:@"invArea"];
+    [myDict setObject:[NSNumber numberWithFloat:data.itemPrice] forKey:@"itemPrice"];
+    [myDict setObject:data.postalTaxRate forKey:@"postalTaxRate"];
+    
     [mutArray addObject:myDict];
-    for (int i=0; i<_data.count; i++) {
-        CartData * cData = _data[i];
-        if([cData.invArea isEqualToString:data.invArea]){
-            if([data.state isEqualToString:@"G"]){
-                if([jjFlag isEqualToString:@"jia"]){
-                    cData.selectPostalTaxRate = cData.selectPostalTaxRate + data.itemPrice * [data.postalTaxRate intValue] * 0.01;
-                }else if([jjFlag isEqualToString:@"jian"]){
-                    cData.selectPostalTaxRate = cData.selectPostalTaxRate - data.itemPrice * [data.postalTaxRate intValue] * 0.01;
-                }
-            }
-        }
-    }
-
+    
 
     [self requestData:mutArray];
 }
 
+//删除
 -(void)sendDelUrl:(CartDetailData *)data{
 
     AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
@@ -556,7 +603,7 @@
                         }else{
                             [cData.cartDetailArray removeObjectAtIndex:j];
                             if([data.state isEqualToString:@"G"]){
-                                cData.selectPostalTaxRate = cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate intValue] * 0.01;
+                                cData.selectPostalTaxRate = cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
                             }
                             j--;
                         }
@@ -692,12 +739,12 @@
         [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
     }
     if(totalAmt == 0){
-        self.totalAmount.text = @"￥0";
-        self.realityPay.text = @"应付:￥0";
+//        self.totalAmount.text = @"￥0";
+        self.realityPay.text = @"总计:￥0";
     }else{
-        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
+//        self.totalAmount.text = [NSString stringWithFormat:@"￥%.2f",totalAmt];
         
-        self.realityPay.text = [NSString stringWithFormat:@"应付:￥%.2f",realityAmount];
+        self.realityPay.text = [NSString stringWithFormat:@"总计:￥%.2f",realityAmount];
     }
     
     

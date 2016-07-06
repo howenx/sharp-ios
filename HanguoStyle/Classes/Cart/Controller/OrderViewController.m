@@ -63,6 +63,7 @@
     [self createFootView];
     _noticeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-60-64, GGUISCREENWIDTH, 20)];
     _noticeLab.textAlignment = NSTextAlignmentCenter;
+    _noticeLab.alpha = 0.9;
     _noticeLab.font = [UIFont systemFontOfSize:12];
     _noticeLab.text = @"海关规定跨境商品支付金额不小于1元";
     _noticeLab.backgroundColor = UIColorFromRGB(0xFFEDCF);
@@ -75,7 +76,7 @@
 -(void) loadBasic{
     bottom = 0;
     couponBottom = 0;
-    rowTwoH = 100;
+    rowTwoH = 110;
     rowThreeH = 90;
     rowFourH = 60+160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -183,7 +184,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
@@ -226,20 +227,20 @@
 
         return sendGoodTimeCell;
     }
+//    if(indexPath.row == 3){
+//        
+//        payTypeCell = [[PayTypeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+//        payTypeCell.isPayTypeEdit = isPayTypeEdit;
+//        payTypeCell.payType =  payType;
+//        [payTypeCell createView];
+//        payTypeCell.delegate = self;
+//        [payTypeCell.editBtn addTarget:self action:@selector(editPayTypeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//        [payTypeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editPayTypeBtnClicked)]];
+//        payTypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        
+//        return payTypeCell;
+//    }
     if(indexPath.row == 3){
-        
-        payTypeCell = [[PayTypeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        payTypeCell.isPayTypeEdit = isPayTypeEdit;
-        payTypeCell.payType =  payType;
-        [payTypeCell createView];
-        payTypeCell.delegate = self;
-        [payTypeCell.editBtn addTarget:self action:@selector(editPayTypeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [payTypeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editPayTypeBtnClicked)]];
-        payTypeCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return payTypeCell;
-    }
-    if(indexPath.row == 4){
         
         couponCell = [[CouponCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         couponCell.isCouponEdit = isCouponEdit;
@@ -276,10 +277,10 @@
     if (indexPath.row == 2) {
         return rowTwoH;
     }
+//    if (indexPath.row == 3) {
+//        return rowThreeH;
+//    }
     if (indexPath.row == 3) {
-        return rowThreeH;
-    }
-    if (indexPath.row == 4) {
         return rowFourH;
     }
     return 0;
@@ -306,21 +307,21 @@
     if (isTimeEdit){
         rowTwoH = 220;
     }else{
-        rowTwoH = 100;
+        rowTwoH = 110;
     }
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
-- (void) editPayTypeBtnClicked
-{
-    isPayTypeEdit = !isPayTypeEdit;
-    
-    if (isPayTypeEdit){
-        rowThreeH = 120;
-    }else{
-        rowThreeH = 90;
-    }
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+//- (void) editPayTypeBtnClicked
+//{
+//    isPayTypeEdit = !isPayTypeEdit;
+//    
+//    if (isPayTypeEdit){
+//        rowThreeH = 120;
+//    }else{
+//        rowThreeH = 90;
+//    }
+//    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//}
 
 - (void) couponBtnClicked
 {
@@ -329,12 +330,12 @@
     if (isCouponEdit){
 
         int couponCount = (int)_orderData.couponsArray.count;
-        rowFourH = 100 + couponCount * 40 + 160;
+        rowFourH = 90 + couponCount * 40 + 160;
         
     }else{
         rowFourH = 60 + 160;
     }
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -358,10 +359,10 @@
     }
 }
 
--(void)payTypeFlag:(NSString *)payTypeFlag{
-    payType = payTypeFlag ;
-//    payTypeId = @"JD";
-}
+//-(void)payTypeFlag:(NSString *)payTypeFlag{
+//    payType = payTypeFlag ;
+////    payTypeId = @"JD";
+//}
 -(void)couponFlag:(NSString *)couponFlag andCouponId:(NSString *)couponId{
     coupon = couponFlag;
     _couponId = couponId;

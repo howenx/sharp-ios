@@ -570,8 +570,8 @@
     shareView.tag = 1000000000;
     //    shareView.delegate = self;
     
-    shareView.shareStr =  _detailData.itemTitle;
-    shareView.shareTitle = @"韩秘美，只卖韩国正品";
+    shareView.shareStr =  @"我在韩秘美发现了一个不错的商品，赶快来看看吧。";
+    shareView.shareTitle = _detailData.itemTitle;
     shareView.shareImage = _detailData.invImg;
 //    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
     NSArray  * array= [_url componentsSeparatedByString:@"comm"];

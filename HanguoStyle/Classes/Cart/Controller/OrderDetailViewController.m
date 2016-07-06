@@ -180,6 +180,13 @@
         scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
         
     }
+    
+    else if([_orderData.orderInfo.orderStatus isEqualToString:@"F"])
+    {
+        scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
+        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80 + 120);
+        
+    }
 
     else
     {
@@ -239,7 +246,7 @@
     }else if([status isEqualToString:@"S"]){
         orderStatusLab.text = @"订单状态：待发货";
     }else if([status isEqualToString:@"F"]){
-        orderStatusLab.text = @"订单状态：失败";
+        orderStatusLab.text = @"订单状态：交易失败";
     }else if([status isEqualToString:@"R"]){
         orderStatusLab.text = @"订单状态：已完成";
     }else if([status isEqualToString:@"D"]){
@@ -262,10 +269,12 @@
     if(![NSString isNSNull:_orderData.orderInfo.payMethod]){
         if([_orderData.orderInfo.payMethod isEqualToString:@"JD"]){
             payType = @"京东支付";
-        }else if([_orderData.orderInfo.payMethod isEqualToString:@"APAY"]){
+        }else if([_orderData.orderInfo.payMethod isEqualToString:@"ALIPAY"]){
             payType = @"支付宝支付";
         }else if([_orderData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
             payType = @"微信支付";
+        }else{
+            payType = @"在线支付";
         }
     }else{
         payType = @"在线支付";
@@ -334,7 +343,7 @@
         UILabel * orderPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 55, GGUISCREENWIDTH-100, 20)];
         orderPriceLab.numberOfLines = 1;
         orderPriceLab.font = [UIFont systemFontOfSize:12];
-        orderPriceLab.textColor = [UIColor grayColor];
+        orderPriceLab.textColor = GGMainColor;
         orderPriceLab.text = [NSString stringWithFormat:@"￥%@",skuData.price];
         [orderDetailView addSubview:orderPriceLab];
         
@@ -434,7 +443,7 @@
     totalFeeLab.numberOfLines = 1;
     totalFeeLab.font = [UIFont systemFontOfSize:12];
     totalFeeLab.textColor = [UIColor grayColor];
-    totalFeeLab.text = [NSString stringWithFormat:@"商品总费用：%@",_orderData.orderInfo.totalFee];
+    totalFeeLab.text = [NSString stringWithFormat:@"商品总费用：￥%@",_orderData.orderInfo.totalFee];
     [orderPayView addSubview:totalFeeLab];
     
     
@@ -442,7 +451,7 @@
     shipFeeLab.numberOfLines = 1;
     shipFeeLab.font = [UIFont systemFontOfSize:12];
     shipFeeLab.textColor = [UIColor grayColor];
-    shipFeeLab.text = [NSString stringWithFormat:@"邮费：%@",_orderData.orderInfo.shipFee];
+    shipFeeLab.text = [NSString stringWithFormat:@"邮费：￥%@",_orderData.orderInfo.shipFee];
     [orderPayView addSubview:shipFeeLab];
     
     
@@ -451,7 +460,7 @@
     postalFeeLab.numberOfLines = 1;
     postalFeeLab.font = [UIFont systemFontOfSize:12];
     postalFeeLab.textColor = [UIColor grayColor];
-    postalFeeLab.text = [NSString stringWithFormat:@"行邮税：%@",_orderData.orderInfo.postalFee];
+    postalFeeLab.text = [NSString stringWithFormat:@"行邮税：￥%@",_orderData.orderInfo.postalFee];
     [orderPayView addSubview:postalFeeLab];
     
     
@@ -461,7 +470,7 @@
     discountLab.numberOfLines = 1;
     discountLab.font = [UIFont systemFontOfSize:12];
     discountLab.textColor = [UIColor grayColor];
-    discountLab.text = [NSString stringWithFormat:@"已优惠金额：%@",_orderData.orderInfo.discount];
+    discountLab.text = [NSString stringWithFormat:@"已优惠金额：￥%@",_orderData.orderInfo.discount];
     [orderPayView addSubview:discountLab];
     
     
@@ -471,7 +480,7 @@
     payTotalLab.numberOfLines = 1;
     payTotalLab.font = [UIFont systemFontOfSize:12];
     payTotalLab.textColor = [UIColor grayColor];
-    payTotalLab.text = [NSString stringWithFormat:@"订单应付金额：%@",_orderData.orderInfo.payTotal];
+    payTotalLab.text = [NSString stringWithFormat:@"订单应付金额：￥%@",_orderData.orderInfo.payTotal];
     [orderPayView addSubview:payTotalLab];
     
     
@@ -527,7 +536,7 @@
                 stateLab.text = [NSString stringWithFormat:@"退款状态：申请受理中"];
             }else if([_orderData.refund.state isEqualToString:@"A"])
             {
-                stateLab.text = [NSString stringWithFormat:@"退款状态：提示5-15个工作日，退款金额自动返回"];
+                stateLab.text = [NSString stringWithFormat:@"退款状态：退款受理中，资金会在1-5个工作日内退回您的账户"];
             }else if([_orderData.refund.state isEqualToString:@"R"])
             {
                 stateLab.text = [NSString stringWithFormat:@"退款状态：拒绝退款"];
@@ -549,7 +558,7 @@
             [looutMoneyButton.layer setBorderColor:GGMainColor.CGColor];
             [looutMoneyButton.layer setBorderWidth:1.0];
             looutMoneyButton.titleLabel.font = [UIFont systemFontOfSize:15];
-            [looutMoneyButton setTitle:@"退款" forState:UIControlStateNormal];
+            [looutMoneyButton setTitle:@"申请退款" forState:UIControlStateNormal];
             [looutMoneyButton addTarget:self action:@selector(looutMoneyButtonclcik:) forControlEvents:UIControlEventTouchUpInside];
             [looutMoneyButton.layer setMasksToBounds:YES];
             [looutMoneyButton.layer setCornerRadius:4.0];
@@ -623,6 +632,31 @@
         [self.view addSubview:ckpjBtn];
         
         
+    }
+    if([_orderData.orderInfo.orderStatus isEqualToString:@"F"]){
+        //失败提示
+        UIView * failView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderPayView.y + orderPayView.height + 10, GGUISCREENWIDTH, 110)];
+        failView.backgroundColor = [UIColor whiteColor];
+        [scrollView addSubview:failView];
+        UILabel * failLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-20, 40)];
+        failLab.numberOfLines = 1;
+        failLab.font = [UIFont systemFontOfSize:12];
+        failLab.textColor = [UIColor grayColor];
+        failLab.text = @"重要提示";
+        [failView addSubview:failLab];
+        
+        UIView * line9 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
+        line9.backgroundColor = GGBgColor;
+        [failView addSubview:line9];
+        
+        
+        UILabel * failDetailLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 50, GGUISCREENWIDTH-20, 60)];
+        failDetailLab.numberOfLines = 0;
+        failDetailLab.font = [UIFont systemFontOfSize:12];
+        failDetailLab.textColor = [UIColor grayColor];
+        failDetailLab.text = @"如果此笔订单扣款成功，我们将会在1-5个工作日返回您的支付金额至您的支付账户里，请以支付公司的通知信息为准，如有疑问请联系我们客服400-664-0808";
+        [failView addSubview:failDetailLab];
+
     }
 
     

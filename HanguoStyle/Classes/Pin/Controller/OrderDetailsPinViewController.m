@@ -180,7 +180,7 @@
     if(![NSString isNSNull:self.singleData.orderInfo.payMethod]){
         if([self.singleData.orderInfo.payMethod isEqualToString:@"JD"]){
             payType = @"京东支付";
-        }else if([self.singleData.orderInfo.payMethod isEqualToString:@"APAY"]){
+        }else if([self.singleData.orderInfo.payMethod isEqualToString:@"ALIPAY"]){
             payType = @"支付宝支付";
         }else if([self.singleData.orderInfo.payMethod isEqualToString:@"WEIXIN"]){
             payType = @"微信支付";

@@ -75,7 +75,7 @@
             }
             
             if([detailData.state isEqualToString:@"G"]){
-                self.selectPostalTaxRate = self.selectPostalTaxRate + detailData.itemPrice * detailData.amount * [detailData.postalTaxRate intValue] * 0.01;
+                self.selectPostalTaxRate = self.selectPostalTaxRate + detailData.itemPrice * detailData.amount * [detailData.postalTaxRate floatValue]*0.01;
             }
             [self.cartDetailArray addObject:detailData];
         }

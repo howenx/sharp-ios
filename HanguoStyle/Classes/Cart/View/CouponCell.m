@@ -30,20 +30,10 @@
 - (void)setData:(OrderData *)data{
     
     _data = data;
-    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 10)];
-    backView.backgroundColor = GGBgColor;
-    [self.contentView addSubview:backView];
     
-
-    
-    UIView * couponView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, GGUISCREENWIDTH, 50)];
+    UIView * couponView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 50)];
     [self.contentView addSubview:couponView];
 
-    
-    
-    
-    
-    
     UILabel *  titleLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH/2, 50)];
     titleLab.text = @"可使用优惠券(每次限一张)";
     titleLab.font = [UIFont systemFontOfSize:14];
@@ -51,7 +41,7 @@
     [couponView addSubview:titleLab];
     
     
-    _couponLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2-30, 50)];
+    _couponLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2-50, 50)];
     if([_coupon isEqualToString:@"0"]){
         _couponLab.text = @"不使用优惠券";
     }else{
@@ -67,19 +57,13 @@
     
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-80, 5, 70, 40);
-//    _editBtn.backgroundColor = [UIColor cyanColor];
-    _editBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 50, 10, 0);
+    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-50, 0, 40, 50);
     
-//    _editBtn.backgroundColor = [UIColor cyanColor];
     if(_isCouponEdit){
         [_editBtn setImage:[UIImage imageNamed:@"icon_more_up_hui"] forState:UIControlStateNormal];
     }else{
         [_editBtn setImage:[UIImage imageNamed:@"icon_more_down_hui"] forState:UIControlStateNormal];
     }
-    
-//    [_editBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    _editBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [couponView addSubview:_editBtn];
     
     
@@ -88,7 +72,7 @@
     [couponView addSubview:line2];
     if(_isCouponEdit){
         int couponCount = (int)data.couponsArray.count;
-        UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 60, GGUISCREENWIDTH, (couponCount+1)*40)];
+        UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 50, GGUISCREENWIDTH, (couponCount+1)*40)];
         selectView.backgroundColor = GGBgColor;
         [self.contentView addSubview:selectView];
         
@@ -100,7 +84,7 @@
         oneBtn.titleLabel.font = [UIFont systemFontOfSize:12];
         
         [oneBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-        [oneBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
+        [oneBtn setImage:[UIImage imageNamed:@"red_select"] forState:UIControlStateSelected];
         [oneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         oneBtn.tag = 10000;
         if([_coupon isEqualToString:@"0"]){
@@ -108,11 +92,12 @@
         }
         [selectView addSubview:oneBtn];
         
+        if(data.couponsArray.count>0){
+            UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 0.5)];
+            line3.backgroundColor = UIColorFromRGB(0xd2d2d2);
+            [selectView addSubview:line3];
+        }
         
-        UIView * line3 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
-        line3.backgroundColor = [UIColor lightGrayColor];
-        
-        [selectView addSubview:line3];
         for(int i = 1;i <= data.couponsArray.count;i++){
             CouponsData * couponsData = data.couponsArray[i-1];
             NSString * str;
@@ -130,26 +115,30 @@
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
             
             [btn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
+            [btn setImage:[UIImage imageNamed:@"red_select"] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = 10000+i;
             if([_coupon isEqualToString:couponsData.denomination]){
                 btn.selected = YES;
             }
             [selectView addSubview:btn];
-            
-            UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, btn.y + btn.height - 1, GGUISCREENWIDTH, 1)];
-            line.backgroundColor = [UIColor lightGrayColor];
-            [selectView addSubview:line];
-
+            if(i < data.couponsArray.count){
+                UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, btn.y + btn.height - 1, GGUISCREENWIDTH, 0.5)];
+                line.backgroundColor = UIColorFromRGB(0xd2d2d2);
+                [selectView addSubview:line];
+            }
         }
+    }else{
+        UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 50, GGUISCREENWIDTH, 10)];
+        backView.backgroundColor = GGBgColor;
+        [self.contentView addSubview:backView];
     }
     
     
     UIView * lastView = [[UIView alloc]init];
     
     if(_isCouponEdit){
-        lastView.frame = CGRectMake(0, 60 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 160);
+        lastView.frame = CGRectMake(0, 50 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 160);
     }else{
         lastView.frame = CGRectMake(0, 60, GGUISCREENWIDTH, 160);
     }

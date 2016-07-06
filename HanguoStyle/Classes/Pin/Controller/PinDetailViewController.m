@@ -444,9 +444,8 @@
     ShareView *shareView = [[ShareView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
     shareView.tag = 1000000000;
     
-    shareView.shareStr =  _data.pinTitle;
-    shareView.shareTitle = @"韩秘美，只卖韩国正品";
-    
+    shareView.shareStr =  @"我在韩秘美发现了一个不错的商品，赶快来看看吧。";
+    shareView.shareTitle = _data.pinTitle;
 
     NSArray  * array = [_data.pinUrl componentsSeparatedByString:@"promotion"];
     NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[array.count-1]];

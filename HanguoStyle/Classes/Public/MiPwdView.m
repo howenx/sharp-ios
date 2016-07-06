@@ -223,7 +223,7 @@
                     for(SizeData * sizeData in detailData.sizeArray){
                         if(sizeData.orMasterInv){
                             [imageView sd_setImageWithURL:[NSURL URLWithString:sizeData.invImg]];
-                            priceLab.text =[NSString stringWithFormat:@"￥ %.2f",sizeData.itemSrcPrice];
+                            priceLab.text =[NSString stringWithFormat:@"￥ %@",sizeData.itemPrice];
                             break;
                         }
                     }

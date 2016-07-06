@@ -271,7 +271,7 @@
     //    else
     if (index == 100001)
     {
-        [UMSocialData defaultData].extConfig.title = _shareStr;
+        [UMSocialData defaultData].extConfig.title = _shareTitle;
         [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToWechatTimeline] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
@@ -363,7 +363,7 @@
         }
     }
     else if (sender.tag == 100004) {
-         [UMSocialSnsService presentSnsIconSheetView:[self getCurrentVC] appKey:@"567bb26867e58e3f670002fd" shareText:shareText shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_shareImage]]] shareToSnsNames:@[UMShareToSina] delegate:[self getCurrentVC]];
+         [UMSocialSnsService presentSnsIconSheetView:[self getCurrentVC] appKey:@"567bb26867e58e3f670002fd" shareText:[NSString stringWithFormat:@"%@%@",_shareTitle,_shareUrl] shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_shareImage]]] shareToSnsNames:@[UMShareToSina] delegate:[self getCurrentVC]];
     }else if (sender.tag == 100005) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = _shareDetailPage;

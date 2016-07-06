@@ -48,37 +48,37 @@ static NSString *appId = @"wx578f993da4b29f97";
     NSLog(@"返回的url:%@",url);
     BOOL result = [UMSocialSnsService handleOpenURL:url];//hmmapp://data/pinTieredPrice/pin/888361/112522
     if (result == FALSE) {
-//        //从网页跳转到app
-//        NSArray * enterArray = [[url absoluteString] componentsSeparatedByString:@"hmmapp://data"];
-//        if(enterArray.count>=2){
-//            UIViewController * controller = [self getCurrentVC];
-//            NSString * lastUrl = enterArray[1];
-//            if ([lastUrl rangeOfString:@"pin/activity"].location != NSNotFound) {
-//                
-//                PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
-//                detailVC.url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],lastUrl];
-//                [(UINavigationController *)controller pushViewController:detailVC animated:YES];
-//            } else {
-//                if([lastUrl rangeOfString:@"pin"].location != NSNotFound) {
-//                    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-//                    pinViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
-//                    [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
-//                }else{
-//                    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-//                    gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
-//                    [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
-//                }
-//            }
-//            return YES;
-//        }
-//        if ([[url absoluteString] rangeOfString:appId].location !=NSNotFound) {
-//            return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//        }
-//        
-//        if ([[url absoluteString] rangeOfString:@"hmmapp://safepay"].location !=NSNotFound) {
-//            return [Pingpp handleOpenURL:url withCompletion:nil];
-//        }
-//        
+        //从网页跳转到app
+        NSArray * enterArray = [[url absoluteString] componentsSeparatedByString:@"hmmapp://data"];
+        if(enterArray.count>=2){
+            UIViewController * controller = [self getCurrentVC];
+            NSString * lastUrl = enterArray[1];
+            if ([lastUrl rangeOfString:@"pin/activity"].location != NSNotFound) {
+                
+                PinDetailViewController * detailVC = [[PinDetailViewController alloc]init];
+                detailVC.url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],lastUrl];
+                [(UINavigationController *)controller pushViewController:detailVC animated:YES];
+            } else {
+                if([lastUrl rangeOfString:@"pin"].location != NSNotFound) {
+                    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+                    pinViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
+                    [(UINavigationController *)controller pushViewController:pinViewController animated:YES];
+                }else{
+                    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+                    gdViewController.url = [NSString stringWithFormat:@"%@/comm/detail%@",[HSGlobal shareGoodsHeaderUrl],lastUrl];
+                    [(UINavigationController *)controller pushViewController:gdViewController animated:YES];
+                }
+            }
+            return YES;
+        }
+        if ([[url absoluteString] rangeOfString:appId].location !=NSNotFound) {
+            return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+        }
+        
+        if ([[url absoluteString] rangeOfString:@"hmmapp://safepay"].location !=NSNotFound) {
+            return [Pingpp handleOpenURL:url withCompletion:nil];
+        }
+        
         return [BaiduOAuthSDK handleOpenURL:url];
         
     }
