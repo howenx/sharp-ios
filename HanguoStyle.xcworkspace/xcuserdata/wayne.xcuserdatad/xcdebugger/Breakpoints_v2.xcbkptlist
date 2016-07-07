@@ -52,12 +52,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489554432.845899"
+                  timestampString = "489566944.116149"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "609"
                   endingLineNumber = "609"
-                  offsetFromSymbolStart = "752">
+                  offsetFromSymbolStart = "760">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -67,27 +67,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489554432.846069"
+                  timestampString = "489566944.116359"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "609"
                   endingLineNumber = "609"
-                  offsetFromSymbolStart = "1532">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.547"
-                  moduleName = "HanguoStyle"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489554432.846174"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "609"
-                  endingLineNumber = "609"
-                  offsetFromSymbolStart = "116">
+                  offsetFromSymbolStart = "1461">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -97,12 +82,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489554432.846273"
+                  timestampString = "489566944.116718"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "609"
                   endingLineNumber = "609"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "59">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -112,12 +97,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489554432.846365"
+                  timestampString = "489566944.116867"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "609"
                   endingLineNumber = "609"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>

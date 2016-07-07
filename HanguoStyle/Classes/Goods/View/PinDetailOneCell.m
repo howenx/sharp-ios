@@ -34,6 +34,13 @@
 
     _scrollArr = data.itemPreviewImgs;
     self.titleLab.text = data.pinTitle;
+    CGSize size  = [PublicMethod getSize:data.pinTitle Font:14 Width:GGUISCREENWIDTH-20 Height:1000];
+    _detailConstraint.constant = size.height;
+    _footViewConstraint.constant = 187 + size.height;
+    if([self.delegate respondsToSelector:@selector(getOneCellH:)]){
+        [self.delegate getOneCellH:(GGUISCREENWIDTH + 187 + size.height)];
+    }
+
     self.alreadySaleLab.text = [NSString stringWithFormat:@"已售：%ld件",(long)data.soldAmount];
     NSDictionary * dict =  data.floorPrice;
     if([dict allKeys].count>0){

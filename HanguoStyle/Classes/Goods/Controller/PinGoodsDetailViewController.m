@@ -69,7 +69,7 @@
     _tableView.dataSource = self;
     [self prepareDataSource];
     _pageNum = 0;
-    _sectionZeroHeight = 0;
+    _sectionZeroHeight = GGUISCREENWIDTH +204;
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2)];
     _lineView.backgroundColor = GGMainColor;
     [_singleBuyButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xF03046)] forState:UIControlStateNormal];
@@ -263,7 +263,6 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-        _sectionZeroHeight = GGUISCREENWIDTH + 208;
         
 //        if(_detailData.itemPreviewImgs.count>0){
 //            _sectionZeroHeight = ((ItemPreviewImgsData *)_detailData.itemPreviewImgs[0]).height* GGUISCREENWIDTH/((ItemPreviewImgsData *)_detailData.itemPreviewImgs[0]).width + 200;
@@ -290,7 +289,7 @@
 {
     if(section==1){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = GGBgColor;
+        barView.backgroundColor = [UIColor whiteColor];
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
         [tuWenBtn setTitle:@"图文详情" forState:UIControlStateNormal];
@@ -318,7 +317,9 @@
         [barView addSubview:tuWenBtn];
         [barView addSubview:canShuBtn];
         [barView addSubview:reMaiBtn];
-        
+        UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 0.5)];
+        bottomLine.backgroundColor = GGBgColor;
+        [barView addSubview:bottomLine];
         
         
         [barView addSubview:_lineView];
@@ -475,6 +476,11 @@
  *  自定义代理方法
  *
  */
+
+-(void)getOneCellH:(CGFloat)cellHeight{
+    
+    _sectionZeroHeight = cellHeight;
+}
 -(void)scrollPage:(NSInteger)page{
     _pageNum = page;
     CGFloat tableContOffSet = _tableView.contentOffset.y;

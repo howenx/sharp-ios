@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *areaLab;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraint;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footViewConstraint;
 @property (nonatomic,strong)NSArray * scrollArr;
 
 @end
@@ -42,7 +43,7 @@
     for(SizeData * sizeData in data.sizeArray){
         if(sizeData.orMasterInv){
             _scrollArr = sizeData.itemPreviewImgs;
-            _costPriceLab.text = sizeData.itemSrcPrice;
+            _costPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemSrcPrice];
             _currentPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemPrice];
             itemDiscountCount = (int)[sizeData.itemDiscount length] + 3;
             if([NSString isBlankString:sizeData.itemDiscount]){
@@ -53,9 +54,12 @@
                 [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(0,itemDiscountCount)];
                 _detailLab.attributedText = str;
             }
-            
-            
-            
+            CGSize size  = [PublicMethod getSize:_detailLab.text Font:14 Width:GGUISCREENWIDTH-20 Height:1000];
+            _detailConstraint.constant = size.height;
+            _footViewConstraint.constant = 59 + size.height;
+            if([self.delegate respondsToSelector:@selector(getOneCellH:)]){
+                [self.delegate getOneCellH:(GGUISCREENWIDTH + 59 + size.height + 8)];
+            }
             self.areaLab.text = [NSString stringWithFormat:@"邮寄方式：%@",sizeData.invAreaNm];
             self.postalTaxRateLab.text = [NSString stringWithFormat:@"税率：%@",sizeData.postalTaxRate];
             self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:@"%"];
