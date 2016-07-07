@@ -21,10 +21,6 @@
 
 @property (nonatomic, weak) GoodsDetailData * data;
 
-//收藏按钮
-@property (weak, nonatomic) IBOutlet UIButton *storeBtn;
-//分享按钮
-@property (weak, nonatomic) IBOutlet UIButton *shareBtn;
 
 @property (nonatomic, weak) id <DetaileOneCellDelegate> delegate;
 @end

@@ -16,6 +16,7 @@
 //@property (weak, nonatomic) IBOutlet UILabel *weightLab;
 @property (weak, nonatomic) IBOutlet UILabel *postalTaxRateLab;
 @property (weak, nonatomic) IBOutlet UILabel *areaLab;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraint;
 
 @property (nonatomic,strong)NSArray * scrollArr;
 
@@ -63,18 +64,6 @@
                 self.postalTaxRateLab.text = [self.postalTaxRateLab.text stringByAppendingString:restrictStr];
             }
             
-            
-            
-            //设置收藏
-            UIImage * image ;
-            if (sizeData.collectId == 0) {
-                image = [UIImage imageNamed:@"grayStore"];
-            }else{
-                image = [UIImage imageNamed:@"redStore"];
-            }
-//            self.storeBtn.imageEdgeInsets = UIEdgeInsetsMake(10,GGUISCREENWIDTH/4-30,10,GGUISCREENWIDTH/4);
-            [self.storeBtn setImage:image forState:UIControlStateNormal];
-//            [self.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",(long)sizeData.collectCount] forState:UIControlStateNormal];
   
         }
     }

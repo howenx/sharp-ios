@@ -217,7 +217,7 @@
                     if(_data.count > 0){
                         //更新购物车上面提示栏
                         [self updataNotify];
-                        //更新购物车上面提示栏和下面的总额，去结算按钮等
+                        //更新购物车上面提示栏和下面的总额，结算按钮等
                         [self updateOtherMessage:_data];
                         [self.footView setHidden:NO];
                         [self.notifyLab setHidden:NO];
@@ -445,13 +445,13 @@
 
 //    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
     if (selectCount==0) {
-        self.goSettle.titleLabel.text = @"去结算(0)";
-        [self.goSettle setTitle:@"去结算(0)" forState:UIControlStateNormal];
+        self.goSettle.titleLabel.text = @"结算(0)";
+        [self.goSettle setTitle:@"结算(0)" forState:UIControlStateNormal];
         _goSettle.enabled = YES;
         _goSettle.backgroundColor = GGMainColor;
     }else{
-        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
-        [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
+        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"结算(%ld)",(long)selectCount];
+        [self.goSettle setTitle:[NSString stringWithFormat:@"结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
 //        _goSettle.enabled = YES;
 //        _goSettle.backgroundColor = GGMainColor;
     }
@@ -730,13 +730,13 @@
     
 //    self.goodsCount.text = [NSString stringWithFormat:@"商品数量:%ld",(long)selectCount];
     if (selectCount==0) {
-        self.goSettle.titleLabel.text = @"去结算(0)";
-        [self.goSettle setTitle:@"去结算(0)" forState:UIControlStateNormal];
+        self.goSettle.titleLabel.text = @"结算(0)";
+        [self.goSettle setTitle:@"结算(0)" forState:UIControlStateNormal];
         _goSettle.enabled = YES;
         _goSettle.backgroundColor = GGMainColor;
     }else{
-        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount];
-        [self.goSettle setTitle:[NSString stringWithFormat:@"去结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
+        self.goSettle.titleLabel.text =[NSString stringWithFormat:@"结算(%ld)",(long)selectCount];
+        [self.goSettle setTitle:[NSString stringWithFormat:@"结算(%ld)",(long)selectCount] forState:UIControlStateNormal];
     }
     if(totalAmt == 0){
 //        self.totalAmount.text = @"￥0";
@@ -822,7 +822,7 @@
 
 
 
-//去结算
+//结算
 - (IBAction)settlementBtn:(UIButton *)sender {
     
     if(![PublicMethod isConnectionAvailable]){
