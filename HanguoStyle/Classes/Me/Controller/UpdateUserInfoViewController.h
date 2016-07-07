@@ -13,6 +13,7 @@
 @interface UpdateUserInfoViewController : BaseViewController
 @property(nonatomic) NSString * userName;
 @property(nonatomic) NSString * gender;
+@property(nonatomic) NSString * tel;
 @property(nonatomic) UIImage * comeImage;
 
 @property(nonatomic,weak) id <UpdateUserInfoDelegate> delegate;

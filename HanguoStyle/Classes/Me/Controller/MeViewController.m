@@ -205,6 +205,7 @@
         UpdateUserInfoViewController * updateUserController = [[UpdateUserInfoViewController alloc]init];
         updateUserController.delegate = self;
         updateUserController.userName = mineData.name;
+        updateUserController.tel = mineData.phoneNum;
         _image = _photoBtn.image;
         updateUserController.comeImage = _image;
         if([@"M" isEqualToString:mineData.gender]){

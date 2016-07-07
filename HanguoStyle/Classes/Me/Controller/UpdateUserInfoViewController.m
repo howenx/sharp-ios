@@ -29,7 +29,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
-    self.navigationItem.title = @"基本信息";
+    self.navigationItem.title = @"修改信息";
     [self createView];
     
 }
@@ -41,7 +41,7 @@
 
     
     UILabel * photoLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-70, 40)];
-    photoLabelTitle.text = @"请选择本地照片:";
+    photoLabelTitle.text = @"修改头像";
     photoLabelTitle.tag = 10001;
     photoLabelTitle.font = [UIFont systemFontOfSize:14];
     photoLabelTitle.userInteractionEnabled = YES;
@@ -60,6 +60,7 @@
     _smallimage = [[UIImageView alloc] initWithFrame: CGRectMake(GGUISCREENWIDTH-70, 5, 30, 30)] ;
     _smallimage.image = _comeImage;
     _smallimage.tag = 10002;
+    _smallimage.layer.cornerRadius = 15;
     _smallimage.userInteractionEnabled = YES;
     [_smallimage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
     [self.view addSubview:_smallimage];
@@ -77,7 +78,7 @@
     [self.view addSubview:lineView];
     
     UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 48,  90, 40)];
-    nameLabelTitle.text = @"用户名:";
+    nameLabelTitle.text = @"昵称";
     nameLabelTitle.tag = 10005;
     nameLabelTitle.font = [UIFont systemFontOfSize:14];
     nameLabelTitle.userInteractionEnabled = YES;
@@ -109,7 +110,7 @@
     
     
     UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 96, GGUISCREENWIDTH - 40, 40)];
-    sexLabelTitle.text = @"性别：";
+    sexLabelTitle.text = @"性别";
     sexLabelTitle.tag = 10007;
     sexLabelTitle.font = [UIFont systemFontOfSize:14];
     sexLabelTitle.userInteractionEnabled = YES;
@@ -138,8 +139,23 @@
     lineView2.backgroundColor =  GGBgColor;
     [self.view addSubview:lineView2];
 
+    UILabel * telLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 96+48, 40, 40)];
+    telLabel.text = @"电话";
+    telLabel.tag = 10010;
+    telLabel.font = [UIFont systemFontOfSize:14];
+    [self.view addSubview:telLabel];
     
+    UILabel * telLabelNum = [[UILabel alloc]initWithFrame:CGRectMake(50, 96+48, GGUISCREENWIDTH-50-20, 40)];
+    telLabelNum.text = [self.tel stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    telLabelNum.textColor = [UIColor lightGrayColor];
+    telLabelNum.textAlignment = NSTextAlignmentRight;
+    telLabelNum.tag = 10011;
+    telLabelNum.font = [UIFont systemFontOfSize:14];
+    [self.view addSubview:telLabelNum];
     
+    UIView * lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 136+12+36, GGUISCREENWIDTH, 8)];
+    lineView3.backgroundColor =  GGBgColor;
+    [self.view addSubview:lineView3];
     
 //    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    saveButton.backgroundColor = GGMainColor;

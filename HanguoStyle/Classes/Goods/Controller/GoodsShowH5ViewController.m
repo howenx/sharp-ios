@@ -10,8 +10,9 @@
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 #import "UIImage+GG.h"
+#import "CartViewController.h"
 @interface GoodsShowH5ViewController ()<UIWebViewDelegate>
-
+@property (nonatomic) UILabel * cntLabel;
 @end
 
 @implementation GoodsShowH5ViewController
@@ -23,9 +24,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"商品展示";
+    self.navigationItem.title = @"";
+    [self makeCustNumLab];
     [self createWebView];
 }
+
+
+-(void)makeCustNumLab{
+    
+    //右上角添加按钮
+    UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,22,22)];
+    rightButton.titleLabel.font=[UIFont systemFontOfSize:12];
+    [rightButton setImage:[UIImage imageNamed:@"shopping_cart_top"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(enterCust)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(11 , -2, 15, 15)];
+    _cntLabel.textColor = [UIColor whiteColor];
+    _cntLabel.textAlignment = NSTextAlignmentCenter;
+    _cntLabel.font = [UIFont systemFontOfSize:10];
+    _cntLabel.backgroundColor = GGMainColor;
+    _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
+    _cntLabel.layer.masksToBounds = YES;
+    _cntLabel.layer.borderWidth = 1.0f;
+    _cntLabel.layer.borderColor = GGBgColor.CGColor;
+    
+//    if (_cnt == 0) {
+        _cntLabel.hidden = YES;
+//    }
+    
+    [rightButton addSubview:_cntLabel];
+    
+}
+-(void)enterCust{
+    BOOL orJumpTab = NO;
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[CartViewController class]]) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PopViewControllerNotification" object:nil];
+            orJumpTab = YES;
+            break;
+        }
+    }
+    
+    if(!orJumpTab){
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"cart",@"jumpKey", nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jumpToTabbar" object:nil userInfo:dict];
+    }
+}
+
+
+
+
 -(void)createWebView{
     UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
@@ -53,6 +103,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+    self.title =  [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 //    [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('header')[0].style.display='none';"];
     [webView stringByEvaluatingJavaScriptFromString:@"$('.banner').css(\"margin-top\",\"-44px\");"];
     
