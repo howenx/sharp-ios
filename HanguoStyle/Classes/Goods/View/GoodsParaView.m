@@ -36,12 +36,12 @@
     keyLabel.numberOfLines = 1;
     keyLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     keyLabel.textColor = [UIColor grayColor];
-    keyLabel.font = [UIFont systemFontOfSize:10];
+    keyLabel.font = [UIFont systemFontOfSize:11];
     [view addSubview:keyLabel];
     
     UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(95, 0, GGUISCREENWIDTH - 95 - 20, gap)];
     valueLabel.textAlignment = NSTextAlignmentLeft;
-    valueLabel.font = [UIFont systemFontOfSize:10];
+    valueLabel.font = [UIFont systemFontOfSize:11];
     valueLabel.numberOfLines = 1;
     valueLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     valueLabel.textColor = GGMainColor;

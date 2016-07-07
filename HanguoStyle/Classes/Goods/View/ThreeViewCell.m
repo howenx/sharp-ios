@@ -75,9 +75,6 @@
     if (_pageNum == 1) {
         
         GoodsParaView * gpv = [[GoodsParaView alloc]init];
-        
-        NSLog(@"-----------!!!!!!!!----%@",data.itemFeatures);
-        
         [gpv createParaView:data.itemFeatures];
         _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, gpv.frame.size.height);
         [_scrollView addSubview:gpv];
