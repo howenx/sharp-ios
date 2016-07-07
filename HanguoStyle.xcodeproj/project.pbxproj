@@ -178,7 +178,6 @@
 		804F00581C4F9702008CCD75 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 804F00561C4F9702008CCD75 /* PhotoViewController.m */; };
 		804F00591C4F9702008CCD75 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 804F00571C4F9702008CCD75 /* PhotoViewController.xib */; };
 		806017111D0020C3008247E9 /* HmmClauseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806017101D0020C3008247E9 /* HmmClauseViewController.m */; };
-		806347141D07E60500119C98 /* BaiduOAuthSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 806347111D07E60500119C98 /* BaiduOAuthSDK.a */; };
 		8063471D1D07EE8600119C98 /* baidu_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806347151D07EE8600119C98 /* baidu_login@2x.png */; };
 		8063471E1D07EE8600119C98 /* baidu_login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806347161D07EE8600119C98 /* baidu_login@3x.png */; };
 		8063471F1D07EE8600119C98 /* qq_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 806347171D07EE8600119C98 /* qq_login@2x.png */; };
@@ -786,11 +785,6 @@
 		804F00571C4F9702008CCD75 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 		8060170F1D0020C3008247E9 /* HmmClauseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HmmClauseViewController.h; sourceTree = "<group>"; };
 		806017101D0020C3008247E9 /* HmmClauseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HmmClauseViewController.m; sourceTree = "<group>"; };
-		8063470F1D07E60500119C98 /* BaiduAuthCodeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduAuthCodeDelegate.h; sourceTree = "<group>"; };
-		806347101D07E60500119C98 /* BaiduDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduDelegate.h; sourceTree = "<group>"; };
-		806347111D07E60500119C98 /* BaiduOAuthSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = BaiduOAuthSDK.a; sourceTree = "<group>"; };
-		806347121D07E60500119C98 /* BaiduOAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduOAuthSDK.h; sourceTree = "<group>"; };
-		806347131D07E60500119C98 /* BaiduTokenInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaiduTokenInfo.h; sourceTree = "<group>"; };
 		806347151D07EE8600119C98 /* baidu_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baidu_login@2x.png"; sourceTree = "<group>"; };
 		806347161D07EE8600119C98 /* baidu_login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "baidu_login@3x.png"; sourceTree = "<group>"; };
 		806347171D07EE8600119C98 /* qq_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qq_login@2x.png"; sourceTree = "<group>"; };
@@ -1370,7 +1364,6 @@
 				80F659A11CF591D800204270 /* libSocialWechat.a in Frameworks */,
 				944AB0379DB243F0E9688CAF /* libPods.a in Frameworks */,
 				B0336F321CF7E14B007311C8 /* libpingppcore.a in Frameworks */,
-				806347141D07E60500119C98 /* BaiduOAuthSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1513,18 +1506,6 @@
 				80108A8B1C60751F00B20C64 /* UIImage+MWPhotoBrowser.m */,
 			);
 			path = MWPhotoBrowser;
-			sourceTree = "<group>";
-		};
-		8063470E1D07E60500119C98 /* BaiduOAuthSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8063470F1D07E60500119C98 /* BaiduAuthCodeDelegate.h */,
-				806347101D07E60500119C98 /* BaiduDelegate.h */,
-				806347111D07E60500119C98 /* BaiduOAuthSDK.a */,
-				806347121D07E60500119C98 /* BaiduOAuthSDK.h */,
-				806347131D07E60500119C98 /* BaiduTokenInfo.h */,
-			);
-			path = BaiduOAuthSDK;
 			sourceTree = "<group>";
 		};
 		8069E4761BC7B18500742D8F /* Cart */ = {
@@ -1952,7 +1933,6 @@
 		807F63201C3CB53100345BFE /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				8063470E1D07E60500119C98 /* BaiduOAuthSDK */,
 				B0336F1E1CF7D8D0007311C8 /* Alipay */,
 				80F315F01CF6975900C6BEA2 /* WXPayAPI */,
 				80F6594B1CF591D700204270 /* umeng_ios_social_sdk_5.1_arm64_custom */,

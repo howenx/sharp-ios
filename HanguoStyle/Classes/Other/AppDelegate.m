@@ -29,7 +29,6 @@
 #import "Pingpp.h"
 #import "GoodsShowH5ViewController.h"
 #import "CouponViewController.h"
-#import "BaiduOAuthSDK.h"
 
 static NSString *appId = @"wx578f993da4b29f97";
 @interface AppDelegate ()<UIScrollViewDelegate>
@@ -78,8 +77,6 @@ static NSString *appId = @"wx578f993da4b29f97";
         if ([[url absoluteString] rangeOfString:@"hmmapp://safepay"].location !=NSNotFound) {
             return [Pingpp handleOpenURL:url withCompletion:nil];
         }
-        
-        return [BaiduOAuthSDK handleOpenURL:url];
         
     }
     return result;

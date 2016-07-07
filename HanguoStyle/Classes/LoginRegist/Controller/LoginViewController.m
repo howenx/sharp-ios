@@ -26,11 +26,8 @@
 #import "PinDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
 
-#import "BaiduOAuthSDK.h"
-#import "BaiduDelegate.h"
-#import "BaiduAuthCodeDelegate.h"
 
-@interface LoginViewController ()<UITextFieldDelegate,BaiduAuthorizeDelegate,BaiduAuthCodeDelegate,BaiduAPIRequestDelegate>
+@interface LoginViewController ()<UITextFieldDelegate>
 {
     FMDatabase * database;
     NSString * sendCode;
@@ -54,7 +51,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [BaiduOAuthSDK initWithAPIKey:@"x6opgN1tKTyIy3GuzA4camG6reNnGtiT" appId:@"8228990"];
     self.tabBarController.tabBar.hidden=YES;
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.navigationItem.title = @"登录";
@@ -715,17 +711,6 @@
             
         }});
 }
-- (IBAction)baiduLogin:(UIButton *)sender {
-        [BaiduOAuthSDK smsAuthWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" andDelegate:self];
-}
-
-- (void)loginDidSuccessWithTokenInfo:(BaiduTokenInfo *)tokenInfo
-{
-//    NSLog(@"access_token:%@,\nexpire_time:%@,\nscope:%@",tokenInfo.accessToken,tokenInfo.expiresIn, tokenInfo.scope);
-    tokenBaidu = tokenInfo.accessToken;
-    
-    [BaiduOAuthSDK apiRequestWithUrl:@"https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser" httpMethod:@"GET" params:nil andDelegate:self];
-}
 
 
 
@@ -771,47 +756,5 @@
 
 
 
-
-
-
-
-
-#pragma mark -Authorization Code 授权方式登录
-- (void)doUserAuthCodeLogin:(id)sender {
-    [BaiduOAuthSDK initWithAPIKey:@"x6opgN1tKTyIy3GuzA4camG6reNnGtiT" appId:@"8228990"];
-    [BaiduOAuthSDK authorizationCodeWithTargetViewController:self scope:@"basic,super_msg,netdisk,pcs_doc,pcs_video" redirctUrl:@"bdconnect://success" needSignUp:NO andDelegaet:self];
-}
-#pragma mark -获取Authorization Code成功
-- (void)authorizationCodeSuccessWithCode:(NSString *)code
-{
-}
-
-- (void)authorizationCodeWithError:(NSError*)error
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] ;
-    [alertView show];
-}
-
-- (void)loginDidCancel
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:@"授权取消" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)loginFailedWithError:(NSError*)error
-{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"授权提示" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-}
-
-- (void)apiRequestDidFinishLoadWithResult:(id)result
-{
-    //API请求成功，解析请求结果
-    [self alreadyLogin:result];
-}
-- (void)apiRequestDidFailLoadWithError:(NSError*)error
-{
-    //API请求失败的处理
-}
 
 @end
