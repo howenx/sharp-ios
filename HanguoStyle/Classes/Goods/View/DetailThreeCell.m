@@ -53,8 +53,11 @@
         
         UILabel * hpLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-150, 0, 120, 30)];
         hpLab.textAlignment = NSTextAlignmentRight;
-        hpLab.text = [NSString stringWithFormat:@"好评率(%@%%)",data.remarkRate];
         hpLab.textColor = UIColorFromRGB(0x333333);
+        NSString * rRate =  [NSString stringWithFormat:@"好评率(%@%%)",data.remarkRate];
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:rRate];
+        [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(4,rRate.length-5)];
+        hpLab.attributedText = str;
         hpLab.font = [UIFont systemFontOfSize:12];
         [view addSubview:hpLab];
         

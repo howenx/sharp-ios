@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="321" width="321" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYK-I2-NW3" userLabel="明细">
-                                <rect key="frame" x="10" y="10" width="261" height="21"/>
+                                <rect key="frame" x="10" y="10" width="301" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="3X1-GF-LZa"/>
                                 </constraints>
@@ -70,44 +70,21 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGE-ct-72x" userLabel="line">
-                                <rect key="frame" x="279" y="10" width="1" height="21"/>
-                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="0ed-p7-0ad"/>
-                                    <constraint firstAttribute="width" constant="1" id="dk5-uM-OUi"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cF7-XF-9WI">
-                                <rect key="frame" x="281" y="0.0" width="40" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="IQd-8L-S6Q"/>
-                                    <constraint firstAttribute="height" constant="39" id="V4i-11-B1z"/>
-                                </constraints>
-                                <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
-                                <state key="normal" image="grayStore.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RDh-iP-rqe" secondAttribute="trailing" constant="11" id="5c8-sg-ATT"/>
-                            <constraint firstItem="cF7-XF-9WI" firstAttribute="leading" secondItem="FGE-ct-72x" secondAttribute="trailing" constant="1" id="F6B-pJ-anG"/>
                             <constraint firstAttribute="trailing" secondItem="Ep1-he-MpT" secondAttribute="trailing" constant="11" id="KVj-U8-3Pa"/>
                             <constraint firstItem="yeN-Yk-x9p" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="M4l-S3-oqe"/>
                             <constraint firstItem="7Sp-IU-ddA" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="PmM-Wc-vDJ"/>
+                            <constraint firstAttribute="trailing" secondItem="AYK-I2-NW3" secondAttribute="trailing" constant="10" id="QMi-GK-Nkw"/>
                             <constraint firstItem="Ep1-he-MpT" firstAttribute="top" secondItem="RDh-iP-rqe" secondAttribute="bottom" constant="3" id="Xme-FT-Y6a"/>
                             <constraint firstAttribute="height" constant="80" id="db0-xQ-xRE"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="leading" secondItem="3dt-co-oyw" secondAttribute="leading" constant="10" id="e5M-yX-cbU"/>
-                            <constraint firstAttribute="trailing" secondItem="cF7-XF-9WI" secondAttribute="trailing" id="f2h-fy-X7E"/>
-                            <constraint firstItem="cF7-XF-9WI" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" id="hN9-pT-la5"/>
                             <constraint firstItem="AYK-I2-NW3" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="10" id="hiy-xq-vZQ"/>
                             <constraint firstItem="7Sp-IU-ddA" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="hlj-Fn-5rw"/>
                             <constraint firstItem="RDh-iP-rqe" firstAttribute="top" secondItem="AYK-I2-NW3" secondAttribute="bottom" constant="8" id="lED-Rm-CeB"/>
                             <constraint firstItem="yeN-Yk-x9p" firstAttribute="top" secondItem="7Sp-IU-ddA" secondAttribute="bottom" constant="3" id="lL6-b5-wbX"/>
-                            <constraint firstItem="FGE-ct-72x" firstAttribute="top" secondItem="3dt-co-oyw" secondAttribute="top" constant="10" id="lXk-Hf-gZj"/>
-                            <constraint firstItem="FGE-ct-72x" firstAttribute="leading" secondItem="AYK-I2-NW3" secondAttribute="trailing" constant="8" id="rEv-P0-nu2"/>
                             <constraint firstItem="RDh-iP-rqe" firstAttribute="leading" secondItem="7Sp-IU-ddA" secondAttribute="trailing" constant="6" id="rn7-6q-0vz"/>
                         </constraints>
                     </view>
@@ -127,15 +104,12 @@
                 <outlet property="areaLab" destination="yeN-Yk-x9p" id="YTw-VN-9kx"/>
                 <outlet property="costPriceLab" destination="RDh-iP-rqe" id="EMn-Gj-CMx"/>
                 <outlet property="currentPriceLab" destination="Ep1-he-MpT" id="3Hr-uF-Xoq"/>
+                <outlet property="detailConstraint" destination="3X1-GF-LZa" id="F1b-Vd-hy8"/>
                 <outlet property="detailLab" destination="AYK-I2-NW3" id="Ilt-A6-3tV"/>
                 <outlet property="headView" destination="TJG-T1-ijU" id="qw4-cd-vfb"/>
                 <outlet property="postalTaxRateLab" destination="7Sp-IU-ddA" id="o2y-nH-hwC"/>
-                <outlet property="storeBtn" destination="cF7-XF-9WI" id="ZoO-SZ-gj0"/>
             </connections>
             <point key="canvasLocation" x="478.5" y="472"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="grayStore.png" width="22" height="20"/>
-    </resources>
 </document>

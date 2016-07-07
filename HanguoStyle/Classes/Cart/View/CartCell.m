@@ -17,7 +17,7 @@
     
 }
 - (void)awakeFromNib {
-    // Initialization code
+    
 }
 -(void) touchUpInside:(UITapGestureRecognizer *)recognizer{
     
@@ -25,6 +25,18 @@
     
 }
 - (void)setData:(CartDetailData *)data{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_jiaBtn.bounds byRoundingCorners:UIRectCornerTopRight | UIRectCornerBottomRight cornerRadii:CGSizeMake(4, 4)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = _jiaBtn.bounds;
+    maskLayer.path = maskPath.CGPath;
+    _jiaBtn.layer.mask = maskLayer;
+    
+    UIBezierPath *maskPath1 = [UIBezierPath bezierPathWithRoundedRect:_jianBtn.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(4, 4)];
+    CAShapeLayer *maskLayer1 = [[CAShapeLayer alloc] init];
+    maskLayer1.frame = _jianBtn.bounds;
+    maskLayer1.path = maskPath1.CGPath;
+    _jianBtn.layer.mask = maskLayer1;
+
     _data = data;
     isLogin = [PublicMethod checkLogin];
     database = [PublicMethod shareDatabase];

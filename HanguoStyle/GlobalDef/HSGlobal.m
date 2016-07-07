@@ -166,7 +166,7 @@
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-// 去结算给后台发送购物车数据接口
+// 结算给后台发送购物车数据接口
 + (NSString *) sendCartToOrder
 {
     NSString * url = [NSString stringWithFormat:@"%@/client/settle",SERVERY1];

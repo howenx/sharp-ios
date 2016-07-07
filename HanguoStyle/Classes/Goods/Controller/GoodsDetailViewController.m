@@ -44,6 +44,7 @@
     ThreeViewCell * twoView;//存放商品参数的cell
     ThreeViewCell * threeView;//存放热卖商品的cell
     
+    CGFloat oneCellHeight;//第一个cell的高度
     CGFloat twoCellHeight;//第二个cell的高度
     CGFloat threeCellHeight;//第三个cell的高度
     
@@ -83,6 +84,7 @@
 - (IBAction)enterShoppingCart:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *cartButton;
 @property (weak, nonatomic) IBOutlet UIView *footView;
+@property (weak, nonatomic) IBOutlet UIButton *collectBtn;
 
 @property (nonatomic) BOOL globleIsStore;
 @property (nonatomic,assign) NSInteger globleStoreCount;
@@ -320,7 +322,9 @@
                 if(sizeData.orMasterInv){
                     if(sizeData.collectId == 0){
                         _globleIsStore = false;
+                        [self.collectBtn setImage:[UIImage imageNamed:@"grayStore"] forState:UIControlStateNormal];
                     }else{
+                        [self.collectBtn setImage:[UIImage imageNamed:@"redStore"] forState:UIControlStateNormal];
                         _globleIsStore = true;
                     }
                     _globleStoreCount = sizeData.collectCount;
@@ -331,8 +335,6 @@
             oneCell = [DetaileOneCell subjectCell];
             oneCell.delegate = self;
             oneCell.data = _detailData;
-            [oneCell.storeBtn addTarget:self action:@selector(storeBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//            [oneCell.shareBtn addTarget:self action:@selector(shareBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             oneCellAlreadyLoad = false;
             oneCellAgainLoad = false;
         }
@@ -407,8 +409,7 @@
     
     return nil;
 }
-- (void) storeBtnClicked: (UIButton *) button
-{
+- (IBAction)collectClick:(UIButton *)sender {
     
     if(![PublicMethod isConnectionAvailable]){
         return;
@@ -447,10 +448,8 @@
                             sizeData.collectId = [[dict objectForKey:@"collectId"]longValue];
                         }
                     }
-                    UIImage * image = [UIImage imageNamed:@"redStore"];
-//                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount + 1] forState:UIControlStateNormal];
                     _globleStoreCount++;
-                    [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
+                    [_collectBtn setImage:[UIImage imageNamed:@"redStore"] forState:UIControlStateNormal];
                     
                 }else{
                     _globleIsStore = !_globleIsStore;
@@ -494,10 +493,8 @@
                             sizeData.collectId = 0;
                         }
                     }
-                    UIImage * image = [UIImage imageNamed:@"grayStore"];
-//                    [ oneCell.storeBtn setTitle:[NSString stringWithFormat:@"（%ld）",_globleStoreCount - 1] forState:UIControlStateNormal];
                     _globleStoreCount--;
-                    [oneCell.storeBtn setImage:image forState:UIControlStateNormal];
+                    [_collectBtn setImage:[UIImage imageNamed:@"grayStore"] forState:UIControlStateNormal];
                 }else{
                     _globleIsStore = !_globleIsStore;
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -542,7 +539,6 @@
             break;
         }
     }
-//    NSArray  * array= [copyUrl componentsSeparatedByString:@"comm/detail/item"];
     NSArray  * array= [copyUrl componentsSeparatedByString:@"comm"];
     if(array.count >= 2){
         NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[array.count-1]];
@@ -704,6 +700,21 @@
 -(void)getNewData:(GoodsDetailData *)newData{
     
     _detailData = newData;
+    //更新收藏按钮
+    for(SizeData * sizeData in _detailData.sizeArray){
+        
+        if(sizeData.orMasterInv){
+            if(sizeData.collectId == 0){
+                _globleIsStore = false;
+                [self.collectBtn setImage:[UIImage imageNamed:@"grayStore"] forState:UIControlStateNormal];
+            }else{
+                [self.collectBtn setImage:[UIImage imageNamed:@"redStore"] forState:UIControlStateNormal];
+                _globleIsStore = true;
+            }
+            _globleStoreCount = sizeData.collectCount;
+        }
+    }
+    //刷新第一个cell
     oneCellAgainLoad = true;
     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:0];
     [_tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];

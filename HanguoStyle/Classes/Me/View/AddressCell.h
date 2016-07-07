@@ -15,7 +15,7 @@
 
 @interface AddressCell : UITableViewCell
 +(id)subjectCell;
-@property (nonatomic) NSString * from;//去结算页面用这个cell时候传这个标志
+@property (nonatomic) NSString * from;//结算页面用这个cell时候传这个标志
 @property (nonatomic, weak) AddressData * data;
 @property(nonatomic,weak) id <AddressCellDelegate> delegate;
 @property (nonatomic) NSString * comeFrom;
