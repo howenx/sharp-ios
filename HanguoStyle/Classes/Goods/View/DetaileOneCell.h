@@ -11,7 +11,8 @@
 #import "GoodsDetailData.h"
 
 @protocol DetaileOneCellDelegate <NSObject>
-
+//回传cell高度
+-(void)getOneCellH:(CGFloat)cellHeight ;
 - (void)touchPage:(NSInteger)index andImageArray :(NSArray *) imageArray;
 
 @end

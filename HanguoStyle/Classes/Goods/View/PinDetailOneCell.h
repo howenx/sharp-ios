@@ -9,7 +9,8 @@
 #import "BaseView.h"
 #import "PinGoodsDetailData.h"
 @protocol PinDetailOneCellDelegate <NSObject>
-
+//回传cell高度
+-(void)getOneCellH:(CGFloat)cellHeight ;
 - (void)touchPage:(NSInteger)index andImageArray :(NSArray *) imageArray;
 
 @end
@@ -26,5 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *singleSaleTopBtn;
 @property (weak, nonatomic) IBOutlet UIButton *singleSaleBottomBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pinMethodBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footViewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailConstraint;
 
 @end

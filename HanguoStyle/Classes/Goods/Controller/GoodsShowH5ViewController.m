@@ -12,6 +12,9 @@
 #import "UIImage+GG.h"
 #import "CartViewController.h"
 @interface GoodsShowH5ViewController ()<UIWebViewDelegate>
+{
+    NSInteger _cnt;
+}
 @property (nonatomic) UILabel * cntLabel;
 @end
 
@@ -19,6 +22,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=YES;
+    [self queryCustNum];
 //    [self.navigationController.navigationBar setAlpha:0.1];
 }
 - (void)viewDidLoad {
@@ -49,9 +53,9 @@
     _cntLabel.layer.borderWidth = 1.0f;
     _cntLabel.layer.borderColor = GGBgColor.CGColor;
     
-//    if (_cnt == 0) {
+    if (_cnt == 0) {
         _cntLabel.hidden = YES;
-//    }
+    }
     
     [rightButton addSubview:_cntLabel];
     
@@ -137,6 +141,55 @@
     return  true;
 }
 
+-(void)queryCustNum{
+    BOOL isLogin = [PublicMethod checkLogin];
+    if(!isLogin){
+        FMDatabase * database = [PublicMethod shareDatabase];
+        FMResultSet * rs = [database executeQuery:@"SELECT SUM(pid_amount) as amount FROM Shopping_Cart "];
+        //购物车如果存在这件商品，就更新数量
+        while ([rs next]){
+            _cnt = [rs intForColumn:@"amount"] ;
+            if (_cnt == 0) {
+                _cntLabel.hidden = YES;
+            }else{
+                _cntLabel.hidden = NO;
+                _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
+            }
+            
+        }
+    }else{
+        NSString * url = [HSGlobal queryCustNum];
+        AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+        if(manager == nil){
+            NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+            noNetView.delegate = self;
+            [self.view addSubview:noNetView];
+            return;
+        }
+        [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+            
+            NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+            
+            if(code == 200){
+                _cnt = [[object objectForKey:@"cartNum"]integerValue];
+                if (_cnt == 0) {
+                    _cntLabel.hidden = YES;
+                }else{
+                    _cntLabel.hidden = NO;
+                    _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
+                }
+                
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [GiFHUD dismiss];
+            [PublicMethod printAlert:@"数据加载失败"];
+            
+        }];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

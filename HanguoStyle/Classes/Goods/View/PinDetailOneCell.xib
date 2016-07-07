@@ -18,7 +18,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wmf-Tl-2jp" userLabel="footView">
                         <rect key="frame" x="0.0" y="327" width="320" height="201"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdY-z5-xa1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdY-z5-xa1">
                                 <rect key="frame" x="10" y="10" width="300" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="j2N-cV-Fe9"/>
@@ -132,6 +132,8 @@
             <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="alreadySaleLab" destination="Pz4-UR-WqN" id="cH7-Dp-9xd"/>
+                <outlet property="detailConstraint" destination="j2N-cV-Fe9" id="Iql-Pl-1md"/>
+                <outlet property="footViewConstraint" destination="Zsy-FF-hgF" id="Nxl-Nr-mgQ"/>
                 <outlet property="headView" destination="MEO-bH-NLs" id="PPK-ie-d3A"/>
                 <outlet property="pinMethodBtn" destination="HzE-U4-VVP" id="Kur-QA-Oqz"/>
                 <outlet property="pinSaleBottomBtn" destination="5et-Nj-KmT" id="URX-6d-8Qm"/>

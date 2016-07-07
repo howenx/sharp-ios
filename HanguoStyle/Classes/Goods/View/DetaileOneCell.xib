@@ -17,12 +17,12 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJG-T1-ijU">
                         <rect key="frame" x="0.0" y="0.0" width="321" height="321"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dt-co-oyw" userLabel="footView">
                         <rect key="frame" x="0.0" y="321" width="321" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYK-I2-NW3" userLabel="明细">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYK-I2-NW3" userLabel="明细">
                                 <rect key="frame" x="10" y="10" width="301" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="3X1-GF-LZa"/>
@@ -106,6 +106,7 @@
                 <outlet property="currentPriceLab" destination="Ep1-he-MpT" id="3Hr-uF-Xoq"/>
                 <outlet property="detailConstraint" destination="3X1-GF-LZa" id="F1b-Vd-hy8"/>
                 <outlet property="detailLab" destination="AYK-I2-NW3" id="Ilt-A6-3tV"/>
+                <outlet property="footViewConstraint" destination="db0-xQ-xRE" id="Apv-y1-gSB"/>
                 <outlet property="headView" destination="TJG-T1-ijU" id="qw4-cd-vfb"/>
                 <outlet property="postalTaxRateLab" destination="7Sp-IU-ddA" id="o2y-nH-hwC"/>
             </connections>

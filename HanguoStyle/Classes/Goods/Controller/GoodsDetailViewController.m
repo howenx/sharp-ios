@@ -28,13 +28,10 @@
 @interface GoodsDetailViewController ()<UITableViewDataSource,UITableViewDelegate,ThreeViewCellDelegate,MBProgressHUDDelegate,DetailTwoCellDelegate,DetailThreeCellDelegate,DetaileOneCellDelegate,MWPhotoBrowserDelegate>
 {
 
-//    NSMutableArray * _dataSource;
     NSInteger _pageNum; //最后一个section里面有scrollview里面有三个view，这个标示是表示哪个view
-//    CGFloat _rowHeight;//最后一个section的高度（这个高度是是随着section里面scrollview里面分别三个view的高度而变化的）
     CGFloat _otherRowHeight;//除了最后一组，其他section的高度和
     UIView *_lineView;//最后一个组的组头里面三个按钮下面的线
-    CGFloat _sectionZeroHeight;//第0个分组的高度
-//    MBProgressHUD *HUD;
+
     
     DetaileOneCell * oneCell;
     DetailTwoCell * twoCell;
@@ -100,6 +97,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    oneCellHeight = GGUISCREENWIDTH + 59 + 17 + 8;//17是14号字一行的高度
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -364,7 +362,7 @@
     
     if((indexPath.section == 3 && numberOfSection == 4)|| (numberOfSection == 3 &&indexPath.section == 2)){
         // _otherRowHeight是上面三个cell的高度
-        _otherRowHeight =_sectionZeroHeight + twoCellHeight + threeCellHeight;
+        _otherRowHeight =oneCellHeight + twoCellHeight + threeCellHeight;
         //64为导航条和状态栏，40为下面购物车一行高度
 //        if(_tableView.contentOffset.y > _otherRowHeight + 64){
 //            
@@ -557,7 +555,7 @@
 {
     if((section==3 && numberOfSection == 4) || (section ==2 && numberOfSection == 3)){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
-        barView.backgroundColor = GGBgColor;
+        barView.backgroundColor = [UIColor whiteColor];
         //    barView.backgroundColor = [UIColor whiteColor];
         UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
@@ -587,7 +585,9 @@
         [barView addSubview:canShuBtn];
         [barView addSubview:reMaiBtn];
         
-        
+        UIView * bottomLine = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 0.5)];
+        bottomLine.backgroundColor = GGBgColor;
+        [barView addSubview:bottomLine];
         
         [barView addSubview:_lineView];
         
@@ -626,19 +626,19 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.section == 0){
-        _sectionZeroHeight = GGUISCREENWIDTH + 80 + 8;
+//        oneCellHeight = GGUISCREENWIDTH + 80 + 8;
 //        for(SizeData * sizeData in _detailData.sizeArray){
 //            
 //            if(sizeData.orMasterInv){
 //                if(sizeData.itemPreviewImgs.count>0){
-//                    _sectionZeroHeight = ((itemPreviewImgsData *)sizeData.itemPreviewImgs[0]).height* GGUISCREENWIDTH/((itemPreviewImgsData *)sizeData.itemPreviewImgs[0]).width + 40 + 1 + 80 + 8;
+//                    oneCellHeight = ((itemPreviewImgsData *)sizeData.itemPreviewImgs[0]).height* GGUISCREENWIDTH/((itemPreviewImgsData *)sizeData.itemPreviewImgs[0]).width + 40 + 1 + 80 + 8;
 //                    break;
 //                }
 //                
 //            }
 //        }
         
-        return _sectionZeroHeight;
+        return oneCellHeight;
     }
     if(indexPath.section == 1){
         return twoCellHeight;
@@ -692,6 +692,11 @@
     }
 }
 //实现代理方法
+-(void)getOneCellH:(CGFloat)cellHeight{
+    
+    oneCellHeight = cellHeight;
+}
+
 -(void)getTwoCellH:(CGFloat)cellHeight{
 
     twoCellHeight = cellHeight;

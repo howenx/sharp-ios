@@ -13,10 +13,7 @@
 
 //回传cell高度
 -(void)getTwoCellH:(CGFloat)cellHeight ;
-////回传颜色分类
-//-(void)getColorClassify :(NSString *)colorClassify;
-////回传尺寸
-//-(void)getSize :(NSString *)size;
+
 -(void)getNewData :(GoodsDetailData *)newData;
 
 @end
