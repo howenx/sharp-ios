@@ -71,7 +71,7 @@
     //1.精选商品
     GoodsViewController * gContro = [[GoodsViewController alloc]init];
 //    gContro.tabBarItem.badgeValue = @"21";
-    [self setupChildViewController:gContro title:@"韩秘美" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    [self setupChildViewController:gContro title:@"KakaoGift" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];
 //    messageContro.tabBarItem.badgeValue = @"400";
@@ -137,7 +137,7 @@
 
     controller.title = title;
     controller.tabBarItem.image = [UIImage imageNamed:imageName];
-    [controller.navigationItem setTitle: @"韩秘美"];//这个要设置到controller.title后面才生效
+    [controller.navigationItem setTitle: @"KakaoGift"];//这个要设置到controller.title后面才生效
     controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [self addChildViewController:nav];
     //为下面购物车tabbar的显示的数量用的

@@ -34,7 +34,7 @@
 
 @implementation HSGlobal
 
-//韩秘美条款地址
+//KakaoGift条款地址
 + (NSString *) hmmClauseUrl
 {
     NSString * url = [NSString stringWithFormat:@"%@/comm/views/agreement",SERVERY2];

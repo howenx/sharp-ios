@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.navigationItem.title = @"韩秘美服务条款";
+    self.navigationItem.title = @"KakaoGift服务条款";
     [self createWebView];
 }
 -(void)createWebView{

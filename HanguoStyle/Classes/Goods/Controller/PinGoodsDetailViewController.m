@@ -576,7 +576,7 @@
     shareView.tag = 1000000000;
     //    shareView.delegate = self;
     
-    shareView.shareStr =  @"我在韩秘美发现了一个不错的商品，赶快来看看吧。";
+    shareView.shareStr =  @"我在KakaoGift发现了一个不错的商品，赶快来看看吧。";
     shareView.shareTitle = _detailData.itemTitle;
     shareView.shareImage = _detailData.invImg;
 //    NSArray  * array= [_url componentsSeparatedByString:@"comm/detail/pin"];
@@ -585,7 +585,7 @@
     if(array.count >= 2){
         NSString * shareUrl = [NSString stringWithFormat:@"https://style.hanmimei.com%@",array[array.count-1]];
         shareView.shareUrl = shareUrl;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【 %@】,%@－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉KakaoGift👈即可看到<P>【 %@】,%@－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }

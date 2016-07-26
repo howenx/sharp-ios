@@ -23,6 +23,7 @@
 -(void)createWebView{
     UIWebView * webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     webView.delegate = self;
+    [ (UIScrollView *)[[webView subviews] objectAtIndex:0] setBounces:NO];
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
     request = [mutableRequest copy];

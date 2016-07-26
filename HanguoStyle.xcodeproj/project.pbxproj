@@ -3444,7 +3444,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "e7f54096-9d25-4fc7-ac7f-bbbf30528650";
+				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3481,7 +3481,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "e7f54096-9d25-4fc7-ac7f-bbbf30528650";
+				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3574,9 +3574,9 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.HMM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.kakaogift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7f54096-9d25-4fc7-ac7f-bbbf30528650";
+				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3667,9 +3667,9 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.HMM;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakao.kakaogift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7f54096-9d25-4fc7-ac7f-bbbf30528650";
+				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

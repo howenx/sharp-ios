@@ -444,7 +444,7 @@
     ShareView *shareView = [[ShareView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
     shareView.tag = 1000000000;
     
-    shareView.shareStr =  @"我在韩秘美发现了一个不错的商品，赶快来看看吧。";
+    shareView.shareStr =  @"我在KakaoGift发现了一个不错的商品，赶快来看看吧。";
     shareView.shareTitle = _data.pinTitle;
 
     NSArray  * array = [_data.pinUrl componentsSeparatedByString:@"promotion"];
@@ -452,7 +452,7 @@
     if(array.count >= 2){
         shareView.shareUrl = shareUrl;
         shareView.shareImage = _data.pinImg;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【 %@】,%@－🔑 M令 🔑",_data.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉KakaoGift👈即可看到<T>【 %@】,%@－🔑 M令 🔑",_data.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
