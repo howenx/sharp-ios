@@ -517,6 +517,7 @@
 		B079BC0B1CB7B090003E7240 /* coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC081CB7B090003E7240 /* coupon.png */; };
 		B079BC0C1CB7B090003E7240 /* coupon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC091CB7B090003E7240 /* coupon@2x.png */; };
 		B079BC0D1CB7B090003E7240 /* coupon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B079BC0A1CB7B090003E7240 /* coupon@3x.png */; };
+		B07E8D121D484731007F1D63 /* KKGgoodsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B07E8D111D484731007F1D63 /* KKGgoodsViewCell.m */; };
 		B09596FA1CD09E3900AA3E2C /* ShowEvaluateCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09596F91CD09E3900AA3E2C /* ShowEvaluateCollectionViewCell.m */; };
 		B095970A1CD0C30200AA3E2C /* 1star.png in Resources */ = {isa = PBXBuildFile; fileRef = B09596FB1CD0C30200AA3E2C /* 1star.png */; };
 		B095970B1CD0C30200AA3E2C /* 1star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B09596FC1CD0C30200AA3E2C /* 1star@2x.png */; };
@@ -1276,6 +1277,8 @@
 		B079BC081CB7B090003E7240 /* coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coupon.png; path = message/coupon.png; sourceTree = "<group>"; };
 		B079BC091CB7B090003E7240 /* coupon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coupon@2x.png"; path = "message/coupon@2x.png"; sourceTree = "<group>"; };
 		B079BC0A1CB7B090003E7240 /* coupon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coupon@3x.png"; path = "message/coupon@3x.png"; sourceTree = "<group>"; };
+		B07E8D101D484731007F1D63 /* KKGgoodsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGgoodsViewCell.h; sourceTree = "<group>"; };
+		B07E8D111D484731007F1D63 /* KKGgoodsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGgoodsViewCell.m; sourceTree = "<group>"; };
 		B09596F81CD09E3900AA3E2C /* ShowEvaluateCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowEvaluateCollectionViewCell.h; sourceTree = "<group>"; };
 		B09596F91CD09E3900AA3E2C /* ShowEvaluateCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowEvaluateCollectionViewCell.m; sourceTree = "<group>"; };
 		B09596FB1CD0C30200AA3E2C /* 1star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1star.png; path = showEvaluate/1star.png; sourceTree = "<group>"; };
@@ -1709,6 +1712,8 @@
 				80FCA77E1C8EBBC500547ACE /* RecommendGoodsView.m */,
 				80FEEC631C9BD7C300C56643 /* BestSaleView.h */,
 				80FEEC641C9BD7C300C56643 /* BestSaleView.m */,
+				B07E8D101D484731007F1D63 /* KKGgoodsViewCell.h */,
+				B07E8D111D484731007F1D63 /* KKGgoodsViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3329,6 +3334,7 @@
 				80D9800D1C4E348500CCAC03 /* UserNameViewController.m in Sources */,
 				80EF42CB1C2D148500853FFE /* AddressCell.m in Sources */,
 				8081D9C41BFC7F720098B2E2 /* GoodsParaView.m in Sources */,
+				B07E8D121D484731007F1D63 /* KKGgoodsViewCell.m in Sources */,
 				80ED549A1CCF41AB004AD7C2 /* ELCAsset.m in Sources */,
 				807D8BF51CC089E2008F008E /* SearchLogisticsViewController.m in Sources */,
 				804BE2251BE0CA46009ABF33 /* GoodsShowViewController.m in Sources */,

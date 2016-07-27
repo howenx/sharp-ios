@@ -19,22 +19,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HanguoStyle/Classes/Goods/Controller/GoodsViewController.m"
-            timestampString = "486891886.797527"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
-            landmarkName = "-backController"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
             timestampString = "489567462.161109"
             startingColumnNumber = "9223372036854775807"
@@ -52,27 +36,27 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489567586.981344"
+                  timestampString = "491277236.647442"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "605"
                   endingLineNumber = "605"
-                  offsetFromSymbolStart = "711">
+                  offsetFromSymbolStart = "760">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__31-[LoginViewController WXLogin:]_block_invoke_2"
+                  symbolName = "__copy_helper_block_.540"
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489567586.981498"
+                  timestampString = "491277236.64791"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "605"
                   endingLineNumber = "605"
-                  offsetFromSymbolStart = "1579">
+                  offsetFromSymbolStart = "108">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -82,12 +66,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489567586.981717"
+                  timestampString = "491277236.648068"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "605"
                   endingLineNumber = "605"
-                  offsetFromSymbolStart = "71">
+                  offsetFromSymbolStart = "59">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -97,12 +81,12 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/wayne/dev/style-ios/HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-                  timestampString = "489567586.981839"
+                  timestampString = "491277236.648214"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "605"
                   endingLineNumber = "605"
-                  offsetFromSymbolStart = "30">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
