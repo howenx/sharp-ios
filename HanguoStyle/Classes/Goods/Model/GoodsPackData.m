@@ -9,6 +9,9 @@
 #import "GoodsPackData.h"
 #import <JSONKit.h>
 #import "NSString+GG.h"
+@implementation SliderNavData
+
+@end
 @implementation ThemeData
 
 @end
@@ -40,15 +43,6 @@
             sliderData.itemTarget = [slider objectForKey:@"itemTarget"];
             sliderData.url = [slider objectForKey:@"url"];
             sliderData.targetType = [slider objectForKey:@"targetType"];
-            NSDictionary * tagDict = [[slider objectForKey:@"url"] objectFromJSONString];
-            sliderData.url = [tagDict objectForKey:@"url"];
-            if(![NSString isNSNull:[tagDict objectForKey:@"width"]]){
-                sliderData.width = [[tagDict objectForKey:@"width"]floatValue];
-            }
-            
-            if(![NSString isNSNull:[tagDict objectForKey:@"height"]]){
-                sliderData.height = [[tagDict objectForKey:@"height"]floatValue];
-            }
             
             
             [arrayS addObject:sliderData];
@@ -75,11 +69,41 @@
             }
             
             themeData.type = [theme objectForKey:@"type"];
+            themeData.title = [theme objectForKey:@"title"];
+            
+            
+            if(![NSString isNSNull:[theme objectForKey:@"themeConfigInfo"]]){
+                  themeData.themeConfigInfo = [theme objectForKey:@"themeConfigInfo"];
+            }else
+            {
+                  themeData.themeConfigInfo = @"";
+            }
+            
+            
+          
             [arrayT addObject:themeData];
         }
         
         self.themeArray = [arrayT copy];
 
+        
+        
+        //新加导航
+        NSMutableArray * arrayN = [NSMutableArray array];
+        NSArray * slidernars = [node objectForKey:@"sliderNav"];
+        for (id slidernar in slidernars) {
+            SliderNavData * sliderNavData = [SliderNavData new];
+            
+            sliderNavData.itemTarget = [slidernar objectForKey:@"itemTarget"];
+            sliderNavData.targetType = [slidernar objectForKey:@"targetType"];
+            sliderNavData.url = [slidernar objectForKey:@"url"];
+            sliderNavData.navText = [slidernar objectForKey:@"navText"];
+            
+            [arrayN addObject:sliderNavData];
+        }
+        
+        self.sliderNavArray  = [arrayN copy];
+        
         
     }
     

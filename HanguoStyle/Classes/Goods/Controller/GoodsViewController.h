@@ -10,5 +10,6 @@
 @interface GoodsViewController : BaseViewController
 @property (nonatomic) NSURL * url;
 @property (nonatomic) NSMutableArray * data;
+@property (nonatomic) NSArray * sliderNavData;
 @property (nonatomic,strong)NSMutableArray * scrollArr;
 @end

@@ -18,6 +18,10 @@
 #import "MessageViewController.h"
 #import "LoginViewController.h"
 
+#import "KKGgoodsViewCell.h"
+#import "KKGbutton.h"
+#define  BUTTONHigh 180
+
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
 {
     NSArray *_imageUrls;
@@ -48,6 +52,7 @@
     _addon = 1;
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
+
     [_tableView registerNib:[UINib nibWithNibName:@"GoodsPackCell" bundle:nil] forCellReuseIdentifier:@"GoodsPackCell"];
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -179,9 +184,11 @@
     
     if(_scrollArr.count>1){
         
+        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120 + BUTTONHigh+5)];
+        bgView.backgroundColor = UIColorFromRGB(0xf4fbf8);
         
         NSMutableArray * imageArr = [NSMutableArray array];
-        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, ((SliderData *)_scrollArr[0]).height *GGUISCREENWIDTH/((SliderData *)_scrollArr[0]).width)];
+        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120)];
         hView.delegate = self;
         [hView shouldAutoShow:YES];
         for (int i = 0; i < _scrollArr.count; i++)
@@ -192,19 +199,203 @@
             [imageArr addObject:imv];
         }
         hView.imageViewAry = imageArr;
-        
         hView.scrollView.scrollsToTop = NO;
-        _tableView.tableHeaderView = hView;
+        [bgView addSubview:hView];
+        
+        UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(0, PosYFromView(hView, 10), GGUISCREENWIDTH, BUTTONHigh-15)];
+        downView.backgroundColor = [UIColor whiteColor];
+        [bgView addSubview:downView];
+        
+        
+
+        int totalloc=4;
+        CGFloat marginW = 10;
+        CGFloat appvieww=(SCREEN_WIDTH - (totalloc+1)*marginW)/totalloc;
+        CGFloat appviewh=70;
+        CGFloat marginH = 10;
+        
+        NSUInteger count=self.sliderNavData.count;
+        
+        for (int i=0; i<count; i++) {
+            int row=i/totalloc;//行号
+            int loc=i%totalloc;//列号
+            
+            
+            
+            KKGbutton * Btn = [[KKGbutton alloc]initWithFrame:CGRectZero fontSize:12 imageAndTitleSpaceing:2 baifenbi:0.6];
+            
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderNavData *)self.sliderNavData[i]).url]];
+            [Btn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+            
+            [Btn setTitle:((SliderNavData *)self.sliderNavData[i]).navText forState:UIControlStateNormal];
+            
+            [Btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [Btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+            Btn.titleLabel.font = [UIFont systemFontOfSize:10];
+            Btn.tag = i;
+            Btn.width = appvieww;//设置按钮坐标及大小
+            Btn.height = appviewh;
+            Btn.x = loc*(appvieww+marginW)+marginW;
+            Btn.y = floor(row)*(appviewh+marginH)+marginH;
+            
+            [Btn addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [downView addSubview:Btn];
+            
+        }
+    
+        
+        
+        UIView * rowView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 0.5)];
+        rowView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView1];
+
+        //线
+        UIView * rowView2 = [[UIView alloc]initWithFrame:CGRectMake(0, (BUTTONHigh-15)/2, GGUISCREENWIDTH, 0.5)];
+        rowView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView2];
+        
+        UIView * rowView3 = [[UIView alloc]initWithFrame:CGRectMake(0, BUTTONHigh-15-0.5, GGUISCREENWIDTH, 0.5)];
+        rowView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView3];
+        
+        //竖着3根线
+        
+        UIView * locView1 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)-0.5, 0, 0.5, BUTTONHigh-15)];
+        locView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:locView1];
+        
+        
+        UIView * locView2 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*2, 0, 0.5, BUTTONHigh-15)];
+        locView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        
+        [downView addSubview:locView2];
+        
+        UIView * locView3 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*3, 0, 0.5, BUTTONHigh-15)];
+        
+        locView3.backgroundColor = [UIColor lightGrayColor];
+        [downView addSubview:locView3];
+
+        
+        
+        _tableView.tableHeaderView = bgView;
     }else if(_scrollArr.count == 1){
-        UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH,  ((SliderData *)_scrollArr[0]).height *GGUISCREENWIDTH/((SliderData *)_scrollArr[0]).width)];
+        
+        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120 + BUTTONHigh)];
+        bgView.backgroundColor = UIColorFromRGB(0xf4fbf8);
+        
+        UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH,  120)];
         UIImageView *imv = [[UIImageView alloc] initWithFrame:heView.frame];
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[0]).url]];
         imv.image = [UIImage imageWithData:data];
         [heView addSubview: imv];
         [heView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(oneImageTouch:)]];
-        _tableView.tableHeaderView = heView;
+        
+        [bgView addSubview:heView];
+        
+        UIView * downView = [[UIView alloc]initWithFrame:CGRectMake(0, PosYFromView(heView, 10), GGUISCREENWIDTH, BUTTONHigh-15)];
+        downView.backgroundColor = [UIColor whiteColor];
+        [bgView addSubview:downView];
+        
+    
+ 
+        
+        int totalloc=4;
+        CGFloat marginW = 10;
+        CGFloat appvieww=(SCREEN_WIDTH - (totalloc+1)*marginW)/totalloc;
+        CGFloat appviewh=70;
+        CGFloat marginH = 10;
+        
+        NSUInteger count=self.sliderNavData.count;
+        
+        for (int i=0; i<count; i++) {
+            int row=i/totalloc;//行号
+            int loc=i%totalloc;//列号
+            
+            
+            
+            KKGbutton * Btn = [[KKGbutton alloc]initWithFrame:CGRectZero fontSize:12 imageAndTitleSpaceing:2 baifenbi:0.6];
+            
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderNavData *)self.sliderNavData[i]).url]];
+           
+            [Btn setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+            [Btn setTitle:((SliderNavData *)self.sliderNavData[i]).navText forState:UIControlStateNormal];
+            [Btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [Btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+            Btn.titleLabel.font = [UIFont systemFontOfSize:10];
+            Btn.tag = i;
+            Btn.width = appvieww;//设置按钮坐标及大小
+            Btn.height = appviewh;
+            Btn.x = loc*(appvieww+marginW)+marginW;
+            Btn.y = floor(row)*(appviewh+marginH)+marginH;
+            
+            [Btn addTarget:self action:@selector(typeClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [downView addSubview:Btn];
+            
+        }
+
+        //线
+        UIView * rowView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 0.5)];
+        rowView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView1];
+        
+        //线
+        UIView * rowView2 = [[UIView alloc]initWithFrame:CGRectMake(0, (BUTTONHigh-15)/2, GGUISCREENWIDTH, 0.5)];
+        rowView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView2];
+        
+        UIView * rowView3 = [[UIView alloc]initWithFrame:CGRectMake(0, (BUTTONHigh-15-0.5), GGUISCREENWIDTH, 0.5)];
+        rowView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:rowView3];
+        //竖着3根线
+        
+        UIView * locView1 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)-0.5, 0, 0.5, BUTTONHigh-15)];
+        locView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:locView1];
+        
+        
+        UIView * locView2 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*2, 0, 0.5, BUTTONHigh-15)];
+        locView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:locView2];
+        
+        UIView * locView3 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*3, 0, 0.5, BUTTONHigh-15)];
+        
+        locView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+        [downView addSubview:locView3];
+        
+        
+        _tableView.tableHeaderView = bgView;
     }
 }
+
+
+
+-(void)typeClick:(UIButton *)btn
+{
+    
+    _pushUrl =  ((SliderNavData *)self.sliderNavData[btn.tag]).itemTarget;
+    if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"T"]){
+        [self pushGoodShowView];
+    }else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"U"]){
+        [self pushH5GoodShowView];
+    }else if ([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"D"])
+    {
+            GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+            gdViewController.url = _pushUrl;
+            [self.navigationController pushViewController:gdViewController animated:YES];
+    }else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"P"])
+    {
+        
+    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+    pinViewController.url = _pushUrl;
+    [self.navigationController pushViewController:pinViewController animated:YES];
+    
+    }
+
+}
+
+
 -(void) oneImageTouch:(UITapGestureRecognizer *)recognizer{
     [self sliderJump:0];
 }
@@ -285,6 +476,9 @@
             
             totalPageCount = data.pageCount;
             [self.data addObjectsFromArray:[data.themeArray mutableCopy]];
+            //八个导航
+            self.sliderNavData = data.sliderNavArray;
+            
             
             if(_imageUrls==nil){
                 _imageUrls = data.sliderArray;
@@ -312,26 +506,35 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.data.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    GoodsPackCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsPackCell" forIndexPath:indexPath];
-    cell.data = self.data[indexPath.section];
+//    GoodsPackCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsPackCell" forIndexPath:indexPath];
+//    cell.data = self.data[indexPath.section];
 
 
+    static NSString * identID = @"KKGgoodsViewCell";
+    KKGgoodsViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identID];
+    if (cell == nil) {
+        cell = [[KKGgoodsViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identID];
+    }
+    
+    [cell bindWithObject:(ThemeData * )self.data[indexPath.row]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    return ((ThemeData * )self.data[indexPath.section]).height*GGUISCREENWIDTH/((ThemeData * )self.data[indexPath.section]).width;
+//    return ((ThemeData * )self.data[indexPath.section]).height*GGUISCREENWIDTH/((ThemeData * )self.data[indexPath.section]).width;
+//    return 144;
+    return [KKGgoodsViewCell bindWithObjectHeigh:(ThemeData * )self.data[indexPath.row]];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.data.count;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return self.data.count;
+//}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 5;
+    return 0;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView = [[UIView alloc] init];
@@ -341,12 +544,46 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     //进入到商品展示页面
-    _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
-    if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"ordinary"]){
+//    _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
+//    if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"ordinary"]){
+//        [self pushGoodShowView];
+//    }else if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"h5"]){
+//        [self pushH5GoodShowView];
+//    }
+//    else if ([((SliderNavData *)self.data[indexPath.section]).targetType isEqualToString:@"detail"])
+//    {
+//        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+//        gdViewController.url = _pushUrl;
+//        [self.navigationController pushViewController:gdViewController animated:YES];
+//    }else if([((SliderNavData *)self.data[indexPath.section]).targetType isEqualToString:@"pin"])
+//    {
+//        
+//        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+//        pinViewController.url = _pushUrl;
+//        [self.navigationController pushViewController:pinViewController animated:YES];
+//        
+//    }
+    
+    _pushUrl =  ((ThemeData *)self.data[indexPath.row]).themeUrl;
+    if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"ordinary"]){
         [self pushGoodShowView];
-    }else if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"h5"]){
+    }else if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"h5"]){
         [self pushH5GoodShowView];
     }
+    else if ([((SliderNavData *)self.data[indexPath.row]).targetType isEqualToString:@"detail"])
+    {
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = _pushUrl;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+    }else if([((SliderNavData *)self.data[indexPath.row]).targetType isEqualToString:@"pin"])
+    {
+        
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = _pushUrl;
+        [self.navigationController pushViewController:pinViewController animated:YES];
+        
+    }
+    
 }
 -(void)pushH5GoodShowView {
     GoodsShowH5ViewController * showContr = [[GoodsShowH5ViewController alloc]init];

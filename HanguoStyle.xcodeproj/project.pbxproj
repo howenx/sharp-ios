@@ -468,6 +468,7 @@
 		B0336F321CF7E14B007311C8 /* libpingppcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0336F2A1CF7E14B007311C8 /* libpingppcore.a */; };
 		B0336F331CF7E14B007311C8 /* libpingpp+one.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0336F2C1CF7E14B007311C8 /* libpingpp+one.a */; };
 		B0336F341CF7E14B007311C8 /* Pingpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B0336F2E1CF7E14B007311C8 /* Pingpp.bundle */; };
+		B03E9E731D485F0F00A457D3 /* KKGbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = B03E9E721D485F0F00A457D3 /* KKGbutton.m */; };
 		B048D3F81CAB6BDB00D92CD5 /* icon_save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */; };
 		B048D3F91CAB6BDB00D92CD5 /* icon_save@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */; };
 		B04C7BB31CBF5FD8000B3B4C /* weiyong.png in Resources */ = {isa = PBXBuildFile; fileRef = B04C7BAA1CBF5FD8000B3B4C /* weiyong.png */; };
@@ -1215,6 +1216,8 @@
 		B0336F2D1CF7E14B007311C8 /* Pingpp+One.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pingpp+One.h"; sourceTree = "<group>"; };
 		B0336F2E1CF7E14B007311C8 /* Pingpp.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Pingpp.bundle; sourceTree = "<group>"; };
 		B0336F2F1CF7E14B007311C8 /* Pingpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pingpp.h; sourceTree = "<group>"; };
+		B03E9E711D485F0F00A457D3 /* KKGbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGbutton.h; sourceTree = "<group>"; };
+		B03E9E721D485F0F00A457D3 /* KKGbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGbutton.m; sourceTree = "<group>"; };
 		B048D3F61CAB6BDB00D92CD5 /* icon_save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@2x.png"; path = "setting/icon_save@2x.png"; sourceTree = "<group>"; };
 		B048D3F71CAB6BDB00D92CD5 /* icon_save@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_save@3x.png"; path = "setting/icon_save@3x.png"; sourceTree = "<group>"; };
 		B04C7BAA1CBF5FD8000B3B4C /* weiyong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weiyong.png; path = coupon/weiyong.png; sourceTree = "<group>"; };
@@ -1931,6 +1934,8 @@
 				80F6CBB71C59BF20005B4EE9 /* BaseView.m */,
 				80F6CBB91C59F69E005B4EE9 /* NoNetView.h */,
 				80F6CBBA1C59F69E005B4EE9 /* NoNetView.m */,
+				B03E9E711D485F0F00A457D3 /* KKGbutton.h */,
+				B03E9E721D485F0F00A457D3 /* KKGbutton.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -3225,6 +3230,7 @@
 				809D26DC1BCBA9A200C71445 /* GoodsPackCell.m in Sources */,
 				8008B73D1C030FF1009B7D49 /* CartCell.m in Sources */,
 				80108A911C60751F00B20C64 /* MWTapDetectingImageView.m in Sources */,
+				B03E9E731D485F0F00A457D3 /* KKGbutton.m in Sources */,
 				809B02711C52284200030955 /* PublicMethod.m in Sources */,
 				80641E751BE742F7003E8371 /* DetaileOneCell.m in Sources */,
 				80AFBDAD1BD8B1B4003D1308 /* AppendAddrViewController.m in Sources */,
@@ -3450,7 +3456,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3487,7 +3493,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "ec991205-0056-48c3-814b-7aaee9c33ea3";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
