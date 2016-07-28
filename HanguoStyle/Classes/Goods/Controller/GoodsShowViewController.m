@@ -20,6 +20,8 @@
 {
     NSInteger _cnt;
     BOOL isLogin;
+    BOOL hasThemeHead;//是否有主题图判断
+    BOOL hasThemeBody;//是否有商品判断
     
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -163,16 +165,31 @@
         if(code == 200){
             [self.data removeAllObjects];
             self.navigationItem.title = [[object objectForKey:@"themeList"] objectForKey:@"title"];
-            NSDictionary * themeDict = [NSDictionary dictionaryWithObjectsAndKeys:[[object objectForKey:@"themeList"] objectForKey:@"themeImg"],@"itemImg",[[object objectForKey:@"themeList"] objectForKey:@"masterItemTag"],@"masterItemTag",@"Y",@"state",nil];
             
-            NSArray * dataArray = [[object objectForKey:@"themeList"]objectForKey:@"themeItemList"];
-            GoodsShowData * data1 = [[GoodsShowData alloc] initWithJSONNode:themeDict];
-            [self.data addObject:data1];
-            
-            for (id node in dataArray) {
-                GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
-                [self.data addObject:data];
+            //判断是否有主题图
+            if(![NSString isNSNull:[[object objectForKey:@"themeList"] objectForKey:@"themeImg"]]){
+                NSDictionary * themeDict = [NSDictionary dictionaryWithObjectsAndKeys:[[object objectForKey:@"themeList"] objectForKey:@"themeImg"],@"itemImg",[[object objectForKey:@"themeList"] objectForKey:@"masterItemTag"],@"masterItemTag",@"Y",@"state",nil];
+                
+                
+                GoodsShowData * data1 = [[GoodsShowData alloc] initWithJSONNode:themeDict];
+                [self.data addObject:data1];
+                hasThemeHead = YES;
+            }else{
+                hasThemeHead = NO;
             }
+            
+            //判断是否有商品
+            if(![NSString isNSNull:[[object objectForKey:@"themeList"] objectForKey:@"themeItemList"]]){
+                NSArray * dataArray = [[object objectForKey:@"themeList"]objectForKey:@"themeItemList"];
+                for (id node in dataArray) {
+                    GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
+                    [self.data addObject:data];
+                }
+                hasThemeBody = YES;
+            }else{
+                hasThemeBody = NO;
+            }
+            
             [self.collectionView reloadData];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -227,7 +244,14 @@
  */
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    if(hasThemeBody && hasThemeHead){
+        return 2;
+    }else if(hasThemeBody || hasThemeHead){
+        return 1;
+    }else{
+        return 0;
+    }
+    
 }
 
 /**
@@ -236,10 +260,18 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if(_data.count>0){
-        if(section == 0){
+        //存在主题图，第0分组
+        if(hasThemeHead && section == 0){
             return 1;
         }
-        return _data.count - 1;
+        //不存在主题图，第0分组
+        if(!hasThemeHead && section == 0){
+            return _data.count;
+        }
+        //存在主题图和商品
+        if(section == 1){
+            return _data.count - 1;
+        }
     }
     return 0;
 }
@@ -255,7 +287,7 @@
     
     if(_data.count>0){
         GoodsShowData *goodsShowData;
-        if(indexPath.section == 0 ){
+        if(hasThemeHead && indexPath.section == 0 ){
             goodsShowData = _data[indexPath.section];
             cell.delegate = self;
             
@@ -277,15 +309,16 @@
 //返回item的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //第0组
-    if (indexPath.section == 0)
-    {
+    
+    //存在主题图，第0分组
+    if(hasThemeHead && indexPath.section == 0){
         return CGSizeMake(GGUISCREENWIDTH, ((GoodsShowData*)_data[indexPath.section]).height*GGUISCREENWIDTH/((GoodsShowData*)_data[indexPath.section]).width);
     }
     else //其他组
     {
         return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2+56);
     }
+    
 }
 
 /**
@@ -293,9 +326,7 @@
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 1){
-        //正常状态才能进入到详情页面
-//        if([@"Y" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]||[@"P" isEqualToString:((GoodsShowData *)_data[indexPath.item + indexPath.section]).state]){
+    if(hasThemeBody){
             NSString * _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
             NSString * itemType = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemType;
             //进入到商品展示页面
@@ -310,7 +341,6 @@
                 [self.navigationController pushViewController:gdViewController animated:YES];
             }
             self.hidesBottomBarWhenPushed=NO;
-//        }
        
     }
     

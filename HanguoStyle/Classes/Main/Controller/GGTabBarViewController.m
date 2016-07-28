@@ -123,7 +123,7 @@
     //    设置该UIView的背景色为你希望的statusBar的颜色，
     //    在navigationBar上addSubView该UIView即可。
 //    UIView * statusbar = [[UIView alloc]init];
-//    //4.屏幕的宽度
+//    //4.屏幕的宽度style-ios
 //    
 //    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,20);
 //    statusbar.backgroundColor = GGMainColor;
