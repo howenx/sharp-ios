@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+@interface SliderNavData : NSObject
+@property (nonatomic) NSString * itemTarget;
+@property (nonatomic) NSString * targetType;
+@property (nonatomic) NSString * url;
+@property (nonatomic) NSString * navText;
+
+@end
+
+
+
 @interface ThemeData : NSObject
 
 @property (nonatomic) NSString * idCode;
@@ -16,6 +28,8 @@
 @property (nonatomic) float width;
 @property (nonatomic) float height;
 @property (nonatomic) NSString * themeUrl;
+@property (nonatomic) NSString * title;
+@property (nonatomic) NSString * themeConfigInfo;
 
 @end
 
@@ -42,6 +56,7 @@
 @property (nonatomic) NSArray * sliderArray;
 @property (nonatomic) NSInteger pageCount;
 @property (nonatomic) NSInteger * msgRemind;
+@property (nonatomic) NSArray * sliderNavArray;
 
 
 

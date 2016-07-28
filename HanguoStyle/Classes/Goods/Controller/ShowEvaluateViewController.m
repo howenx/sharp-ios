@@ -165,7 +165,7 @@
         }];
     }else if([type isEqualToString:@"2"])
     {//差评
-        NSString * urlString =[NSString stringWithFormat:@"%@%@/%ld/%d",[HSGlobal ShowgoodEvaluateUrl],self.skuType,self.orderID,page_count_bad];
+        NSString * urlString =[NSString stringWithFormat:@"%@%@/%ld/%d",[HSGlobal ShowbadEvaluateUrl],self.skuType,self.orderID,page_count_bad];
 //        NSString * urlString =[NSString stringWithFormat:@"%@%@/%@/%d",[HSGlobal ShowbadEvaluateUrl],@"customize",@"130155",page_count_bad];
         AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
         if(manager == nil){
@@ -624,7 +624,7 @@
         }];
     
 //        NSString * urlString2 =[NSString stringWithFormat:@"%@%@/%@/%d",[HSGlobal ShowbadEvaluateUrl],@"customize",@"130155",page_count_bad];
-        NSString * urlString2 =[NSString stringWithFormat:@"%@%@/%ld/%d",[HSGlobal ShowgoodEvaluateUrl],self.skuType,self.orderID,page_count_bad];
+        NSString * urlString2 =[NSString stringWithFormat:@"%@%@/%ld/%d",[HSGlobal ShowbadEvaluateUrl],self.skuType,self.orderID,page_count_bad];
         AFHTTPRequestOperationManager * manager2 = [PublicMethod shareRequestManager];
         if(manager2 == nil){
             return;
