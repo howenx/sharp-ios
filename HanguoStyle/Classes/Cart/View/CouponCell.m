@@ -138,9 +138,9 @@
     UIView * lastView = [[UIView alloc]init];
     
     if(_isCouponEdit){
-        lastView.frame = CGRectMake(0, 50 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 160);
+        lastView.frame = CGRectMake(0, 50 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 80);
     }else{
-        lastView.frame = CGRectMake(0, 60, GGUISCREENWIDTH, 160);
+        lastView.frame = CGRectMake(0, 60, GGUISCREENWIDTH, 80);
     }
     [self.contentView addSubview:lastView];
     
@@ -182,46 +182,46 @@
     discountAmtPriceLab.font = [UIFont systemFontOfSize:14];
     discountAmtPriceLab.textColor = GGMainColor;
     [discountAmtView addSubview:discountAmtPriceLab];
-    UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line5.backgroundColor = GGBgColor;
-    [discountAmtView addSubview:line5];
-    
-    
-    //行邮税
-    UIView * portalFeeView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, GGUISCREENWIDTH, 40)];
-    [lastView addSubview:portalFeeView];
-    UILabel * portalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
-    portalFeeLab.text = @"行邮税";
-    portalFeeLab.font = [UIFont systemFontOfSize:14];
-    portalFeeLab.textColor = [UIColor grayColor];
-    [portalFeeView addSubview:portalFeeLab];
-    
-    UILabel * portalFeePriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
-    portalFeePriceLab.text = [NSString stringWithFormat:@"￥%@",data.factPortalFee];
-    portalFeePriceLab.textAlignment = NSTextAlignmentRight;
-    portalFeePriceLab.font = [UIFont systemFontOfSize:14];
-    portalFeePriceLab.textColor = GGMainColor;
-    [portalFeeView addSubview:portalFeePriceLab];
-    UIView * line6 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line6.backgroundColor = GGBgColor;
-    [portalFeeView addSubview:line6];
-
-    
-    //运费
-    UIView * shipView = [[UIView alloc]initWithFrame:CGRectMake(0, 120, GGUISCREENWIDTH, 40)];
-    [lastView addSubview:shipView];
-    UILabel * shipLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
-    shipLab.text = @"运费";
-    shipLab.font = [UIFont systemFontOfSize:14];
-    shipLab.textColor = [UIColor grayColor];
-    [shipView addSubview:shipLab];
-    
-    UILabel * shipPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
-    shipPriceLab.text = [NSString stringWithFormat:@"￥%@",data.factShipFee];
-    shipPriceLab.textAlignment = NSTextAlignmentRight;
-    shipPriceLab.font = [UIFont systemFontOfSize:14];
-    shipPriceLab.textColor = GGMainColor;
-    [shipView addSubview:shipPriceLab];
+//    UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
+//    line5.backgroundColor = GGBgColor;
+//    [discountAmtView addSubview:line5];
+//    
+//    
+//    //行邮税
+//    UIView * portalFeeView = [[UIView alloc]initWithFrame:CGRectMake(0, 80, GGUISCREENWIDTH, 40)];
+//    [lastView addSubview:portalFeeView];
+//    UILabel * portalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
+//    portalFeeLab.text = @"行邮税";
+//    portalFeeLab.font = [UIFont systemFontOfSize:14];
+//    portalFeeLab.textColor = [UIColor grayColor];
+//    [portalFeeView addSubview:portalFeeLab];
+//    
+//    UILabel * portalFeePriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
+//    portalFeePriceLab.text = [NSString stringWithFormat:@"￥%@",data.factPortalFee];
+//    portalFeePriceLab.textAlignment = NSTextAlignmentRight;
+//    portalFeePriceLab.font = [UIFont systemFontOfSize:14];
+//    portalFeePriceLab.textColor = GGMainColor;
+//    [portalFeeView addSubview:portalFeePriceLab];
+//    UIView * line6 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
+//    line6.backgroundColor = GGBgColor;
+//    [portalFeeView addSubview:line6];
+//
+//    
+//    //运费
+//    UIView * shipView = [[UIView alloc]initWithFrame:CGRectMake(0, 120, GGUISCREENWIDTH, 40)];
+//    [lastView addSubview:shipView];
+//    UILabel * shipLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
+//    shipLab.text = @"运费";
+//    shipLab.font = [UIFont systemFontOfSize:14];
+//    shipLab.textColor = [UIColor grayColor];
+//    [shipView addSubview:shipLab];
+//    
+//    UILabel * shipPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
+//    shipPriceLab.text = [NSString stringWithFormat:@"￥%@",data.factShipFee];
+//    shipPriceLab.textAlignment = NSTextAlignmentRight;
+//    shipPriceLab.font = [UIFont systemFontOfSize:14];
+//    shipPriceLab.textColor = GGMainColor;
+//    [shipView addSubview:shipPriceLab];
 
 
 }

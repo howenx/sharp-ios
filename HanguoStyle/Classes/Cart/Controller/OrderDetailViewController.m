@@ -149,7 +149,7 @@
     
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"I"]) {
         scrollView.frame = CGRectMake(0, 40, GGUISCREENWIDTH, GGUISCREENHEIGHT-104-50);
-        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
+        scrollView.contentSize = CGSizeMake(0, 450 + _orderData.skuArray.count * 80);
         
         auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
         auctionTimeLab.numberOfLines = 1;
@@ -167,17 +167,17 @@
         
         if (_orderData.refund!=nil) {
             scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
-            scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80 +115 +10);
+            scrollView.contentSize = CGSizeMake(0, 450 + _orderData.skuArray.count * 80 +115 +10);
         }else
         {
             scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-50);
-            scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
+            scrollView.contentSize = CGSizeMake(0, 450 + _orderData.skuArray.count * 80);
         }
     }
     else if([_orderData.orderInfo.orderStatus isEqualToString:@"R"])
     {
         scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-50);
-        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
+        scrollView.contentSize = CGSizeMake(0, 450 + _orderData.skuArray.count * 80);
         
     }
     
@@ -191,7 +191,7 @@
     else
     {
         scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64);
-        scrollView.contentSize = CGSizeMake(0, 490 + _orderData.skuArray.count * 80);
+        scrollView.contentSize = CGSizeMake(0, 450 + _orderData.skuArray.count * 80);
     }
 
     scrollView.delegate = self;
@@ -414,7 +414,7 @@
 
 
     //订单金额
-    UIView * orderPayView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderAddressView.y + orderAddressView.height + 10, GGUISCREENWIDTH, 180)];
+    UIView * orderPayView = [[UIView alloc]initWithFrame:CGRectMake(0 , orderAddressView.y + orderAddressView.height + 10, GGUISCREENWIDTH, 140)];
     orderPayView.backgroundColor = [UIColor whiteColor];
     [scrollView addSubview:orderPayView];
     
@@ -447,26 +447,26 @@
     [orderPayView addSubview:totalFeeLab];
     
     
-    UILabel * shipFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-20, 20)];
-    shipFeeLab.numberOfLines = 1;
-    shipFeeLab.font = [UIFont systemFontOfSize:12];
-    shipFeeLab.textColor = [UIColor grayColor];
-    shipFeeLab.text = [NSString stringWithFormat:@"邮费：￥%@",_orderData.orderInfo.shipFee];
-    [orderPayView addSubview:shipFeeLab];
+//    UILabel * shipFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-20, 20)];
+//    shipFeeLab.numberOfLines = 1;
+//    shipFeeLab.font = [UIFont systemFontOfSize:12];
+//    shipFeeLab.textColor = [UIColor grayColor];
+//    shipFeeLab.text = [NSString stringWithFormat:@"邮费：￥%@",_orderData.orderInfo.shipFee];
+//    [orderPayView addSubview:shipFeeLab];
+//    
+//    
+//    
+//    UILabel * postalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-20, 20)];
+//    postalFeeLab.numberOfLines = 1;
+//    postalFeeLab.font = [UIFont systemFontOfSize:12];
+//    postalFeeLab.textColor = [UIColor grayColor];
+//    postalFeeLab.text = [NSString stringWithFormat:@"行邮税：￥%@",_orderData.orderInfo.postalFee];
+//    [orderPayView addSubview:postalFeeLab];
     
     
     
-    UILabel * postalFeeLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-20, 20)];
-    postalFeeLab.numberOfLines = 1;
-    postalFeeLab.font = [UIFont systemFontOfSize:12];
-    postalFeeLab.textColor = [UIColor grayColor];
-    postalFeeLab.text = [NSString stringWithFormat:@"行邮税：￥%@",_orderData.orderInfo.postalFee];
-    [orderPayView addSubview:postalFeeLab];
     
-    
-    
-    
-    UILabel * discountLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 130, GGUISCREENWIDTH-20, 20)];
+    UILabel * discountLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 90, GGUISCREENWIDTH-20, 20)];
     discountLab.numberOfLines = 1;
     discountLab.font = [UIFont systemFontOfSize:12];
     discountLab.textColor = [UIColor grayColor];
@@ -476,7 +476,7 @@
     
     
     
-    UILabel * payTotalLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 150, GGUISCREENWIDTH-20, 20)];
+    UILabel * payTotalLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 110, GGUISCREENWIDTH-20, 20)];
     payTotalLab.numberOfLines = 1;
     payTotalLab.font = [UIFont systemFontOfSize:12];
     payTotalLab.textColor = [UIColor grayColor];

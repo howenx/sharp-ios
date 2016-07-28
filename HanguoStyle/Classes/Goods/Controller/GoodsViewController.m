@@ -42,7 +42,16 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
+    
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 40.0f)];//初始化图片视图控件
+    imageView.contentMode = UIViewContentModeScaleAspectFit;//设置内容样式,通过保持长宽比缩放内容适应视图的大小,任何剩余的区域的视图的界限是透明的。
+    UIImage *image = [UIImage imageNamed:@"kakaogift_logo"];//初始化图像视图
+    [imageView setImage:image];
+    self.navigationItem.titleView = imageView;//设置导航栏的titleView为imageView
+    
+    
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     _addon = 1;
@@ -91,14 +100,14 @@
                         isMaxZero = YES;
                         
                         //右侧按钮
-                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"messagebutton2"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
                         self.navigationItem.rightBarButtonItem = anotherButton;
                         
                     }else
                     {
                         isMaxZero = NO;
                         //右侧按钮
-                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"messagebutton"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
                         self.navigationItem.rightBarButtonItem = anotherButton;
                     }
                 }
@@ -272,14 +281,14 @@
                 isMaxZero = YES;
                 
                 //右侧按钮
-                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"messagebutton2"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
                 self.navigationItem.rightBarButtonItem = anotherButton;
                 
             }else
             {
                 isMaxZero = NO;
                 //右侧按钮
-                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
+                UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"messagebutton"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
                 self.navigationItem.rightBarButtonItem = anotherButton;
             }
             

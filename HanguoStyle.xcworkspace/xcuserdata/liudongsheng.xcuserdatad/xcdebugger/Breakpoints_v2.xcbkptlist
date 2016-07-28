@@ -148,7 +148,7 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Other/AppDelegate.m"
-                  timestampString = "490499435.681373"
+                  timestampString = "491279545.652093"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "327"
@@ -163,7 +163,7 @@
                   moduleName = "HanguoStyle"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/liudongsheng/dev/style-ios/HanguoStyle/Classes/Other/AppDelegate.m"
-                  timestampString = "490499435.681463"
+                  timestampString = "491279545.652186"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "327"
@@ -298,6 +298,22 @@
             startingLineNumber = "110"
             endingLineNumber = "110"
             landmarkName = "-webViewDidFinishLoad:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HanguoStyle/Classes/Cart/Controller/OrderViewController.m"
+            timestampString = "491279273.416926"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
+            landmarkName = "-couponFlag:andCouponId:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

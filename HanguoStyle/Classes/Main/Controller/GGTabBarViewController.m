@@ -71,7 +71,7 @@
     //1.精选商品
     GoodsViewController * gContro = [[GoodsViewController alloc]init];
 //    gContro.tabBarItem.badgeValue = @"21";
-    [self setupChildViewController:gContro title:@"KakaoGift" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    [self setupChildViewController:gContro title:@"首页" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];
 //    messageContro.tabBarItem.badgeValue = @"400";
@@ -96,19 +96,19 @@
     //导航栏颜色
 //    controller.edgesForExtendedLayout = UIRectEdgeTop;
 //    controller.edgesForExtendedLayout = UIRectEdgeNone;
-    [navgationBar setBackgroundImage:[[UIImage createImageWithColor:GGMainColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forBarMetrics:UIBarMetricsDefault];
+    [navgationBar setBackgroundImage:[[UIImage createImageWithColor:UIColorFromRGB(0xf9f9f9)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forBarMetrics:UIBarMetricsDefault];
 //    navgationBar.translucent = NO;
     
 //    navgationBar.barTintColor=GGMainColor;
     // 字体的属性
-    NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName :[UIColor whiteColor]};
+    NSDictionary * dict = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName :UIColorFromRGB(0x242424)};
     [navgationBar setTitleTextAttributes:dict];
     
     
     //    // 设置导航按钮文字颜色
     UIBarButtonItem *barButton = [UIBarButtonItem appearance];
     NSMutableDictionary * attrsDict = [[NSMutableDictionary alloc] init];
-    attrsDict[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    attrsDict[NSForegroundColorAttributeName] = UIColorFromRGB(0x242424);
     attrsDict[NSFontAttributeName] = [UIFont systemFontOfSize:17];
     [barButton setTitleTextAttributes:attrsDict forState:UIControlStateNormal];
     
@@ -132,7 +132,7 @@
     
     //2.设置导航控制器按钮皮肤属性
     UIBarButtonItem * barButtonItem = [UIBarButtonItem appearance];
-    [barButtonItem setTintColor:[UIColor whiteColor]];
+    [barButtonItem setTintColor:UIColorFromRGB(0x242424)];
     
 
     controller.title = title;

@@ -210,7 +210,7 @@
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-//主页地址
+//首页地址
 + (NSString *) goodsPackMoreUrl: (NSInteger)addon
 {
     NSString * url = [NSString stringWithFormat:@"%@/index/%ld",SERVERY2,(long)addon];

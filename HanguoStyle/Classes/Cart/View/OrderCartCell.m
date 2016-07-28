@@ -96,34 +96,34 @@
         
         low = low + cartView.height;
     }
-    NSLog(@"-%@",orderDetailData.portalSingleCustomsFee);
-    
-    
-    UILabel * footLab = [[UILabel alloc]initWithFrame:CGRectMake( 10, low, GGUISCREENWIDTH-20, 40)];
-    
-    footLab.font = [UIFont systemFontOfSize:15];
-    footLab.textColor = [UIColor grayColor];
-    [view addSubview:footLab];
-    
-    NSString * strFoot = [NSString stringWithFormat:@"运费:￥%@ 行邮税:￥%@",orderDetailData.factSingleCustomsShipFee,orderDetailData.factPortalFeeSingleCustoms];
-    if ([orderDetailData.factPortalFeeSingleCustoms isEqualToString:@"0"]) {
-        NSLog(@"+%@",orderDetailData.portalSingleCustomsFee);
-        strFoot = [NSString stringWithFormat:@"%@  免:￥%@",strFoot,orderDetailData.portalSingleCustomsFee];
-        
-        UIView * delLine = [[UIView alloc]initWithFrame:CGRectMake(175, 20, 45, 1)];
-        delLine.backgroundColor = [UIColor grayColor];
-        [footLab addSubview:delLine];
-    }
-    footLab.text = strFoot;
-    
-    
-    low = footLab.y +footLab.height;
-    
-    UIView * backView3 = [[UIView alloc]initWithFrame:CGRectMake(0, low-1, GGUISCREENWIDTH, 1)];
-    backView3.backgroundColor = GGBgColor;
-
-    
-    [view addSubview:backView3];
+//    NSLog(@"-%@",orderDetailData.portalSingleCustomsFee);
+//    
+//    
+//    UILabel * footLab = [[UILabel alloc]initWithFrame:CGRectMake( 10, low, GGUISCREENWIDTH-20, 40)];
+//    
+//    footLab.font = [UIFont systemFontOfSize:15];
+//    footLab.textColor = [UIColor grayColor];
+//    [view addSubview:footLab];
+//    
+//    NSString * strFoot = [NSString stringWithFormat:@"运费:￥%@ 行邮税:￥%@",orderDetailData.factSingleCustomsShipFee,orderDetailData.factPortalFeeSingleCustoms];
+//    if ([orderDetailData.factPortalFeeSingleCustoms isEqualToString:@"0"]) {
+//        NSLog(@"+%@",orderDetailData.portalSingleCustomsFee);
+//        strFoot = [NSString stringWithFormat:@"%@  免:￥%@",strFoot,orderDetailData.portalSingleCustomsFee];
+//        
+//        UIView * delLine = [[UIView alloc]initWithFrame:CGRectMake(175, 20, 45, 1)];
+//        delLine.backgroundColor = [UIColor grayColor];
+//        [footLab addSubview:delLine];
+//    }
+//    footLab.text = strFoot;
+//    
+//    
+//    low = footLab.y +footLab.height;
+//    
+//    UIView * backView3 = [[UIView alloc]initWithFrame:CGRectMake(0, low-1, GGUISCREENWIDTH, 1)];
+//    backView3.backgroundColor = GGBgColor;
+//
+//    
+//    [view addSubview:backView3];
 
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

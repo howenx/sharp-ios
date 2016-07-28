@@ -78,7 +78,7 @@
     couponBottom = 0;
     rowTwoH = 110;
     rowThreeH = 90;
-    rowFourH = 60+160;
+    rowFourH = 60+80;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     sendTime = @"工作日双休日与假期均可送货";
     payType = @"在线支付";
@@ -99,7 +99,8 @@
     _payLab.textAlignment = NSTextAlignmentCenter;
     _payLab.font = [UIFont systemFontOfSize:14];
     _payLab.textColor = [UIColor whiteColor];
-    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]];
+//    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]];
+    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue]];
     [_footView addSubview:_payLab];
     
     _payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -269,7 +270,7 @@
             for(int i = 0 ;i<_orderData.singleCustomsArray.count; i++){
                 OrderDetailData * orderDetailData = _orderData.singleCustomsArray[i];
                 int cartCount = (int)orderDetailData.cartDataArray.count;
-                bottom = bottom + cartCount*100 + 80;
+                bottom = bottom + cartCount*100 + 40;
             }
         }
         return bottom;
@@ -330,10 +331,10 @@
     if (isCouponEdit){
 
         int couponCount = (int)_orderData.couponsArray.count;
-        rowFourH = 90 + couponCount * 40 + 160;
+        rowFourH = 90 + couponCount * 40 + 80;
         
     }else{
-        rowFourH = 60 + 160;
+        rowFourH = 60 + 80;
     }
     [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -367,11 +368,11 @@
     coupon = couponFlag;
     _couponId = couponId;
     
-    if([couponFlag floatValue]>[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]){
+    if([_realityPay floatValue]-[couponFlag floatValue]<1){
         _payLab.text = [NSString stringWithFormat:@"应支付：￥1"];
         _noticeLab.hidden = NO;
     }else{
-        _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]-[couponFlag floatValue]];
+        _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] -[couponFlag floatValue]];
         _noticeLab.hidden = YES;
     }
 
@@ -426,7 +427,7 @@
                     _orderData.factPortalFee = orderData1.factPortalFee;
                     _orderData.portalFee = orderData1.portalFee;
                     _orderData.factShipFee = orderData1.factShipFee;
-                    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]];
+                    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue]];
                     [self loadBasic];
                     [_tableView reloadData];
                     

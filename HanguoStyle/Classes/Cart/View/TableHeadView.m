@@ -32,7 +32,7 @@
         _postalTaxLabel.font = [UIFont systemFontOfSize:11];
         _postalTaxLabel.textColor = [UIColor blackColor];
         
-        [self addSubview:_postalTaxLabel];
+//        [self addSubview:_postalTaxLabel];
         
         
         UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 19, GGUISCREENWIDTH, 1)];
