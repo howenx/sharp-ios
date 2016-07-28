@@ -553,25 +553,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     //进入到商品展示页面
-//    _pushUrl =  ((ThemeData *)self.data[indexPath.section]).themeUrl;
-//    if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"ordinary"]){
-//        [self pushGoodShowView];
-//    }else if([((ThemeData *)self.data[indexPath.section]).type isEqualToString:@"h5"]){
-//        [self pushH5GoodShowView];
-//    }
-//    else if ([((SliderNavData *)self.data[indexPath.section]).targetType isEqualToString:@"detail"])
-//    {
-//        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-//        gdViewController.url = _pushUrl;
-//        [self.navigationController pushViewController:gdViewController animated:YES];
-//    }else if([((SliderNavData *)self.data[indexPath.section]).targetType isEqualToString:@"pin"])
-//    {
-//        
-//        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-//        pinViewController.url = _pushUrl;
-//        [self.navigationController pushViewController:pinViewController animated:YES];
-//        
-//    }
+
     
     _pushUrl =  ((ThemeData *)self.data[indexPath.row]).themeUrl;
     if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"ordinary"]){
@@ -579,12 +561,12 @@
     }else if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"h5"]){
         [self pushH5GoodShowView];
     }
-    else if ([((SliderNavData *)self.data[indexPath.row]).targetType isEqualToString:@"detail"])
+    else if ([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"detail"])
     {
         GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
         gdViewController.url = _pushUrl;
         [self.navigationController pushViewController:gdViewController animated:YES];
-    }else if([((SliderNavData *)self.data[indexPath.row]).targetType isEqualToString:@"pin"])
+    }else if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"pin"])
     {
         
         PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
