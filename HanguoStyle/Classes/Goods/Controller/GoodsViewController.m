@@ -284,8 +284,6 @@
         locView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
         [downView addSubview:locView3];
 
-        
-        
         _tableView.tableHeaderView = bgView;
     }else if(_scrollArr.count == 1){
         

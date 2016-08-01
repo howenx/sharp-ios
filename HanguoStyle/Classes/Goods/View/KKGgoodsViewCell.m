@@ -76,7 +76,7 @@
     self.bgImageView_.frame = CGRectMake(21, PosYFromView(self.detailLabel_, 17), GGUISCREENWIDTH-42, (obj.height*(GGUISCREENWIDTH-42))/obj.width);
     
     
-    self.bgView.frame = CGRectMake(0,lastSize1.height + lastSize2.height + (obj.height*(GGUISCREENWIDTH-42))/obj.width  + 24+22 , GGUISCREENWIDTH, 10);
+    self.bgView.frame = CGRectMake(0,lastSize1.height + lastSize2.height + (obj.height*(GGUISCREENWIDTH-42))/obj.width  + 24+22 +20, GGUISCREENWIDTH, 10);
     
 }
 //计算高度
@@ -95,7 +95,7 @@
 
     
     
-    return  lastSize1.height + lastSize2.height + (obj.height*(GGUISCREENWIDTH-42))/obj.width  + 24+22 +10;
+    return  lastSize1.height + lastSize2.height + (obj.height*(GGUISCREENWIDTH-42))/obj.width  + 24+22 +10+20;
 }
 
 
