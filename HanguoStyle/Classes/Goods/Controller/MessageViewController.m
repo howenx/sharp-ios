@@ -21,7 +21,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"消息盒子";
-    self.view.backgroundColor = GGColor(240, 240, 240);
+    self.view.backgroundColor = GGBgColor;
     
 
 

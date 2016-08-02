@@ -19,9 +19,9 @@
 //        [self.layer setMasksToBounds:YES];
 //        [self.layer setCornerRadius:3.0];
         
-        _label = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 20)];
-        _label.font = [UIFont systemFontOfSize:13];
-        _label.textColor = [UIColor blackColor];
+        _label = [[UILabel alloc]initWithFrame:CGRectMake(38, 0, GGUISCREENWIDTH-50, 45)];
+        _label.font = [UIFont systemFontOfSize:15];
+        _label.textColor = UIColorFromRGB(0x242424);
         
         [self addSubview:_label];
         
@@ -34,11 +34,6 @@
         
 //        [self addSubview:_postalTaxLabel];
         
-        
-        UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 19, GGUISCREENWIDTH, 1)];
-        line.backgroundColor = GGBgColor;
-        
-        [self addSubview:line];
        
     }
     return self;

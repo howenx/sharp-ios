@@ -8,8 +8,6 @@
 
 #import "LoginViewController.h"
 #import "GGTabBarViewController.h"
-#import "RegistViewController.h"
-#import "LosePwdViewController.h"
 #import "ReturnResult.h"
 #import "ShoppingCart.h"
 #import "CartData.h"
@@ -70,7 +68,7 @@
         _mobel.text = self.phone;
     }
     if(self.idType!= nil){
-        [self.view viewWithTag:51001].hidden = YES;
+
         [self.view viewWithTag:51002].hidden = YES;
         [self.view viewWithTag:51003].hidden = YES;
         [self.view viewWithTag:51004].hidden = YES;
@@ -78,7 +76,6 @@
         [self.view viewWithTag:51006].hidden = YES;
         [self.view viewWithTag:51007].hidden = YES;
         [self.view viewWithTag:51008].hidden = YES;
-        [self.view viewWithTag:51009].hidden = YES;
         promptLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 20)];
         promptLab.backgroundColor = GGColor(255, 237, 207);
         promptLab.textAlignment = NSTextAlignmentCenter;
@@ -327,6 +324,7 @@
 
 
     ToRegistViewController * rvc = [[ToRegistViewController alloc]init];
+    rvc.comeFrom = self.comeFrom;
     [self.navigationController pushViewController:rvc animated:YES];
 }
 

@@ -14,10 +14,10 @@
 //#define SERVERY4 @"http://172.28.3.46:9005"
 
 
-//#define SERVERY1 @"http://172.28.3.18:9003"
-//#define SERVERY2 @"http://172.28.3.18:9001"
-//#define SERVERY3 @"http://172.28.3.18:9004"
-//#define SERVERY4 @"http://172.28.3.18:9005"
+#define SERVERY1 @"http://172.28.3.18:9003"
+#define SERVERY2 @"http://172.28.3.18:9001"
+#define SERVERY3 @"http://172.28.3.18:9004"
+#define SERVERY4 @"http://172.28.3.18:9005"
 
 
 //#define SERVERY1 @"https://shopping.hanmimei.com"
@@ -32,10 +32,10 @@
 //#define SERVERY3 @"http://172.28.3.51:9004"
 //#define SERVERY4 @"http://172.28.3.51:9005"
 
-#define SERVERY1 @"http://172.28.3.78:9003"
-#define SERVERY2 @"http://172.28.3.78:9001"
-#define SERVERY3 @"http://172.28.3.78:9004"
-#define SERVERY4 @"http://172.28.3.78:9005"
+//#define SERVERY1 @"http://172.28.3.78:9003"
+//#define SERVERY2 @"http://172.28.3.78:9001"
+//#define SERVERY3 @"http://172.28.3.78:9004"
+//#define SERVERY4 @"http://172.28.3.78:9005"
 
 @implementation HSGlobal
 

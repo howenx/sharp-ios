@@ -70,6 +70,10 @@
     UILabel     *_cntLabel;
     NSInteger    _cnt;
     
+    UIButton * tuWenBtn;
+    UIButton * canShuBtn;
+    UIButton * reMaiBtn;
+    
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)addToShoppingCart:(UIButton *)sender;
@@ -97,7 +101,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    oneCellHeight = GGUISCREENWIDTH + 59 + 17 + 8;//17是14号字一行的高度
+    oneCellHeight = GGUISCREENWIDTH + 130 + 21;//21是标题的高度
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -118,17 +122,17 @@
     _otherRowHeight = 0;
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2)];
     _lineView.backgroundColor = GGMainColor;
-    [_buyNowButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xF03046)] forState:UIControlStateNormal];
-    [_addCartButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xff5359)] forState:UIControlStateNormal];
-    [_buyNowButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xe82e43)] forState:UIControlStateHighlighted];
-    [_addCartButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xf55165)] forState:UIControlStateHighlighted];
+//    [_buyNowButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xF03046)] forState:UIControlStateNormal];
+//    [_addCartButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xff5359)] forState:UIControlStateNormal];
+//    [_buyNowButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xe82e43)] forState:UIControlStateHighlighted];
+//    [_addCartButton setBackgroundImage:[UIImage createImageWithColor:UIColorFromRGB(0xf55165)] forState:UIControlStateHighlighted];
     [self makeShareButton];
 }
 -(void)makeShareButton{
     
     //右上角添加按钮
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    [rightButton setImage:[UIImage imageNamed:@"iconfont_fenxiang"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(shareBtnClicked:)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -140,7 +144,7 @@
     _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont systemFontOfSize:10];
-    _cntLabel.backgroundColor = GGMainColor;
+    _cntLabel.backgroundColor = UIColorFromRGB(0xf73939);
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
@@ -258,7 +262,7 @@
 
 }
 -(void)whenRequestSuccDo{
-    if(_detailData.publicity == nil && _detailData.remarkRate == nil){
+    if(_detailData.remarkRate == nil){
         numberOfSection = 3;
     }else{
         numberOfSection = 4;
@@ -279,17 +283,31 @@
 
     if(![status isEqualToString:@"Y"]){
         _buyNowButton.enabled = NO;
+        [_buyNowButton setBackgroundColor:UIColorFromRGB(0xb0b0b0)];
+        [_buyNowButton setTitleColor:UIColorFromRGB(0x464646) forState:UIControlStateNormal];
+        [_addCartButton setTitleColor:UIColorFromRGB(0x464646) forState:UIControlStateNormal];
         _addCartButton.enabled = NO;
-        _buyNowButton.alpha = 0.4;
-        _addCartButton.alpha = 0.4;
+        
+        UILabel* saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-104)/2, 105, 104, 104)];
+        saleOutLab.textAlignment = NSTextAlignmentCenter;
+        saleOutLab.backgroundColor = UIColorFromRGB(0x000000);
+        saleOutLab.alpha = 0.7;
+        saleOutLab.font = [UIFont systemFontOfSize:17];
+        [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
+        saleOutLab.text = @"已抢光";
+        [saleOutLab.layer setMasksToBounds:YES];
+        saleOutLab.layer.cornerRadius = 52;
+        [self.view addSubview:saleOutLab];
+//        _buyNowButton.alpha = 0.4;
+//        _addCartButton.alpha = 0.4;
         
         
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 70-64, GGUISCREENWIDTH, 20) ;
-        otherPinGoodsBtn.backgroundColor = GGMainColor;
+        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 77-64, GGUISCREENWIDTH, 27) ;
+        otherPinGoodsBtn.backgroundColor = UIColorFromRGB(0x49576e);
         
-        [otherPinGoodsBtn setTitle:@"该商品已下架，去看看其他商品吧" forState:UIControlStateNormal];
-        otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [otherPinGoodsBtn setTitle:@"该商品已下架，去看看其他商品吧~" forState:UIControlStateNormal];
+        otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [otherPinGoodsBtn addTarget:self  action:@selector(otherPinGoodsBtnClick)  forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:otherPinGoodsBtn];
     }
@@ -557,27 +575,27 @@
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
         barView.backgroundColor = [UIColor whiteColor];
         //    barView.backgroundColor = [UIColor whiteColor];
-        UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
         [tuWenBtn setTitle:@"图文详情" forState:UIControlStateNormal];
-        [tuWenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        tuWenBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [tuWenBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        tuWenBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [tuWenBtn addTarget:self action:@selector(tuWenClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        UIButton *canShuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        canShuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         canShuBtn.frame = CGRectMake(GGUISCREENWIDTH/3, 10, GGUISCREENWIDTH/3, 20);
         [canShuBtn setTitle:@"商品参数" forState:UIControlStateNormal];
-        [canShuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        canShuBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        canShuBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [canShuBtn addTarget:self action:@selector(canShuClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        UIButton *reMaiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        reMaiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         reMaiBtn.frame = CGRectMake(GGUISCREENWIDTH*2/3, 10, GGUISCREENWIDTH/3, 20);
         [reMaiBtn setTitle:@"热卖商品" forState:UIControlStateNormal];
-        [reMaiBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        reMaiBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        reMaiBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [reMaiBtn addTarget:self action:@selector(reMaiClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
@@ -685,10 +703,19 @@
 
     if(page ==0){
         _lineView.frame = CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
     }else if(page == 1){
         _lineView.frame = CGRectMake(GGUISCREENWIDTH/3, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
     }else if(page == 2){
         _lineView.frame = CGRectMake(GGUISCREENWIDTH*2/3, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     }
 }
 //实现代理方法
@@ -1034,7 +1061,7 @@
             [lastDict setObject: [NSNumber numberWithInt:0] forKey:@"addressId"];
             [lastDict setObject: @"" forKey:@"couponId"];
             [lastDict setObject: @"" forKey:@"clientIp"];
-            [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+//            [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
             [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
             [lastDict setObject: @"" forKey:@"orderDesc"];
 //            [lastDict setObject: @"JD" forKey:@"payMethod"];

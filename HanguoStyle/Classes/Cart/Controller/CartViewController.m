@@ -436,7 +436,8 @@
                 invAreaAmount = invAreaAmount + cdData.amount * cdData.itemPrice;
             }
         }
-        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
+        //海外直邮和国内直邮不限制金额
+        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"] && ![cData.invArea isEqualToString:@"NK"]){
             _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
@@ -482,16 +483,25 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    TableHeadView * tableHeadView = [[TableHeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 20)];
+    TableHeadView * tableHeadView = [[TableHeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
     [tableHeadView setTag:2000 + section];
     tableHeadView.cartData = (CartData *)_data[section];
 
     return tableHeadView;
     
 }
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 10)];
+    footView.backgroundColor = GGBgColor;
+    return footView;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0f;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20.0f;
+    return 45.0f;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -509,7 +519,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 120;
+    return 115;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -793,7 +803,7 @@
                 invAreaAmount = invAreaAmount + cdData.amount * cdData.itemPrice;
             }
         }
-        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"]){
+        if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"] && ![cData.invArea isEqualToString:@"NK"]){
             _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
@@ -895,7 +905,7 @@
     [lastDict setObject: [NSNumber numberWithInt:0] forKey:@"addressId"];
     [lastDict setObject: @"" forKey:@"couponId"];
     [lastDict setObject: @"" forKey:@"clientIp"];
-    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+//    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
 //    [lastDict setObject: @"JD" forKey:@"payMethod"];
