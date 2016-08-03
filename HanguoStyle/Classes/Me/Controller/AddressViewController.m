@@ -39,6 +39,7 @@
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     rightButton.titleLabel.font=[UIFont systemFontOfSize:12];
     [rightButton setTitle:@"添加" forState:UIControlStateNormal];
+    [rightButton setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(addAddress)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -142,7 +143,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110;
+    return 100;
 }
 
 

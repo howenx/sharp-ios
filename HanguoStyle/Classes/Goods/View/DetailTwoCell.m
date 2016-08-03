@@ -20,11 +20,12 @@
 - (void)setData:(GoodsDetailData *)data{
     //绘制颜色部分
     _goodsDetailData = data;
-    UILabel * colorLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, 80, 20)];
+    UILabel * colorLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 13, 80, 20)];
     colorLab.text = @"规格";
-    colorLab.font = [UIFont systemFontOfSize:14];
+    colorLab.textColor = UIColorFromRGB(0x999999);
+    colorLab.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:colorLab];
-    CGRect colorRect = CGRectMake(0, 45, 0, 20);
+    CGRect colorRect = CGRectMake(0, 33, 0, 0);
 
     _sizeMutArray = [self createBtnWithTitleArray: data.sizeArray andfirstRect:colorRect andTagCount:1000];
     _sizeBtnTag = 1000;
@@ -36,7 +37,7 @@
 
     
     //绘制脚步view
-    UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, lastSizeBtn.frame.origin.y + lastSizeBtn.frame.size.height + 10, GGUISCREENWIDTH, 8)];
+    UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, lastSizeBtn.frame.origin.y + lastSizeBtn.frame.size.height + 13, GGUISCREENWIDTH, 10)];
     footView.backgroundColor = GGBgColor;
     [self.contentView addSubview:footView];
     
@@ -61,30 +62,32 @@
         }
         [button setTitle:name forState:UIControlStateNormal];
         button.contentHorizontalAlignment=UIControlContentHorizontalAlignmentCenter;
-        button.titleLabel.font = [UIFont systemFontOfSize:11];
+        button.titleLabel.font = [UIFont systemFontOfSize:15];
         
-        button.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10);
-        [button setTitleColor:[UIColor grayColor]forState:UIControlStateNormal];
+        button.contentEdgeInsets = UIEdgeInsetsMake(5, 13, 5, 13);
+        [button setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
         [button addTarget:self  action:@selector(theButtonClick:)  forControlEvents:UIControlEventTouchDown];
         
         [button.layer setCornerRadius:5];
         [button.layer setBorderWidth:1.0f];
-        [button.layer setBorderColor:[UIColor grayColor].CGColor];
+        [button.layer setBorderColor:UIColorFromRGB(0x999999).CGColor];
         [button setBackgroundColor:[UIColor whiteColor]];
         //当进入页面选中的颜色或者尺寸和列表里面相同的时候就把这个按钮变红
         if(((SizeData *)array[i]).orMasterInv){
             _sizeName = ((SizeData *)array[i]).itemSize;
             if([state isEqualToString:@"Y"]){//非正常状态，按钮不让点击
-                [button setTitleColor:GGMainColor forState:UIControlStateNormal];
+                [button setBackgroundColor:GGMainColor];
                 [button.layer setBorderColor:GGMainColor.CGColor];
             }
         }
-        CGSize size  = [PublicMethod getSize:name Font:11 Width:GGUISCREENWIDTH-20-20 Height:20];
         
-        if(rect.origin.x + rect.size.width + size.width + 20 + 20 > GGUISCREENWIDTH){
-            button.frame = CGRectMake(10, rect.origin.y + rect.size.height +10, size.width+20, size.height+10);
+        CGSize size  = [PublicMethod getSize:name Font:15 Width:GGUISCREENWIDTH-26-30 Height:1000];//26是button文字的内边距，30是button距屏幕两边的距离
+        //26是button文字的内边距,25是两个按钮的间距，15是按钮距屏幕右边的最小距离
+        if(rect.origin.x + rect.size.width + size.width + 26 + 25 + 15 > GGUISCREENWIDTH || i == 0){
+            //14是上下两个button的间距，10是button文字的内边距
+            button.frame = CGRectMake(15, rect.origin.y + rect.size.height +14, size.width+26, size.height+10);
         }else{
-            button.frame = CGRectMake(rect.origin.x + rect.size.width +10, rect.origin.y, size.width+20, size.height+10);
+            button.frame = CGRectMake(rect.origin.x + rect.size.width +25, rect.origin.y, size.width+26, size.height+10);
         }
         
         rect = button.frame;
@@ -125,13 +128,13 @@
         
         for(UIButton * button in _sizeMutArray){
             if([button.titleLabel.text isEqualToString:_sizeName]){
-                [button setTitleColor:[UIColor grayColor]forState:UIControlStateNormal];
-                [button.layer setBorderColor:[UIColor grayColor].CGColor];
+                [button setBackgroundColor:[UIColor whiteColor]];
+                [button.layer setBorderColor:UIColorFromRGB(0x999999).CGColor];
             }
         }
         _goodsDetailData.sizeArray = array;
         _sizeName = sizeString;
-        [btn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [btn setBackgroundColor:GGMainColor];
         [btn.layer setBorderColor:GGMainColor.CGColor];
 
 

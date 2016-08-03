@@ -30,21 +30,21 @@
 }
 -(UIView *)createMsgViewWithKey:(NSString *)key andValue:(NSString *)value{
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, gap)];
-    UILabel * keyLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 90, gap)];
+    UILabel * keyLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 90, gap)];
     keyLabel.textAlignment = NSTextAlignmentLeft;
     keyLabel.text = key;
     keyLabel.numberOfLines = 1;
     keyLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    keyLabel.textColor = [UIColor grayColor];
-    keyLabel.font = [UIFont systemFontOfSize:12];
+    keyLabel.textColor = UIColorFromRGB(0x999999);
+    keyLabel.font = [UIFont systemFontOfSize:15];
     [view addSubview:keyLabel];
     
     UILabel * valueLabel = [[UILabel alloc]initWithFrame:CGRectMake(95, 0, GGUISCREENWIDTH - 95 - 20, gap)];
     valueLabel.textAlignment = NSTextAlignmentLeft;
-    valueLabel.font = [UIFont systemFontOfSize:12];
+    valueLabel.font = [UIFont systemFontOfSize:15];
     valueLabel.numberOfLines = 1;
     valueLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    valueLabel.textColor = GGMainColor;
+    valueLabel.textColor = UIColorFromRGB(0x242424);
     valueLabel.text = value;
     [view addSubview:valueLabel];
     

@@ -14,60 +14,40 @@
 @implementation DetailThreeCell
 - (void)setData:(GoodsDetailData *)data{
     _data = data;
-    CGRect rect = CGRectMake(10, 0, 0, 0);
-    if(data.publicity!=nil){
-        
-        for(int i = 0;i<data.publicity.count;i++){
-            
-            UILabel * label = [[UILabel alloc]init];
-            label.textColor = [UIColor orangeColor];
-            label.font = [UIFont systemFontOfSize:12];
-            label.text = data.publicity[i];
-            label.numberOfLines = 0;
-            CGSize size  = [PublicMethod getSize:data.publicity[i] Font:12 Width:GGUISCREENWIDTH-20 Height:100];
-            label.frame = CGRectMake(rect.origin.x, rect.origin.y + rect.size.height + 10, size.width, size.height);
-            rect = label.frame;
-            [self.contentView addSubview:label];
-        }
-        
-        //绘制脚步view
-        UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.origin.y + rect.size.height + 10, GGUISCREENWIDTH, 8)];
-        footView.backgroundColor = GGBgColor;
-        [self.contentView addSubview:footView];
-        rect = footView.frame;
-    }
-
+    CGRect rect = CGRectMake(15, 0, 0, 0);
     
     //增加好评按钮
     if(data.remarkRate!=nil){
-        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, rect.origin.y + rect.size.height,  GGUISCREENWIDTH, 30)];
+        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0,  GGUISCREENWIDTH, 40)];
         view.userInteractionEnabled = YES;
         [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pjGesture)]];
         [self.contentView addSubview:view];
-        UILabel * goodsPjLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 100, 30)];
-        goodsPjLab.text = [NSString stringWithFormat:@"商品评价(%ld)",data.remarkCount];
-        goodsPjLab.textColor = UIColorFromRGB(0x333333);
-        goodsPjLab.font = [UIFont systemFontOfSize:12];
+        UILabel * goodsPjLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 100, 40)];
+        goodsPjLab.text = [NSString stringWithFormat:@"商品评价  (%ld)",data.remarkCount];
+        goodsPjLab.textColor = UIColorFromRGB(0x999999);
+        goodsPjLab.font = [UIFont systemFontOfSize:15];
         [view addSubview:goodsPjLab];
         
         
-        UILabel * hpLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-150, 0, 120, 30)];
+        UILabel * hpLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-135, 0, 120, 40)];
         hpLab.textAlignment = NSTextAlignmentRight;
-        hpLab.textColor = UIColorFromRGB(0x333333);
-        NSString * rRate =  [NSString stringWithFormat:@"好评率(%@%%)",data.remarkRate];
+        hpLab.textColor = UIColorFromRGB(0x242424);
+        NSString * rRate =  [NSString stringWithFormat:@"好评率%@%%",data.remarkRate];
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:rRate];
-        [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(4,rRate.length-5)];
+        [str addAttribute:NSForegroundColorAttributeName value:GGMainColor range:NSMakeRange(3,rRate.length-3)];
         hpLab.attributedText = str;
-        hpLab.font = [UIFont systemFontOfSize:12];
+        hpLab.font = [UIFont systemFontOfSize:15];
         [view addSubview:hpLab];
         
-        
-        UIImageView * iconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(PosXFromView(hpLab, 10), (30-12)/2, 10, 12)];
-        iconImageView.image = [UIImage imageNamed:@"fanye"];
-        [view addSubview:iconImageView];
-        
 
-        rect = view.frame;
+        
+        //绘制脚步view
+        UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, view.origin.y + view.size.height, GGUISCREENWIDTH, 10)];
+        footView.backgroundColor = GGBgColor;
+        [self.contentView addSubview:footView];
+        
+        rect = footView.frame;
+
     }
     
     if([self.delegate respondsToSelector:@selector(getThreeCellH:)]){

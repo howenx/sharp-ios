@@ -418,7 +418,7 @@
     [lastDict setObject: [NSNumber numberWithInt:0] forKey:@"addressId"];
     [lastDict setObject: @"" forKey:@"couponId"];
     [lastDict setObject: @"" forKey:@"clientIp"];
-    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+//    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
 //    [lastDict setObject: @"JD" forKey:@"payMethod"];

@@ -85,7 +85,7 @@
     coupon = @"0";
     _couponId= @"";
 //    payTypeId = @"JD";
-    sendTimeId = 1;
+//    sendTimeId = 1;
     isTimeEdit = NO;
     isPayTypeEdit = NO;
     isCouponEdit = NO;
@@ -133,7 +133,7 @@
     [lastDict setObject: [NSNumber numberWithInt:self.orderData.addressData.addId.intValue] forKey:@"addressId"];
     [lastDict setObject: _couponId forKey:@"couponId"];//优惠券
     [lastDict setObject: @"" forKey:@"clientIp"];
-    [lastDict setObject: [NSNumber numberWithInt:sendTimeId] forKey:@"shipTime"];//送货时间
+//    [lastDict setObject: [NSNumber numberWithInt:sendTimeId] forKey:@"shipTime"];//送货时间
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
     [lastDict setObject: @"" forKey:@"orderDesc"];
 //    [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
@@ -185,7 +185,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
@@ -215,19 +215,19 @@
         }
         return orderCartCell;
     }
-    if(indexPath.row == 2){
-
-        sendGoodTimeCell = [[SendGoodTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        sendGoodTimeCell.isTimeEdit = isTimeEdit;
-        sendGoodTimeCell.sendTime =  sendTime;
-        [sendGoodTimeCell createView];
-        sendGoodTimeCell.delegate = self;
-        [sendGoodTimeCell.editBtn addTarget:self action:@selector(editTimeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-        [sendGoodTimeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTimeBtnClicked)]];
-        sendGoodTimeCell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        return sendGoodTimeCell;
-    }
+//    if(indexPath.row == 2){
+//
+//        sendGoodTimeCell = [[SendGoodTimeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+//        sendGoodTimeCell.isTimeEdit = isTimeEdit;
+//        sendGoodTimeCell.sendTime =  sendTime;
+//        [sendGoodTimeCell createView];
+//        sendGoodTimeCell.delegate = self;
+//        [sendGoodTimeCell.editBtn addTarget:self action:@selector(editTimeBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+//        [sendGoodTimeCell.editBtn.superview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editTimeBtnClicked)]];
+//        sendGoodTimeCell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//        return sendGoodTimeCell;
+//    }
 //    if(indexPath.row == 3){
 //        
 //        payTypeCell = [[PayTypeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -241,7 +241,7 @@
 //        
 //        return payTypeCell;
 //    }
-    if(indexPath.row == 3){
+    if(indexPath.row == 2){
         
         couponCell = [[CouponCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         couponCell.isCouponEdit = isCouponEdit;
@@ -275,13 +275,13 @@
         }
         return bottom;
     }
-    if (indexPath.row == 2) {
-        return rowTwoH;
-    }
+//    if (indexPath.row == 2) {
+//        return rowTwoH;
+//    }
 //    if (indexPath.row == 3) {
 //        return rowThreeH;
 //    }
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         return rowFourH;
     }
     return 0;
@@ -301,17 +301,17 @@
 
     }
 }
-- (void) editTimeBtnClicked
-{
-    isTimeEdit = !isTimeEdit;
-
-    if (isTimeEdit){
-        rowTwoH = 220;
-    }else{
-        rowTwoH = 110;
-    }
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+//- (void) editTimeBtnClicked
+//{
+//    isTimeEdit = !isTimeEdit;
+//
+//    if (isTimeEdit){
+//        rowTwoH = 220;
+//    }else{
+//        rowTwoH = 110;
+//    }
+//    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//}
 //- (void) editPayTypeBtnClicked
 //{
 //    isPayTypeEdit = !isPayTypeEdit;
@@ -336,7 +336,7 @@
     }else{
         rowFourH = 60 + 80;
     }
-    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -345,20 +345,21 @@
 //代理方法
 -(void)backAddressData:(AddressData *)addressData{
     self.orderData.addressData = addressData;
-    [self updatePageData];
+    [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    [self updatePageData];
 
 }
 
--(void)sendTimeFlag:(NSString *)timeFlag{
-    sendTime = timeFlag ;
-    if([timeFlag isEqualToString:@"工作日双休日与假期均可送货"]){
-        sendTimeId = 1;
-    }else if([timeFlag isEqualToString:@"只工作日送货"]){
-        sendTimeId = 2;
-    }else if([timeFlag isEqualToString:@"只双休日与假期送货"]){
-        sendTimeId = 3;
-    }
-}
+//-(void)sendTimeFlag:(NSString *)timeFlag{
+//    sendTime = timeFlag ;
+//    if([timeFlag isEqualToString:@"工作日双休日与假期均可送货"]){
+//        sendTimeId = 1;
+//    }else if([timeFlag isEqualToString:@"只工作日送货"]){
+//        sendTimeId = 2;
+//    }else if([timeFlag isEqualToString:@"只双休日与假期送货"]){
+//        sendTimeId = 3;
+//    }
+//}
 
 //-(void)payTypeFlag:(NSString *)payTypeFlag{
 //    payType = payTypeFlag ;
@@ -378,77 +379,77 @@
 
 }
 
-
-- (void)updatePageData {
-
-        
-        NSMutableDictionary * lastDict = [NSMutableDictionary dictionary];
-        [lastDict setObject: _mutArray forKey:@"settleDTOs"];
-        [lastDict setObject: [NSNumber numberWithInt:self.orderData.addressData.addId.intValue] forKey:@"addressId"];
-        [lastDict setObject: @"" forKey:@"couponId"];
-        [lastDict setObject: @"" forKey:@"clientIp"];
-        [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
-        [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
-        [lastDict setObject: @"" forKey:@"orderDesc"];
-//        [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
-        [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
-
-            NSString * urlString =[HSGlobal sendCartToOrder];
-            AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
-            
-            if (manager ==nil) {
-                return;
-            }
-            [GiFHUD setGifWithImageName:@"hmm.gif"];
-            [GiFHUD show];
-            [manager POST:urlString  parameters:lastDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
-                
-                NSDictionary * settleDict = [object objectForKey:@"settle"];
-                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
-                NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
-                NSLog(@"message= %@",message);
-                if(code == 200){
-                    OrderData * orderData1 = [[OrderData alloc]initWithJSONNode:settleDict];
-                    for(int i=0; i<orderData1.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1
-                        for(int j = 0; j < _orderData.singleCustomsArray.count;j++){
-                            if([((OrderDetailData *)_orderData.singleCustomsArray[j]).invAreaNm isEqualToString:((OrderDetailData *)orderData1.singleCustomsArray[i]).invAreaNm]){
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).invCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).invCustoms;
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).portalSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).portalSingleCustomsFee;
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).shipSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).shipSingleCustomsFee;
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factPortalFeeSingleCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factPortalFeeSingleCustoms;
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).singleCustomsSumFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).singleCustomsSumFee;
-                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factSingleCustomsShipFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factSingleCustomsShipFee;
-
-                            }
-                        }
-                    }
-                    _orderData.shipFee = orderData1.shipFee;
-                    _orderData.factPortalFee = orderData1.factPortalFee;
-                    _orderData.portalFee = orderData1.portalFee;
-                    _orderData.factShipFee = orderData1.factShipFee;
-                    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue]];
-                    [self loadBasic];
-                    [_tableView reloadData];
-                    
-
-                }else{
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    hud.mode = MBProgressHUDModeText;
-                    hud.labelText = message;
-                    hud.labelFont = [UIFont systemFontOfSize:11];
-                    hud.margin = 10.f;
-                    hud.removeFromSuperViewOnHide = YES;
-                    [hud hide:YES afterDelay:1];
-                }
-                [GiFHUD dismiss];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                [GiFHUD dismiss];
-                NSLog(@"Error: %@", error);
-                [PublicMethod printAlert:@"下订单失败"];
-            }];
-
-}
+//修改地址重新请求数据
+//- (void)updatePageData {
+//
+//        
+//        NSMutableDictionary * lastDict = [NSMutableDictionary dictionary];
+//        [lastDict setObject: _mutArray forKey:@"settleDTOs"];
+//        [lastDict setObject: [NSNumber numberWithInt:self.orderData.addressData.addId.intValue] forKey:@"addressId"];
+//        [lastDict setObject: @"" forKey:@"couponId"];
+//        [lastDict setObject: @"" forKey:@"clientIp"];
+//        [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+//        [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];//2:ios
+//        [lastDict setObject: @"" forKey:@"orderDesc"];
+////        [lastDict setObject: payTypeId forKey:@"payMethod"];//支付方式
+//        [lastDict setObject: [NSNumber numberWithInt:_buyNow] forKey:@"buyNow"];
+//
+//            NSString * urlString =[HSGlobal sendCartToOrder];
+//            AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+//            
+//            if (manager ==nil) {
+//                return;
+//            }
+//            [GiFHUD setGifWithImageName:@"hmm.gif"];
+//            [GiFHUD show];
+//            [manager POST:urlString  parameters:lastDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+//                
+//                NSDictionary * settleDict = [object objectForKey:@"settle"];
+//                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+//                NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+//                NSLog(@"message= %@",message);
+//                if(code == 200){
+//                    OrderData * orderData1 = [[OrderData alloc]initWithJSONNode:settleDict];
+//                    for(int i=0; i<orderData1.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1
+//                        for(int j = 0; j < _orderData.singleCustomsArray.count;j++){
+//                            if([((OrderDetailData *)_orderData.singleCustomsArray[j]).invAreaNm isEqualToString:((OrderDetailData *)orderData1.singleCustomsArray[i]).invAreaNm]){
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).invCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).invCustoms;
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).portalSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).portalSingleCustomsFee;
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).shipSingleCustomsFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).shipSingleCustomsFee;
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factPortalFeeSingleCustoms = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factPortalFeeSingleCustoms;
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).singleCustomsSumFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).singleCustomsSumFee;
+//                                ((OrderDetailData *)_orderData.singleCustomsArray[j]).factSingleCustomsShipFee = ((OrderDetailData *)orderData1.singleCustomsArray[i]).factSingleCustomsShipFee;
+//
+//                            }
+//                        }
+//                    }
+//                    _orderData.shipFee = orderData1.shipFee;
+//                    _orderData.factPortalFee = orderData1.factPortalFee;
+//                    _orderData.portalFee = orderData1.portalFee;
+//                    _orderData.factShipFee = orderData1.factShipFee;
+//                    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue]];
+//                    [self loadBasic];
+//                    [_tableView reloadData];
+//                    
+//
+//                }else{
+//                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                    hud.mode = MBProgressHUDModeText;
+//                    hud.labelText = message;
+//                    hud.labelFont = [UIFont systemFontOfSize:11];
+//                    hud.margin = 10.f;
+//                    hud.removeFromSuperViewOnHide = YES;
+//                    [hud hide:YES afterDelay:1];
+//                }
+//                [GiFHUD dismiss];
+//            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                [GiFHUD dismiss];
+//                NSLog(@"Error: %@", error);
+//                [PublicMethod printAlert:@"下订单失败"];
+//            }];
+//
+//}
 
 
 

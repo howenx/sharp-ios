@@ -43,6 +43,10 @@
     BOOL oneViewAlreadyLoad;
     BOOL twoViewAlreadyLoad;
     BOOL threeViewAlreadyLoad;
+    
+    UIButton * tuWenBtn;
+    UIButton * canShuBtn;
+    UIButton * reMaiBtn;
 }
 @property (nonatomic) BOOL globleIsStore;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -84,7 +88,7 @@
     
     //右上角添加按钮
     UIButton * rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    [rightButton setImage:[UIImage imageNamed:@"iconfont_fenxiang"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(shareBtnClicked:)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -158,13 +162,26 @@
     }
     if(![_detailData.status isEqualToString:@"Y"] && ![_detailData.status isEqualToString:@"P"]){
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 70-64, GGUISCREENWIDTH, 20) ;
-        otherPinGoodsBtn.backgroundColor = GGMainColor;
+        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 77-64, GGUISCREENWIDTH, 27) ;
+        otherPinGoodsBtn.backgroundColor = UIColorFromRGB(0x49576e);
         
         [otherPinGoodsBtn setTitle:@"该活动已结束，去看看其他拼购吧" forState:UIControlStateNormal];
-        otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [otherPinGoodsBtn addTarget:self  action:@selector(otherPinGoodsBtnClick)  forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:otherPinGoodsBtn];
+        
+        UILabel* saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-104)/2, 105, 104, 104)];
+        saleOutLab.textAlignment = NSTextAlignmentCenter;
+        saleOutLab.backgroundColor = UIColorFromRGB(0x000000);
+        saleOutLab.alpha = 0.7;
+        saleOutLab.font = [UIFont systemFontOfSize:17];
+        [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
+        saleOutLab.text = @"已抢光";
+        [saleOutLab.layer setMasksToBounds:YES];
+        saleOutLab.layer.cornerRadius = 52;
+        [self.view addSubview:saleOutLab];
+
+
     }
 
 }
@@ -290,27 +307,27 @@
     if(section==1){
         UIView * barView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
         barView.backgroundColor = [UIColor whiteColor];
-        UIButton * tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        tuWenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         tuWenBtn.frame = CGRectMake(0, 10, GGUISCREENWIDTH/3, 20);
         [tuWenBtn setTitle:@"图文详情" forState:UIControlStateNormal];
-        [tuWenBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        tuWenBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [tuWenBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        tuWenBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [tuWenBtn addTarget:self action:@selector(tuWenClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        UIButton *canShuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        canShuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         canShuBtn.frame = CGRectMake(GGUISCREENWIDTH/3, 10, GGUISCREENWIDTH/3, 20);
         [canShuBtn setTitle:@"商品参数" forState:UIControlStateNormal];
-        [canShuBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        canShuBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        canShuBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [canShuBtn addTarget:self action:@selector(canShuClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        UIButton *reMaiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        reMaiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         reMaiBtn.frame = CGRectMake(GGUISCREENWIDTH*2/3, 10, GGUISCREENWIDTH/3, 20);
         [reMaiBtn setTitle:@"热卖商品" forState:UIControlStateNormal];
-        [reMaiBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        reMaiBtn.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        reMaiBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [reMaiBtn addTarget:self action:@selector(reMaiClick:) forControlEvents:UIControlEventTouchUpInside];
         
         
@@ -407,7 +424,7 @@
     [lastDict setObject: [NSNumber numberWithInt:0] forKey:@"addressId"];
     [lastDict setObject: @"" forKey:@"couponId"];
     [lastDict setObject: @"" forKey:@"clientIp"];
-    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+//    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
     [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
     [lastDict setObject: @"" forKey:@"orderDesc"];
 //    [lastDict setObject: @"JD" forKey:@"payMethod"];
@@ -496,10 +513,19 @@
     
     if(page ==0){
         _lineView.frame = CGRectMake(0, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
     }else if(page == 1){
         _lineView.frame = CGRectMake(GGUISCREENWIDTH/3, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
     }else if(page == 2){
         _lineView.frame = CGRectMake(GGUISCREENWIDTH*2/3, 40-2, GGUISCREENWIDTH/3, 2);
+        [tuWenBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [canShuBtn setTitleColor:UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [reMaiBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
     }
 }
 

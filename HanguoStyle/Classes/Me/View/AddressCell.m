@@ -10,7 +10,7 @@
 @interface AddressCell ()
 @property (weak, nonatomic) IBOutlet UILabel *consigneeLab;
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumLab;
-@property (weak, nonatomic) IBOutlet UILabel *idCardNumLab;
+//@property (weak, nonatomic) IBOutlet UILabel *idCardNumLab;
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
 @property (weak, nonatomic) IBOutlet UIImageView *defaultImage;
 @property (weak, nonatomic) IBOutlet UILabel *defaultLab;
@@ -18,6 +18,7 @@
 - (IBAction)updateAddrBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *setButton;
 @property (weak, nonatomic) IBOutlet UIImageView *jumpImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailLabHConstraint;
 
 @end
 @implementation AddressCell
@@ -30,12 +31,20 @@
     // Initialization code
 }
 - (void)setData:(AddressData *)data{
+   
+
     _data = data;
     self.consigneeLab.text = data.name;
     self.phoneNumLab.text = [NSString stringWithFormat:@"%@****%@",[data.tel substringToIndex:3],[data.tel substringFromIndex:8]];
-    self.idCardNumLab.text = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
+//    self.idCardNumLab.text = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
 //    self.idCardNumLab.text = data.idCardNum;
     self.addressLab.text = [NSString stringWithFormat:@"%@,%@",data.deliveryCity,data.deliveryDetail];
+    CGSize size  = [PublicMethod getSize:self.addressLab.text Font:12 Width:GGUISCREENWIDTH-135 Height:1000];
+    if(size.height>29){
+        _detailLabHConstraint.constant = 29+1;//不加1不显示下一行
+    }else{
+        _detailLabHConstraint.constant = size.height+1;//不加1不显示下一行
+    }
     if (data.orDefault) {
         self.defaultLab.hidden = NO;
     }else{

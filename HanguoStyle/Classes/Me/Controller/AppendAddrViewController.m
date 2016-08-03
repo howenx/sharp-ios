@@ -20,7 +20,7 @@
 @property ( nonatomic) IBOutlet UITextField * phoneLab;
 @property ( nonatomic) IBOutlet UITextField * areaAddrLab;
 @property (weak, nonatomic) IBOutlet UITextField *  detailAddrLab;
-@property (weak, nonatomic) IBOutlet UITextField * idNumber;
+//@property (weak, nonatomic) IBOutlet UITextField * idNumber;
 @property (weak, nonatomic) IBOutlet UISwitch *defaultSwitch;
 
 
@@ -46,12 +46,12 @@
     _nameLab.tag = 20000;
     _phoneLab.tag = 20002;
     _detailAddrLab.tag = 20003;
-    _idNumber.tag = 20004;
+//    _idNumber.tag = 20004;
     _areaAddrLab.tag = 20001;
     _nameLab.delegate = self;
     _phoneLab.delegate = self;
     _areaAddrLab.delegate = self;
-    _idNumber.delegate = self;
+//    _idNumber.delegate = self;
     _detailAddrLab.delegate = self;
     [self getPickerData];
     [self initView];
@@ -179,22 +179,23 @@
         }
         return canChange;
         
-    } else if(textField.tag == 20004){
-        if([@"" isEqualToString:string]){
-            canChange = YES;
-        }else{
-            canChange = [NSString isNumAndLetter:string];
-            if(!canChange){
-                [self showHud:@"身份证为数字、字母组合"];
-            }
-            if(_idNumber.text.length+string.length >18){
-                canChange = NO;
-                [self showHud:@"身份证最多18位"];
-            }
-        }
-        return canChange;
-        
     }
+//    else if(textField.tag == 20004){
+//        if([@"" isEqualToString:string]){
+//            canChange = YES;
+//        }else{
+//            canChange = [NSString isNumAndLetter:string];
+//            if(!canChange){
+//                [self showHud:@"身份证为数字、字母组合"];
+//            }
+//            if(_idNumber.text.length+string.length >18){
+//                canChange = NO;
+//                [self showHud:@"身份证最多18位"];
+//            }
+//        }
+//        return canChange;
+//        
+//    }
     return canChange;
     
 }
@@ -347,25 +348,25 @@
     if(![self isPhone]){
         return;
     }
-    NSString * idNum;
-    if ([NSString isBlankString:_idNumber.text]) {
-        idNum =_data.idCardNum;
-    }else{
-        idNum =_idNumber.text;
-    }
-    //把最后的小写x转成大写X
-    if([[idNum substringFromIndex:17] isEqualToString:@"x"]){
-        idNum =[NSString stringWithFormat:@"%@X",[idNum substringToIndex:17]];
-    }
-
-    BOOL validIdNumber = [self validateIDCardNumber:idNum];
-    if(!validIdNumber){
-        [self showHud:@"身份证不正确"];
-        return;
-    }
-    if([[idNum substringFromIndex:17] isEqualToString:@"X"]){
-        idNum = [NSString stringWithFormat:@"%@x",[idNum substringToIndex:17]];
-    }
+//    NSString * idNum;
+//    if ([NSString isBlankString:_idNumber.text]) {
+//        idNum =_data.idCardNum;
+//    }else{
+//        idNum =_idNumber.text;
+//    }
+//    //把最后的小写x转成大写X
+//    if([[idNum substringFromIndex:17] isEqualToString:@"x"]){
+//        idNum =[NSString stringWithFormat:@"%@X",[idNum substringToIndex:17]];
+//    }
+//
+//    BOOL validIdNumber = [self validateIDCardNumber:idNum];
+//    if(!validIdNumber){
+//        [self showHud:@"身份证不正确"];
+//        return;
+//    }
+//    if([[idNum substringFromIndex:17] isEqualToString:@"X"]){
+//        idNum = [NSString stringWithFormat:@"%@x",[idNum substringToIndex:17]];
+//    }
     if([NSString isBlankString:GGTRIM(_areaAddrLab.text)]){
         [self showHud:@"请输入所在区域"];
         return;
@@ -412,11 +413,11 @@
     }else{
         [myDict setObject:@(false) forKey:@"orDefault"];
     }
-    //把最后的大写X转成小写x
-    if([[idNum substringFromIndex:17] isEqualToString:@"X"]){
-        idNum =[NSString stringWithFormat:@"%@x",[idNum substringToIndex:17]];
-    }
-    [myDict setObject:idNum forKey:@"idCardNum"];
+//    //把最后的大写X转成小写x
+//    if([[idNum substringFromIndex:17] isEqualToString:@"X"]){
+//        idNum =[NSString stringWithFormat:@"%@x",[idNum substringToIndex:17]];
+//    }
+//    [myDict setObject:idNum forKey:@"idCardNum"];
     
     
     AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
@@ -491,104 +492,104 @@
     return 1;
 }
 
-- (BOOL)validateIDCardNumber:(NSString *)value {
-    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    int length =0;
-    if (!value) {
-        return NO;
-    }else {
-        length = value.length;
-        
-        if (length !=15 && length !=18) {
-            return NO;
-        }
-    }
-    if([[value substringFromIndex:17] isEqualToString:@"x"]){
-        value = [NSString stringWithFormat:@"%@X",[value substringToIndex:17]];
-    }
-    
-    // 省份代码
-    NSArray *areasArray =@[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32", @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45", @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
-    
-    NSString *valueStart2 = [value substringToIndex:2];
-    BOOL areaFlag =NO;
-    for (NSString *areaCode in areasArray) {
-        if ([areaCode isEqualToString:valueStart2]) {
-            areaFlag =YES;
-            break;
-        }
-    }
-    
-    if (!areaFlag) {
-        return false;
-    }
-    
-    
-    NSRegularExpression *regularExpression;
-    NSUInteger numberofMatch;
-    
-    int year =0;
-    switch (length) {
-        case 15:
-            year = [value substringWithRange:NSMakeRange(6,2)].intValue +1900;
-            
-            if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
-                
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$"
-                                                                       options:NSRegularExpressionCaseInsensitive
-                                                                         error:nil];//测试出生日期的合法性
-            }else {
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$"
-                                                                       options:NSRegularExpressionCaseInsensitive
-                                                                         error:nil];//测试出生日期的合法性
-            }
-            numberofMatch = [regularExpression numberOfMatchesInString:value
-                                                              options:NSMatchingReportProgress
-                                                                range:NSMakeRange(0, value.length)];
-            
-            if(numberofMatch >0) {
-                return YES;
-            }else {
-                return NO;
-            }
-        case 18:
-            
-            year = [value substringWithRange:NSMakeRange(6,4)].intValue;
-            if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
-                
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$"
-                                                                       options:NSRegularExpressionCaseInsensitive
-                                                                         error:nil];//测试出生日期的合法性
-            }else {
-                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$"
-                                                                       options:NSRegularExpressionCaseInsensitive
-                                                                         error:nil];//测试出生日期的合法性
-            }
-            numberofMatch = [regularExpression numberOfMatchesInString:value
-                                                              options:NSMatchingReportProgress
-                                                                range:NSMakeRange(0, value.length)];
- 
-            
-            if(numberofMatch >0) {
-                int S = ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue) *7 + ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue) *9 + ([value  substringWithRange:NSMakeRange(2,1)].intValue + [value substringWithRange:NSMakeRange(12,1)].intValue) *10 + ([value substringWithRange:NSMakeRange(3,1)].intValue + [value substringWithRange:NSMakeRange(13,1)].intValue) *5 + ([value substringWithRange:NSMakeRange(4,1)].intValue + [value substringWithRange:NSMakeRange(14,1)].intValue) *8 + ([value substringWithRange:NSMakeRange(5,1)].intValue + [value substringWithRange:NSMakeRange(15,1)].intValue) *4 + ([value substringWithRange:NSMakeRange(6,1)].intValue + [value substringWithRange:NSMakeRange(16,1)].intValue) *2 + [value substringWithRange:NSMakeRange(7,1)].intValue *1 + [value substringWithRange:NSMakeRange(8,1)].intValue *6 + [value substringWithRange:NSMakeRange(9,1)].intValue *3;
-                int Y = S %11;
-                NSString *M =@"F";
-                NSString *JYM =@"10X98765432";
-                M = [JYM substringWithRange:NSMakeRange(Y,1)];// 判断校验位
-                if ([M isEqualToString:[value substringWithRange:NSMakeRange(17,1)]]) {
-                    return YES;// 检测ID的校验位
-                }else {
-                    return NO;
-                }
-                
-            }else {
-                return NO;
-            }
-        default:
-            return false;
-    }
-}
+//- (BOOL)validateIDCardNumber:(NSString *)value {
+//    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    
+//    int length =0;
+//    if (!value) {
+//        return NO;
+//    }else {
+//        length = value.length;
+//        
+//        if (length !=15 && length !=18) {
+//            return NO;
+//        }
+//    }
+//    if([[value substringFromIndex:17] isEqualToString:@"x"]){
+//        value = [NSString stringWithFormat:@"%@X",[value substringToIndex:17]];
+//    }
+//    
+//    // 省份代码
+//    NSArray *areasArray =@[@"11",@"12", @"13",@"14", @"15",@"21", @"22",@"23", @"31",@"32", @"33",@"34", @"35",@"36", @"37",@"41", @"42",@"43", @"44",@"45", @"46",@"50", @"51",@"52", @"53",@"54", @"61",@"62", @"63",@"64", @"65",@"71", @"81",@"82", @"91"];
+//    
+//    NSString *valueStart2 = [value substringToIndex:2];
+//    BOOL areaFlag =NO;
+//    for (NSString *areaCode in areasArray) {
+//        if ([areaCode isEqualToString:valueStart2]) {
+//            areaFlag =YES;
+//            break;
+//        }
+//    }
+//    
+//    if (!areaFlag) {
+//        return false;
+//    }
+//    
+//    
+//    NSRegularExpression *regularExpression;
+//    NSUInteger numberofMatch;
+//    
+//    int year =0;
+//    switch (length) {
+//        case 15:
+//            year = [value substringWithRange:NSMakeRange(6,2)].intValue +1900;
+//            
+//            if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
+//                
+//                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}$"
+//                                                                       options:NSRegularExpressionCaseInsensitive
+//                                                                         error:nil];//测试出生日期的合法性
+//            }else {
+//                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}$"
+//                                                                       options:NSRegularExpressionCaseInsensitive
+//                                                                         error:nil];//测试出生日期的合法性
+//            }
+//            numberofMatch = [regularExpression numberOfMatchesInString:value
+//                                                              options:NSMatchingReportProgress
+//                                                                range:NSMakeRange(0, value.length)];
+//            
+//            if(numberofMatch >0) {
+//                return YES;
+//            }else {
+//                return NO;
+//            }
+//        case 18:
+//            
+//            year = [value substringWithRange:NSMakeRange(6,4)].intValue;
+//            if (year %4 ==0 || (year %100 ==0 && year %4 ==0)) {
+//                
+//                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|[1-2][0-9]))[0-9]{3}[0-9Xx]$"
+//                                                                       options:NSRegularExpressionCaseInsensitive
+//                                                                         error:nil];//测试出生日期的合法性
+//            }else {
+//                regularExpression = [[NSRegularExpression alloc]initWithPattern:@"^[1-9][0-9]{5}19[0-9]{2}((01|03|05|07|08|10|12)(0[1-9]|[1-2][0-9]|3[0-1])|(04|06|09|11)(0[1-9]|[1-2][0-9]|30)|02(0[1-9]|1[0-9]|2[0-8]))[0-9]{3}[0-9Xx]$"
+//                                                                       options:NSRegularExpressionCaseInsensitive
+//                                                                         error:nil];//测试出生日期的合法性
+//            }
+//            numberofMatch = [regularExpression numberOfMatchesInString:value
+//                                                              options:NSMatchingReportProgress
+//                                                                range:NSMakeRange(0, value.length)];
+// 
+//            
+//            if(numberofMatch >0) {
+//                int S = ([value substringWithRange:NSMakeRange(0,1)].intValue + [value substringWithRange:NSMakeRange(10,1)].intValue) *7 + ([value substringWithRange:NSMakeRange(1,1)].intValue + [value substringWithRange:NSMakeRange(11,1)].intValue) *9 + ([value  substringWithRange:NSMakeRange(2,1)].intValue + [value substringWithRange:NSMakeRange(12,1)].intValue) *10 + ([value substringWithRange:NSMakeRange(3,1)].intValue + [value substringWithRange:NSMakeRange(13,1)].intValue) *5 + ([value substringWithRange:NSMakeRange(4,1)].intValue + [value substringWithRange:NSMakeRange(14,1)].intValue) *8 + ([value substringWithRange:NSMakeRange(5,1)].intValue + [value substringWithRange:NSMakeRange(15,1)].intValue) *4 + ([value substringWithRange:NSMakeRange(6,1)].intValue + [value substringWithRange:NSMakeRange(16,1)].intValue) *2 + [value substringWithRange:NSMakeRange(7,1)].intValue *1 + [value substringWithRange:NSMakeRange(8,1)].intValue *6 + [value substringWithRange:NSMakeRange(9,1)].intValue *3;
+//                int Y = S %11;
+//                NSString *M =@"F";
+//                NSString *JYM =@"10X98765432";
+//                M = [JYM substringWithRange:NSMakeRange(Y,1)];// 判断校验位
+//                if ([M isEqualToString:[value substringWithRange:NSMakeRange(17,1)]]) {
+//                    return YES;// 检测ID的校验位
+//                }else {
+//                    return NO;
+//                }
+//                
+//            }else {
+//                return NO;
+//            }
+//        default:
+//            return false;
+//    }
+//}
 
 - (void)setPageData:(AddressData *)data{
     
@@ -607,9 +608,9 @@
         town = strArr[2];
     }
     _detailAddrLab.text = data.deliveryDetail;
-    if(![NSString isBlankString:data.idCardNum]){
-        _idNumber.placeholder = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
-    }
+//    if(![NSString isBlankString:data.idCardNum]){
+//        _idNumber.placeholder = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
+//    }
     
 //    _idNumber.text = data.idCardNum;
     [_defaultSwitch setOn: data.orDefault];

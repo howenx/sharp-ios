@@ -9,7 +9,6 @@
 #import "ToRegistViewController.h"
 #import "ReturnResult.h"
 #import "RegistViewController.h"
-#import "ToLosePwdViewController.h"
 #import "LosePwdViewController.h"
 @interface ToRegistViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneLab;
@@ -144,6 +143,7 @@
         
         if(returnResult.code == 4003){//未注册
             RegistViewController * rvc = [[RegistViewController alloc]init];
+            rvc.comeFrom = self.comeFrom;
             rvc.phone = _phoneLab.text;
             [self.navigationController pushViewController:rvc animated:YES];
 
@@ -174,6 +174,7 @@
     _verifyBg.hidden = YES;
     LosePwdViewController * lpvc = [[LosePwdViewController alloc]init];
     lpvc.phone = _phoneLab.text;
+    lpvc.comeFrom = self.comeFrom;
     [self.navigationController pushViewController:lpvc animated:YES];
 }
 //验证手机号

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GoodsDetailViewController">
@@ -30,9 +30,9 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rW-8I-H9N">
                             <rect key="frame" x="248" y="0.0" width="127" height="50"/>
-                            <color key="backgroundColor" red="0.94117647058823528" green="0.18823529411764706" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.99215686274509807" green="0.81568627450980391" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="立即购买">
-                                <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -45,7 +45,7 @@
                                 <constraint firstAttribute="width" constant="30" id="52n-Cl-521"/>
                                 <constraint firstAttribute="height" constant="30" id="blf-3a-fbo"/>
                             </constraints>
-                            <state key="normal" image="gs_tab_selected.png">
+                            <state key="normal" image="shopping_cart_top.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -54,22 +54,15 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7N-pE-Kny">
                             <rect key="frame" x="121" y="0.0" width="127" height="50"/>
-                            <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="加入购物车">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="addToShoppingCart:" destination="-1" eventType="touchUpInside" id="Jns-cA-1fj"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hkk-YT-9Sg" userLabel="line">
-                            <rect key="frame" x="60" y="0.0" width="1" height="50"/>
-                            <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="1" id="vsu-qM-FtN"/>
-                            </constraints>
-                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrv-Rz-bet">
                             <rect key="frame" x="61" y="0.0" width="60" height="50"/>
                             <constraints>
@@ -80,29 +73,28 @@
                                 <action selector="collectClick:" destination="-1" eventType="touchUpInside" id="tkX-xq-ofw"/>
                             </connections>
                         </button>
+                        <view alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTG-1g-YHg">
+                            <rect key="frame" x="120" y="10" width="1" height="30"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="h7N-pE-Kny" firstAttribute="leading" secondItem="wrv-Rz-bet" secondAttribute="trailing" id="0KH-kb-6yT"/>
                         <constraint firstItem="VjO-Xy-kVG" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" constant="10" id="3Vt-X2-Ajj"/>
                         <constraint firstAttribute="bottom" secondItem="h7N-pE-Kny" secondAttribute="bottom" id="4xl-yD-TiJ"/>
                         <constraint firstAttribute="bottom" secondItem="wrv-Rz-bet" secondAttribute="bottom" id="5aC-i7-nau"/>
                         <constraint firstItem="VjO-Xy-kVG" firstAttribute="leading" secondItem="8K1-YV-4gu" secondAttribute="leading" constant="15" id="8Ce-m3-QAc"/>
-                        <constraint firstAttribute="bottom" secondItem="Hkk-YT-9Sg" secondAttribute="bottom" id="DWg-qO-zyG"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="FkA-7w-dhr"/>
                         <constraint firstAttribute="bottom" secondItem="6rW-8I-H9N" secondAttribute="bottom" id="IDS-rT-bZh"/>
                         <constraint firstItem="h7N-pE-Kny" firstAttribute="leading" secondItem="wrv-Rz-bet" secondAttribute="trailing" id="Li5-5R-Api"/>
-                        <constraint firstItem="Hkk-YT-9Sg" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="15" id="N3A-Mz-k2R"/>
-                        <constraint firstItem="wrv-Rz-bet" firstAttribute="leading" secondItem="Hkk-YT-9Sg" secondAttribute="trailing" id="Oia-eT-Uyz"/>
                         <constraint firstAttribute="trailing" secondItem="6rW-8I-H9N" secondAttribute="trailing" id="Vl5-Mf-JBW"/>
                         <constraint firstAttribute="height" constant="50" id="WLC-LG-kVE"/>
-                        <constraint firstItem="wrv-Rz-bet" firstAttribute="leading" secondItem="Hkk-YT-9Sg" secondAttribute="trailing" id="aSs-vt-vUV"/>
-                        <constraint firstItem="Hkk-YT-9Sg" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="aoy-VD-22t"/>
                         <constraint firstItem="h7N-pE-Kny" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="bYm-75-HUg"/>
                         <constraint firstItem="wrv-Rz-bet" firstAttribute="top" secondItem="8K1-YV-4gu" secondAttribute="top" id="dz3-Kg-fZd"/>
-                        <constraint firstItem="Hkk-YT-9Sg" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="15" id="gXe-zY-VhM"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" id="rvd-Ce-MIX"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="width" secondItem="h7N-pE-Kny" secondAttribute="width" id="s2D-c4-MuN"/>
+                        <constraint firstItem="wrv-Rz-bet" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="16" id="sGN-ej-rEM"/>
                         <constraint firstItem="h7N-pE-Kny" firstAttribute="leading" secondItem="VjO-Xy-kVG" secondAttribute="trailing" constant="16" id="tv4-6r-KZm"/>
                         <constraint firstItem="6rW-8I-H9N" firstAttribute="leading" secondItem="h7N-pE-Kny" secondAttribute="trailing" id="zWa-di-sww"/>
                     </constraints>
@@ -127,7 +119,7 @@
         </view>
     </objects>
     <resources>
-        <image name="grayStore.png" width="22" height="20"/>
-        <image name="gs_tab_selected.png" width="20" height="20"/>
+        <image name="grayStore.png" width="19" height="18"/>
+        <image name="shopping_cart_top.png" width="21" height="19"/>
     </resources>
 </document>

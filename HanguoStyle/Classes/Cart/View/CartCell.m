@@ -43,7 +43,7 @@
     [self.goodsImage sd_setImageWithURL:[NSURL URLWithString:data.invImg]];
     self.title.text = data.invTitle;
 
-    self.price.text = [NSString stringWithFormat:@"￥%.2f",data.itemPrice];
+    self.price.text = [NSString stringWithFormat:@"%.2f",data.itemPrice];
     self.colorAndSizeLab.text = [NSString stringWithFormat:@"%@  %@",data.itemColor,data.itemSize];
     
     if(data.amount == 1){
@@ -57,7 +57,7 @@
     self.jiaBtn.enabled=YES;
     self.stateBtn.alpha=1;
     self.jiaBtn.alpha=1;
-    self.stateBtn.imageEdgeInsets = UIEdgeInsetsMake(50,5,50,5);
+    self.stateBtn.imageEdgeInsets = UIEdgeInsetsMake(49,10,49,3);
     if([@"I" isEqualToString: data.state]){//未选中
         [self.stateBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
         self.shixiaoImageView.hidden = YES;

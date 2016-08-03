@@ -47,7 +47,7 @@
     
     
 
-    self.view.backgroundColor = GGColor(240, 240, 240);
+    self.view.backgroundColor = GGBgColor;
     
     
     [self createSettingView];

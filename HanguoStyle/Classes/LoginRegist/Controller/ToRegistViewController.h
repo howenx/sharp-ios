@@ -7,5 +7,5 @@
 //
 #import "BaseViewController.h"
 @interface ToRegistViewController : BaseViewController
-
+@property(nonatomic,copy) NSString * comeFrom;
 @end

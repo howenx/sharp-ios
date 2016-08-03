@@ -25,13 +25,7 @@
 +(CGSize)getSize:(NSString *)str Font:(float)sizeofstr Width:(float)width Height:(float)height
 {
     CGSize size;
-    if ([[[UIDevice currentDevice] systemVersion]floatValue] >= 7.0) {
-        size = [str boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:sizeofstr]} context:nil].size;
-    }
-    else
-    {
-        size = [str sizeWithFont:[UIFont systemFontOfSize:sizeofstr]constrainedToSize:CGSizeMake(width, height)];
-    }
+    size = [str boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingTruncatesLastVisibleLine| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:sizeofstr]} context:nil].size;
     return size;
 }
 
