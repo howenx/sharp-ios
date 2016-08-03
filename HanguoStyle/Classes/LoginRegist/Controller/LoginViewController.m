@@ -42,6 +42,7 @@
 @property (nonatomic) UIView * verifyView;
 @property (nonatomic) UITextField * textF;
 
+
 @end
 
 @implementation LoginViewController

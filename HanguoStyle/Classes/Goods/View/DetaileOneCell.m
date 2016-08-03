@@ -137,7 +137,7 @@
     if(data.publicity != nil){
         UIView * line = [[UIView alloc]initWithFrame:CGRectMake(15, -8, GGUISCREENWIDTH-15, 1)];
         line.backgroundColor= [UIColor blackColor];
-        line.alpha = 0.15;
+        line.alpha = 0.06;
         [_publicityView addSubview:line];
         for(int i = 0;i<data.publicity.count;i++){
             

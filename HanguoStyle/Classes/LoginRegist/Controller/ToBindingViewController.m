@@ -22,6 +22,14 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    //左上角添加按钮
+    UIButton * leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,10,20)];
+    [leftButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(back)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * leftButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftButtonItem;
+
+    
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"绑定手机号";
     
@@ -32,7 +40,13 @@
     
     [self createNoRegistView];
 }
-
+-(void)back{
+    [_phoneLab resignFirstResponder];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

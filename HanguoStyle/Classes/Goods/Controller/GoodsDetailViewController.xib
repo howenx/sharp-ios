@@ -73,7 +73,7 @@
                                 <action selector="collectClick:" destination="-1" eventType="touchUpInside" id="tkX-xq-ofw"/>
                             </connections>
                         </button>
-                        <view alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTG-1g-YHg">
+                        <view alpha="0.059999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTG-1g-YHg">
                             <rect key="frame" x="120" y="10" width="1" height="30"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>

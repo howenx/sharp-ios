@@ -17,7 +17,7 @@
 #import "TableHeadView.h"
 
 
-@interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate>
+@interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate,TableHeadViewDelegate>
 {
     BOOL isLogin;
     FMDatabase * database;
@@ -484,6 +484,7 @@
 {
     
     TableHeadView * tableHeadView = [[TableHeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
+    tableHeadView.delegate = self;
     [tableHeadView setTag:2000 + section];
     tableHeadView.cartData = (CartData *)_data[section];
 
@@ -724,9 +725,6 @@
 -(void)sendSelectData:(CartDetailData *)data{
     
     
-    
-    
-    
     [self updataNotify];
     if([@"I" isEqualToString: data.state]){
         selectCount = selectCount - data.amount;
@@ -769,22 +767,24 @@
     for (int i=0; i<_data.count; i++) {
         CartData * cData = _data[i];
         if([cData.invArea isEqualToString:data.invArea]){
-            if([@"I" isEqualToString: data.state]){
-                cData.selectPostalTaxRate =  cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
-            }else if([@"G" isEqualToString: data.state]){
-                cData.selectPostalTaxRate =  cData.selectPostalTaxRate + data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
-            }
             TableHeadView *tableHeadView = (TableHeadView *)[self.tableView viewWithTag:2000 + i];
-            if(cData.selectPostalTaxRate>cData.postalStandard){//如果行邮税大于行邮税标准，则用正常的行邮税，否则，免税
-                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.selectPostalTaxRate] ;
-            }else{
-                if([@"-0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]] || [@"0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]]){
-                    tableHeadView.postalTaxLabel.text = @"免税";
-                }else{
-                    tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f(免)",cData.selectPostalTaxRate] ;
-                }
-                
-            }
+            [tableHeadView setCartData:cData];
+//            if([@"I" isEqualToString: data.state]){
+//                cData.selectPostalTaxRate =  cData.selectPostalTaxRate - data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
+//            }else if([@"G" isEqualToString: data.state]){
+//                cData.selectPostalTaxRate =  cData.selectPostalTaxRate + data.itemPrice * data.amount * [data.postalTaxRate floatValue] * 0.01;
+//            }
+//            TableHeadView *tableHeadView = (TableHeadView *)[self.tableView viewWithTag:2000 + i];
+//            if(cData.selectPostalTaxRate>cData.postalStandard){//如果行邮税大于行邮税标准，则用正常的行邮税，否则，免税
+//                tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f",cData.selectPostalTaxRate] ;
+//            }else{
+//                if([@"-0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]] || [@"0.0" isEqualToString:[NSString stringWithFormat:@"%.1f",cData.selectPostalTaxRate]]){
+//                    tableHeadView.postalTaxLabel.text = @"免税";
+//                }else{
+//                    tableHeadView.postalTaxLabel.text = [NSString stringWithFormat:@"行邮税￥%.2f(免)",cData.selectPostalTaxRate] ;
+//                }
+//                
+//            }
 
         }
     }
@@ -814,21 +814,7 @@
     
 }
 
--(void)updataCart {
-    
-    [database beginTransaction];
-    if(isSelectAll){
-        [database executeUpdate:@"UPDATE Shopping_Cart SET state = ?",@"G"];
-    }else{
-        [database executeUpdate:@"UPDATE Shopping_Cart SET state = ?",@"I"];
-    }
-    
 
-      //提交事务
-    [database commit];
-    
-    
-}
 
 
 
