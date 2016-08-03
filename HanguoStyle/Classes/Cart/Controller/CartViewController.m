@@ -58,10 +58,21 @@
 @implementation CartViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
+    
+
+    
     [self headerRefresh];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSArray * views  = self.navigationController.navigationBar.subviews;
+    for (UIView * view in views) {
+        if ([view isKindOfClass:[UIView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     database = [PublicMethod shareDatabase];
