@@ -66,7 +66,7 @@
     _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont systemFontOfSize:10];
-    _cntLabel.backgroundColor = GGMainColor;
+    _cntLabel.backgroundColor = GGRedColor;
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;

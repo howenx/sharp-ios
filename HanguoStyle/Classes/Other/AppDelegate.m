@@ -37,7 +37,7 @@ static NSString *appId = @"wx578f993da4b29f97";
 
 @implementation AppDelegate
 -(void) umConfig{
-    [UMSocialData setAppKey:@"567bb26867e58e3f670002fd"];
+    [UMSocialData setAppKey:@"57a3078a67e58e1233000816"];//567bb26867e58e3f670002fd
     [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:@"http://www.umeng.com/social"];
     [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:@"http://www.drama.wang"];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"794664710" secret:@"0dc274fafeabec336673331c633a115e" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];

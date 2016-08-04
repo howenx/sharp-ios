@@ -105,9 +105,9 @@
             
             [self.tableView reloadData];
             if (_pageNum == 0) {
-                [totalBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
-                [obligationBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [totalBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
 
                 [_totalView addSubview:_tableView];
                 [_totalView addSubview:_bgView];
@@ -118,9 +118,9 @@
                 }
                 
             }else if(_pageNum == 1){
-                [totalBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-                [obligationBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
-                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+                [totalBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
                 [_obligationView addSubview:_tableView];
                 [_obligationView addSubview:_bgView];
                 if(self.data.count == 0){
@@ -130,9 +130,9 @@
                 }
                 
             }else if(_pageNum == 2){
-                [totalBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-                [obligationBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-                [receiptGoodsBtn setTitleColor:UIColorFromRGB(0xff5359) forState:UIControlStateNormal];
+                [totalBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+                [obligationBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+                [receiptGoodsBtn setTitleColor:GGMainColor forState:UIControlStateNormal];
                 [_receiptGoodsView addSubview:_tableView];
                 [_receiptGoodsView addSubview:_bgView];
                 if(self.data.count == 0){
@@ -169,7 +169,7 @@
     totalBtn.tag = 15000;
     totalBtn.frame = CGRectMake(10, 10, (GGUISCREENWIDTH-20)/3, 20);
     [totalBtn setTitle:@"未使用" forState:UIControlStateNormal];
-    [totalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [totalBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
     totalBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [totalBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -178,7 +178,7 @@
     obligationBtn.tag = 15001;
     obligationBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)/3, 10, (GGUISCREENWIDTH-20)/3, 20);
     [obligationBtn setTitle:@"已使用" forState:UIControlStateNormal];
-    [obligationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [obligationBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
     obligationBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [obligationBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -188,7 +188,7 @@
     receiptGoodsBtn.tag= 15002;
     receiptGoodsBtn.frame = CGRectMake(10 + (GGUISCREENWIDTH-20)*2/3, 10, (GGUISCREENWIDTH-20)/3, 20);
     [receiptGoodsBtn setTitle:@"已过期" forState:UIControlStateNormal];
-    [receiptGoodsBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [receiptGoodsBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
     receiptGoodsBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
     [receiptGoodsBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -201,7 +201,7 @@
     
     
     _lineView = [[UIView alloc]initWithFrame:CGRectMake(10, 40-2, (GGUISCREENWIDTH-20)/3, 2)];
-    _lineView.backgroundColor = UIColorFromRGB(0Xff5359);
+    _lineView.backgroundColor = GGMainColor;
     [barView addSubview:_lineView];
     [self.view addSubview:barView];
     

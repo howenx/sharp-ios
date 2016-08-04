@@ -23,7 +23,7 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zq2-LS-K9O">
                     <rect key="frame" x="0.0" y="22" width="375" height="546"/>
-                    <color key="backgroundColor" red="0.95686274509803915" green="0.98431372549019602" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="i5M-Pr-FkT" id="bdT-kL-GLV"/>
                         <outlet property="delegate" destination="i5M-Pr-FkT" id="xxf-Vr-3A1"/>
@@ -86,7 +86,7 @@
                         <constraint firstAttribute="trailing" secondItem="zd2-Lu-uY9" secondAttribute="trailing" id="yJp-yn-hmt"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    友情提示：同一保税区商品总额有限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1v-d2-9Ch" userLabel="notifyLabel">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="友情提示：同一保税区商品总额有限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1v-d2-9Ch" userLabel="notifyLabel">
                     <rect key="frame" x="32" y="0.0" width="343" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="KPp-PO-zpO"/>

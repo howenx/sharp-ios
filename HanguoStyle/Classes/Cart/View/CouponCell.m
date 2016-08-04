@@ -31,17 +31,22 @@
     
     _data = data;
     
-    UIView * couponView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 50)];
+    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 10)];
+    backView.backgroundColor = GGBgColor;
+    [self.contentView addSubview:backView];
+    
+    
+    UIView * couponView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, GGUISCREENWIDTH, 50)];
     [self.contentView addSubview:couponView];
 
     UILabel *  titleLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH/2, 50)];
     titleLab.text = @"可使用优惠券(每次限一张)";
-    titleLab.font = [UIFont systemFontOfSize:14];
-    titleLab.textColor = [UIColor grayColor];
+    titleLab.font = [UIFont systemFontOfSize:15];
+    titleLab.textColor = GGTextBlackColor;
     [couponView addSubview:titleLab];
     
     
-    _couponLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2-50, 50)];
+    _couponLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2-39, 50)];
     if([_coupon isEqualToString:@"0"]){
         _couponLab.text = @"不使用优惠券";
     }else{
@@ -57,7 +62,7 @@
     
     
     _editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-50, 0, 40, 50);
+    _editBtn.frame = CGRectMake(GGUISCREENWIDTH-29, 0, 19, 50);
     
     if(_isCouponEdit){
         [_editBtn setImage:[UIImage imageNamed:@"icon_more_up_hui"] forState:UIControlStateNormal];
@@ -67,24 +72,22 @@
     [couponView addSubview:_editBtn];
     
     
-    UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(0, 49, GGUISCREENWIDTH, 1)];
-    line2.backgroundColor = GGBgColor;
-    [couponView addSubview:line2];
+    
     if(_isCouponEdit){
         int couponCount = (int)data.couponsArray.count;
-        UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 50, GGUISCREENWIDTH, (couponCount+1)*40)];
-        selectView.backgroundColor = GGBgColor;
+        UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 60, GGUISCREENWIDTH, (couponCount+1)*40)];
+        selectView.backgroundColor = GGNavColor;
         [self.contentView addSubview:selectView];
         
         
         ResetButton * oneBtn = [ResetButton buttonWithType:UIButtonTypeCustom];
-        oneBtn.frame = CGRectMake(10, 0, GGUISCREENWIDTH-10, 40);
+        oneBtn.frame = CGRectMake(0, 0, GGUISCREENWIDTH, 40);
         [oneBtn setTitle:@"不使用优惠券" forState:UIControlStateNormal];
-        [oneBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        oneBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [oneBtn setTitleColor:UIColorFromRGB(0x4f4f4f) forState:UIControlStateNormal];
+        oneBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         
         [oneBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-        [oneBtn setImage:[UIImage imageNamed:@"red_select"] forState:UIControlStateSelected];
+        [oneBtn setImage:[UIImage imageNamed:@"green_select"] forState:UIControlStateSelected];
         [oneBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         oneBtn.tag = 10000;
         if([_coupon isEqualToString:@"0"]){
@@ -109,13 +112,13 @@
             
             
             ResetButton * btn = [ResetButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = CGRectMake(10, 40 * i, GGUISCREENWIDTH-10, 40);
+            btn.frame = CGRectMake(0, 40 * i, GGUISCREENWIDTH, 40);
             [btn setTitle:str forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            [btn setTitleColor:UIColorFromRGB(0x4f4f4f) forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
             
             [btn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"red_select"] forState:UIControlStateSelected];
+            [btn setImage:[UIImage imageNamed:@"green_select"] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = 10000+i;
             if([_coupon isEqualToString:couponsData.denomination]){
@@ -123,22 +126,24 @@
             }
             [selectView addSubview:btn];
             if(i < data.couponsArray.count){
-                UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, btn.y + btn.height - 1, GGUISCREENWIDTH, 0.5)];
-                line.backgroundColor = UIColorFromRGB(0xd2d2d2);
+                UIView * line = [[UIView alloc]initWithFrame:CGRectMake(10, btn.y + btn.height - 1, GGUISCREENWIDTH-10, 0.5)];
+                line.backgroundColor = UIColorFromRGB(0x000000);
+                line.alpha = 0.06;
                 [selectView addSubview:line];
             }
         }
     }else{
-        UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 50, GGUISCREENWIDTH, 10)];
-        backView.backgroundColor = GGBgColor;
-        [self.contentView addSubview:backView];
+        UIView * line2 = [[UIView alloc]initWithFrame:CGRectMake(10, 49, GGUISCREENWIDTH-10, 0.5)];
+        line2.backgroundColor = UIColorFromRGB(0x000000);
+        line2.alpha = 0.06;
+        [couponView addSubview:line2];
     }
     
     
     UIView * lastView = [[UIView alloc]init];
     
     if(_isCouponEdit){
-        lastView.frame = CGRectMake(0, 50 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 80);
+        lastView.frame = CGRectMake(0, 60 + ((int)data.couponsArray.count + 1) * 40 , GGUISCREENWIDTH, 80);
     }else{
         lastView.frame = CGRectMake(0, 60, GGUISCREENWIDTH, 80);
     }
@@ -149,18 +154,19 @@
     [lastView addSubview:totalView];
     UILabel * totalLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
     totalLab.text = @"商品总价";
-    totalLab.font = [UIFont systemFontOfSize:14];
-    totalLab.textColor = [UIColor grayColor];
+    totalLab.font = [UIFont systemFontOfSize:15];
+    totalLab.textColor = GGTextBlackColor;
     [totalView addSubview:totalLab];
     
     UILabel * totalPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
     totalPriceLab.text = [NSString stringWithFormat:@"￥%@",_realityPay];
     totalPriceLab.textAlignment = NSTextAlignmentRight;
-    totalPriceLab.font = [UIFont systemFontOfSize:14];
-    totalPriceLab.textColor = GGMainColor;
+    totalPriceLab.font = [UIFont systemFontOfSize:13];
+    totalPriceLab.textColor = GGRedColor;
     [totalView addSubview:totalPriceLab];
-    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
-    line4.backgroundColor = GGBgColor;
+    UIView * line4 = [[UIView alloc]initWithFrame:CGRectMake(10, 40 - 1, GGUISCREENWIDTH-10, 0.5)];
+    line4.backgroundColor = UIColorFromRGB(0x000000);
+    line4.alpha = 0.06;
     [totalView addSubview:line4];
     
     
@@ -171,16 +177,16 @@
     [lastView addSubview:discountAmtView];
     UILabel * discountAmtLab = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, 150, 40)];
     discountAmtLab.text = @"优惠金额";
-    discountAmtLab.font = [UIFont systemFontOfSize:14];
-    discountAmtLab.textColor = [UIColor grayColor];
+    discountAmtLab.font = [UIFont systemFontOfSize:15];
+    discountAmtLab.textColor = GGTextBlackColor;
     [discountAmtView addSubview:discountAmtLab];
     
     discountAmtPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-100, 0, 90, 40)];
     discountAmtPriceLab.text = [NSString stringWithFormat:@"￥%@",_coupon];
 
     discountAmtPriceLab.textAlignment = NSTextAlignmentRight;
-    discountAmtPriceLab.font = [UIFont systemFontOfSize:14];
-    discountAmtPriceLab.textColor = GGMainColor;
+    discountAmtPriceLab.font = [UIFont systemFontOfSize:13];
+    discountAmtPriceLab.textColor = GGRedColor;
     [discountAmtView addSubview:discountAmtPriceLab];
 //    UIView * line5 = [[UIView alloc]initWithFrame:CGRectMake(0, 40 - 1, GGUISCREENWIDTH, 1)];
 //    line5.backgroundColor = GGBgColor;

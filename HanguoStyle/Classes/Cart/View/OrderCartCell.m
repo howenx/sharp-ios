@@ -42,9 +42,10 @@
     headLab.text = orderDetailData.invAreaNm;
     headLab.font = [UIFont systemFontOfSize:15];
     headLab.textColor = [UIColor grayColor];
-    headLab.textAlignment = NSTextAlignmentCenter;
-    UIView * backView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 39, GGUISCREENWIDTH, 1)];
-    backView1.backgroundColor = GGBgColor;
+    headLab.textAlignment = NSTextAlignmentLeft;
+    UIView * backView1 = [[UIView alloc]initWithFrame:CGRectMake(10, 39, GGUISCREENWIDTH-10, 1)];
+    backView1.backgroundColor = UIColorFromRGB(0x000000);
+    backView1.alpha = 0.06;
     [self.contentView addSubview:backView1];
 
     [view addSubview:headLab];
@@ -66,7 +67,6 @@
         titleLabel.font = [UIFont systemFontOfSize:14];
         titleLabel.numberOfLines = 2;
         titleLabel.text = cdData.invTitle;
-//        titleLabel.textColor = [UIColor grayColor];
         [cartView addSubview:titleLabel];
         
         
@@ -75,7 +75,7 @@
         priceLabel.font = [UIFont systemFontOfSize:15];
         priceLabel.numberOfLines = 1;
         priceLabel.text = [NSString stringWithFormat:@"￥%.2f",cdData.itemPrice];
-        priceLabel.textColor = GGMainColor;
+        priceLabel.textColor = GGRedColor;
         [cartView addSubview:priceLabel];
         
         
@@ -84,11 +84,11 @@
         amountLabel.font = [UIFont systemFontOfSize:13];
         amountLabel.numberOfLines = 1;
         amountLabel.textColor = [UIColor grayColor];
-        amountLabel.text = [NSString stringWithFormat:@"购买数量:%li",(long)cdData.amount];
+        amountLabel.text = [NSString stringWithFormat:@"购买数量:%li件",(long)cdData.amount];
         [cartView addSubview:amountLabel];
         
         
-        UIView * backView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 99, GGUISCREENWIDTH, 1)];
+        UIView * backView2 = [[UIView alloc]initWithFrame:CGRectMake(10, 100, GGUISCREENWIDTH-10, 0.5)];
         backView2.backgroundColor = GGBgColor;
         [cartView addSubview:backView2];
         

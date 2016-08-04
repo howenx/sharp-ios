@@ -13,12 +13,14 @@
 //@property (weak, nonatomic) IBOutlet UILabel *idCardNumLab;
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
 @property (weak, nonatomic) IBOutlet UIImageView *defaultImage;
-@property (weak, nonatomic) IBOutlet UILabel *defaultLab;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 - (IBAction)updateAddrBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *setButton;
 @property (weak, nonatomic) IBOutlet UIImageView *jumpImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailLabHConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *morenImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *consigneeWConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *dizhiImageView;
 
 @end
 @implementation AddressCell
@@ -35,6 +37,11 @@
 
     _data = data;
     self.consigneeLab.text = data.name;
+    
+    CGSize consigneeSize  = [PublicMethod getSize:self.consigneeLab.text Font:13 Width:GGUISCREENWIDTH-180 Height:21];
+    _consigneeWConstraint.constant = consigneeSize.width+1;
+    
+    
     self.phoneNumLab.text = [NSString stringWithFormat:@"%@****%@",[data.tel substringToIndex:3],[data.tel substringFromIndex:8]];
 //    self.idCardNumLab.text = [NSString stringWithFormat:@"%@****%@",[data.idCardNum substringToIndex:10],[data.idCardNum substringFromIndex:14]];
 //    self.idCardNumLab.text = data.idCardNum;
@@ -46,9 +53,11 @@
         _detailLabHConstraint.constant = size.height+1;//不加1不显示下一行
     }
     if (data.orDefault) {
-        self.defaultLab.hidden = NO;
+        self.morenImageView.hidden = NO;
+        self.dizhiImageView.hidden = NO;
     }else{
-        self.defaultLab.hidden = YES;
+        self.morenImageView.hidden = YES;
+        self.dizhiImageView.hidden = YES;
     }
     if(data.isOrderDefault){
         self.defaultImage.image = [UIImage imageNamed:@"defaultSelect"];
@@ -59,6 +68,7 @@
         self.jumpImageView.image = [UIImage imageNamed:@"icon_more_hui"];
         self.setButton.hidden = YES;
         self.defaultImage.hidden = YES;
+        self.dizhiImageView.hidden = NO;
     }
     if ([@"order" isEqualToString:self.comeFrom]) {
         self.titleImageView.hidden = YES;

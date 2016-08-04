@@ -43,7 +43,7 @@
     [self.contentView addSubview:self.bgImageView_];
     
     self.bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-    self.bgView.backgroundColor = UIColorFromRGB(0xf4fbf8);
+    self.bgView.backgroundColor = GGBgColor;
     [self.contentView addSubview:self.bgView];
 }
 

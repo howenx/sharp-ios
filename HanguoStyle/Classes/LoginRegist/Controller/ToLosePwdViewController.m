@@ -30,7 +30,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    //左上角添加按钮
+    UIButton * leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,10,20)];
+    [leftButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(back)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * leftButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftButtonItem;
+    
     self.tabBarController.tabBar.hidden=YES;
     self.navigationItem.title = @"找回密码";
     _textF = [[UITextField alloc]init];
@@ -45,6 +51,13 @@
     [self createVerifyView];
     [self createNoRegistView];
 
+}
+-(void)back{
+    [_phoneLab resignFirstResponder];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+    
 }
 //通过委托来放弃第一响应者
 //点击键盘上的return键调用的代理方法

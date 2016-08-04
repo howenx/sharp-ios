@@ -94,24 +94,28 @@
 
 }
 -(void) createFootView{
-    _payLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH/2, _footView.height)];
-    _payLab.backgroundColor = [UIColor grayColor];
+    
+    _payLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH-120, _footView.height)];
     _payLab.textAlignment = NSTextAlignmentCenter;
-    _payLab.font = [UIFont systemFontOfSize:14];
-    _payLab.textColor = [UIColor whiteColor];
+    _payLab.font = [UIFont systemFontOfSize:17];
+    _payLab.textColor = GGRedColor;
 //    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] + [self.orderData.factPortalFee floatValue] + [self.orderData.factShipFee floatValue]];
-    _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue]];
+    _payLab.text = [NSString stringWithFormat:@"总金额：￥%.2f",[_realityPay floatValue]];
     [_footView addSubview:_payLab];
     
     _payBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _payBtn.backgroundColor = GGMainColor;
-    _payBtn.frame = CGRectMake(GGUISCREENWIDTH/2, 0, GGUISCREENWIDTH/2,  _footView.height);
-    [_payBtn setTitle:@"去支付" forState:UIControlStateNormal];
-    _payBtn.titleLabel.textColor = [UIColor whiteColor];
-    _payBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    _payBtn.frame = CGRectMake(GGUISCREENWIDTH-120, 0, 120,  _footView.height);
+    [_payBtn setTitle:@"提交订单" forState:UIControlStateNormal];
+    [_payBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+    _payBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     [_payBtn addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
     [_footView addSubview:_payBtn];
+    
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 0.5)];
+    line.backgroundColor = GGBgColor;
+    [_footView addSubview:line];
+    
 }
 - (void)payBtnClick{
     if(![PublicMethod isConnectionAvailable]){
@@ -262,7 +266,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row == 0){
-        return 110;
+        return 100;
     }
     if (indexPath.row == 1) {
         if(bottom == 0){
@@ -331,7 +335,7 @@
     if (isCouponEdit){
 
         int couponCount = (int)_orderData.couponsArray.count;
-        rowFourH = 90 + couponCount * 40 + 80;
+        rowFourH = 100 + couponCount * 40 + 80;
         
     }else{
         rowFourH = 60 + 80;
@@ -370,10 +374,10 @@
     _couponId = couponId;
     
     if([_realityPay floatValue]-[couponFlag floatValue]<1){
-        _payLab.text = [NSString stringWithFormat:@"应支付：￥1"];
+        _payLab.text = [NSString stringWithFormat:@"总金额：￥1"];
         _noticeLab.hidden = NO;
     }else{
-        _payLab.text = [NSString stringWithFormat:@"应支付：￥%.2f",[_realityPay floatValue] -[couponFlag floatValue]];
+        _payLab.text = [NSString stringWithFormat:@"总金额：￥%.2f",[_realityPay floatValue] -[couponFlag floatValue]];
         _noticeLab.hidden = YES;
     }
 

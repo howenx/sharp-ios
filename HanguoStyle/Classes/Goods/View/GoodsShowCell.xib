@@ -15,14 +15,14 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5e-6D-kJx" userLabel="leftView">
                         <rect key="frame" x="0.0" y="0.0" width="5" height="210"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="0.98431372549019602" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="5" id="guo-ap-moW"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCx-Ga-wIa" userLabel="rightView">
                         <rect key="frame" x="235" y="0.0" width="5" height="210"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="0.98431372549019602" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="5" id="ScY-1s-6JL"/>
                         </constraints>

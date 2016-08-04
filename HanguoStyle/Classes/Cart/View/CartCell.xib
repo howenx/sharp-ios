@@ -73,7 +73,7 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view alpha="0.14999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGP-q6-lqJ" userLabel="line">
+                    <view alpha="0.059999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGP-q6-lqJ" userLabel="line">
                         <rect key="frame" x="38" y="0.0" width="283" height="1"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>

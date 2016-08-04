@@ -194,7 +194,7 @@
     if(_scrollArr.count>1){
         
         UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120 + BUTTONHigh+5)];
-        bgView.backgroundColor = UIColorFromRGB(0xf4fbf8);
+        bgView.backgroundColor = GGBgColor;
         
         NSMutableArray * imageArr = [NSMutableArray array];
         HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120)];
@@ -256,39 +256,39 @@
         
         
         UIView * rowView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 0.5)];
-        rowView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        rowView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         [downView addSubview:rowView1];
 
         //线
         UIView * rowView2 = [[UIView alloc]initWithFrame:CGRectMake(0, (BUTTONHigh-15)/2, GGUISCREENWIDTH, 0.5)];
-        rowView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        rowView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         [downView addSubview:rowView2];
         
         UIView * rowView3 = [[UIView alloc]initWithFrame:CGRectMake(0, BUTTONHigh-15-0.5, GGUISCREENWIDTH, 0.5)];
-        rowView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        rowView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         [downView addSubview:rowView3];
         
         //竖着3根线
         
         UIView * locView1 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)-0.5, 0, 0.5, BUTTONHigh-15)];
-        locView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        locView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         [downView addSubview:locView1];
         
         
         UIView * locView2 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*2, 0, 0.5, BUTTONHigh-15)];
-        locView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        locView2.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         
         [downView addSubview:locView2];
         
         UIView * locView3 = [[UIView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH/4)*3, 0, 0.5, BUTTONHigh-15)];
-        locView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.15];
+        locView3.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.06];
         [downView addSubview:locView3];
 
         _tableView.tableHeaderView = bgView;
     }else if(_scrollArr.count == 1){
         
         UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120 + BUTTONHigh)];
-        bgView.backgroundColor = UIColorFromRGB(0xf4fbf8);
+        bgView.backgroundColor = GGBgColor;
         
         UIView * heView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH,  120)];
         UIImageView *imv = [[UIImageView alloc] initWithFrame:heView.frame];

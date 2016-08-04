@@ -14,7 +14,7 @@
 
 {
     
-    return CGRectMake(60, 0, 200, contentRect.size.height);
+    return CGRectMake(15, 0, 200, contentRect.size.height);
     
 }
 
@@ -23,7 +23,7 @@
 
 {
 
-    return CGRectMake(10, 10, 20, 20);
+    return CGRectMake(GGUISCREENWIDTH-28, 14, 13, 13);
     
 }
 @end

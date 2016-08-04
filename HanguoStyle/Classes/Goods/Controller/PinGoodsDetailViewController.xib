@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PinGoodsDetailViewController">
@@ -29,6 +29,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57h-Ev-6jb">
                             <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="kBF-cM-W8D"/>
                                 <constraint firstAttribute="width" constant="60" id="maO-n4-jod"/>
@@ -43,11 +44,12 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0W-nT-HET">
                             <rect key="frame" x="61" y="0.0" width="157" height="50"/>
-                            <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="O1d-CE-dcp"/>
                             </constraints>
                             <state key="normal" title="立即开团">
+                                <color key="titleColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -56,25 +58,36 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrg-IF-cFC">
                             <rect key="frame" x="218" y="0.0" width="157" height="50"/>
-                            <color key="backgroundColor" red="0.94117647058823528" green="0.18823529411764706" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.99215686274509807" green="0.81568627450980391" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="AP3-sE-qPA"/>
                             </constraints>
                             <state key="normal" title="单独购买">
+                                <color key="titleColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="singleBuy:" destination="-1" eventType="touchUpInside" id="Jcz-eZ-7Bh"/>
                             </connections>
                         </button>
+                        <view alpha="0.059999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lfs-Q3-hYE">
+                            <rect key="frame" x="60" y="0.0" width="1" height="50"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="1" id="Tzd-Ry-gUR"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="57h-Ev-6jb" firstAttribute="leading" secondItem="xYa-6B-crT" secondAttribute="leading" id="6Sq-62-eIr"/>
+                        <constraint firstItem="Lfs-Q3-hYE" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="AmZ-re-rLo"/>
                         <constraint firstItem="xrg-IF-cFC" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="BKa-lf-HGh"/>
                         <constraint firstItem="xrg-IF-cFC" firstAttribute="leading" secondItem="T0W-nT-HET" secondAttribute="trailing" id="VFH-w1-GJI"/>
                         <constraint firstAttribute="trailing" secondItem="xrg-IF-cFC" secondAttribute="trailing" id="Z7D-f0-IpN"/>
+                        <constraint firstAttribute="bottom" secondItem="Lfs-Q3-hYE" secondAttribute="bottom" id="ZQg-WH-DFw"/>
                         <constraint firstItem="T0W-nT-HET" firstAttribute="top" secondItem="xYa-6B-crT" secondAttribute="top" id="ZnF-ZR-oL7"/>
+                        <constraint firstItem="Lfs-Q3-hYE" firstAttribute="leading" secondItem="57h-Ev-6jb" secondAttribute="trailing" id="fOK-BA-1IB"/>
                         <constraint firstItem="T0W-nT-HET" firstAttribute="leading" secondItem="57h-Ev-6jb" secondAttribute="trailing" constant="1" id="gAY-El-Urz"/>
                         <constraint firstAttribute="height" constant="50" id="rB4-qm-hJ6"/>
                         <constraint firstAttribute="centerY" secondItem="57h-Ev-6jb" secondAttribute="centerY" id="tSH-3e-EN1"/>
@@ -97,6 +110,6 @@
         </view>
     </objects>
     <resources>
-        <image name="grayStore.png" width="22" height="20"/>
+        <image name="grayStore.png" width="19" height="18"/>
     </resources>
 </document>
