@@ -143,7 +143,6 @@
 		80294E401C2A93F800B70713 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80294E3F1C2A93F800B70713 /* MyOrderViewController.m */; };
 		802A33FC1C75716800C7AF28 /* PinDetailOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 802A33FA1C75716800C7AF28 /* PinDetailOneCell.m */; };
 		802A33FD1C75716800C7AF28 /* PinDetailOneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 802A33FB1C75716800C7AF28 /* PinDetailOneCell.xib */; };
-		802A34011C75B0F700C7AF28 /* pingou_wanfa.png in Resources */ = {isa = PBXBuildFile; fileRef = 802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */; };
 		802EEFE01BDE370D00AC1EF1 /* ThreeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 802EEFDE1BDE370D00AC1EF1 /* ThreeViewCell.m */; };
 		802EEFE11BDE370D00AC1EF1 /* ThreeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 802EEFDF1BDE370D00AC1EF1 /* ThreeViewCell.xib */; };
 		8037D8831BF03127003A2C4B /* DetailThreeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8037D8821BF03127003A2C4B /* DetailThreeCell.m */; };
@@ -229,6 +228,9 @@
 		806F82FB1CA92CF200C4DCB4 /* CollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806F82F91CA92CF200C4DCB4 /* CollectCell.xib */; };
 		806F82FF1CA92D4300C4DCB4 /* CollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 806F82FC1CA92D4300C4DCB4 /* CollectViewController.m */; };
 		806F83001CA92D4300C4DCB4 /* CollectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806F82FD1CA92D4300C4DCB4 /* CollectViewController.xib */; };
+		80746CB31D5336AD00B63D45 /* pingou_wanfa.png in Resources */ = {isa = PBXBuildFile; fileRef = 80746CB01D5336AD00B63D45 /* pingou_wanfa.png */; };
+		80746CB41D5336AD00B63D45 /* pingou_wanfa@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80746CB11D5336AD00B63D45 /* pingou_wanfa@2x.png */; };
+		80746CB51D5336AD00B63D45 /* pingou_wanfa@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80746CB21D5336AD00B63D45 /* pingou_wanfa@3x.png */; };
 		807493B81D51E5F8005AE8BB /* green_select.png in Resources */ = {isa = PBXBuildFile; fileRef = 807493B51D51E5F8005AE8BB /* green_select.png */; };
 		807493B91D51E5F8005AE8BB /* green_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807493B61D51E5F8005AE8BB /* green_select@2x.png */; };
 		807493BA1D51E5F8005AE8BB /* green_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807493B71D51E5F8005AE8BB /* green_select@3x.png */; };
@@ -778,7 +780,6 @@
 		802A33F91C75716800C7AF28 /* PinDetailOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinDetailOneCell.h; sourceTree = "<group>"; };
 		802A33FA1C75716800C7AF28 /* PinDetailOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinDetailOneCell.m; sourceTree = "<group>"; };
 		802A33FB1C75716800C7AF28 /* PinDetailOneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinDetailOneCell.xib; sourceTree = "<group>"; };
-		802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pingou_wanfa.png; sourceTree = "<group>"; };
 		802EEFDD1BDE370D00AC1EF1 /* ThreeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeViewCell.h; sourceTree = "<group>"; };
 		802EEFDE1BDE370D00AC1EF1 /* ThreeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeViewCell.m; sourceTree = "<group>"; };
 		802EEFDF1BDE370D00AC1EF1 /* ThreeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThreeViewCell.xib; sourceTree = "<group>"; };
@@ -896,6 +897,9 @@
 		806F82FC1CA92D4300C4DCB4 /* CollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectViewController.m; sourceTree = "<group>"; };
 		806F82FD1CA92D4300C4DCB4 /* CollectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectViewController.xib; sourceTree = "<group>"; };
 		806F82FE1CA92D4300C4DCB4 /* CollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectViewController.h; sourceTree = "<group>"; };
+		80746CB01D5336AD00B63D45 /* pingou_wanfa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pingou_wanfa.png; sourceTree = "<group>"; };
+		80746CB11D5336AD00B63D45 /* pingou_wanfa@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pingou_wanfa@2x.png"; sourceTree = "<group>"; };
+		80746CB21D5336AD00B63D45 /* pingou_wanfa@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pingou_wanfa@3x.png"; sourceTree = "<group>"; };
 		807493B51D51E5F8005AE8BB /* green_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_select.png; sourceTree = "<group>"; };
 		807493B61D51E5F8005AE8BB /* green_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_select@2x.png"; sourceTree = "<group>"; };
 		807493B71D51E5F8005AE8BB /* green_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_select@3x.png"; sourceTree = "<group>"; };
@@ -2277,10 +2281,12 @@
 				B019E3611CB4B2B200574DE3 /* message */,
 				B0307D601CB3A9320017C38F /* pintuan */,
 				B0705ED91CAA167400E86A30 /* setting */,
-				802A33FF1C75B0F700C7AF28 /* pingou_wanfa.png */,
 				808B21621CE05740008DFEDB /* mj.gif */,
 				8010346E1CCA18C6004F9CF7 /* hmm.gif */,
 				80162CBF1CE4196E00DFA08D /* logo.png */,
+				80746CB01D5336AD00B63D45 /* pingou_wanfa.png */,
+				80746CB11D5336AD00B63D45 /* pingou_wanfa@2x.png */,
+				80746CB21D5336AD00B63D45 /* pingou_wanfa@3x.png */,
 				807493B51D51E5F8005AE8BB /* green_select.png */,
 				807493B61D51E5F8005AE8BB /* green_select@2x.png */,
 				807493B71D51E5F8005AE8BB /* green_select@3x.png */,
@@ -2998,7 +3004,6 @@
 				806DF2351D49AD9700EB61A7 /* gs_tab@3x.png in Resources */,
 				B0705EF61CAA168200E86A30 /* System-update@2x.png in Resources */,
 				80FDB8581CA4D6E2006D5CB0 /* icon_nan@3x.png in Resources */,
-				802A34011C75B0F700C7AF28 /* pingou_wanfa.png in Resources */,
 				808D47C31D4F34C600B9753E /* unselected.png in Resources */,
 				806DF2591D4A051E00EB61A7 /* redStore@3x.png in Resources */,
 				B04C7BC81CBF9675000B3B4C /* xing@3x.png in Resources */,
@@ -3231,9 +3236,11 @@
 				80C40AEB1D4C9022004E41F8 /* eye_2@2x.png in Resources */,
 				B0B755161CD0556F00BA1539 /* good_evaluate_normal@3x.png in Resources */,
 				802139211D0675B600CC081F /* shoppingcart@2x.png in Resources */,
+				80746CB51D5336AD00B63D45 /* pingou_wanfa@3x.png in Resources */,
 				80C472BD1D509BF0001DE7FB /* dingwei@3x.png in Resources */,
 				B04C7BB81CBF5FD8000B3B4C /* yiyong@3x.png in Resources */,
 				8069E4BB1BC7B1EF00742D8F /* CartViewController.xib in Resources */,
+				80746CB31D5336AD00B63D45 /* pingou_wanfa.png in Resources */,
 				B06794F11CB66A8400545A16 /* fanye@2x.png in Resources */,
 				80FDB8951CA538C8006D5CB0 /* defaultSelect@3x.png in Resources */,
 				8010346F1CCA18C6004F9CF7 /* hmm.gif in Resources */,
@@ -3287,6 +3294,7 @@
 				809D26DD1BCBA9A200C71445 /* GoodsPackCell.xib in Resources */,
 				80F659A81CF591D800204270 /* ios-social-sdk-login-detail.html in Resources */,
 				80FDB8AB1CA538C8006D5CB0 /* icon_more_hui@3x.png in Resources */,
+				80746CB41D5336AD00B63D45 /* pingou_wanfa@2x.png in Resources */,
 				80113B9D1CAB66870010B4E9 /* 3@2x.png in Resources */,
 				80ED26EC1C0E873400F75B14 /* UpdateUserInfoViewController.xib in Resources */,
 				806F82FB1CA92CF200C4DCB4 /* CollectCell.xib in Resources */,

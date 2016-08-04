@@ -35,10 +35,10 @@
     _scrollArr = data.itemPreviewImgs;
     self.titleLab.text = data.pinTitle;
     CGSize size  = [PublicMethod getSize:data.pinTitle Font:14 Width:GGUISCREENWIDTH-20 Height:1000];
-    _detailConstraint.constant = size.height;
-    _footViewConstraint.constant = 187 + size.height;
+    _detailConstraint.constant = size.height+1;
+    _footViewConstraint.constant = 110 + size.height + 1 + GGUISCREENWIDTH/5;//GGUISCREENWIDTH/5是拼团玩法的高度
     if([self.delegate respondsToSelector:@selector(getOneCellH:)]){
-        [self.delegate getOneCellH:(GGUISCREENWIDTH + 187 + size.height)];
+        [self.delegate getOneCellH:(GGUISCREENWIDTH + 110 + size.height + 1 + GGUISCREENWIDTH/5)];
     }
 
     self.alreadySaleLab.text = [NSString stringWithFormat:@"已售：%ld件",(long)data.soldAmount];

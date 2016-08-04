@@ -76,7 +76,7 @@
     if(_isCouponEdit){
         int couponCount = (int)data.couponsArray.count;
         UIView * selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 60, GGUISCREENWIDTH, (couponCount+1)*40)];
-        selectView.backgroundColor = UIColorFromRGB(0xf9f9f9);
+        selectView.backgroundColor = GGNavColor;
         [self.contentView addSubview:selectView];
         
         

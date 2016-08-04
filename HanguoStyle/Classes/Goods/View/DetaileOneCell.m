@@ -54,9 +54,15 @@
             CGSize costPriceSize  = [PublicMethod getSize:_costPriceLab.text Font:12 Width:GGUISCREENWIDTH-100 Height:1000];
             _costPriceConstraint.constant = costPriceSize.width+1;
             
+            
             _currentPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemPrice];
             CGSize currentPriceSize  = [PublicMethod getSize:_currentPriceLab.text Font:21 Width:GGUISCREENWIDTH-100 Height:1000];
             _currentPriceConstraint.constant = currentPriceSize.width+1;
+            
+            NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_currentPriceLab.text];
+            [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0,1)];
+            _currentPriceLab.attributedText = str;
+            
             
             itemDiscountCount = (int)[sizeData.itemDiscount length] + 3;
             if([NSString isBlankString:sizeData.itemDiscount]){

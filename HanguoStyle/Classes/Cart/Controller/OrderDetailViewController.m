@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"订单详情";
-    self.view.backgroundColor = GGBgColor;
+    self.view.backgroundColor = GGNavColor;
     self.automaticallyAdjustsScrollViewInsets = NO;
     //只有已取消的订单才能删除
     if ([_orderData.orderInfo.orderStatus isEqualToString:@"C"]||[_orderData.orderInfo.orderStatus isEqualToString:@"T"]) {
@@ -343,7 +343,7 @@
         UILabel * orderPriceLab = [[UILabel alloc]initWithFrame:CGRectMake(90, hei + 55, GGUISCREENWIDTH-100, 20)];
         orderPriceLab.numberOfLines = 1;
         orderPriceLab.font = [UIFont systemFontOfSize:12];
-        orderPriceLab.textColor = GGMainColor;
+        orderPriceLab.textColor = GGRedColor;
         orderPriceLab.text = [NSString stringWithFormat:@"￥%@",skuData.price];
         [orderDetailView addSubview:orderPriceLab];
         
@@ -552,7 +552,10 @@
             [refundView addSubview:stateLab];
             
         }else
-        {
+        {   UIView * footLine = [[UIView alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-64-50, GGUISCREENWIDTH, 1)];
+            footLine.backgroundColor = GGBgColor;
+            [self.view addSubview:footLine];
+
             UIButton * looutMoneyButton = [[UIButton alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-110, GGUISCREENHEIGHT-64-40, 100, 30)];
             [looutMoneyButton setTitleColor:GGMainColor forState:UIControlStateNormal];
             [looutMoneyButton.layer setBorderColor:GGMainColor.CGColor];
@@ -568,6 +571,10 @@
     }
     
     if([_orderData.orderInfo.orderStatus isEqualToString:@"I"]){
+        
+        UIView * footLine = [[UIView alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-64-50, GGUISCREENWIDTH, 1)];
+        footLine.backgroundColor = GGBgColor;
+        [self.view addSubview:footLine];
         //取消订单
         cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [cancelBtn.layer setMasksToBounds:YES];
@@ -598,6 +605,11 @@
 
     }
     if([_orderData.orderInfo.orderStatus isEqualToString:@"R"]){
+        
+        UIView * footLine = [[UIView alloc]initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-64-50, GGUISCREENWIDTH, 1)];
+        footLine.backgroundColor = GGBgColor;
+        [self.view addSubview:footLine];
+        
         //查看物流
         ckwlBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [ckwlBtn.layer setMasksToBounds:YES];
