@@ -45,7 +45,7 @@
     [self.dianImageView_ addSubview:self.dianLabel_];
     
     
-    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top, GGUISCREENWIDTH - wight - 2*space - 15 -150-15, 34/2)];
+    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top+3, GGUISCREENWIDTH - wight - 2*space - 15 -150-15, 34/2)];
     self.titleLabel_.font = [UIFont boldSystemFontOfSize:17];
     self.titleLabel_.textColor = [UIColor blackColor];
     [self.contentView addSubview:self.titleLabel_];

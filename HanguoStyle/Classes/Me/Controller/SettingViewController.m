@@ -52,7 +52,7 @@
         exitBtn.backgroundColor = GGMainColor;
         [exitBtn setTitle:@"退 出" forState:UIControlStateNormal];
         exitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [exitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [exitBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
         [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
         
         [footerView addSubview:exitBtn];
@@ -101,7 +101,7 @@
                     cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"关于我们"];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"about_us"]];
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     //                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     [cell.contentView addSubview:iv];
                 }
@@ -112,7 +112,7 @@
                     
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"opinion"]];
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     [cell.contentView addSubview:iv];
                 }
                     break;
@@ -121,7 +121,7 @@
                     cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"联系客服"];
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"contact-us"]];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     [cell.contentView addSubview:iv];
                     
                 }
@@ -144,7 +144,7 @@
                     }
                     
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"clean"]];
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     [cell.contentView addSubview:iv];
                 }
                     break;
@@ -153,7 +153,7 @@
                     cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"版本号"];
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", kSAAPPVERSION];
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"System-update"]];
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     [cell.contentView addSubview:iv];
                 }
                     break;
@@ -162,7 +162,7 @@
                     cell.textLabel.text = [NSString stringWithFormat:@"            %@", @"评分"];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mark"]];
-                    iv.frame = CGRectMake(18, 19, 18, 18);
+                    iv.frame = CGRectMake(18, (50-18)/2, 18, 18);
                     [cell.contentView addSubview:iv];
                 }
                     break;

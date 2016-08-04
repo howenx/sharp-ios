@@ -38,6 +38,15 @@
     [super didReceiveMemoryWarning];
 }
 -(void) createView{
+    
+    self.view.backgroundColor = UIColorFromRGB(0xf4f4f4);
+    
+    UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 200)];
+    bgView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bgView];
+    
+    
+    
 
     
     UILabel * photoLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, GGUISCREENWIDTH-70, 40)];
@@ -46,7 +55,7 @@
     photoLabelTitle.font = [UIFont systemFontOfSize:14];
     photoLabelTitle.userInteractionEnabled = YES;
     [photoLabelTitle addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
-    [self.view addSubview:photoLabelTitle];
+    [bgView addSubview:photoLabelTitle];
     
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 //    button.frame = CGRectMake(10, 64, 100, 40);
@@ -63,31 +72,31 @@
     _smallimage.layer.cornerRadius = 15;
     _smallimage.userInteractionEnabled = YES;
     [_smallimage addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
-    [self.view addSubview:_smallimage];
+    [bgView addSubview:_smallimage];
     
-    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 9, 20, 20)];
+    UIImageView * jianImageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 10, 20, 20)];
     jianImageView1.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView1.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView1.tag = 10003;
     jianImageView1.userInteractionEnabled = YES;
     [jianImageView1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTapAction)]];
-    [self.view addSubview:jianImageView1];
+    [bgView addSubview:jianImageView1];
     
-    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 8)];
-    lineView.backgroundColor =  GGBgColor;
-    [self.view addSubview:lineView];
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 40, GGUISCREENWIDTH, 0.5)];
+    lineView.backgroundColor =  [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+    [bgView addSubview:lineView];
     
-    UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 48,  90, 40)];
+    UILabel * nameLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 40.5,  90, 40)];
     nameLabelTitle.text = @"昵称";
     nameLabelTitle.tag = 10005;
     nameLabelTitle.font = [UIFont systemFontOfSize:14];
     nameLabelTitle.userInteractionEnabled = YES;
     [nameLabelTitle addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
-    [self.view addSubview:nameLabelTitle];
+    [bgView addSubview:nameLabelTitle];
     
     
     
-    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 48, GGUISCREENWIDTH-130, 40)];
+    _nameLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 40.5, GGUISCREENWIDTH-130, 40)];
     _nameLab.tag = 10006;
     _nameLab.textAlignment = NSTextAlignmentRight;
     _nameLab.text = self.userName;
@@ -95,30 +104,30 @@
     _nameLab.userInteractionEnabled = YES;
     [_nameLab addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
 
-    [self.view addSubview:_nameLab];
-    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 57, 20, 20)];
+    [bgView addSubview:_nameLab];
+    UIImageView * jianImageView0 = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, PosYFromView(lineView, 10), 20, 20)];
     jianImageView0.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView0.tag = 10004;
     jianImageView0.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView0.userInteractionEnabled = YES;
     [jianImageView0 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nameTapAction)]];
-    [self.view addSubview:jianImageView0];
+    [bgView addSubview:jianImageView0];
     
-    UIView * lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 88, GGUISCREENWIDTH, 8)];
-    lineView1.backgroundColor = GGBgColor;
-    [self.view addSubview:lineView1];
+    UIView * lineView1 = [[UIView alloc]initWithFrame:CGRectMake(0, 80.5, GGUISCREENWIDTH, 0.5)];
+    lineView1.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+    [bgView addSubview:lineView1];
     
     
-    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 96, GGUISCREENWIDTH - 40, 40)];
+    UILabel * sexLabelTitle = [[UILabel alloc]initWithFrame:CGRectMake(10, 80.5, GGUISCREENWIDTH - 40, 40)];
     sexLabelTitle.text = @"性别";
     sexLabelTitle.tag = 10007;
     sexLabelTitle.font = [UIFont systemFontOfSize:14];
     sexLabelTitle.userInteractionEnabled = YES;
     [sexLabelTitle addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
-    [self.view addSubview:sexLabelTitle];
+    [bgView addSubview:sexLabelTitle];
     
 
-    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 96, 20, 40)];
+    _gLabel = [[UILabel alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-60, 80.5, 20, 40)];
     [_gLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
     _gLabel.font = [UIFont systemFontOfSize:15];
     _gLabel.tag = 10008;
@@ -127,35 +136,38 @@
     [self.view addSubview:_gLabel];
 
     
-    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, 108, 20, 20)];
+    UIImageView * jianImageView = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-30, PosYFromView(lineView1, 10), 20, 20)];
     jianImageView.contentMode = UIViewContentModeScaleAspectFit;
     jianImageView.image = [UIImage imageNamed:@"icon_more_hui"];
     jianImageView.tag = 10009;
     jianImageView.userInteractionEnabled = YES;
     [jianImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sexTapAction)]];
-    [self.view addSubview:jianImageView];
+    [bgView addSubview:jianImageView];
     
-    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 136, GGUISCREENWIDTH, 8)];
-    lineView2.backgroundColor =  GGBgColor;
-    [self.view addSubview:lineView2];
+    UIView * lineView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 121, GGUISCREENWIDTH, 0.5)];
+    lineView2.backgroundColor =  [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+    [bgView addSubview:lineView2];
 
-    UILabel * telLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 96+48, 40, 40)];
+    UILabel * telLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 121, 40, 40)];
     telLabel.text = @"电话";
     telLabel.tag = 10010;
     telLabel.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:telLabel];
+    [bgView addSubview:telLabel];
     
-    UILabel * telLabelNum = [[UILabel alloc]initWithFrame:CGRectMake(50, 96+48, GGUISCREENWIDTH-50-20, 40)];
+    UILabel * telLabelNum = [[UILabel alloc]initWithFrame:CGRectMake(50, 121, GGUISCREENWIDTH-50-20, 40)];
     telLabelNum.text = [self.tel stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
     telLabelNum.textColor = [UIColor lightGrayColor];
     telLabelNum.textAlignment = NSTextAlignmentRight;
     telLabelNum.tag = 10011;
     telLabelNum.font = [UIFont systemFontOfSize:14];
-    [self.view addSubview:telLabelNum];
+    [bgView addSubview:telLabelNum];
     
-    UIView * lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 136+12+36, GGUISCREENWIDTH, 8)];
-    lineView3.backgroundColor =  GGBgColor;
-    [self.view addSubview:lineView3];
+    UIView * lineView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 121+40.5, GGUISCREENWIDTH, 0.5)];
+    lineView3.backgroundColor =  [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF))/255.0 alpha:0.3];
+    [bgView addSubview:lineView3];
+    
+    
+    bgView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, PosYFromView(lineView3, 0));
     
 //    UIButton *saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    saveButton.backgroundColor = GGMainColor;
