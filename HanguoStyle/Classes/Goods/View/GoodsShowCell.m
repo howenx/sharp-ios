@@ -153,7 +153,7 @@
     
 -(void)drawRectFlag:(MasterItemTagData *)data andIndex:(NSInteger) index{
 
-    CGRect rect = CGRectMake(self.bounds.size.width * data.left , self.bounds.size.width/2 * data.top, 8, 8);
+    CGRect rect = CGRectMake(GGUISCREENWIDTH * data.left , _data.height*GGUISCREENWIDTH/_data.width * data.top, 8, 8);
     
    
     UIButton * animationBG = [UIButton buttonWithType:UIButtonTypeSystem];

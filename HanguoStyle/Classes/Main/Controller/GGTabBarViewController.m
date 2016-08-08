@@ -56,7 +56,7 @@
     newTabBar.delegate = self;
     [self.tabBar addSubview:newTabBar];
     
-    //加一条黑线
+    //导航条下面加一条黑线
     UIView * lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)];
     lineView.backgroundColor = UIColorFromRGB(0xe8e8e8);
     [self.tabBar addSubview:lineView];

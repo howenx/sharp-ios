@@ -43,7 +43,10 @@
 //        self.shareImg = [mainDict objectForKey:@"shareImg"];
         
         self.itemNotice = [mainDict objectForKey:@"itemNotice"];
-        self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
+        if(![NSString isNSNull:[mainDict objectForKey:@"publicity"]]){
+            self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
+        }
+        
         if(![NSString isNSNull:[node objectForKey:@"comment"]]&&[node objectForKey:@"comment"]!=nil){
             self.remarkRate = [[node objectForKey:@"comment"]objectForKey:@"remarkRate"];
             self.remarkCount = [[[node objectForKey:@"comment"]objectForKey:@"remarkCount"]longValue];

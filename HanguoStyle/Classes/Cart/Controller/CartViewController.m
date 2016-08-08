@@ -449,7 +449,7 @@
         }
         //海外直邮和国内直邮不限制金额
         if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"] && ![cData.invArea isEqualToString:@"NK"]){
-            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
+            _notifyLab.text = [NSString stringWithFormat:@"提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }
@@ -722,11 +722,11 @@
         }
     }
     if(selectAreaCount > 1){
-        _notifyLab.text = @"    提示：单次购买，只能购买同一保税区商品";
+        _notifyLab.text = @"提示：单次购买，只能购买同一保税区商品";
         _goSettle.enabled = NO;
         _goSettle.backgroundColor = [UIColor grayColor];
     }else{
-        _notifyLab.text = @"    友情提示：同一保税区商品总额有限";
+        _notifyLab.text = @"友情提示：同一保税区商品总额有限";
         _goSettle.enabled = YES;
         _goSettle.backgroundColor = GGMainColor;
     }
@@ -815,7 +815,7 @@
             }
         }
         if(invAreaAmount>[cData.postalLimit floatValue] && ![cData.invArea isEqualToString:@"K"] && ![cData.invArea isEqualToString:@"NK"]){
-            _notifyLab.text = [NSString stringWithFormat:@"    提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
+            _notifyLab.text = [NSString stringWithFormat:@"提示：%@仓库的商品总金额超过￥%@",cData.invAreaNm,cData.postalLimit];
             _goSettle.enabled = NO;
             _goSettle.backgroundColor = [UIColor grayColor];
         }

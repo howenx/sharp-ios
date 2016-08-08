@@ -121,7 +121,7 @@
         
         [myDict setObject:[NSNumber numberWithLong:_data.skuTypeId] forKey:@"skuTypeId"];
         [myDict setObject:_data.skuType forKey:@"skuType"];
-        //未修改之前未勾选给后台传想要勾选
+        //未勾选给后台传想要勾选（orcheck是修改状态时候才给后台传N，请求数据时候是传@”“）
         if([@"I" isEqualToString: _data.state]){
             [myDict setObject:@"Y" forKey:@"orCheck"];
         }else if([@"G" isEqualToString: _data.state]){

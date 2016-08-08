@@ -28,8 +28,9 @@
         self.itemDetailImgs = [mainDict objectForKey:@"itemDetailImgs"];
         self.itemFeatures = [[mainDict objectForKey:@"itemFeatures"] objectFromJSONString];
         self.itemNotice = [mainDict objectForKey:@"itemNotice"];
-        self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
-        
+        if(![NSString isNSNull:[mainDict objectForKey:@"publicity"]]){
+            self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
+        }
         
         NSDictionary * stockDict = [node objectForKey:@"stock"];
         

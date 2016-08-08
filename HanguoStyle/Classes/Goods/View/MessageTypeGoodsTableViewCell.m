@@ -41,7 +41,7 @@
     self.countLabel_ =[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH -10 - 40 - 16 , (H-22)/2, 40, 22)];
     self.countLabel_.font = [UIFont boldSystemFontOfSize:21];
     self.countLabel_.textAlignment =  NSTextAlignmentRight;
-    self.countLabel_.textColor = UIColorFromRGB(0xff5359);
+    self.countLabel_.textColor = GGRedColor;
     [self.contentView addSubview:self.countLabel_];
     
     

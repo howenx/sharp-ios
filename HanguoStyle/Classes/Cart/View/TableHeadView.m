@@ -55,7 +55,10 @@
         if([@"G" isEqualToString: cdData.state]){
             selectCount = selectCount + cdData.amount;
         }
-        goodAmount = goodAmount + cdData.amount;
+        if(![@"S" isEqualToString: cdData.state]){
+            goodAmount = goodAmount + cdData.amount;
+        }
+        
     }
     if( selectCount == goodAmount){
         isSelectAll = YES;

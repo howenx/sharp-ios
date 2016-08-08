@@ -119,7 +119,7 @@
     moneyLabel = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(detailLabel2, 0), 15, 200, 16)];
     moneyLabel.text = self.orderData.orderInfo.payTotal;
     moneyLabel.font = [UIFont systemFontOfSize:15];
-    moneyLabel.textColor  = UIColorFromRGB(0xff5359);
+    moneyLabel.textColor  = GGRedColor;
     [bg2View addSubview:moneyLabel];
     
     UIView * bg3View = [[UIView alloc]initWithFrame:CGRectMake(0, PosYFromView(bg2View, 15), SCREEN_WIDTH, 290/2)];
