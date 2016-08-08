@@ -55,7 +55,7 @@
                                 <constraint firstAttribute="width" constant="120" id="Ya6-1h-t2c"/>
                             </constraints>
                             <state key="normal" title="结算">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -87,7 +87,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="友情提示：同一保税区商品总额有限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1v-d2-9Ch" userLabel="notifyLabel">
-                    <rect key="frame" x="32" y="0.0" width="343" height="22"/>
+                    <rect key="frame" x="38" y="0.0" width="343" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="KPp-PO-zpO"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="xAD-FX-6bX"/>
@@ -96,13 +96,17 @@
                     <color key="textColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tishi.png" translatesAutoresizingMaskIntoConstraints="NO" id="GCS-Zh-9ql">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tishi.png" translatesAutoresizingMaskIntoConstraints="NO" id="GCS-Zh-9ql">
                     <rect key="frame" x="10" y="4" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="BeJ-6U-F5u"/>
+                        <constraint firstAttribute="width" constant="15" id="rLF-VN-GdE"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="d1v-d2-9Ch" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="6Z3-3X-f4m"/>
+                <constraint firstItem="d1v-d2-9Ch" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="38" id="6Z3-3X-f4m"/>
                 <constraint firstItem="ihV-n8-aJd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8H0-xT-ase"/>
                 <constraint firstAttribute="trailing" secondItem="ihV-n8-aJd" secondAttribute="trailing" id="Kyi-D8-USb"/>
                 <constraint firstItem="PMl-Aa-axV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="L1i-V3-Sop"/>
@@ -111,9 +115,11 @@
                 <constraint firstItem="zq2-LS-K9O" firstAttribute="top" secondItem="d1v-d2-9Ch" secondAttribute="bottom" id="ZWQ-Ub-rRA"/>
                 <constraint firstItem="zq2-LS-K9O" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="g4K-eW-Lmp"/>
                 <constraint firstItem="ihV-n8-aJd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="g7z-DE-eEP"/>
-                <constraint firstAttribute="trailing" secondItem="d1v-d2-9Ch" secondAttribute="trailing" id="qbx-u2-Fdn"/>
+                <constraint firstItem="GCS-Zh-9ql" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="jhg-jh-vgQ"/>
+                <constraint firstAttribute="trailing" secondItem="d1v-d2-9Ch" secondAttribute="trailing" constant="-6" id="qbx-u2-Fdn"/>
                 <constraint firstItem="PMl-Aa-axV" firstAttribute="top" secondItem="zq2-LS-K9O" secondAttribute="bottom" id="sEp-PU-G7C"/>
                 <constraint firstAttribute="bottom" secondItem="PMl-Aa-axV" secondAttribute="bottom" constant="49" id="ud0-ue-7dI"/>
+                <constraint firstItem="GCS-Zh-9ql" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="4" id="um2-KO-SBD"/>
                 <constraint firstItem="d1v-d2-9Ch" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="w61-yl-MO4"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

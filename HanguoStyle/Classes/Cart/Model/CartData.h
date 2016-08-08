@@ -27,7 +27,7 @@
 @property (nonatomic) NSString * invCustoms;//保税区
 @property (nonatomic) NSString * skuType;//
 @property (nonatomic) long skuTypeId;//
-@property (nonatomic) NSString * orCheck;//是否勾选,'Y'为已经选中,null为未勾选
+@property (nonatomic) NSString * orCheck;//是否勾选,'Y'为已经选中,null为未勾选,这是后台过来的数据
 
 @end
 @interface CartData : NSObject

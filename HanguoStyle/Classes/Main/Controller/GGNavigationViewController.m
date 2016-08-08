@@ -76,7 +76,7 @@
     [GiFHUD dismiss];
     [self popViewControllerAnimated:YES];
 }
-
+//右滑手势
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)])
