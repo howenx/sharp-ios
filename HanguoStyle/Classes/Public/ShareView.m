@@ -85,18 +85,16 @@
     float btnWidth = 48;
     float gap = (GGUISCREENWIDTH - 48*4)/5;
     UIButton * mklButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    mklButton.frame = CGRectMake(gap, 25, btnWidth, btnWidth);
+    mklButton.frame = CGRectMake(gap, 128, btnWidth, btnWidth);
     
     [mklButton setBackgroundImage:[UIImage imageNamed:@"mimeiPwd"] forState:UIControlStateNormal];
     [mklButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     mklButton.tag = 100005;
     [shareView addSubview:mklButton];
     
+    UILabel *mklLab =  [[UILabel alloc]initWithFrame:CGRectMake(gap-10 , 95 + btnWidth*2, btnWidth+20, 20)];
     
-    
-    UILabel *mklLab = [[UILabel alloc]initWithFrame:CGRectMake(gap, 40 + btnWidth, btnWidth, 20)];
-    
-    mklLab.text = @"秘口令";
+    mklLab.text = @"复制链接";
     mklLab.font = [UIFont systemFontOfSize:14];
     mklLab.numberOfLines = 0;
     mklLab.lineBreakMode = NSLineBreakByWordWrapping;
@@ -111,14 +109,16 @@
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
     {
-        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth ,25, btnWidth, btnWidth)];
+        UIButton *wxBtn =  [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx , 25, btnWidth, btnWidth)];
 //        wxBtn.layer.cornerRadius = 5;
 //        wxBtn.clipsToBounds = YES;
         wxBtn.tag = 100001;
         [wxBtn setBackgroundImage:[UIImage imageNamed:@"pengyouquan"] forState:UIControlStateNormal];
         [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wxBtn];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth , 40 + btnWidth, btnWidth, 20)];
+        
+//
+        UILabel *l =  [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx-10 , 40 + btnWidth, btnWidth+20, 20)];
         l.textColor = UIColorFromRGB(0x333333);
         l.text =@"朋友圈";
         l.textAlignment = NSTextAlignmentCenter;
@@ -134,14 +134,14 @@
     float width_hy = 0;
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi])
     {
-        UIButton *wxBtn = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx , 25, btnWidth, btnWidth)];
-//        wxBtn.layer.cornerRadius = 5;
+        UIButton *wxBtn = [[UIButton alloc]initWithFrame: CGRectMake(gap, 25, btnWidth, btnWidth)];//        wxBtn.layer.cornerRadius = 5;
 //        wxBtn.clipsToBounds = YES;
         wxBtn.tag = 100002;
         [wxBtn setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
         [wxBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wxBtn];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth + width_wx-10 , 40 + btnWidth, btnWidth+20, 20)];
+        
+        UILabel *l =  [[UILabel alloc]initWithFrame:CGRectMake(gap-10, 40 + btnWidth, btnWidth+20, 20)];
         l.textColor = UIColorFromRGB(0x333333);
         l.text =@"微信好友";
         l.textAlignment = NSTextAlignmentCenter;
@@ -179,14 +179,16 @@
     
 //    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibo://wb794664710"]])
 //    {
-        UIButton *wbButton = [[UIButton alloc]initWithFrame:CGRectMake(gap, 128, btnWidth, btnWidth)];
+    
+        UIButton *wbButton = [[UIButton alloc]initWithFrame:CGRectMake(gap*2+btnWidth+width_wx ,25, btnWidth, btnWidth)];
         //        wxBtn.layer.cornerRadius = 5;
         //        wxBtn.clipsToBounds = YES;
         wbButton.tag = 100004;
         [wbButton setBackgroundImage:[UIImage imageNamed:@"weibo"] forState:UIControlStateNormal];
         [wbButton addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:wbButton];
-        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap-10 , 95 + btnWidth*2, btnWidth+20, 20)];
+    
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(gap*2+btnWidth+ width_wx-10 , 40 + btnWidth, btnWidth+20, 20)];
         l.textColor = UIColorFromRGB(0x333333);
         l.text =@"新浪微博";
         l.textAlignment = NSTextAlignmentCenter;

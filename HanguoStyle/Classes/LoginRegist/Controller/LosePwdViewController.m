@@ -219,7 +219,7 @@
     NSString * msg = [NSString md5:[_phone stringByAppendingString:@"hmm"]] ;
     AFHTTPRequestOperationManager *manager = [PublicMethod shareNoHeadRequestManager];
     
-    [manager POST:urlString  parameters:@{@"phone":_phone,@"msg":msg} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:urlString  parameters:@{@"phone":_phone,@"msg":msg,@"smsType":@"reset"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //转换为词典数据
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         

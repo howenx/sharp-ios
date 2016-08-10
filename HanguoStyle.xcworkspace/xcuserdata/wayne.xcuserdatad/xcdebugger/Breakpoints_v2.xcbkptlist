@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HanguoStyle/Classes/LoginRegist/Controller/LoginViewController.m"
-            timestampString = "489567462.161109"
+            filePath = "HanguoStyle/Classes/LoginRegist/Controller/LosePwdViewController.m"
+            timestampString = "492427055.48277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "605"
-            endingLineNumber = "605"
-            landmarkName = "-WXLogin:"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-getTestCode"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
