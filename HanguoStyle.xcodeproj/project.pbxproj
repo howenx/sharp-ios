@@ -462,6 +462,7 @@
 		944AB0379DB243F0E9688CAF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D00DFAC7AB1D5C092084958 /* libPods.a */; };
 		B008154C1CCF0CC600A77A6F /* ShowEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B008154B1CCF0CC600A77A6F /* ShowEvaluateViewController.m */; };
 		B008154F1CCF673000A77A6F /* ShowEvaluateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B008154E1CCF673000A77A6F /* ShowEvaluateModel.m */; };
+		B0119B3F1D5972ED00A0E020 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = B0119B3E1D5972ED00A0E020 /* 0.png */; };
 		B0174EF01CACF9BB00548038 /* OrderDetailsPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0174EEF1CACF9BB00548038 /* OrderDetailsPinViewController.m */; };
 		B019E37A1CB4B2D600574DE3 /* dian.png in Resources */ = {isa = PBXBuildFile; fileRef = B019E3651CB4B2D600574DE3 /* dian.png */; };
 		B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B019E3661CB4B2D600574DE3 /* dian@2x.png */; };
@@ -1240,6 +1241,7 @@
 		B008154B1CCF0CC600A77A6F /* ShowEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowEvaluateViewController.m; sourceTree = "<group>"; };
 		B008154D1CCF673000A77A6F /* ShowEvaluateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowEvaluateModel.h; sourceTree = "<group>"; };
 		B008154E1CCF673000A77A6F /* ShowEvaluateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowEvaluateModel.m; sourceTree = "<group>"; };
+		B0119B3E1D5972ED00A0E020 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		B0174EEE1CACF9BB00548038 /* OrderDetailsPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsPinViewController.h; sourceTree = "<group>"; };
 		B0174EEF1CACF9BB00548038 /* OrderDetailsPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsPinViewController.m; sourceTree = "<group>"; };
 		B019E3651CB4B2D600574DE3 /* dian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dian.png; path = message/dian.png; sourceTree = "<group>"; };
@@ -2597,6 +2599,7 @@
 		B019E3611CB4B2B200574DE3 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				B0119B3E1D5972ED00A0E020 /* 0.png */,
 				B079BC081CB7B090003E7240 /* coupon.png */,
 				B079BC091CB7B090003E7240 /* coupon@2x.png */,
 				B079BC0A1CB7B090003E7240 /* coupon@3x.png */,
@@ -3044,6 +3047,7 @@
 				80F525411CD34CDD002AFE7A /* Overlay@2x.png in Resources */,
 				80E45C881C57594800941AC3 /* MyCouponCell.xib in Resources */,
 				80FDB89B1CA538C8006D5CB0 /* hmm_klmpintuan@3x.png in Resources */,
+				B0119B3F1D5972ED00A0E020 /* 0.png in Resources */,
 				B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */,
 				B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */,
 				80C40AEE1D4C9022004E41F8 /* qq_login@2x.png in Resources */,
