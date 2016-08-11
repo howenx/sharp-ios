@@ -24,6 +24,7 @@
 #define SERVERY2 @"http://api.hanmimei.com"
 #define SERVERY3 @"http://id.hanmimei.com"
 #define SERVERY4 @"http://promotion.hanmimei.com"
+#define SERVERY5 @"http://style.hanmimei.com"
 
 
 
@@ -38,6 +39,14 @@
 //#define SERVERY4 @"http://172.28.3.78:9005"
 
 @implementation HSGlobal
+
+//KakaoGift条款地址
++ (NSString *) shareWebUrlHead
+{
+    NSString * url = [NSString stringWithFormat:@"%@",SERVERY5];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 //KakaoGift条款地址
 + (NSString *) hmmClauseUrl

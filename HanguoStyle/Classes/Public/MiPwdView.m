@@ -128,7 +128,7 @@
     UIViewController * controller = [self getCurrentVC];
 
     NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
-    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
+    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
     
 
     if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
@@ -189,7 +189,7 @@
     NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
     
     if([array count]>=2){
-        NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:@"https://style.hanmimei.com"];
+        NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
         NSString * url ;
         
         if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
