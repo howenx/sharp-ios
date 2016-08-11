@@ -63,4 +63,5 @@
 + (NSString *) checkThreeLoginUrl;
 + (NSString *) hmmClauseUrl;
 + (NSString *) selectCustUrl;
++ (NSString *) shareWebUrlHead;
 @end

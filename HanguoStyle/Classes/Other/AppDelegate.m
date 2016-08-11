@@ -39,8 +39,8 @@ static NSString *appId = @"wx578f993da4b29f97";
 -(void) umConfig{
     [UMSocialData setAppKey:@"57a3078a67e58e1233000816"];//567bb26867e58e3f670002fd
     [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:@"http://www.umeng.com/social"];
-    [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:@"http://www.drama.wang"];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"794664710" secret:@"0dc274fafeabec336673331c633a115e" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialQQHandler setQQWithAppId:@"1105528933" appKey:@"ol91kgFhNfSnvJFg" url:@"http://www.drama.wang"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2077801979" secret:@"934587e123fe9520f577708a601649a9" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -86,7 +86,7 @@ static NSString *appId = @"wx578f993da4b29f97";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [WXApi registerApp:@"wx578f993da4b29f97" withDescription:@"hmm1.0"];
     [self umConfig];
-    [CrashMaster init:@"ee2bb0b0d95af384232362f254137920" channel:@"应用的渠道号" config:[CrashMasterConfig defaultConfig]];
+    [CrashMaster init:@"b10c4051ea94f40fb99255ac559c4f7a" channel:@"AppStore" config:[CrashMasterConfig defaultConfig]];
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定
     NSLog(@"+++++++%@", NSHomeDirectory());
     application.statusBarHidden = NO;
@@ -130,7 +130,7 @@ static NSString *appId = @"wx578f993da4b29f97";
                                        categories:nil];
 #endif
     // Required
-    [JPUSHService setupWithOption:launchOptions appKey:@"a81748f2ead4ab0faef89329" channel:@"Publish channel" apsForProduction:0];
+    [JPUSHService setupWithOption:launchOptions appKey:@"717d910672e7557fd5ddf6f3" channel:@"Publish channel" apsForProduction:0];
      //*****************极光推送*******************
 
     return YES;
@@ -271,7 +271,7 @@ static NSString *appId = @"wx578f993da4b29f97";
     
     UIPasteboard *pboard = [UIPasteboard generalPasteboard];
     NSString * str = pboard.string;
-    if(str.length>9 && [[str substringToIndex:9]isEqualToString:@"KAKAO-HMM"]){
+    if(str.length>9 && [[str substringToIndex:9]isEqualToString:@"KAKAOGIFT"]){
         [[MiPwdView alloc]initWithDetail:str];
     }
     pboard.string = @"";
