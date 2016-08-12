@@ -271,7 +271,7 @@ static NSString *appId = @"wx578f993da4b29f97";
     
     UIPasteboard *pboard = [UIPasteboard generalPasteboard];
     NSString * str = pboard.string;
-    if(str.length>9 && [[str substringToIndex:9]isEqualToString:@"KAKAOGIFT"]){
+    if ([str rangeOfString:@"KakaoGift"].location != NSNotFound) {
         [[MiPwdView alloc]initWithDetail:str];
     }
     pboard.string = @"";
