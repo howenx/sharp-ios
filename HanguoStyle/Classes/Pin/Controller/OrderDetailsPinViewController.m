@@ -163,7 +163,7 @@
     
     countPriceLabelData.font = [UIFont systemFontOfSize:14];
     countPriceLabelData.text = [NSString stringWithFormat:@"￥%@ ",self.singleData.orderInfo.payTotal];
-    countPriceLabelData.textColor = GGMainColor;
+    countPriceLabelData.textColor = GGRedColor;
     [headerView addSubview:countPriceLabelData];
     
     CGSize maxSize1 = CGSizeMake(SCREEN_WIDTH, MAXFLOAT);
