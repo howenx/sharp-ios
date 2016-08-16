@@ -154,7 +154,7 @@
     [goodsView addSubview:personNumLabel];
     
     UILabel  * priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 60, 100, 20)];
-    priceLabel.textColor = GGMainColor;
+    priceLabel.textColor = GGRedColor;
     priceLabel.font = [UIFont systemFontOfSize:15];
     priceLabel.text = [NSString stringWithFormat:@"￥%@",_data.pinPrice];
     [goodsView addSubview:priceLabel];

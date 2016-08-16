@@ -203,8 +203,10 @@
         for (int i = 0; i < _scrollArr.count; i++)
         {
             UIImageView *imv = [[UIImageView alloc] init];
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[i]).url]];
-            imv.image = [UIImage imageWithData:data];
+            if(![NSString isNSNull:((SliderData *)_scrollArr[i]).url]){
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderData *)_scrollArr[i]).url]];
+                imv.image = [UIImage imageWithData:data];
+            }
             [imageArr addObject:imv];
         }
         hView.imageViewAry = imageArr;

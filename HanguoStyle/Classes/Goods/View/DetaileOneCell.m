@@ -11,8 +11,8 @@
 @interface DetaileOneCell ()<HeadViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UILabel *detailLab;
-@property (weak, nonatomic) IBOutlet UILabel *costPriceLab;
-@property (weak, nonatomic) IBOutlet UILabel *currentPriceLab;
+@property (weak, nonatomic) IBOutlet UILabel *costPriceLab;//原价
+@property (weak, nonatomic) IBOutlet UILabel *currentPriceLab;//现价
 //@property (weak, nonatomic) IBOutlet UILabel *weightLab;
 //@property (weak, nonatomic) IBOutlet UILabel *postalTaxRateLab;
 @property (weak, nonatomic) IBOutlet UILabel *areaLab;
@@ -50,6 +50,7 @@
     for(SizeData * sizeData in data.sizeArray){
         if(sizeData.orMasterInv){
             _scrollArr = sizeData.itemPreviewImgs;
+
             _costPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemSrcPrice];
             CGSize costPriceSize  = [PublicMethod getSize:_costPriceLab.text Font:12 Width:GGUISCREENWIDTH-100 Height:1000];
             _costPriceConstraint.constant = costPriceSize.width+1;
@@ -65,10 +66,22 @@
             
             
             itemDiscountCount = (int)[sizeData.itemDiscount length] + 3;
-            if([NSString isBlankString:sizeData.itemDiscount]){
-                 _detailLab.text = sizeData.invTitle;
+            if([sizeData.itemDiscount floatValue]<=0 || [sizeData.itemDiscount floatValue]>=10){
+                //不在折扣范围的折扣，不显示折扣并且不显示原价
+                _detailLab.text = sizeData.invTitle;
+                _costPriceLab.hidden = YES;
             }else{
-//                 _detailLab.text =@"你是我的小丫你是我的小丫你是我的小丫你是我的小丫你是我的酷虎哈阿牛和督促啊谁固定成本奥数1";
+                _costPriceLab.hidden = NO;
+                
+                //设置原价上面删除线
+                NSString * oldPrice = _costPriceLab.text;
+                NSUInteger length = [oldPrice length];
+                NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:oldPrice];
+                [attri addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, length)];
+                [attri addAttribute:NSStrikethroughColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, length)];
+                [_costPriceLab setAttributedText:attri];
+
+                
                 _detailLab.text = [[[@" " stringByAppendingString:sizeData.itemDiscount] stringByAppendingString:@"折  "] stringByAppendingString:sizeData.invTitle];
                 NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:_detailLab.text];
                 [str addAttribute:NSBackgroundColorAttributeName value:UIColorFromRGB(0xff4242) range:NSMakeRange(0,itemDiscountCount)];
@@ -128,13 +141,7 @@
     
     
     
-    //设置原价上面删除线
-    NSString * oldPrice = _costPriceLab.text;
-    NSUInteger length = [oldPrice length];
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:oldPrice];
-    [attri addAttribute:NSStrikethroughStyleAttributeName value:@(NSUnderlinePatternSolid | NSUnderlineStyleSingle) range:NSMakeRange(0, length)];
-    [attri addAttribute:NSStrikethroughColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, length)];
-    [_costPriceLab setAttributedText:attri];
+
     
     
     

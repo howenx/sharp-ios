@@ -53,6 +53,7 @@
     self.tabBarController.tabBar.hidden=YES;
     [self.navigationController setNavigationBarHidden:NO animated:TRUE];
     self.navigationItem.title = @"登录";
+    [self createThreeLoginView];
     database = [PublicMethod shareDatabase];
     [self registerForKeyboardNotifications];
     _textF = [[UITextField alloc]init];
@@ -87,6 +88,50 @@
         [self performSelector:@selector(promptLabHidden) withObject:nil afterDelay:2];
     }
     [self createVerifyView];
+    
+}
+-(void)createThreeLoginView{
+    
+
+    UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-103)/2, GGUISCREENHEIGHT-135-64, 103, 21)];
+    titleLab.numberOfLines = 1;
+    titleLab.font = [UIFont systemFontOfSize:17];
+    titleLab.textColor = UIColorFromRGB(0x999999);
+    titleLab.tag = 51004;
+    titleLab.text = @"其他登录方式";
+    [self.view addSubview:titleLab];
+    
+    
+
+    UIView * leftLine = [[UIView alloc]initWithFrame:CGRectMake(20, GGUISCREENHEIGHT-125-64, (GGUISCREENWIDTH-103-80)/2, 1)];
+    leftLine.backgroundColor = [UIColor blackColor];
+    leftLine.alpha = 0.15;
+    leftLine.tag = 51006;
+    [self.view addSubview:leftLine];
+    
+    UIView * rightLine = [[UIView alloc]initWithFrame:CGRectMake(titleLab.x+titleLab.width+20, GGUISCREENHEIGHT-125-64, (GGUISCREENWIDTH-103-80)/2, 1)];
+    rightLine.backgroundColor = [UIColor blackColor];
+    rightLine.alpha = 0.15;
+    rightLine.tag = 51005;
+    [self.view addSubview:rightLine];
+    
+    UIButton * qqButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/4, GGUISCREENHEIGHT-31-53-64, 53, 53)];
+    [qqButton setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
+    [qqButton addTarget:self action:@selector(qqLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    qqButton.tag = 51008;
+    [self.view addSubview:qqButton];
+    
+    UIButton * wxButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/2+53 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
+    [wxButton setImage:[UIImage imageNamed:@"wechat_login"] forState:UIControlStateNormal];
+    [wxButton addTarget:self action:@selector(wxLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    wxButton.tag = 51003;
+    [self.view addSubview:wxButton];
+    
+    UIButton * wbButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)*3/4+53*2 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
+    [wbButton setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
+    [wbButton addTarget:self action:@selector(wbLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    wbButton.tag = 51007;
+    [self.view addSubview:wbButton];
     
 }
 -(void)promptLabHidden{
@@ -190,6 +235,7 @@
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIView *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
     [firstResponder resignFirstResponder];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -560,7 +606,8 @@
 
 }
 //微信登录
-- (IBAction)WXLogin:(UIButton *)sender {
+//- (IBAction)WXLogin:(UIButton *)sender {
+-(void)wxLoginClick{
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
@@ -610,7 +657,8 @@
         
     });
 }
-- (IBAction)qqLogin:(UIButton *)sender {
+//- (IBAction)qqLogin:(UIButton *)sender {
+-(void)qqLoginClick{
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
@@ -660,7 +708,8 @@
             
         }});
 }
-- (IBAction)weiboLogin:(UIButton *)sender {
+//- (IBAction)weiboLogin:(UIButton *)sender {
+-(void)wbLoginClick{
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
