@@ -98,16 +98,16 @@
 
     }
     if ([messageModel.msgType isEqualToString:@"discount"]) {
-    self.titleLabel_.text = @"商品提醒";
+    self.titleLabel_.text = @"优惠促销";
     }
     if ([messageModel.msgType isEqualToString:@"coupon"]) {
-        self.titleLabel_.text = @"优惠促销";
+        self.titleLabel_.text = @"我的资产";
     }
     if ([messageModel.msgType isEqualToString:@"logistics"]) {
         self.titleLabel_.text = @"物流通知";
     }
     if ([messageModel.msgType isEqualToString:@"goods"]) {
-        self.titleLabel_.text = @"我的资产";
+        self.titleLabel_.text = @"商品提醒";
     }
 }
 @end

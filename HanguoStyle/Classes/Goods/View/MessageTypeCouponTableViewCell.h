@@ -20,4 +20,6 @@
 @property (nonatomic,strong) UIImageView * moreImageveiw_;
 
 @property (nonatomic,strong) MessageTypeModel * messageModel;
+
++(CGFloat)cellH:(MessageTypeModel *)model;
 @end
