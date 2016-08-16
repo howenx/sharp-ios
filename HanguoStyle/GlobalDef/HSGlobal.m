@@ -20,12 +20,12 @@
 //#define SERVERY4 @"http://172.28.3.18:9005"
 
 
-//#define SERVERY1 @"https://shopping.kakaogift.cn"
-//#define SERVERY2 @"https://api.kakaogift.cn"
-//#define SERVERY3 @"https://id.kakaogift.cn"
-//#define SERVERY4 @"https://promotion.kakaogift.cn"
-//#define SERVERY5 @"https://m.kakaogift.cn"//m端
-//#define SERVERY6 @"https://cash.kakaogift.cn"//支付
+#define SERVERY1 @"https://shopping.kakaogift.cn"
+#define SERVERY2 @"https://api.kakaogift.cn"
+#define SERVERY3 @"https://id.kakaogift.cn"
+#define SERVERY4 @"https://promotion.kakaogift.cn"
+#define SERVERY5 @"https://m.kakaogift.cn"//m端
+#define SERVERY6 @"https://cash.kakaogift.cn"//支付
 
 
 
@@ -35,15 +35,6 @@
 //#define SERVERY3 @"http://172.28.3.51:9004"
 //#define SERVERY4 @"http://172.28.3.51:9005"
 
-#define SERVERY1 @"http://172.28.3.78:9003"
-//#define SERVERY2 @"http://172.28.3.78:9001"
-//#define SERVERY3 @"http://172.28.3.78:9004"
-//#define SERVERY4 @"http://172.28.3.78:9005"
-#define SERVERY2 @"https://api.kakaogift.cn"
-#define SERVERY3 @"https://id.kakaogift.cn"
-#define SERVERY4 @"https://promotion.kakaogift.cn"
-#define SERVERY5 @"https://m.kakaogift.cn"//m端
-#define SERVERY6 @"https://cash.kakaogift.cn"//支付
 
 @implementation HSGlobal
 
