@@ -64,4 +64,5 @@
 + (NSString *) hmmClauseUrl;
 + (NSString *) selectCustUrl;
 + (NSString *) shareWebUrlHead;
++(NSString *)FeeddbackUrl;
 @end

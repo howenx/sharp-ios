@@ -198,10 +198,10 @@
                     
                 case 1: {
                     //                    意见反馈
-//                    FeedbackViewController * vc = [FeedbackViewController new];
-//                    [self.navigationController pushViewController:vc animated:YES];
-                    
-                    
+                    FeedbackViewController * vc = [FeedbackViewController new];
+                    [self.navigationController pushViewController:vc animated:YES];
+                   
+                    /*
                     if ([self canSendMail])
                     {
                         
@@ -235,6 +235,7 @@
                         [alert show];
                     }
 
+                    */
                     
                 }
                     break;

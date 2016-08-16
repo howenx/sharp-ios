@@ -57,16 +57,50 @@
                 return;
            }else{
 
-               MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-               hud.mode = MBProgressHUDModeText;
+               NSMutableDictionary * myDict = [NSMutableDictionary dictionary];
+               [myDict setObject:[NSString stringWithFormat:@"%@",view.text] forKey:@"content"];
+       
+               NSString * url = [HSGlobal FeeddbackUrl];
                
-               hud.labelFont = [UIFont systemFontOfSize:11];
-               hud.margin = 10.f;
-               hud.removeFromSuperViewOnHide = YES;
-               hud.labelText = @"正在提交请稍等...";
-               [hud hide:YES afterDelay:1];
                
-               [self performSelector:@selector(popViewControl) withObject:nil afterDelay:1];
+               
+               AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+               if(manager == nil){
+                   NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+                   noNetView.delegate = self;
+                   [self.view addSubview:noNetView];
+                   return;
+               }
+               [GiFHUD setGifWithImageName:@"hmm.gif"];
+               [GiFHUD show];
+               [manager POST:url parameters:myDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                   NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                   NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+                   NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+                   NSLog(@"message = %@",message);
+                   MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                   hud.mode = MBProgressHUDModeText;
+                   
+                   hud.labelFont = [UIFont systemFontOfSize:11];
+                   hud.margin = 10.f;
+                   //    hud.yOffset = 150.f;
+                   hud.removeFromSuperViewOnHide = YES;
+                   if(200 == code){
+                       hud.labelText = @"发送成功";
+                       [hud hide:YES afterDelay:1];
+                       [self performSelector:@selector(popViewControl) withObject:nil afterDelay:1];
+                   }else{
+                       hud.labelText = @"发送失败";
+                       [hud hide:YES afterDelay:1];
+                   }
+                   
+                   [GiFHUD dismiss];
+               } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                   [GiFHUD dismiss];
+                   [PublicMethod printAlert:@"发送失败"];
+                   
+               }];
+               
 
     }
    
