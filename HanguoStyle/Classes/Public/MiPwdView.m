@@ -18,6 +18,7 @@
     NSString * detailStr;
     UIImageView * imageView;
     UILabel * priceLab;
+    UILabel * titleLab;
 }
 @end
 
@@ -46,12 +47,12 @@
         
         
         
-        UILabel * titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,GGUISCREENWIDTH-40, 40)];
+        titleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,GGUISCREENWIDTH-40, 40)];
         titleLab.backgroundColor = GGBgColor;
         titleLab.font = [UIFont systemFontOfSize:16];
         titleLab.textAlignment = NSTextAlignmentCenter;
         titleLab.textColor = [UIColor blackColor];
-        titleLab.text = @"秘口令";
+        titleLab.text = @"口令";
         [view addSubview:titleLab];
         
         imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 50, 70, 90)];
@@ -65,7 +66,7 @@
             if(arry2.count>0){
                 UILabel * detailLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 50,GGUISCREENWIDTH-60-80, 70)];
                 detailLab.textAlignment = NSTextAlignmentLeft;
-                detailLab.font = [UIFont systemFontOfSize:12];
+                detailLab.font = [UIFont systemFontOfSize:14];
                 detailLab.numberOfLines = 4;
                 detailLab.lineBreakMode = NSLineBreakByTruncatingTail;
                 detailLab.textColor = [UIColor grayColor];
@@ -80,8 +81,8 @@
         
         priceLab = [[UILabel alloc]initWithFrame:CGRectMake(90, 125,GGUISCREENWIDTH-60-80, 15)];
         priceLab.textAlignment = NSTextAlignmentLeft;
-        priceLab.font = [UIFont systemFontOfSize:12];
-        priceLab.textColor = GGMainColor;
+        priceLab.font = [UIFont systemFontOfSize:13];
+        priceLab.textColor = GGRedColor;
         priceLab.numberOfLines = 1;
         priceLab.lineBreakMode = NSLineBreakByTruncatingTail;
         [view addSubview:priceLab];
@@ -96,7 +97,7 @@
         UIButton * cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         cancleBtn.frame = CGRectMake(0, 151, (GGUISCREENWIDTH-40)/2, 49) ;
         [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [cancleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [cancleBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
         cancleBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [cancleBtn addTarget:self  action:@selector(cancleBtnClick)  forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:cancleBtn];
@@ -106,7 +107,7 @@
         UIButton * sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         sureBtn.frame = CGRectMake((GGUISCREENWIDTH-40)/2, 151, (GGUISCREENWIDTH-40)/2, 49) ;
         sureBtn.backgroundColor = GGMainColor;
-        
+        [sureBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
         [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         sureBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [sureBtn addTarget:self  action:@selector(sureBtnClick)  forControlEvents:UIControlEventTouchUpInside];
@@ -127,8 +128,8 @@
     [self removeFromSuperview];
     UIViewController * controller = [self getCurrentVC];
 
-    NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
-    NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
+    NSArray  * array= [detailStr componentsSeparatedByString:@"】"];
+    NSArray * jumpArray = [[array objectAtIndex:[array count]-1] componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
     
 
     if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
@@ -186,24 +187,27 @@
 -(void)prepareDataSource
 {
     
-    NSArray  * array= [detailStr componentsSeparatedByString:@"】,"];
+    NSArray  * array= [detailStr componentsSeparatedByString:@"】"];
     
     if([array count]>=2){
-        NSArray * jumpArray = [[[array objectAtIndex:[array count]-1] componentsSeparatedByString:@"－"][0] componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
+        NSArray * jumpArray = [[array objectAtIndex:[array count]-1]  componentsSeparatedByString:[HSGlobal shareWebUrlHead]];
         NSString * url ;
         
         if ([detailStr rangeOfString:@"<C>"].location != NSNotFound) {
             //进入普通商品详情页
 
             url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
+            titleLab.text = @"查看商品";
 
         }else if ([detailStr rangeOfString:@"<P>"].location != NSNotFound) {
             //进入拼购商品详情页
             url = [NSString stringWithFormat:@"%@/comm%@",[HSGlobal shareGoodsHeaderUrl],jumpArray[1]];
+            titleLab.text = @"查看拼购";
 
         }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
             //进入拼团详情页
             url = [NSString stringWithFormat:@"%@/promotion%@",[HSGlobal shareTuanHeaderUrl],jumpArray[1]];
+            titleLab.text = @"查看拼团";
         }
 
         

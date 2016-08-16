@@ -20,11 +20,13 @@
 //#define SERVERY4 @"http://172.28.3.18:9005"
 
 
-#define SERVERY1 @"http://shopping.hanmimei.com"
-#define SERVERY2 @"http://api.hanmimei.com"
-#define SERVERY3 @"http://id.hanmimei.com"
-#define SERVERY4 @"http://promotion.hanmimei.com"
-#define SERVERY5 @"http://style.hanmimei.com"
+#define SERVERY1 @"https://shopping.kakaogift.cn"
+#define SERVERY2 @"https://api.kakaogift.cn"
+#define SERVERY3 @"https://id.kakaogift.cn"
+#define SERVERY4 @"https://promotion.kakaogift.cn"
+#define SERVERY5 @"https://m.kakaogift.cn"//m端
+#define SERVERY6 @"https://cash.kakaogift.cn"//支付
+
 
 
 
@@ -168,7 +170,7 @@
 // 去支付给后台发订单数据接口
 + (NSString *) payUrl
 {
-    NSString * url = [NSString stringWithFormat:@"%@/client/pay/order/get/",SERVERY1];
+    NSString * url = [NSString stringWithFormat:@"%@/client/pay/order/get/",SERVERY6];
     
     return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }

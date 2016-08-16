@@ -191,7 +191,7 @@
                 case 0: {
                     //                    关于我们
                     AboutOurViewController * vc = [[AboutOurViewController alloc]init];
-                    vc.url =@"https://api.hanmimei.com/comm/views/about";
+                    vc.url =[NSString stringWithFormat:@"%@/comm/views/about",[HSGlobal shareGoodsHeaderUrl]];//@"https://api.hanmimei.com/comm/views/about";
                     [self.navigationController pushViewController:vc animated:YES];
                 }
                     break;

@@ -611,7 +611,7 @@
     if(array.count >= 2){
         NSString * shareUrl = [NSString stringWithFormat:@"%@%@",[HSGlobal shareWebUrlHead],array[array.count-1]];
         shareView.shareUrl = shareUrl;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAOGIFT 复制这条信息,打开👉KakaoGift👈即可看到<P>【 %@】,%@－🔑 M令 🔑",_detailData.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"复制这条信息,打开👉KakaoGift👈立即购买<P>【 %@】%@",_detailData.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }

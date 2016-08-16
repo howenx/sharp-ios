@@ -560,7 +560,7 @@
         NSString * shareUrl = [NSString stringWithFormat:@"%@%@",[HSGlobal shareWebUrlHead],array[array.count-1]];
         shareView.shareUrl = shareUrl;
 //        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAO-HMM 复制这条信息,打开👉KakaoGift👈即可看到<C>【 %@】,%@－🔑 M令 🔑",_detailData.itemTitle,shareUrl];
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAOGIFT 复制这条信息,打开👉KakaoGift👈立即购买<C>【 %@】,%@",_detailData.itemTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"复制这条信息,打开👉KakaoGift👈立即购买<C>【 %@】%@",_detailData.itemTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }

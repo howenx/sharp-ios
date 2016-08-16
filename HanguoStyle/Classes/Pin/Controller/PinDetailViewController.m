@@ -154,7 +154,7 @@
     [goodsView addSubview:personNumLabel];
     
     UILabel  * priceLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 60, 100, 20)];
-    priceLabel.textColor = GGMainColor;
+    priceLabel.textColor = GGRedColor;
     priceLabel.font = [UIFont systemFontOfSize:15];
     priceLabel.text = [NSString stringWithFormat:@"￥%@",_data.pinPrice];
     [goodsView addSubview:priceLabel];
@@ -452,7 +452,7 @@
     if(array.count >= 2){
         shareView.shareUrl = shareUrl;
         shareView.shareImage = _data.pinImg;
-        shareView.shareDetailPage = [NSString stringWithFormat:@"KAKAOGIFT 复制这条信息,打开👉KakaoGift👈即可看到<T>【 %@】,%@－🔑 M令 🔑",_data.pinTitle,shareUrl];
+        shareView.shareDetailPage = [NSString stringWithFormat:@"复制这条信息,打开👉KakaoGift👈即可看到<T>【 %@】%@",_data.pinTitle,shareUrl];
         [shareView makeUI];
         [self.tabBarController.view addSubview:shareView];
     }
