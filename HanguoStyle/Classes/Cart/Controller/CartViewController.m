@@ -33,6 +33,7 @@
     BOOL isJiaJianReload;
     NSString * jiaJianFlag;
     OrderData * orderData;
+    UIView * statusbar;
     
 }
 
@@ -59,10 +60,24 @@
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
     
-
+    statusbar = [[UIView alloc]init];
+    //4.屏幕的宽度style-ios
+    
+    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
+    statusbar.backgroundColor = GGMainColor;
+    [self.navigationController.navigationBar insertSubview:statusbar atIndex:0];
     
     [self headerRefresh];
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [statusbar removeFromSuperview];
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
