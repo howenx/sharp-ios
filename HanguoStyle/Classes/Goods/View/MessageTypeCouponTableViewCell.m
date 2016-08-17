@@ -87,4 +87,17 @@
     
 }
 
++(CGFloat)cellH:(MessageTypeModel *)model
+{
+    
+    CGSize maxSize1 = CGSizeMake(SCREEN_WIDTH, MAXFLOAT);
+    NSDictionary *attribute1 = @{NSFontAttributeName: [UIFont systemFontOfSize:14]};
+    CGSize  lastSize1 = [model.msgContent boundingRectWithSize:maxSize1 options:NSStringDrawingTruncatesLastVisibleLine| NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute1 context:nil].size;
+    
+    
+    
+    return lastSize1.height + 78/2 + 25/2 + 15 + 25/2 + 25/2+0.5+15+15+15+592/2+35.5;
+}
+
+
 @end

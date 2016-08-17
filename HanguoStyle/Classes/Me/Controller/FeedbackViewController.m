@@ -8,7 +8,7 @@
 
 #import "FeedbackViewController.h"
 #import "PlaceholderTextView.h"
-@interface FeedbackViewController ()<UIWebViewDelegate>
+@interface FeedbackViewController ()<UIWebViewDelegate,UITextViewDelegate>
 {
     PlaceholderTextView *view;
 }
@@ -42,6 +42,7 @@
     view.placeholderFont=[UIFont boldSystemFontOfSize:13];
     view.keyboardType = UIKeyboardTypeDefault;
     view.layer.borderWidth=0.5;
+    view.delegate = self;
     view.layer.borderColor=[UIColor lightGrayColor].CGColor;
     [self.view addSubview:view];
 }
@@ -49,6 +50,8 @@
 -(void)saveButton:(UIBarButtonItem *)btn
 {
     
+    
+    [view resignFirstResponder];
     if ([view.text isEqualToString:@"请输入您宝贵的意见吧~"] || [view.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"内容不能为空." message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         
@@ -109,6 +112,13 @@
 -(void)popViewControl
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(BOOL)textView:(UITextView *)textView shouldChangetTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if([text isEqualToString:@"\n"]){
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 @end

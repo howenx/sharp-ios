@@ -18,8 +18,8 @@
         self.imageView.contentMode = UIViewContentModeCenter;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.font = [UIFont systemFontOfSize:11];
-        [self setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
-        [self setTitleColor: GGMainColor  forState:UIControlStateSelected];
+        [self setTitleColor: UIColorFromRGB(0x242424) forState:UIControlStateNormal];
+        [self setTitleColor: UIColorFromRGB(0x431c02)  forState:UIControlStateSelected];
         
     }
     return self;

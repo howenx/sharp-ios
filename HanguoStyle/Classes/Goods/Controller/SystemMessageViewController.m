@@ -33,16 +33,16 @@
         self.navigationItem.title = @"系统通知";
     }
     if ([self.messageType isEqualToString:@"discount"]) {
-        self.navigationItem.title = @"商品提醒";
+        self.navigationItem.title = @"优惠促销";
     }
     if ([self.messageType isEqualToString:@"coupon"]) {
-            self.navigationItem.title = @"优惠促销";
+            self.navigationItem.title = @"我的资产";
     }
     if ([self.messageType isEqualToString:@"logistics"]) {
             self.navigationItem.title = @"物流通知";
     }
     if ([self.messageType isEqualToString:@"goods"]) {
-            self.navigationItem.title = @"我的资产";
+            self.navigationItem.title = @"商品提醒";
     }
     
     
@@ -242,7 +242,7 @@
         return cell;
     }
     
-    if ([self.messageType isEqualToString:@"discount"]) {
+    if ([self.messageType isEqualToString:@"coupon"]) {
         
         static NSString * ID = @"messagediscountCell";
         MessageTypeDiscountTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -253,7 +253,7 @@
         cell.messageModel = [self.arrayData objectAtIndex:indexPath.row];
         return cell;
     }
-    if ([self.messageType isEqualToString:@"coupon"]) {
+    if ([self.messageType isEqualToString:@"goods"]) {
         
         static NSString * ID = @"messagecouponCell";
         MessageTypeCouponTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -265,7 +265,7 @@
         return cell;
     }
     
-    if ([self.messageType isEqualToString:@"goods"]) {
+    if ([self.messageType isEqualToString:@"discount"]) {
            static NSString * ID = @"messagegoodsCell";
         MessageTypeGoodsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if (cell==nil) {
@@ -278,6 +278,11 @@
 
     return nil;
 }
+
+
+
+
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -295,7 +300,7 @@
         return 470;
     }else if([self.messageType isEqualToString:@"goods"])
     {
-        return 100;
+        return [MessageTypeCouponTableViewCell cellH:[self.arrayData objectAtIndex:indexPath.row]];
     }
     return 200;
 }
@@ -380,7 +385,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.messageType isEqualToString:@"discount"] || [self.messageType isEqualToString:@"coupon"] || [self.messageType isEqualToString:@"system"] ) {
+    if ([self.messageType isEqualToString:@"discount"] || [self.messageType isEqualToString:@"coupon"] || [self.messageType isEqualToString:@"system"] || [self.messageType isEqualToString:@"goods"] ) {
         
         MessageTypeModel *  model =  [self.arrayData objectAtIndex:indexPath.row];
         
