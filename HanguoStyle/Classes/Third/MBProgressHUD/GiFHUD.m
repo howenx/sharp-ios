@@ -193,7 +193,7 @@ static GiFHUD *instance;
         
         [self addSubview:self.bgView];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,30, 60, 40)];
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5,2.5, 90, 95)];
         [self.bgView addSubview:self.imageView];
         
         [APPDELEGATE.window addSubview:self];
