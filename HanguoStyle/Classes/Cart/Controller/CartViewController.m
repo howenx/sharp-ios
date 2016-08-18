@@ -15,6 +15,7 @@
 #import "OrderData.h"
 #import "OrderViewController.h"
 #import "TableHeadView.h"
+#import "UIImage+GG.h"
 
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate,TableHeadViewDelegate>
 {
@@ -58,20 +59,23 @@
 @implementation CartViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
-    statusbar = [[UIView alloc]init];
-    //4.屏幕的宽度style-ios
-    
-    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
-    statusbar.backgroundColor = GGMainColor;
-    [self.navigationController.navigationBar insertSubview:statusbar atIndex:0];
-    
+//    statusbar = [[UIView alloc]init];
+//    //4.屏幕的宽度style-ios
+//    
+//    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
+//    statusbar.backgroundColor = GGMainColor;
+//    [self.navigationController.navigationBar insertSubview:statusbar atIndex:1];
+////    [self.navigationController.navigationBar addSubview:statusbar];
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
     [self headerRefresh];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [statusbar removeFromSuperview];
+//    [statusbar removeFromSuperview];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+
 }
 
 
@@ -79,12 +83,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSArray * views  = self.navigationController.navigationBar.subviews;
-    for (UIView * view in views) {
-        if ([view isKindOfClass:[UIView class]]) {
-            [view removeFromSuperview];
-        }
-    }
+//    NSArray * views  = self.navigationController.navigationBar.subviews;
+//    for (UIView * view in views) {
+//        if ([view isKindOfClass:[UIView class]]) {
+//            [view removeFromSuperview];
+//        }
+//    }
     
     _tableView.scrollsToTop = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
