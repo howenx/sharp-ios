@@ -16,6 +16,8 @@
 #import "OrderViewController.h"
 #import "TableHeadView.h"
 
+#import "KKGbutton.h"
+#import "UIImage+GG.h"
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate,TableHeadViewDelegate>
 {
     BOOL isLogin;
@@ -58,12 +60,13 @@
 @implementation CartViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
-    statusbar = [[UIView alloc]init];
-    //4.屏幕的宽度style-ios
-    
-    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
-    statusbar.backgroundColor = GGMainColor;
-    [self.navigationController.navigationBar insertSubview:statusbar atIndex:0];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
+//    statusbar = [[UIView alloc]init];
+//    //4.屏幕的宽度style-ios
+//    
+//    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
+//    statusbar.backgroundColor = GGMainColor;
+//    [self.navigationController.navigationBar insertSubview:statusbar atIndex:0];
     
     [self headerRefresh];
 }
@@ -71,7 +74,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [statusbar removeFromSuperview];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+//    [statusbar removeFromSuperview];
 }
 
 
