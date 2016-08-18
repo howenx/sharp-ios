@@ -34,7 +34,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
-    self.navigationItem.title=@"我的拼团";
+    self.navigationItem.title=@"我的拼购";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.data = [NSMutableArray array];
     [self createHeadView];

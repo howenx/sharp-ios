@@ -16,7 +16,6 @@
 #import "OrderViewController.h"
 #import "TableHeadView.h"
 
-
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate,TableHeadViewDelegate>
 {
     BOOL isLogin;
@@ -59,7 +58,6 @@
 @implementation CartViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
-    
     statusbar = [[UIView alloc]init];
     //4.屏幕的宽度style-ios
     

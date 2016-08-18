@@ -327,6 +327,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if(hasThemeBody){
+        if((indexPath.section == 0 && !hasThemeHead)||(indexPath.section == 1 && hasThemeHead)){
             NSString * _pushUrl = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemUrl;
             NSString * itemType = ((GoodsShowData *)_data[indexPath.item + indexPath.section]).itemType;
             //进入到商品展示页面
@@ -341,7 +342,8 @@
                 [self.navigationController pushViewController:gdViewController animated:YES];
             }
             self.hidesBottomBarWhenPushed=NO;
-       
+        }
+        
     }
     
 }
