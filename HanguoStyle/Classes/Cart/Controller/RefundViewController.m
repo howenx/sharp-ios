@@ -232,7 +232,7 @@
             if (code == 200) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = [NSString stringWithFormat:@"退款成功"];
+                hud.labelText = [NSString stringWithFormat:@"申请退款成功."];
                 hud.labelFont = [UIFont systemFontOfSize:11];
                 hud.margin = 10.f;
                 hud.removeFromSuperViewOnHide = YES;
@@ -243,7 +243,7 @@
             {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = [NSString stringWithFormat:@"退款失败."];
+                hud.labelText = [NSString stringWithFormat:@"申请退款失败."];
                 hud.labelFont = [UIFont systemFontOfSize:11];
                 hud.margin = 10.f;
                 hud.removeFromSuperViewOnHide = YES;
