@@ -186,8 +186,10 @@ static GiFHUD *instance;
         [self.layer setMasksToBounds:YES];
         
         self.bgView = [[UIView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH/2 -50, (GGUISCREENHEIGHT-100-64-40)/2, 100, 100)];
-//        self.bgView.backgroundColor = [UIColor colorWithRed:((float)((0xdcdcdc & 0xFF0000) >> 16))/255.0 green:((float)((0xdcdcdc & 0xFF00) >> 8))/255.0 blue:((float)(0xdcdcdc & 0xFF0000))/255.0 alpha:1];
-        self.bgView.backgroundColor = [UIColor colorWithRed:((float)((0xdcdcdc & 0xFF0000) >> 16))/255.0 green:((float)((0xdcdcdc & 0xFF00) >> 8))/255.0 blue:((float)(0xdcdcdc & 0xFF))/255.0 alpha:1.0];
+        self.bgView.backgroundColor = [UIColor colorWithRed:((float)((0x000000 & 0xFF0000) >> 16))/255.0 green:((float)((0x000000 & 0xFF00) >> 8))/255.0 blue:((float)(0x000000 & 0xFF0000))/255.0 alpha:0.4
+                                       ];
+//        self.bgView.backgroundColor = [UIColor colorWithRed:((float)((0xdcdcdc & 0xFF0000) >> 16))/255.0 green:((float)((0xdcdcdc & 0xFF00) >> 8))/255.0 blue:((float)(0xdcdcdc & 0xFF))/255.0 alpha:1.0];
+//        self.bgView.backgroundColor = [UIColor clearColor];
 //        self.bgView.backgroundColor = [UIColor blueColor];
         self.bgView.layer.cornerRadius = 20;
 //        self.bgView.layer.edgeAntialiasingMask = YES;
