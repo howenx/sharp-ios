@@ -41,16 +41,14 @@
 @implementation GoodsViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
-
-  
-      [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
 
-  [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
 }
 
 
