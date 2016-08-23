@@ -45,7 +45,7 @@
     [self.dianImageView_ addSubview:self.dianLabel_];
     
     
-    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top+3, GGUISCREENWIDTH - wight - 2*space - 15 -150-15, 34/2)];
+    self.titleLabel_ = [[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.iconImageView_, 15), top+3, GGUISCREENWIDTH - wight - 2*space - 15 -150-15+10, 34/2)];
     self.titleLabel_.font = [UIFont boldSystemFontOfSize:17];
     self.titleLabel_.textColor = [UIColor blackColor];
     [self.contentView addSubview:self.titleLabel_];
@@ -56,7 +56,7 @@
     self.detailLabel_.textColor = UIColorFromRGB(0x999999);
     [self.contentView addSubview:self.detailLabel_];
     
-    self.timeLabel_ =[[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.titleLabel_, 15), top, 150, 15)];
+    self.timeLabel_ =[[UILabel alloc]initWithFrame:CGRectMake(PosXFromView(self.titleLabel_, 5), top, 150, 15)];
     self.timeLabel_.textAlignment = NSTextAlignmentRight;
     
     self.timeLabel_.font = [UIFont systemFontOfSize:14];

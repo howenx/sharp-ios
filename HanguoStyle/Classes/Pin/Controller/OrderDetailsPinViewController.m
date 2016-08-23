@@ -99,6 +99,14 @@
     
     UIImageView * statusImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 120)];
     
+    if (SCREEN_WIDTH==320) {
+        statusImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 100);
+    }
+    if (SCREEN_WIDTH==414) {
+        statusImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 1302);
+    }
+    
+    
     if ([self.singleData.orderInfo.orderStatus isEqualToString:@"S"]) {
         statusImageView.image = [UIImage imageNamed:@"order"];
     }else if([self.singleData.orderInfo.orderStatus isEqualToString:@"D"])
