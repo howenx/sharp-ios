@@ -234,6 +234,10 @@
 		807493B91D51E5F8005AE8BB /* green_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807493B61D51E5F8005AE8BB /* green_select@2x.png */; };
 		807493BA1D51E5F8005AE8BB /* green_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807493B71D51E5F8005AE8BB /* green_select@3x.png */; };
 		8077114D1BD4EB480078D8D1 /* GoodsShowData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8077114C1BD4EB480078D8D1 /* GoodsShowData.m */; };
+		807D6C631D6C29AE007A829E /* PinGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D6C611D6C29AE007A829E /* PinGoodsViewController.m */; };
+		807D6C641D6C29AE007A829E /* PinGoodsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807D6C621D6C29AE007A829E /* PinGoodsViewController.xib */; };
+		807D6C691D6C2AA2007A829E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D6C671D6C2AA2007A829E /* GiftViewController.m */; };
+		807D6C6A1D6C2AA2007A829E /* GiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807D6C681D6C2AA2007A829E /* GiftViewController.xib */; };
 		807D8BF51CC089E2008F008E /* SearchLogisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D8BF41CC089E2008F008E /* SearchLogisticsViewController.m */; };
 		807D8BF81CC08E81008F008E /* SearchLogisticsData.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D8BF71CC08E81008F008E /* SearchLogisticsData.m */; };
 		807D8BFB1CC0CDA9008F008E /* redLogistic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 807D8BF91CC0CDA9008F008E /* redLogistic@2x.png */; };
@@ -903,6 +907,12 @@
 		807493B71D51E5F8005AE8BB /* green_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green_select@3x.png"; sourceTree = "<group>"; };
 		8077114B1BD4EB480078D8D1 /* GoodsShowData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsShowData.h; sourceTree = "<group>"; };
 		8077114C1BD4EB480078D8D1 /* GoodsShowData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsShowData.m; sourceTree = "<group>"; };
+		807D6C601D6C29AE007A829E /* PinGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinGoodsViewController.h; sourceTree = "<group>"; };
+		807D6C611D6C29AE007A829E /* PinGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinGoodsViewController.m; sourceTree = "<group>"; };
+		807D6C621D6C29AE007A829E /* PinGoodsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinGoodsViewController.xib; sourceTree = "<group>"; };
+		807D6C661D6C2AA2007A829E /* GiftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftViewController.h; sourceTree = "<group>"; };
+		807D6C671D6C2AA2007A829E /* GiftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewController.m; sourceTree = "<group>"; };
+		807D6C681D6C2AA2007A829E /* GiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewController.xib; sourceTree = "<group>"; };
 		807D8BF31CC089E2008F008E /* SearchLogisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchLogisticsViewController.h; sourceTree = "<group>"; };
 		807D8BF41CC089E2008F008E /* SearchLogisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchLogisticsViewController.m; sourceTree = "<group>"; };
 		807D8BF61CC08E81008F008E /* SearchLogisticsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchLogisticsData.h; sourceTree = "<group>"; };
@@ -1527,6 +1537,7 @@
 		800150181BC7A73A0078B2F5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				807D6C651D6C2A7F007A829E /* Gift */,
 				80E622731C76C5A10076DBCA /* Pin */,
 				806BFFA81C3D1CB300680AF6 /* Public */,
 				807F63201C3CB53100345BFE /* Third */,
@@ -2040,6 +2051,16 @@
 			path = tabbar;
 			sourceTree = "<group>";
 		};
+		807D6C651D6C2A7F007A829E /* Gift */ = {
+			isa = PBXGroup;
+			children = (
+				807D6C661D6C2AA2007A829E /* GiftViewController.h */,
+				807D6C671D6C2AA2007A829E /* GiftViewController.m */,
+				807D6C681D6C2AA2007A829E /* GiftViewController.xib */,
+			);
+			path = Gift;
+			sourceTree = "<group>";
+		};
 		807F63201C3CB53100345BFE /* Third */ = {
 			isa = PBXGroup;
 			children = (
@@ -2173,6 +2194,9 @@
 				80FC2EE71C868F1100FD32DE /* PinDetailViewController.m */,
 				B0174EEE1CACF9BB00548038 /* OrderDetailsPinViewController.h */,
 				B0174EEF1CACF9BB00548038 /* OrderDetailsPinViewController.m */,
+				807D6C601D6C29AE007A829E /* PinGoodsViewController.h */,
+				807D6C611D6C29AE007A829E /* PinGoodsViewController.m */,
+				807D6C621D6C29AE007A829E /* PinGoodsViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3039,6 +3063,7 @@
 				806E74BB1D66FE0900BC00AC /* logo.png in Resources */,
 				80F525411CD34CDD002AFE7A /* Overlay@2x.png in Resources */,
 				80E45C881C57594800941AC3 /* MyCouponCell.xib in Resources */,
+				807D6C6A1D6C2AA2007A829E /* GiftViewController.xib in Resources */,
 				80FDB89B1CA538C8006D5CB0 /* hmm_klmpintuan@3x.png in Resources */,
 				B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */,
 				B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */,
@@ -3309,6 +3334,7 @@
 				B0B7551A1CD0556F00BA1539 /* photo_normal.png in Resources */,
 				80FC09B21D17D010002F0DE0 /* tiaoguo@2x.png in Resources */,
 				80F177171CED4DFE001B11E2 /* ToBindingViewController.xib in Resources */,
+				807D6C641D6C29AE007A829E /* PinGoodsViewController.xib in Resources */,
 				808D47C01D4F34C600B9753E /* tishi.png in Resources */,
 				80FDB89E1CA538C8006D5CB0 /* hmm_zutuan_fail@2x.png in Resources */,
 				80113BA51CABAAF20010B4E9 /* pingou_liucheng@2x.png in Resources */,
@@ -3398,6 +3424,7 @@
 				B0BFFDC01CD1CCF20038E930 /* ShowImageEvaluateModel.m in Sources */,
 				809D26DC1BCBA9A200C71445 /* GoodsPackCell.m in Sources */,
 				8008B73D1C030FF1009B7D49 /* CartCell.m in Sources */,
+				807D6C691D6C2AA2007A829E /* GiftViewController.m in Sources */,
 				80108A911C60751F00B20C64 /* MWTapDetectingImageView.m in Sources */,
 				B03E9E731D485F0F00A457D3 /* KKGbutton.m in Sources */,
 				809B02711C52284200030955 /* PublicMethod.m in Sources */,
@@ -3495,6 +3522,7 @@
 				B0705ED31CAA14AA00E86A30 /* AboutOurViewController.m in Sources */,
 				B0705ED41CAA14AA00E86A30 /* FeedbackViewController.m in Sources */,
 				80108A931C60751F00B20C64 /* MWZoomingScrollView.m in Sources */,
+				807D6C631D6C29AE007A829E /* PinGoodsViewController.m in Sources */,
 				80EA5ED61C8442BF000ABCE9 /* ChooseTeamViewController.m in Sources */,
 				80F6594A1CF553B400204270 /* LoginViewController.m in Sources */,
 				80EC9CA51C2004400040A3A2 /* OrderData.m in Sources */,

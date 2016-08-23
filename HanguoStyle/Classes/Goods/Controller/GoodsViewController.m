@@ -71,7 +71,7 @@
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
 
-    [_tableView registerNib:[UINib nibWithNibName:@"GoodsPackCell" bundle:nil] forCellReuseIdentifier:@"GoodsPackCell"];
+//    [_tableView registerNib:[UINib nibWithNibName:@"GoodsPackCell" bundle:nil] forCellReuseIdentifier:@"GoodsPackCell"];
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];

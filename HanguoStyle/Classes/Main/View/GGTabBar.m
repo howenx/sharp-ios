@@ -76,7 +76,7 @@
     NSString * value = noti.userInfo[@"jumpKey"];
     GGButton * cartButton;
     if([@"cart" isEqualToString:value]){
-        cartButton =(GGButton*)[self viewWithTag:10001];
+        cartButton =(GGButton*)[self viewWithTag:10003];
     }else if([@"home" isEqualToString:value]){
         cartButton =(GGButton*)[self viewWithTag:10000];
     }
