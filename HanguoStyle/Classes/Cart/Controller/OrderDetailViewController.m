@@ -154,8 +154,8 @@
         auctionTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 40)];
         auctionTimeLab.numberOfLines = 1;
         auctionTimeLab.font = [UIFont systemFontOfSize:15];
-        auctionTimeLab.textColor = GGMainColor;
-        auctionTimeLab.backgroundColor = GGColor(255, 237, 207);
+        auctionTimeLab.textColor = GGTextBlackColor;
+        auctionTimeLab.backgroundColor = GGMainColor;
         auctionTimeLab.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:auctionTimeLab];
         secondsCountDown = _orderData.orderInfo.countDown/1000-10;

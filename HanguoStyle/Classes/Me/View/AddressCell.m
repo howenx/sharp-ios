@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailLabHConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *morenImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *consigneeWConstraint;
-@property (weak, nonatomic) IBOutlet UIImageView *dizhiImageView;
+//@property (weak, nonatomic) IBOutlet UIImageView *dizhiImageView;
 
 @end
 @implementation AddressCell
@@ -54,10 +54,10 @@
     }
     if (data.orDefault) {
         self.morenImageView.hidden = NO;
-        self.dizhiImageView.hidden = NO;
+//        self.dizhiImageView.hidden = NO;
     }else{
         self.morenImageView.hidden = YES;
-        self.dizhiImageView.hidden = YES;
+//        self.dizhiImageView.hidden = YES;
     }
     if(data.isOrderDefault){
         self.defaultImage.image = [UIImage imageNamed:@"defaultSelect"];
@@ -68,7 +68,7 @@
         self.jumpImageView.image = [UIImage imageNamed:@"icon_more_hui"];
         self.setButton.hidden = YES;
         self.defaultImage.hidden = YES;
-        self.dizhiImageView.hidden = NO;
+//        self.dizhiImageView.hidden = NO;
     }
     if ([@"order" isEqualToString:self.comeFrom]) {
         self.titleImageView.hidden = YES;

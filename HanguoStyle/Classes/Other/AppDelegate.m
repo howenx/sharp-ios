@@ -29,6 +29,7 @@
 #import "Pingpp.h"
 #import "GoodsShowH5ViewController.h"
 #import "CouponViewController.h"
+#import "UMMobClick/MobClick.h"
 
 static NSString *appId = @"wx578f993da4b29f97";
 @interface AppDelegate ()<UIScrollViewDelegate>
@@ -39,8 +40,14 @@ static NSString *appId = @"wx578f993da4b29f97";
 -(void) umConfig{
     [UMSocialData setAppKey:@"57a3078a67e58e1233000816"];//567bb26867e58e3f670002fd
     [UMSocialWechatHandler setWXAppId:@"wx578f993da4b29f97" appSecret:@"e78a99aec4b6860370107be78a5faf9d" url:@"http://www.umeng.com/social"];
-    [UMSocialQQHandler setQQWithAppId:@"1105528933" appKey:@"ol91kgFhNfSnvJFg" url:@"http://www.drama.wang"];
+    [UMSocialQQHandler setQQWithAppId:@"1105527443" appKey:@"lXkPvxWXufYAIzHT" url:@"http://www.drama.wang"];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"2077801979" secret:@"934587e123fe9520f577708a601649a9" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    /** 友盟统计 统计 */
+    UMConfigInstance.appKey = @"57a3078a67e58e1233000816";
+    UMConfigInstance.channelId = nil;
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
+    /** 友盟统计 统计 */
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -84,7 +91,7 @@ static NSString *appId = @"wx578f993da4b29f97";
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [WXApi registerApp:@"wx578f993da4b29f97" withDescription:@"hmm1.0"];
+    [WXApi registerApp:@"wx578f993da4b29f97" withDescription:@"kakao1.0"];
     [self umConfig];
     [CrashMaster init:@"b10c4051ea94f40fb99255ac559c4f7a" channel:@"AppStore" config:[CrashMasterConfig defaultConfig]];
     //1.是否隐藏状态栏 , 欢迎界面隐藏，其他界面不隐藏，根据需求自己设定

@@ -23,6 +23,7 @@
 #import "MeViewController.h"
 #import "PinDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
+#import "GoodsShowH5ViewController.h"
 
 
 @interface LoginViewController ()<UITextFieldDelegate>
@@ -90,6 +91,7 @@
     [self createVerifyView];
     
 }
+//创建下面三方登录的页面
 -(void)createThreeLoginView{
     
 
@@ -115,19 +117,35 @@
     rightLine.tag = 51005;
     [self.view addSubview:rightLine];
     
-    UIButton * qqButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/4, GGUISCREENHEIGHT-31-53-64, 53, 53)];
+//    UIButton * qqButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/4, GGUISCREENHEIGHT-31-53-64, 53, 53)];
+//    [qqButton setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
+//    [qqButton addTarget:self action:@selector(qqLoginClick) forControlEvents:UIControlEventTouchUpInside];
+//    qqButton.tag = 51008;
+//    [self.view addSubview:qqButton];
+//    
+//    UIButton * wxButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/2+53 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
+//    [wxButton setImage:[UIImage imageNamed:@"wechat_login"] forState:UIControlStateNormal];
+//    [wxButton addTarget:self action:@selector(wxLoginClick) forControlEvents:UIControlEventTouchUpInside];
+//    wxButton.tag = 51003;
+//    [self.view addSubview:wxButton];
+    
+    
+    UIButton * qqButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*2)/3, GGUISCREENHEIGHT-31-53-64, 53, 53)];
     [qqButton setImage:[UIImage imageNamed:@"qq_login"] forState:UIControlStateNormal];
     [qqButton addTarget:self action:@selector(qqLoginClick) forControlEvents:UIControlEventTouchUpInside];
     qqButton.tag = 51008;
     [self.view addSubview:qqButton];
     
-    UIButton * wxButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)/2+53 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
+    UIButton * wxButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*2)*2/3+53 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
     [wxButton setImage:[UIImage imageNamed:@"wechat_login"] forState:UIControlStateNormal];
     [wxButton addTarget:self action:@selector(wxLoginClick) forControlEvents:UIControlEventTouchUpInside];
     wxButton.tag = 51003;
     [self.view addSubview:wxButton];
+
     
     UIButton * wbButton = [[UIButton alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-53*3)*3/4+53*2 , GGUISCREENHEIGHT-31-53-64, 53, 53)];
+    wbButton.hidden = YES;
+    wbButton.enabled = YES;
     [wbButton setImage:[UIImage imageNamed:@"weibo_login"] forState:UIControlStateNormal];
     [wbButton addTarget:self action:@selector(wbLoginClick) forControlEvents:UIControlEventTouchUpInside];
     wbButton.tag = 51007;
@@ -596,6 +614,10 @@
             break;
         }
         else if ([self.comeFrom isEqualToString:@"PinGoodsDetailVC"] && [temp isKindOfClass:[PinGoodsDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"GoodsShowH5VC"] && [temp isKindOfClass:[GoodsShowH5ViewController class]]){
             [self.navigationController popToViewController:temp animated:YES];
             break;
         }

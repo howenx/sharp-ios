@@ -150,12 +150,12 @@
 -(void)createNoCartView{
     _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
     _bgView.backgroundColor = GGBgColor;
-    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -200)/2, GGUISCREENHEIGHT/8, 200, 200)];
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -152)/2, GGUISCREENHEIGHT/8, 152, 218)];
     bgImageView.image = [UIImage imageNamed:@"shoppingcart"];
     
     
     UIButton * bgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    bgButton.frame = CGRectMake((GGUISCREENWIDTH-100)/2, bgImageView.y + bgImageView.height +20, 100, 30) ;
+    bgButton.frame = CGRectMake((GGUISCREENWIDTH-100)/2, bgImageView.y + bgImageView.height +30, 100, 30) ;
     
     [bgButton setTitle:@"随便逛逛" forState:UIControlStateNormal];
     bgButton.titleLabel.font = [UIFont systemFontOfSize:16];
