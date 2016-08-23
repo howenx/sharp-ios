@@ -19,6 +19,8 @@
 #import "GoodsDetailViewController.h"
 #import "PublicMethod.h"
 #import "UIImage+GG.h"
+#import "PinGoodsViewController.h"
+#import "GiftViewController.h"
 @interface GGTabBarViewController ()<GGTabBarDelegate>
 {
     FMDatabase *database;
@@ -68,18 +70,24 @@
 //初始所有化子控件
 -(void)setupAllChildViewControllers
 {
-    //1.精选商品
+    //1.首页
     GoodsViewController * gContro = [[GoodsViewController alloc]init];
-//    gContro.tabBarItem.badgeValue = @"21";
     [self setupChildViewController:gContro title:@"首页" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    
+    //1.拼购
+    PinGoodsViewController * pgContro = [[PinGoodsViewController alloc]init];
+    [self setupChildViewController:pgContro title:@"拼购" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    
+    //1.礼品
+    GiftViewController * gfContro = [[GiftViewController alloc]init];
+    [self setupChildViewController:gfContro title:@"礼品" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];
-//    messageContro.tabBarItem.badgeValue = @"400";
     [self setupChildViewController:cContro title:@"购物车" imageName:@"gs_tab" selectImageName:@"gs_tab_selected"];
     
     //3.我
     MeViewController * meContro = [[MeViewController alloc]init];
-//    meContro.tabBarItem.badgeValue = @"23";
     [self setupChildViewController:meContro title:@"我的" imageName:@"me_tab" selectImageName:@"me_tab_selected"];
 }
 
