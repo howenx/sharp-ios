@@ -18,6 +18,7 @@
 #import "CouponViewController.h"
 #import "MyPinTeamViewController.h"
 #import "CollectViewController.h"
+#import "UIImage+GG.h"
 @interface MeViewController ()<UITableViewDelegate,UITableViewDataSource,UpdateUserInfoDelegate,SettingDelegate>
 {
     MineData * mineData;
@@ -35,8 +36,16 @@
 
 @implementation MeViewController
 
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+}
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden=NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController setNavigationBarHidden:YES animated:TRUE];
     [GiFHUD dismiss];
 
@@ -161,13 +170,14 @@
     }
     CGSize textMaxSize = CGSizeMake(GGUISCREENWIDTH-40, 20);
 
-    CGSize textRealSize =  [name boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0f]} context:nil].size;
+    CGSize textRealSize =  [name boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"  size:(17.0)]} context:nil].size;
     
     _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _titleBtn.frame = CGRectMake((GGUISCREENWIDTH-textRealSize.width)/2, 160, textRealSize.width, 20);
     [_titleBtn setTitle:name  forState:UIControlStateNormal];
     [_titleBtn addTarget:self action:@selector(photoBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    _titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+//    _titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    _titleBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold"  size:(17.0)];
     [headView addSubview:_titleBtn];
     
     

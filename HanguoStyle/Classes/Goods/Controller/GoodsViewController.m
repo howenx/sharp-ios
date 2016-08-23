@@ -48,7 +48,7 @@
 {
     [super viewWillDisappear:animated];
 
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+   [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
 }
 
 
@@ -102,7 +102,6 @@
         [self.navigationController pushViewController:vc animated:YES];
         
         [vc setSelectButtonBlock:^(NSString * str) {
-
             NSString * url = [HSGlobal goodsPackMoreUrl: _addon];
             AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
             [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -202,11 +201,11 @@
     
     if(_scrollArr.count>1){
         
-        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120 + BUTTONHigh+5)];
+        UIView * bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH*105/375 + BUTTONHigh+5)];
         bgView.backgroundColor = GGBgColor;
         
         NSMutableArray * imageArr = [NSMutableArray array];
-        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 120)];
+        HeadView * hView = [[HeadView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENWIDTH*105/375)];
         hView.delegate = self;
         [hView shouldAutoShow:YES];
         for (int i = 0; i < _scrollArr.count; i++)
@@ -463,12 +462,13 @@
         [self.view addSubview:noNetView];
         return;
     }
-    if ([@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
-        
-        [GiFHUD setGifWithImageName:@"hmm.gif"];
-        [GiFHUD show];
-    }
-    
+//    if ([@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
+//        
+//        [GiFHUD setGifWithImageName:@"hmm.gif"];
+//        [GiFHUD show];
+//    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
         if(_addon == 2){
@@ -515,7 +515,7 @@
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:1];
         }
-            [GiFHUD dismiss];
+        [GiFHUD dismiss];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.footer endRefreshing];

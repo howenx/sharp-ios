@@ -11,6 +11,7 @@
 #import "PinGoodsDetailViewController.h"
 #import "UIImage+GG.h"
 #import "CartViewController.h"
+#import "LoginViewController.h"
 @interface GoodsShowH5ViewController ()<UIWebViewDelegate>
 {
     NSInteger _cnt;
@@ -47,7 +48,7 @@
     _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont systemFontOfSize:10];
-    _cntLabel.backgroundColor = GGMainColor;
+    _cntLabel.backgroundColor = GGRedColor;
     _cntLabel.layer.cornerRadius = CGRectGetHeight(_cntLabel.bounds)/2;
     _cntLabel.layer.masksToBounds = YES;
     _cntLabel.layer.borderWidth = 1.0f;
@@ -115,6 +116,13 @@
      "var field = '/showWeb' + urlStr;"
      "window.location = field;"
      "}"];
+    
+    //获取优惠券等功能
+    [webView stringByEvaluatingJavaScriptFromString:@"function getCouponIos(urlStr) { "
+     "var field = '/getOther' + urlStr;"
+     "window.location = field;"
+     "}"];
+
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
@@ -136,6 +144,41 @@
         return false;
     }
     if ([request.mainDocumentURL.relativePath rangeOfString:@"detail/item"].location != NSNotFound || [request.mainDocumentURL.relativePath rangeOfString:@"detail/pin"].location != NSNotFound) {
+        return false;
+    }
+    //获取优惠券等功能
+    if ([request.mainDocumentURL.relativePath rangeOfString:@"/getOther"].location != NSNotFound) {
+        NSArray *array = [request.mainDocumentURL.relativePath componentsSeparatedByString:@"getOther"]; //从字符A中分隔成2个元素的数组
+        
+        BOOL isLogin = [PublicMethod checkLogin];
+        if(!isLogin){
+            LoginViewController * login = [[LoginViewController alloc]init];
+            login.comeFrom = @"GoodsShowH5VC";
+            [self.navigationController pushViewController:login animated:NO];
+            
+            
+        }else
+        {
+            
+            NSString * url = array[1];
+            AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+            [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+                NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = message;
+                hud.labelFont = [UIFont systemFontOfSize:11];
+                hud.margin = 10.f;
+                hud.removeFromSuperViewOnHide = YES;
+                [hud hide:YES afterDelay:1];
+
+
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [PublicMethod printAlert:@"数据加载失败"];
+            }];
+
+        }
         return false;
     }
     return  true;

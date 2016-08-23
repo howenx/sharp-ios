@@ -15,6 +15,7 @@
 #import "MeViewController.h"
 #import "PinDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
+#import "GoodsShowH5ViewController.h"
 @interface LosePwdViewController ()<UITextFieldDelegate>
 {
     int secondsCountDown; //倒计时总时长
@@ -444,6 +445,10 @@
             break;
         }
         else if ([self.comeFrom isEqualToString:@"PinDetailVC"] && [temp isKindOfClass:[PinDetailViewController class]]){
+            [self.navigationController popToViewController:temp animated:YES];
+            break;
+        }
+        else if ([self.comeFrom isEqualToString:@"PinGoodsDetailVC"] && [temp isKindOfClass:[PinGoodsDetailViewController class]]){
             [self.navigationController popToViewController:temp animated:YES];
             break;
         }

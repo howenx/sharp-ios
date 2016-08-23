@@ -96,7 +96,7 @@
     //导航栏颜色
 //    controller.edgesForExtendedLayout = UIRectEdgeTop;
 //    controller.edgesForExtendedLayout = UIRectEdgeNone;
-    [navgationBar setBackgroundImage:[[UIImage createImageWithColor:GGNavColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forBarMetrics:UIBarMetricsDefault];
+    [navgationBar setBackgroundImage:[[UIImage createImageWithColor:GGMainColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forBarMetrics:UIBarMetricsDefault];
 //    navgationBar.translucent = NO;
     
 //    navgationBar.barTintColor=GGMainColor;

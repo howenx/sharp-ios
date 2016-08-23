@@ -17,6 +17,8 @@
 #import "TableHeadView.h"
 #import "UIImage+GG.h"
 
+#import "KKGbutton.h"
+#import "UIImage+GG.h"
 @interface CartViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,CartCellDelegate,TableHeadViewDelegate>
 {
     BOOL isLogin;
@@ -64,17 +66,20 @@
 //    
 //    statusbar.frame = CGRectMake(0, -20,GGUISCREENWIDTH,64);
 //    statusbar.backgroundColor = GGMainColor;
+
+//    [self.navigationController.navigationBar insertSubview:statusbar atIndex:0];
 //    [self.navigationController.navigationBar insertSubview:statusbar atIndex:1];
 ////    [self.navigationController.navigationBar addSubview:statusbar];
-            [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGMainColor] forBarMetrics:UIBarMetricsDefault];
+
     [self headerRefresh];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [statusbar removeFromSuperview];
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
+
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
 
 }
 
@@ -145,12 +150,12 @@
 -(void)createNoCartView{
     _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64-49)];
     _bgView.backgroundColor = GGBgColor;
-    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -200)/2, GGUISCREENHEIGHT/8, 200, 200)];
+    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -152)/2, GGUISCREENHEIGHT/8, 152, 218)];
     bgImageView.image = [UIImage imageNamed:@"shoppingcart"];
     
     
     UIButton * bgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    bgButton.frame = CGRectMake((GGUISCREENWIDTH-100)/2, bgImageView.y + bgImageView.height +20, 100, 30) ;
+    bgButton.frame = CGRectMake((GGUISCREENWIDTH-100)/2, bgImageView.y + bgImageView.height +30, 100, 30) ;
     
     [bgButton setTitle:@"随便逛逛" forState:UIControlStateNormal];
     bgButton.titleLabel.font = [UIFont systemFontOfSize:16];

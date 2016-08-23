@@ -32,7 +32,7 @@
 			<key>CFBundleURLIconFile</key>
 			<string>logo</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx578f993da4b29f97</string>
@@ -47,7 +47,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1105332776</string>
+				<string>tencent1105527443</string>
 			</array>
 		</dict>
 		<dict>
@@ -67,22 +67,24 @@
 			<string>logo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41E20A28</string>
+				<string>QQ41e50293</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>logo</string>
 			<key>CFBundleURLName</key>
 			<string>weibo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb794664710</string>
+				<string>wb2077801979</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>

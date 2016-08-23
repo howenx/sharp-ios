@@ -40,6 +40,8 @@
 //#define SERVERY2 @"http://172.28.3.78:9001"
 //#define SERVERY3 @"http://172.28.3.78:9004"
 //#define SERVERY4 @"http://172.28.3.78:9005"
+//#define SERVERY5 @"https://m.kakaogift.cn"//m端
+//#define SERVERY6 @"https://cash.kakaogift.cn"//支付
 
 @implementation HSGlobal
 
