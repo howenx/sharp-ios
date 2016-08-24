@@ -65,4 +65,6 @@
 + (NSString *) selectCustUrl;
 + (NSString *) shareWebUrlHead;
 +(NSString *)FeeddbackUrl;
++ (NSString *) pinGoodsUrl: (NSInteger)addon;
++ (NSString *) giftUrl: (NSInteger)addon;
 @end

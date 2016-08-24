@@ -246,6 +246,9 @@
 		8077B0E11D6D3E28003715B2 /* pin_tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0DB1D6D3E28003715B2 /* pin_tab.png */; };
 		8077B0E21D6D3E28003715B2 /* pin_tab@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0DC1D6D3E28003715B2 /* pin_tab@2x.png */; };
 		8077B0E31D6D3E28003715B2 /* pin_tab@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0DD1D6D3E28003715B2 /* pin_tab@3x.png */; };
+		8077B0E71D6D9E7F003715B2 /* kakaogift.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0E41D6D9E7F003715B2 /* kakaogift.png */; };
+		8077B0E81D6D9E7F003715B2 /* kakaogift@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0E51D6D9E7F003715B2 /* kakaogift@2x.png */; };
+		8077B0E91D6D9E7F003715B2 /* kakaogift@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8077B0E61D6D9E7F003715B2 /* kakaogift@3x.png */; };
 		807D6C631D6C29AE007A829E /* PinGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D6C611D6C29AE007A829E /* PinGoodsViewController.m */; };
 		807D6C641D6C29AE007A829E /* PinGoodsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 807D6C621D6C29AE007A829E /* PinGoodsViewController.xib */; };
 		807D6C691D6C2AA2007A829E /* GiftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 807D6C671D6C2AA2007A829E /* GiftViewController.m */; };
@@ -308,9 +311,6 @@
 		80C40AF31D4C9022004E41F8 /* weibo_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE11D4C9022004E41F8 /* weibo_login.png */; };
 		80C40AF41D4C9022004E41F8 /* weibo_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE21D4C9022004E41F8 /* weibo_login@2x.png */; };
 		80C40AF51D4C9022004E41F8 /* weibo_login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE31D4C9022004E41F8 /* weibo_login@3x.png */; };
-		80C40AF61D4C9022004E41F8 /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE41D4C9022004E41F8 /* welcome.png */; };
-		80C40AF71D4C9022004E41F8 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE51D4C9022004E41F8 /* welcome@2x.png */; };
-		80C40AF81D4C9022004E41F8 /* welcome@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C40AE61D4C9022004E41F8 /* welcome@3x.png */; };
 		80C472B51D509951001DE7FB /* moren.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C472B21D509951001DE7FB /* moren.png */; };
 		80C472B61D509951001DE7FB /* moren@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C472B31D509951001DE7FB /* moren@2x.png */; };
 		80C472B71D509951001DE7FB /* moren@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C472B41D509951001DE7FB /* moren@3x.png */; };
@@ -931,6 +931,9 @@
 		8077B0DB1D6D3E28003715B2 /* pin_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_tab.png; sourceTree = "<group>"; };
 		8077B0DC1D6D3E28003715B2 /* pin_tab@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_tab@2x.png"; sourceTree = "<group>"; };
 		8077B0DD1D6D3E28003715B2 /* pin_tab@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_tab@3x.png"; sourceTree = "<group>"; };
+		8077B0E41D6D9E7F003715B2 /* kakaogift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaogift.png; sourceTree = "<group>"; };
+		8077B0E51D6D9E7F003715B2 /* kakaogift@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakaogift@2x.png"; sourceTree = "<group>"; };
+		8077B0E61D6D9E7F003715B2 /* kakaogift@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakaogift@3x.png"; sourceTree = "<group>"; };
 		807D6C601D6C29AE007A829E /* PinGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinGoodsViewController.h; sourceTree = "<group>"; };
 		807D6C611D6C29AE007A829E /* PinGoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinGoodsViewController.m; sourceTree = "<group>"; };
 		807D6C621D6C29AE007A829E /* PinGoodsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinGoodsViewController.xib; sourceTree = "<group>"; };
@@ -1019,9 +1022,6 @@
 		80C40AE11D4C9022004E41F8 /* weibo_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weibo_login.png; sourceTree = "<group>"; };
 		80C40AE21D4C9022004E41F8 /* weibo_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weibo_login@2x.png"; sourceTree = "<group>"; };
 		80C40AE31D4C9022004E41F8 /* weibo_login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weibo_login@3x.png"; sourceTree = "<group>"; };
-		80C40AE41D4C9022004E41F8 /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
-		80C40AE51D4C9022004E41F8 /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@2x.png"; sourceTree = "<group>"; };
-		80C40AE61D4C9022004E41F8 /* welcome@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcome@3x.png"; sourceTree = "<group>"; };
 		80C472B21D509951001DE7FB /* moren.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moren.png; sourceTree = "<group>"; };
 		80C472B31D509951001DE7FB /* moren@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moren@2x.png"; sourceTree = "<group>"; };
 		80C472B41D509951001DE7FB /* moren@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moren@3x.png"; sourceTree = "<group>"; };
@@ -2201,9 +2201,9 @@
 				80C40AE11D4C9022004E41F8 /* weibo_login.png */,
 				80C40AE21D4C9022004E41F8 /* weibo_login@2x.png */,
 				80C40AE31D4C9022004E41F8 /* weibo_login@3x.png */,
-				80C40AE41D4C9022004E41F8 /* welcome.png */,
-				80C40AE51D4C9022004E41F8 /* welcome@2x.png */,
-				80C40AE61D4C9022004E41F8 /* welcome@3x.png */,
+				8077B0E41D6D9E7F003715B2 /* kakaogift.png */,
+				8077B0E51D6D9E7F003715B2 /* kakaogift@2x.png */,
+				8077B0E61D6D9E7F003715B2 /* kakaogift@3x.png */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -3066,7 +3066,6 @@
 				8077B0D41D6D3E1C003715B2 /* gift_tab_selected@3x.png in Resources */,
 				B079BC0D1CB7B090003E7240 /* coupon@3x.png in Resources */,
 				80EA5ED81C8442BF000ABCE9 /* MyPinTeamViewController.xib in Resources */,
-				80C40AF81D4C9022004E41F8 /* welcome@3x.png in Resources */,
 				806DF2351D49AD9700EB61A7 /* gs_tab_selected@3x.png in Resources */,
 				B0705EF61CAA168200E86A30 /* System-update@2x.png in Resources */,
 				80FDB8581CA4D6E2006D5CB0 /* icon_nan@3x.png in Resources */,
@@ -3111,6 +3110,7 @@
 				80E45C881C57594800941AC3 /* MyCouponCell.xib in Resources */,
 				807D6C6A1D6C2AA2007A829E /* GiftViewController.xib in Resources */,
 				80FDB89B1CA538C8006D5CB0 /* hmm_klmpintuan@3x.png in Resources */,
+				8077B0E91D6D9E7F003715B2 /* kakaogift@3x.png in Resources */,
 				B019E37B1CB4B2D600574DE3 /* dian@2x.png in Resources */,
 				B079BBFF1CB7918A003E7240 /* icongengduo.png in Resources */,
 				80C40AEE1D4C9022004E41F8 /* qq_login@2x.png in Resources */,
@@ -3203,6 +3203,7 @@
 				80113B7E1CAB652B0010B4E9 /* hmm_kaituan_success@2x.png in Resources */,
 				80F659931CF591D700204270 /* UMSCommentInputController.xib in Resources */,
 				80F262CF1C5B100200DC7CEB /* talkbackLeft.png in Resources */,
+				8077B0E81D6D9E7F003715B2 /* kakaogift@2x.png in Resources */,
 				800005531D2A419E0072CD69 /* icon_more_up_hui@3x.png in Resources */,
 				80FDB8961CA538C8006D5CB0 /* hmm_bg_jiantou@2x.png in Resources */,
 				B019E37F1CB4B2D600574DE3 /* line@3x.png in Resources */,
@@ -3243,7 +3244,6 @@
 				806DF2401D49AD9700EB61A7 /* rm_tab_selected@2x.png in Resources */,
 				8011452F1D016859007A498E /* weibo@3x.png in Resources */,
 				80086BD81CBBA1BA00CB5B90 /* biaoqian@3x.png in Resources */,
-				80C40AF61D4C9022004E41F8 /* welcome.png in Resources */,
 				80C40AF51D4C9022004E41F8 /* weibo_login@3x.png in Resources */,
 				80113B7A1CAB64F00010B4E9 /* hmm_pingou_fail@3x.png in Resources */,
 				80FDB8A51CA538C8006D5CB0 /* icon_default_header@3x.png in Resources */,
@@ -3356,6 +3356,7 @@
 				806DF2171D49ABCB00EB61A7 /* messagebutton.png in Resources */,
 				800528871CA3DD5300558D9F /* icon_delete@2x.png in Resources */,
 				B0B755121CD0556F00BA1539 /* bad_evaluate_selected@2x.png in Resources */,
+				8077B0E71D6D9E7F003715B2 /* kakaogift.png in Resources */,
 				801145391D01889C007A498E /* mimeiPwd@3x.png in Resources */,
 				80ED54D21CCF70A2004AD7C2 /* iconfont_shanchu@2x.png in Resources */,
 				80C472C21D509C01001DE7FB /* dizhi@2x.png in Resources */,
@@ -3390,7 +3391,6 @@
 				80EC9CA21C1FE8D60040A3A2 /* OrderViewController.xib in Resources */,
 				80FDB8AE1CA538C8006D5CB0 /* icon_shuaxin@2x.png in Resources */,
 				80F6599A1CF591D700204270 /* UMSocialSDKResourcesNew.bundle in Resources */,
-				80C40AF71D4C9022004E41F8 /* welcome@2x.png in Resources */,
 				808D47BD1D4F34C600B9753E /* selected.png in Resources */,
 				802A33FD1C75716800C7AF28 /* PinDetailOneCell.xib in Resources */,
 				80D77E2B1C45F6EE00A55C6B /* ToRegistViewController.xib in Resources */,

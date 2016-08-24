@@ -259,7 +259,7 @@
                 }
                     break;
                 case 5: {
-                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1094170979"]];
+                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1137893817"]];
                 }
                     break;
 
@@ -324,7 +324,7 @@
     //加载一个新的视图展示
     [storeProductViewContorller loadProductWithParameters:
      //appId唯一的
-     @{SKStoreProductParameterITunesItemIdentifier : @"1094170979"} completionBlock:^(BOOL result, NSError *error) {
+     @{SKStoreProductParameterITunesItemIdentifier : @"1137893817"} completionBlock:^(BOOL result, NSError *error) {
          //block回调
          if(error){
              NSLog(@"error %@ with userInfo %@",error,[error userInfo]);

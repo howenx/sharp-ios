@@ -79,13 +79,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome.png" translatesAutoresizingMaskIntoConstraints="NO" id="NLK-Co-dj9">
-                    <rect key="frame" x="64" y="25" width="246" height="39"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="39" id="sCV-5n-wob"/>
-                        <constraint firstAttribute="width" constant="246" id="siB-k3-i0O"/>
-                    </constraints>
-                </imageView>
                 <button opaque="NO" tag="51002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fX-im-0QG">
                     <rect key="frame" x="20" y="286" width="70" height="53"/>
                     <constraints>
@@ -126,6 +119,13 @@
                         <action selector="losePwd:" destination="-1" eventType="touchUpInside" id="0Bb-vI-pkj"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kakaogift.png" translatesAutoresizingMaskIntoConstraints="NO" id="NLK-Co-dj9">
+                    <rect key="frame" x="75" y="25" width="225" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="37" id="sCV-5n-wob"/>
+                        <constraint firstAttribute="width" constant="225" id="siB-k3-i0O"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -134,7 +134,7 @@
                 <constraint firstAttribute="trailing" secondItem="OB1-Dj-ioM" secondAttribute="trailing" constant="20" id="4xl-TH-BUJ"/>
                 <constraint firstAttribute="trailing" secondItem="3CL-R5-1Dy" secondAttribute="trailing" constant="20" id="78P-wp-cmE"/>
                 <constraint firstItem="twR-4q-Ljw" firstAttribute="top" secondItem="Adg-6W-acJ" secondAttribute="bottom" constant="10" id="88x-m0-0Cz"/>
-                <constraint firstItem="ytv-44-16d" firstAttribute="top" secondItem="NLK-Co-dj9" secondAttribute="bottom" constant="52" id="AlV-hP-Ddc"/>
+                <constraint firstItem="ytv-44-16d" firstAttribute="top" secondItem="NLK-Co-dj9" secondAttribute="bottom" constant="54" id="AlV-hP-Ddc"/>
                 <constraint firstAttribute="trailing" secondItem="twR-4q-Ljw" secondAttribute="trailing" constant="20" id="Eu9-Qv-EF1"/>
                 <constraint firstAttribute="trailing" secondItem="PoX-wr-m5G" secondAttribute="trailing" constant="20" id="GmY-Pz-AQy"/>
                 <constraint firstAttribute="centerX" secondItem="NLK-Co-dj9" secondAttribute="centerX" id="PYx-Ia-zib"/>
@@ -146,7 +146,7 @@
                 <constraint firstItem="PoX-wr-m5G" firstAttribute="top" secondItem="OB1-Dj-ioM" secondAttribute="bottom" constant="5" id="X2s-BI-ee2"/>
                 <constraint firstItem="3CL-R5-1Dy" firstAttribute="top" secondItem="PoX-wr-m5G" secondAttribute="bottom" constant="10" id="dT1-QN-kAn"/>
                 <constraint firstItem="ytv-44-16d" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="dcq-RC-k0K"/>
-                <constraint firstItem="OB1-Dj-ioM" firstAttribute="top" secondItem="NLK-Co-dj9" secondAttribute="bottom" constant="50" id="dtu-gN-JAs"/>
+                <constraint firstItem="OB1-Dj-ioM" firstAttribute="top" secondItem="NLK-Co-dj9" secondAttribute="bottom" constant="52" id="dtu-gN-JAs"/>
                 <constraint firstItem="Adg-6W-acJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="gtp-zS-MsP"/>
                 <constraint firstItem="1fX-im-0QG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hNW-rY-Ijo"/>
                 <constraint firstItem="8Lz-za-puJ" firstAttribute="top" secondItem="3CL-R5-1Dy" secondAttribute="bottom" constant="10" id="mqR-am-1cS"/>
@@ -159,6 +159,6 @@
         </view>
     </objects>
     <resources>
-        <image name="welcome.png" width="246" height="39"/>
+        <image name="kakaogift.png" width="225" height="37"/>
     </resources>
 </document>

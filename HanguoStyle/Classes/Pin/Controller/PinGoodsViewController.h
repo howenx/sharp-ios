@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PinGoodsViewController : UIViewController
-
+#import "BaseViewController.h"
+@interface PinGoodsViewController : BaseViewController
+@property (nonatomic) NSURL * url;
+@property (nonatomic) NSMutableArray * data;
 @end
