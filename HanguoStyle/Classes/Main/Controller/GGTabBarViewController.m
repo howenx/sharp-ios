@@ -76,11 +76,11 @@
     
     //1.拼购
     PinGoodsViewController * pgContro = [[PinGoodsViewController alloc]init];
-    [self setupChildViewController:pgContro title:@"拼购" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    [self setupChildViewController:pgContro title:@"拼购" imageName:@"pin_tab" selectImageName:@"pin_tab_selected"];
     
     //1.礼品
     GiftViewController * gfContro = [[GiftViewController alloc]init];
-    [self setupChildViewController:gfContro title:@"礼品" imageName:@"rm_tab" selectImageName:@"rm_tab_selected"];
+    [self setupChildViewController:gfContro title:@"礼品" imageName:@"gift_tab" selectImageName:@"gift_tab_selected"];
 
     //2.购物车
     CartViewController *  cContro = [[CartViewController alloc]init];

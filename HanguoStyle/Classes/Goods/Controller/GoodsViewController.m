@@ -165,20 +165,7 @@
             NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
             
             if(code == 200){
-                
-//              NSInteger msg =   [[object objectForKey:@"msgRemind"] integerValue];
-//                
-//                if (msg > 0) {
-//                                    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton2"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
-//                                    self.navigationItem.rightBarButtonItem = anotherButton;
-//                }
-//                else
-//                {
-//                    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messagebutton"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButton:)];
-//                    self.navigationItem.rightBarButtonItem = anotherButton;
-//
-//                }
-                
+
                 _cnt = [[object objectForKey:@"cartNum"]integerValue];
                 if (_cnt != 0) {
                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",(long)_cnt],@"badgeValue", nil];
@@ -462,11 +449,6 @@
         [self.view addSubview:noNetView];
         return;
     }
-//    if ([@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
-//        
-//        [GiFHUD setGifWithImageName:@"hmm.gif"];
-//        [GiFHUD show];
-//    }
     [GiFHUD setGifWithImageName:@"hmm.gif"];
     [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {

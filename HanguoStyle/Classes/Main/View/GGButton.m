@@ -62,7 +62,7 @@
     return  CGRectMake(x, y, w, h);
 }
 -(void)setBadge{
-    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/6 , 5, 15, 15)];
+    _cntLabel = [[UILabel alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH/10 , 5, 15, 15)];
     _cntLabel.textColor = [UIColor whiteColor];
     _cntLabel.textAlignment = NSTextAlignmentCenter;
     _cntLabel.font = [UIFont systemFontOfSize:10];

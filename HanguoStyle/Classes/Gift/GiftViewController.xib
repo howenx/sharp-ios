@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiftViewController">
             <connections>
+                <outlet property="tableView" destination="gaW-Fu-Ne8" id="9Is-FE-Fau"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +15,19 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="0.99215686270000003" green="0.81568627449999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gaW-Fu-Ne8">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="gaW-Fu-Ne8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JB6-lk-VdQ"/>
+                <constraint firstAttribute="trailing" secondItem="gaW-Fu-Ne8" secondAttribute="trailing" id="bYH-es-eNI"/>
+                <constraint firstAttribute="bottom" secondItem="gaW-Fu-Ne8" secondAttribute="bottom" constant="49" id="crT-H5-XgG"/>
+                <constraint firstItem="gaW-Fu-Ne8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lVR-fz-u67"/>
+            </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
         </view>
     </objects>

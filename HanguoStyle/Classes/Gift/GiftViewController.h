@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface GiftViewController : UIViewController
-
+#import "BaseViewController.h"
+@interface GiftViewController : BaseViewController
+@property (nonatomic) NSURL * url;
+@property (nonatomic) NSMutableArray * data;
 @end
