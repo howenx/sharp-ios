@@ -271,6 +271,8 @@
 		80878CEB1D64605000C6FFB0 /* wait.png in Resources */ = {isa = PBXBuildFile; fileRef = 80878CE81D64605000C6FFB0 /* wait.png */; };
 		80878CEC1D64605000C6FFB0 /* wait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80878CE91D64605000C6FFB0 /* wait@2x.png */; };
 		80878CED1D64605000C6FFB0 /* wait@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80878CEA1D64605000C6FFB0 /* wait@3x.png */; };
+		808790DA1D6E9494008EAE97 /* NewGoodsShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 808790D81D6E9494008EAE97 /* NewGoodsShowViewController.m */; };
+		808790DB1D6E9494008EAE97 /* NewGoodsShowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 808790D91D6E9494008EAE97 /* NewGoodsShowViewController.xib */; };
 		808B21631CE05740008DFEDB /* mj.gif in Resources */ = {isa = PBXBuildFile; fileRef = 808B21621CE05740008DFEDB /* mj.gif */; };
 		808D47BD1D4F34C600B9753E /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 808D47B41D4F34C600B9753E /* selected.png */; };
 		808D47BE1D4F34C600B9753E /* selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808D47B51D4F34C600B9753E /* selected@2x.png */; };
@@ -972,6 +974,9 @@
 		80878CE81D64605000C6FFB0 /* wait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wait.png; sourceTree = "<group>"; };
 		80878CE91D64605000C6FFB0 /* wait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wait@2x.png"; sourceTree = "<group>"; };
 		80878CEA1D64605000C6FFB0 /* wait@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wait@3x.png"; sourceTree = "<group>"; };
+		808790D71D6E9494008EAE97 /* NewGoodsShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGoodsShowViewController.h; sourceTree = "<group>"; };
+		808790D81D6E9494008EAE97 /* NewGoodsShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGoodsShowViewController.m; sourceTree = "<group>"; };
+		808790D91D6E9494008EAE97 /* NewGoodsShowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewGoodsShowViewController.xib; sourceTree = "<group>"; };
 		808B21621CE05740008DFEDB /* mj.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = mj.gif; sourceTree = "<group>"; };
 		808D47B41D4F34C600B9753E /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		808D47B51D4F34C600B9753E /* selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "selected@2x.png"; sourceTree = "<group>"; };
@@ -1749,6 +1754,9 @@
 				B0F5ADD31CD8754E0010CF42 /* ShowEvaluateBigImageController.m */,
 				B023AB8B1CD98F5400D4524F /* ShowBigImageForShowImageViewController.h */,
 				B023AB8C1CD98F5400D4524F /* ShowBigImageForShowImageViewController.m */,
+				808790D71D6E9494008EAE97 /* NewGoodsShowViewController.h */,
+				808790D81D6E9494008EAE97 /* NewGoodsShowViewController.m */,
+				808790D91D6E9494008EAE97 /* NewGoodsShowViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3003,6 +3011,7 @@
 				B0B755191CD0556F00BA1539 /* good_evaluate_selected@3x.png in Resources */,
 				8000054C1D2A41910072CD69 /* icon_more_down_hui@2x.png in Resources */,
 				B0705EF71CAA168200E86A30 /* System-update@3x.png in Resources */,
+				808790DB1D6E9494008EAE97 /* NewGoodsShowViewController.xib in Resources */,
 				B0307D6D1CB3A94C0017C38F /* peisong.png in Resources */,
 				80878CED1D64605000C6FFB0 /* wait@3x.png in Resources */,
 				807493BA1D51E5F8005AE8BB /* green_select@3x.png in Resources */,
@@ -3583,6 +3592,7 @@
 				B06794E91CB656BA00545A16 /* MessageTypeModel.m in Sources */,
 				80108A8D1C60751F00B20C64 /* MWGridCell.m in Sources */,
 				80D9800D1C4E348500CCAC03 /* UserNameViewController.m in Sources */,
+				808790DA1D6E9494008EAE97 /* NewGoodsShowViewController.m in Sources */,
 				80EF42CB1C2D148500853FFE /* AddressCell.m in Sources */,
 				8081D9C41BFC7F720098B2E2 /* GoodsParaView.m in Sources */,
 				B07E8D121D484731007F1D63 /* KKGgoodsViewCell.m in Sources */,

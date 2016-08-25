@@ -336,7 +336,7 @@
     }
     else if (index == 100003)
     {
-        [UMSocialQQHandler setQQWithAppId:@"1105332776" appKey:@"CKevSfjxt0dXEq0y" url:_shareUrl];
+        [UMSocialQQHandler setQQWithAppId:@"1105527443" appKey:@"lXkPvxWXufYAIzHT" url:_shareUrl];
         if (!_shareImage) {
             [[UMSocialDataService defaultDataService]  postSNSWithTypes:@[UMShareToQQ] content:shareText image:image location:nil urlResource:nil presentedController:(UIViewController*)_delegate completion:^(UMSocialResponseEntity *response){
                 if (response.responseCode == UMSResponseCodeSuccess) {
@@ -365,7 +365,7 @@
         }
     }
     else if (sender.tag == 100004) {
-         [UMSocialSnsService presentSnsIconSheetView:[self getCurrentVC] appKey:@"567bb26867e58e3f670002fd" shareText:[NSString stringWithFormat:@"%@%@",_shareTitle,_shareUrl] shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_shareImage]]] shareToSnsNames:@[UMShareToSina] delegate:[self getCurrentVC]];
+         [UMSocialSnsService presentSnsIconSheetView:[self getCurrentVC] appKey:@"57a3078a67e58e1233000816" shareText:[NSString stringWithFormat:@"%@%@",_shareTitle,_shareUrl] shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_shareImage]]] shareToSnsNames:@[UMShareToSina] delegate:[self getCurrentVC]];
     }else if (sender.tag == 100005) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = _shareDetailPage;

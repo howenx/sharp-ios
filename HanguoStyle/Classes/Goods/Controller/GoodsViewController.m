@@ -21,6 +21,7 @@
 #import "KKGgoodsViewCell.h"
 #import "KKGbutton.h"
 #import "UIImage+GG.h"
+#import "NewGoodsShowViewController.h"
 #define  BUTTONHigh 180
 
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
@@ -380,20 +381,18 @@
     _pushUrl =  ((SliderNavData *)self.sliderNavData[btn.tag]).itemTarget;
     if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"T"]){
         [self pushGoodShowView];
-    }else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"U"]){
+    }
+    else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"U"])
+    {
         [self pushH5GoodShowView];
     }else if ([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"D"])
     {
-            GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-            gdViewController.url = _pushUrl;
-            [self.navigationController pushViewController:gdViewController animated:YES];
+        [self pushGoodsDetailView];
     }else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"P"])
     {
-        
-    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-    pinViewController.url = _pushUrl;
-    [self.navigationController pushViewController:pinViewController animated:YES];
-    
+        [self pushPinGoodsDetailView];
+    }else if([((SliderNavData *)self.sliderNavData[btn.tag]).targetType isEqualToString:@"M"]){//跳到列表页,和“T”不同的是这个有上拉加载
+        [self pushNewGoodsShowView];
     }
 
 }
@@ -404,27 +403,18 @@
 }
 -(void) sliderJump :(NSInteger)index{
     SliderData * sliderData = _imageUrls[index];
+    _pushUrl = sliderData.itemTarget;
     if(![NSString isNSNull:sliderData.targetType]){
         if([sliderData.targetType isEqualToString:@"D"]){//跳到普通商品详情页
-            self.hidesBottomBarWhenPushed=YES;
-            GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-            gdViewController.url = sliderData.itemTarget;
-            [self.navigationController pushViewController:gdViewController animated:YES];
-            self.hidesBottomBarWhenPushed=NO;
+            [self pushGoodsDetailView];
         }else if([sliderData.targetType isEqualToString:@"P"]){//跳到拼购商品详情页
-            self.hidesBottomBarWhenPushed=YES;
-            PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-            pinViewController.url = _pushUrl;
-            [self.navigationController pushViewController:pinViewController animated:YES];
-            self.hidesBottomBarWhenPushed=NO;
-        }else if([sliderData.targetType isEqualToString:@"T"]){//跳到列表页，后台控制不会跳到h5的列表页
-            self.hidesBottomBarWhenPushed=YES;
-            GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
-            //        gsViewController.navigationItem.title = @"商品展示";
-            //下个页面要跳转的url
-            gsViewController.url = sliderData.itemTarget;
-            [self.navigationController pushViewController:gsViewController animated:YES];
-            self.hidesBottomBarWhenPushed=NO;
+            [self pushPinGoodsDetailView];
+        }else if([sliderData.targetType isEqualToString:@"T"]){//跳到列表页
+            [self pushGoodShowView];
+        }else if([sliderData.targetType isEqualToString:@"U"]){//跳到h5
+            [self pushH5GoodShowView];
+        }else if([sliderData.targetType isEqualToString:@"M"]){//跳到列表页,和“T”不同的是这个有上拉加载
+            [self pushNewGoodsShowView];
         }
 
     }
@@ -453,6 +443,7 @@
     [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
+        //为了刷新的时候清理数据
         if(_addon == 2){
             [self.data removeAllObjects];
         }
@@ -556,16 +547,10 @@
     }
     else if ([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"detail"])
     {
-        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
-        gdViewController.url = _pushUrl;
-        [self.navigationController pushViewController:gdViewController animated:YES];
+        [self pushGoodsDetailView];
     }else if([((ThemeData *)self.data[indexPath.row]).type isEqualToString:@"pin"])
     {
-        
-        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
-        pinViewController.url = _pushUrl;
-        [self.navigationController pushViewController:pinViewController animated:YES];
-        
+        [self pushPinGoodsDetailView];
     }
     
 }
@@ -577,16 +562,35 @@
 -(void)pushGoodShowView {
 
     GoodsShowViewController * gsViewController = [[GoodsShowViewController alloc]init];
-//    gsViewController.navigationItem.title = @"商品展示";
     //下个页面要跳转的url
     gsViewController.url = _pushUrl;
     [self.navigationController pushViewController:gsViewController animated:YES];
+}
+-(void)pushPinGoodsDetailView {
+    
+    PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+    pinViewController.url = _pushUrl;
+    [self.navigationController pushViewController:pinViewController animated:YES];
+}
+
+-(void)pushGoodsDetailView {
+    
+    GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+    gdViewController.url = _pushUrl;
+    [self.navigationController pushViewController:gdViewController animated:YES];
+}
+-(void)pushNewGoodsShowView {
+    
+    NewGoodsShowViewController * ngdViewController = [[NewGoodsShowViewController alloc]init];
+    ngdViewController.url = _pushUrl;
+    [self.navigationController pushViewController:ngdViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)backController{
     [self ReloadRootPage];
     [self queryCustNum];
