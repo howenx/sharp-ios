@@ -242,7 +242,7 @@
                     
                 case 2: {
                     //联系客服
-                    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:@"400-664-0808"];
+                    NSString *phoneNumber = [@"telprompt://" stringByAppendingString:@"010-53678808"];
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
                     
                 }
