@@ -20,6 +20,8 @@
 }
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic) NSInteger addon;
+@property (nonatomic) UIView  * nothingView;
+@property (nonatomic, strong)  UICollectionViewFlowLayout *layout;
 @end
 
 @implementation NewGoodsShowViewController
@@ -34,6 +36,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     //注册xib
     [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView"];
+
+    
     _collectionView.backgroundColor = GGBgColor;
     self.data  = [NSMutableArray array];
     self.hidesBottomBarWhenPushed = YES;
@@ -46,6 +51,7 @@
 {
     if(_addon >= totalPageCount && totalPageCount != 0){
         [self.collectionView.footer removeFromSuperview];
+        self.layout.footerReferenceSize = CGSizeMake(SCREEN_WIDTH, 88);
     }
     NSString * url = [NSString stringWithFormat:@"%@%ld",_url,(long)_addon];
     _addon++;
@@ -104,6 +110,32 @@
     }];
 }
 
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableView = nil;
+    if (kind == UICollectionElementKindSectionFooter)
+    {
+        UICollectionReusableView *footerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView" forIndexPath:indexPath];
+        
+        self.nothingView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 28+45+15)];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 28, SCREEN_WIDTH-30, 45)];
+        imageView.image = [UIImage imageNamed:@"home_no_more"];
+        [self.nothingView addSubview:imageView];
+        
+        
+        [footerview addSubview:self.nothingView];
+        
+        
+        reusableView = footerview;
+    }
+    return reusableView;
+}
+
+
+
+
 - (UICollectionView *)collectionView
 {
     if (!_collectionView)
@@ -111,20 +143,20 @@
         /**
          流式布局
          */
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+         self.layout= [[UICollectionViewFlowLayout alloc] init];
         
         //上下两个item的空隙
-        layout.minimumLineSpacing = 10;
+        self.layout.minimumLineSpacing = 10;
         //左右2个item的空隙
-        layout.minimumInteritemSpacing = 0;
+        self.layout.minimumInteritemSpacing = 0;
         //上左下右的空隙
-        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+        self.layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
         //滚动方向
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        self.layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         
         //创建一个collectionView
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:self.layout];
         _collectionView.backgroundColor = GGBgColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
