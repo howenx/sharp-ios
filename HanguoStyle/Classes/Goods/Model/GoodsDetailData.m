@@ -24,27 +24,30 @@
     self = [super init];
     if (self) {
         NSDictionary * mainDict = [node objectForKey:@"main"];
-        self.mainId = [mainDict objectForKey:@"id"];
-        self.itemTitle = [mainDict objectForKey:@"itemTitle"];
-//        self.onShelvesAt = [mainDict objectForKey:@"onShelvesAt"];
-//        self.offShelvesAt = [mainDict objectForKey:@"offShelvesAt"];
-        self.itemDetailImgs = [mainDict objectForKey:@"itemDetailImgs"];
-        self.itemFeatures = [[mainDict objectForKey:@"itemFeatures"] objectFromJSONString];
-//        self.themeId = [mainDict objectForKey:@"themeId"];
-//        self.state = [mainDict objectForKey:@"state"];
-//        self.orFreeShip = [[mainDict objectForKey:@"orFreeShip"]boolValue];
-//        self.deliveryArea = [mainDict objectForKey:@"deliveryArea"];
-//        self.deliveryTime = [mainDict objectForKey:@"deliveryTime"];
-//        self.orRestrictBuy = [[mainDict objectForKey:@"orRestrictBuy"]boolValue];
+        if(![NSString isNSNull:[node objectForKey:@"main"]]){
+            self.mainId = [mainDict objectForKey:@"id"];
+            self.itemTitle = [mainDict objectForKey:@"itemTitle"];
+            //        self.onShelvesAt = [mainDict objectForKey:@"onShelvesAt"];
+            //        self.offShelvesAt = [mainDict objectForKey:@"offShelvesAt"];
+            self.itemDetailImgs = [mainDict objectForKey:@"itemDetailImgs"];
+            self.itemFeatures = [[mainDict objectForKey:@"itemFeatures"] objectFromJSONString];
+            //        self.themeId = [mainDict objectForKey:@"themeId"];
+            //        self.state = [mainDict objectForKey:@"state"];
+            //        self.orFreeShip = [[mainDict objectForKey:@"orFreeShip"]boolValue];
+            //        self.deliveryArea = [mainDict objectForKey:@"deliveryArea"];
+            //        self.deliveryTime = [mainDict objectForKey:@"deliveryTime"];
+            //        self.orRestrictBuy = [[mainDict objectForKey:@"orRestrictBuy"]boolValue];
+            
+            //        self.restrictAmount = [[mainDict objectForKey:@"restrictAmount"]integerValue];
+            //
+            //        self.orShoppingPoll = [[mainDict objectForKey:@"orShoppingPoll"]boolValue];
+            //        self.shareImg = [mainDict objectForKey:@"shareImg"];
+            
+            self.itemNotice = [mainDict objectForKey:@"itemNotice"];
+            if(![NSString isNSNull:[mainDict objectForKey:@"publicity"]]){
+                self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
+            }
 
-//        self.restrictAmount = [[mainDict objectForKey:@"restrictAmount"]integerValue];
-//
-//        self.orShoppingPoll = [[mainDict objectForKey:@"orShoppingPoll"]boolValue];
-//        self.shareImg = [mainDict objectForKey:@"shareImg"];
-        
-        self.itemNotice = [mainDict objectForKey:@"itemNotice"];
-        if(![NSString isNSNull:[mainDict objectForKey:@"publicity"]]){
-            self.publicity = [[mainDict objectForKey:@"publicity"] objectFromJSONString];
         }
         
         if(![NSString isNSNull:[node objectForKey:@"comment"]]&&[node objectForKey:@"comment"]!=nil){

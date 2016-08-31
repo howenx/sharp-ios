@@ -11,9 +11,12 @@
 #import "CollectCell.h"
 #import "GoodsDetailViewController.h"
 #import "PinGoodsDetailViewController.h"
-@interface CollectViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "GoodsShowCell.h"
+@interface CollectViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIView * bgView;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic) NSMutableArray * collectionData;
 @end
 
 @implementation CollectViewController
@@ -42,11 +45,12 @@
 -(void)createNoCollectView{
     _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64)];
     _bgView.backgroundColor = GGBgColor;
-    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -162)/2, GGUISCREENHEIGHT/8, 162, 190)];
-    bgImageView.image = [UIImage imageNamed:@"no_collect"];
-    [_bgView addSubview:bgImageView];
+//    UIImageView * bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake((GGUISCREENWIDTH -162)/2, GGUISCREENHEIGHT/8, 162, 190)];
+//    bgImageView.image = [UIImage imageNamed:@"no_collect"];
+//    [_bgView addSubview:bgImageView];
     [self.view addSubview:_bgView];
     _bgView.hidden = YES;
+    [self collectionViewDidLoad];
 }
 -(void)headerRefresh{
     
@@ -185,6 +189,7 @@
 
                 [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
                 if(self.data.count == 0){
+                    [_collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
                     _bgView.hidden = NO;
                 }else{
                     _bgView.hidden = YES;
@@ -208,6 +213,195 @@
 
 -(void)backController{
     [self headerRefresh];
+    [self collectionRefresh];
+}
+
+
+/*没数据时，展示可能喜欢的商品*/
+
+-(void)collectionViewDidLoad{
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
+    //注册xib
+    [self.collectionView registerNib:[UINib nibWithNibName:@"GoodsShowCell" bundle:nil] forCellWithReuseIdentifier:@"GoodsShowCell"];
+    _collectionData = [NSMutableArray array];
+    _collectionView.backgroundColor = GGBgColor;
+    [self collectionRefresh];
+    
+}
+- (void) collectionRefresh
+{
+    
+    NSString * collectionUrl = [HSGlobal emptyDataUrl:3];// 1-空购物车 2-空订单 3-空收藏
+    
+    AFHTTPRequestOperationManager * manager = [PublicMethod shareRequestManager];
+    if(manager == nil){
+        NoNetView * noNetView = [[NoNetView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+        noNetView.delegate = self;
+        [self.view addSubview:noNetView];
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
+    [manager GET:collectionUrl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        NSLog(@"message= %@",message);
+        if(code == 200){
+            
+            //判断是否有商品
+            if(![NSString isNSNull:[object objectForKey:@"themeItemList"]]){
+                NSArray * dataArray = [object objectForKey:@"themeItemList"];
+                for (id node in dataArray) {
+                    GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
+                    [_collectionData addObject:data];
+                }
+            }
+            
+            [self.collectionView reloadData];
+        }
+        [GiFHUD dismiss];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.collectionView.footer endRefreshing];
+        [GiFHUD dismiss];
+        [PublicMethod printAlert:@"数据加载失败"];
+        
+    }];
+}
+
+
+
+// 设置headerView和footerView的
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableView = nil;
+    if (kind == UICollectionElementKindSectionHeader) {
+        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
+        reusableView = header;
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 255)];
+        view.backgroundColor = [UIColor whiteColor];
+        [reusableView addSubview:view];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-76)/2, 60, 76, 62)];
+        imageView.image = [UIImage imageNamed:@"emptyCollect"];
+        [view addSubview:imageView];
+        
+        UILabel * lab = [[UILabel alloc]initWithFrame:CGRectMake(0, imageView.height+imageView.y+22, GGUISCREENWIDTH, 30)];
+        lab.text = @"暂无收藏商品";
+        lab.font = [UIFont systemFontOfSize:17];
+        lab.textColor = UIColorFromRGB(0xc8c8c8);
+        lab.textAlignment = NSTextAlignmentCenter;
+        [view addSubview:lab];
+        
+        UIImageView * tjImageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, view.height +11, GGUISCREENWIDTH-30, 13)];
+        tjImageView.image = [UIImage imageNamed:@"tuijian"];
+        [reusableView addSubview:tjImageView];
+    }
+    reusableView.backgroundColor = GGBgColor;
+    if (kind == UICollectionElementKindSectionFooter)
+    {
+        UICollectionReusableView *footerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FooterView" forIndexPath:indexPath];
+        footerview.backgroundColor = [UIColor purpleColor];
+        reusableView = footerview;
+    }
+    return reusableView;
+}
+
+
+- (UICollectionView *)collectionView
+{
+    if (!_collectionView)
+    {
+        /**
+         流式布局
+         */
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        
+        //上下两个item的空隙
+        layout.minimumLineSpacing = 10;
+        //左右2个item的空隙
+        layout.minimumInteritemSpacing = 0;
+        //上左下右的空隙
+        layout.sectionInset = UIEdgeInsetsMake(0, 0, 10, 0);
+        //滚动方向
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        
+        layout.headerReferenceSize = CGSizeMake(GGUISCREENWIDTH, 291);
+        
+        
+        //创建一个collectionView
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT-64) collectionViewLayout:layout];
+        _collectionView.backgroundColor = GGBgColor;
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        [_bgView addSubview:_collectionView];
+    }
+    
+    return _collectionView;
+}
+/**
+ 有多少组
+ */
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+    
+}
+
+/**
+ 每组显示的item的个数
+ */
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _collectionData.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    /**
+     复用机制
+     */
+    
+    GoodsShowCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GoodsShowCell" forIndexPath:indexPath];
+    
+    if(_collectionData.count>0){
+        GoodsShowData *goodsShowData = _collectionData[indexPath.item];
+        //赋值
+        [cell setData:goodsShowData];
+        
+    }
+    
+    return cell;
+}
+
+
+
+
+//返回item的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return CGSizeMake(GGUISCREENWIDTH/2,GGUISCREENWIDTH/2+56);
+    
+}
+
+/**
+ 点击了某个item会调用
+ */
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString * _pushUrl = ((GoodsShowData *)_collectionData[indexPath.item]).itemUrl;
+    NSString * itemType = ((GoodsShowData *)_collectionData[indexPath.item]).itemType;
+    if ([@"pin" isEqualToString:itemType]) {
+        PinGoodsDetailViewController * pinViewController = [[PinGoodsDetailViewController alloc]init];
+        pinViewController.url = _pushUrl;
+        [self.navigationController pushViewController:pinViewController animated:YES];
+    }else{
+        GoodsDetailViewController * gdViewController = [[GoodsDetailViewController alloc]init];
+        gdViewController.url = _pushUrl;
+        [self.navigationController pushViewController:gdViewController animated:YES];
+    }
 }
 
 @end
