@@ -40,7 +40,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+
     [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -58,6 +58,9 @@
         }
     }
     agoIsLogin = [PublicMethod checkLogin];
+    
+    self.data = [NSMutableArray array];
+    [self setTableViewDataSource];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,15 +74,16 @@
     
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
-    self.tableView.bounces = NO;
+    self.tableView.bounces = YES;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.data = [NSMutableArray array];
-    [self setTableViewDataSource];
+//    self.data = [NSMutableArray array];
+//    [self setTableViewDataSource];
     BOOL isLogin = [PublicMethod checkLogin];
     agoIsLogin = [PublicMethod checkLogin];
     headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 200)];
     headView.backgroundColor = GGMainColor;
-    [self.view addSubview:headView];
+//    [self.view addSubview:headView];
+    self.tableView.tableHeaderView = headView;
 
     if(isLogin){
         [self footerRefresh];
@@ -159,7 +163,7 @@
     settingBtn.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
     [settingBtn setImage:[UIImage imageNamed:@"icon_set"] forState:UIControlStateNormal];
     [settingBtn addTarget:self action:@selector(settingBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [headView addSubview:settingBtn];
+//    [headView addSubview:settingBtn];
     
     
     NSString * name;
@@ -297,8 +301,44 @@
         AddressViewController * adViewController = [[AddressViewController alloc]init];
         [self.navigationController pushViewController:adViewController animated:YES];
     }
+    if(index == 5){
+        if(![PublicMethod isConnectionAvailable]){
+            return;
+        }
+        SettingViewController * settingViewController = [[SettingViewController alloc]init];
+        settingViewController.delegate =self;
+        [self.navigationController pushViewController:settingViewController animated:YES];
+    }
+    
+    if(index == 6){
+        [self exitBtnClick];
+    }
    
 }
+
+-(void)exitBtnClick{
+    if(![PublicMethod isConnectionAvailable]){
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
+    //    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"haveLoseTokenOnce"];
+    [self backMeFromSetting];
+    [self.navigationController popViewControllerAnimated:YES];
+    //修改购物车tabbar的badgeValue
+    PublicMethod * pm = [[PublicMethod alloc]init];
+    [pm sendCustNum];
+    
+    
+    //删除退出登录按钮
+    
+    [_data removeObjectAtIndex:6];
+    [self.tableView reloadData];
+}
+
+
+
+
 -(void)setTableViewDataSource{
     MeData * meData0 = [[MeData alloc]init];
     meData0.title = @"我的订单";
@@ -317,7 +357,7 @@
     [_data addObject:meData2];
     
     MeData * meData3 = [[MeData alloc]init];
-    meData3.title = @"优惠券";
+    meData3.title = @"我的优惠券";
     meData3.iconImage = @"icon_coupon";
     [_data addObject:meData3];
     
@@ -326,6 +366,21 @@
     meData4.title = @"管理收货地址";
     meData4.iconImage = @"icon_address1";
     [_data addObject:meData4];
+    
+    MeData * meData5 = [[MeData alloc]init];
+    meData5.title = @"设置";
+    meData5.iconImage = @"icon_address1";
+    [_data addObject:meData5];
+    
+    
+    BOOL isLogin = [PublicMethod checkLogin];
+    
+    if (isLogin) {
+        MeData * meData6 = [[MeData alloc]init];
+        meData6.title = @"退出登录";
+        meData6.iconImage = @"icon_address1";
+        [_data addObject:meData6];
+    }
 
 }
 -(void)backIcon:(UIImage *)image andName:(NSString *)name andSex:(NSString *)sex{
