@@ -96,10 +96,10 @@
         self.loutLogin = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 25+44)];
         
         UIButton * loutLoginButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 25, SCREEN_WIDTH-30, 44)];
-        [loutLoginButton setTitle:@"退出" forState:UIControlStateNormal];
+        [loutLoginButton setTitle:@"退出登录" forState:UIControlStateNormal];
         [loutLoginButton setBackgroundColor:UIColorFromRGB(0xfdd000)];
         loutLoginButton.layer.cornerRadius = 4.0;
-        [loutLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [loutLoginButton setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
         [loutLoginButton addTarget:self action:@selector(loutLoginClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.loutLogin addSubview:loutLoginButton];
@@ -295,11 +295,14 @@
     if(isLogin){
         [self pushGoodShowView:indexPath.section];
     }else{
-        LoginViewController * login = [[LoginViewController alloc]init];
-        login.comeFrom = @"MeVC";
-        [self.navigationController pushViewController:login animated:NO];
+        if(indexPath.section == 5){
+            [self pushGoodShowView:indexPath.section];
+        }else{
+            LoginViewController * login = [[LoginViewController alloc]init];
+            login.comeFrom = @"MeVC";
+            [self.navigationController pushViewController:login animated:NO];
+        }
     }
-    
 }
 -(void)pushGoodShowView :(NSInteger)index{
     

@@ -40,26 +40,26 @@
     [self.view addSubview:tableView_];
     
     
-    UIView * footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 50)];
-    //    footerView.backgroundColor = [UIColor redColor];
-    BOOL isLogin = [PublicMethod checkLogin];
-    
-    if(isLogin){
-        UIButton * exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        exitBtn.frame = CGRectMake(10, 20, GGUISCREENWIDTH-20, 35);
-        [exitBtn.layer setMasksToBounds:YES];
-        [exitBtn.layer setCornerRadius:4];
-        exitBtn.backgroundColor = GGMainColor;
-        [exitBtn setTitle:@"退 出" forState:UIControlStateNormal];
-        exitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [exitBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
-        [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        
-        [footerView addSubview:exitBtn];
-        
-    }
-    
-    tableView_.tableFooterView = footerView;
+//    UIView * footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, 50)];
+//    //    footerView.backgroundColor = [UIColor redColor];
+//    BOOL isLogin = [PublicMethod checkLogin];
+//    
+//    if(isLogin){
+//        UIButton * exitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        exitBtn.frame = CGRectMake(10, 20, GGUISCREENWIDTH-20, 35);
+//        [exitBtn.layer setMasksToBounds:YES];
+//        [exitBtn.layer setCornerRadius:4];
+//        exitBtn.backgroundColor = GGMainColor;
+//        [exitBtn setTitle:@"退 出" forState:UIControlStateNormal];
+//        exitBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [exitBtn setTitleColor:GGTextBlackColor forState:UIControlStateNormal];
+//        [exitBtn addTarget:self action:@selector(exitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [footerView addSubview:exitBtn];
+//        
+//    }
+//    
+//    tableView_.tableFooterView = footerView;
     
 }
 
@@ -280,19 +280,19 @@
 
 
 
--(void)exitBtnClick{
-    if(![PublicMethod isConnectionAvailable]){
-        return;
-    }
-    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
-    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
-    //    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"haveLoseTokenOnce"];
-    [self.delegate backMeFromSetting];
-    [self.navigationController popViewControllerAnimated:YES];
-    //修改购物车tabbar的badgeValue
-    PublicMethod * pm = [[PublicMethod alloc]init];
-    [pm sendCustNum];
-}
+//-(void)exitBtnClick{
+//    if(![PublicMethod isConnectionAvailable]){
+//        return;
+//    }
+//    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"userToken"];
+//    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
+//    //    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"haveLoseTokenOnce"];
+//    [self.delegate backMeFromSetting];
+//    [self.navigationController popViewControllerAnimated:YES];
+//    //修改购物车tabbar的badgeValue
+//    PublicMethod * pm = [[PublicMethod alloc]init];
+//    [pm sendCustNum];
+//}
 
 
 #pragma 清理缓存图片
