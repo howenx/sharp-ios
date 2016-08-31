@@ -31,6 +31,7 @@
 @property (nonatomic) UIImageView * photoBtn;
 @property (nonatomic) UIImage *image;
 @property (nonatomic) UIImageView * genderImageView;
+@property (nonatomic) UIView * loutLogin;
 
 @end
 
@@ -91,7 +92,28 @@
         [self createHeadView];
     }
     
+    if (isLogin) {
+        self.loutLogin = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 25+44)];
+        
+        UIButton * loutLoginButton = [[UIButton alloc]initWithFrame:CGRectMake(15, 25, SCREEN_WIDTH-30, 44)];
+        [loutLoginButton setTitle:@"退出" forState:UIControlStateNormal];
+        [loutLoginButton setBackgroundColor:UIColorFromRGB(0xfdd000)];
+        loutLoginButton.layer.cornerRadius = 4.0;
+        [loutLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [loutLoginButton addTarget:self action:@selector(loutLoginClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.loutLogin addSubview:loutLoginButton];
+        self.tableView.tableFooterView = self.loutLogin;
+    }
+    
+    
 }
+
+-(void)loutLoginClick:(UIButton *)btn
+{
+    [self exitBtnClick];
+}
+
 - (void) footerRefresh
 {
     
@@ -309,10 +331,6 @@
         settingViewController.delegate =self;
         [self.navigationController pushViewController:settingViewController animated:YES];
     }
-    
-    if(index == 6){
-        [self exitBtnClick];
-    }
    
 }
 
@@ -332,7 +350,8 @@
     
     //删除退出登录按钮
     
-    [_data removeObjectAtIndex:6];
+    self.tableView.footer = nil;
+    [self.loutLogin removeFromSuperview];
     [self.tableView reloadData];
 }
 
@@ -369,18 +388,10 @@
     
     MeData * meData5 = [[MeData alloc]init];
     meData5.title = @"设置";
-    meData5.iconImage = @"icon_address1";
+    meData5.iconImage = @"me_setting";
     [_data addObject:meData5];
     
-    
-    BOOL isLogin = [PublicMethod checkLogin];
-    
-    if (isLogin) {
-        MeData * meData6 = [[MeData alloc]init];
-        meData6.title = @"退出登录";
-        meData6.iconImage = @"icon_address1";
-        [_data addObject:meData6];
-    }
+
 
 }
 -(void)backIcon:(UIImage *)image andName:(NSString *)name andSex:(NSString *)sex{
