@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) NSString * pushUrl;
 @property (nonatomic,assign) NSInteger addon;
+@property (nonatomic,strong) UIView * nothingView;
 @end
 
 @implementation GiftViewController
@@ -62,6 +63,15 @@
 {
     if(_addon >= totalPageCount && totalPageCount != 0){
         [self.tableView.footer removeFromSuperview];
+        [self.tableView.footer removeFromSuperview];
+        
+        self.nothingView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 28+45+15)];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 28, SCREEN_WIDTH-30, 45)];
+        imageView.image = [UIImage imageNamed:@"home_no_more"];
+        [self.nothingView addSubview:imageView];
+        
+        self.tableView.tableFooterView = self.nothingView;
     }
     NSString * url = [HSGlobal giftUrl: _addon];
     _addon++;
