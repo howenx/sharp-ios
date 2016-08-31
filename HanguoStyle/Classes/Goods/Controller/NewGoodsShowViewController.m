@@ -63,7 +63,11 @@
         if(_addon == 2){
             [self.data removeAllObjects];
         }
+        
         NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        if(object!=nil && ![NSString isBlankString:[object objectForKey:@"title"]]){
+            self.navigationItem.title  = [object objectForKey:@"title"];
+        }
         NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
         NSInteger code = [[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
         NSLog(@"message= %@",message);
@@ -77,9 +81,10 @@
                     GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:node];
                     [self.data addObject:data];
                 }
-
             }
-            
+            if(totalPageCount<=1){
+                [self.collectionView.footer removeFromSuperview];
+            }
             [self.collectionView reloadData];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

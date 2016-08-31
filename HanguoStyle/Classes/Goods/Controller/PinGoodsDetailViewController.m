@@ -381,10 +381,120 @@
 }
 //组团
 -(void)pinSaleBtnClicked{
-    ChooseTeamViewController * chooseTeam = [[ChooseTeamViewController alloc]init];
-    chooseTeam.data = _detailData;
-    [self.navigationController pushViewController:chooseTeam animated:YES];
+    if(_detailData.pinTieredPricesArray.count>1){
+        ChooseTeamViewController * chooseTeam = [[ChooseTeamViewController alloc]init];
+        chooseTeam.data = _detailData;
+        [self.navigationController pushViewController:chooseTeam animated:YES];
+    }else if(_detailData.pinTieredPricesArray.count==1){
+        [self onlyOneTeam];
+    }
+    
 }
+
+//只有一个拼团的时候直接跳到订单页面
+- (void)onlyOneTeam{
+    BOOL isLogin = [PublicMethod checkLogin];
+    if(!isLogin){
+        self.hidesBottomBarWhenPushed=YES;
+        LoginViewController * login = [[LoginViewController alloc]init];
+        login.comeFrom = @"ChooseTeamVC";
+        [self.navigationController pushViewController:login animated:YES];
+        self.hidesBottomBarWhenPushed=NO;
+        return;
+    }
+    NSString * _pinTieredId = ((PinTieredPricesData *)_detailData.pinTieredPricesArray[0]).pinTieredId;
+    NSString * _pinPrice = ((PinTieredPricesData *)_detailData.pinTieredPricesArray[0]).price;
+
+    NSMutableArray * mutArray = [NSMutableArray array];
+    
+    NSMutableDictionary *myDict = [NSMutableDictionary dictionary];
+    [myDict setObject: _detailData.invCustoms forKey:@"invCustoms"];
+    [myDict setObject: _detailData.invArea forKey:@"invArea"];
+    [myDict setObject: _detailData.invAreaNm forKey:@"invAreaNm"];
+    NSMutableArray * cartArray = [NSMutableArray array];
+    
+    NSMutableDictionary *cartDict = [NSMutableDictionary dictionary];
+    [cartDict setObject: @"G" forKey:@"state"];
+    [cartDict setObject: @"1" forKey:@"amount"];
+    [cartDict setObject: _detailData.sizeId forKey:@"skuId"];
+    [cartDict setObject: _detailData.skuType forKey:@"skuType"];
+    [cartDict setObject: [NSNumber numberWithLong:_detailData.skuTypeId] forKey:@"skuTypeId"];
+    [cartDict setObject: _pinTieredId forKey:@"pinTieredPriceId"];//阶梯价格id
+    [cartDict setObject: @"0" forKey:@"cartId"];
+    [cartArray addObject:cartDict];
+    
+    [myDict setObject:cartArray forKey:@"cartDtos"];
+    [mutArray addObject:myDict];
+    
+    
+    
+    NSMutableDictionary * lastDict = [NSMutableDictionary dictionary];
+    [lastDict setObject: [mutArray copy] forKey:@"settleDTOs"];
+    [lastDict setObject: [NSNumber numberWithInt:0] forKey:@"addressId"];
+    [lastDict setObject: @"" forKey:@"couponId"];
+    [lastDict setObject: @"" forKey:@"clientIp"];
+    //    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"shipTime"];
+    [lastDict setObject: [NSNumber numberWithInt:2] forKey:@"clientType"];
+    [lastDict setObject: @"" forKey:@"orderDesc"];
+    //    [lastDict setObject: @"JD" forKey:@"payMethod"];
+    [lastDict setObject: [NSNumber numberWithInt:1] forKey:@"buyNow"];//立即支付
+    [lastDict setObject: [NSNumber numberWithLong:0] forKey:@"pinActiveId"];//表示开团
+    
+    NSString * urlString =[HSGlobal sendCartToOrder];
+    AFHTTPRequestOperationManager *manager = [PublicMethod shareRequestManager];
+    
+    if (manager ==nil) {
+        return;
+    }
+    [GiFHUD setGifWithImageName:@"hmm.gif"];
+    [GiFHUD show];
+    [manager POST:urlString  parameters:lastDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary * object = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingMutableContainers error:nil];
+        
+        NSDictionary * settleDict = [object objectForKey:@"settle"];
+        NSString * message = [[object objectForKey:@"message"] objectForKey:@"message"];
+        NSInteger code =[[[object objectForKey:@"message"] objectForKey:@"code"]integerValue];
+        NSLog(@"message= %@",message);
+        if(code == 200){
+            OrderData * orderData = [[OrderData alloc]initWithJSONNode:settleDict];
+            for(int i=0; i<orderData.singleCustomsArray.count; i++){//orderData.singleCustomsArray.count其实就是1
+                
+                OrderDetailData * odData = orderData.singleCustomsArray[i];
+                CartDetailData * cdData =[[CartDetailData alloc]init];
+                cdData.invTitle = _detailData.itemTitle;
+                cdData.invImg = _detailData.invImg;
+                cdData.amount = 1;
+                cdData.itemPrice = [_pinPrice floatValue];
+                [odData.cartDataArray addObject:cdData];
+                
+            }
+            
+            OrderViewController * order = [[OrderViewController alloc]init];
+            order.orderType = _detailData.skuType;
+            order.orderData = orderData;
+            order.mutArray = mutArray;
+            order.buyNow = 1;
+            order.realityPay = _pinPrice;
+            order.pinActiveId = 0;
+            [self.navigationController pushViewController:order animated:YES];
+        }else{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = message;
+            hud.labelFont = [UIFont systemFontOfSize:11];
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1];
+        }
+        [GiFHUD dismiss];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [GiFHUD dismiss];
+        NSLog(@"Error: %@", error);
+        [PublicMethod printAlert:@"下订单失败"];
+    }];
+}
+
+
 //立即购买
 -(void)singleSaleBtnClicked{
     BOOL isLogin = [PublicMethod checkLogin];

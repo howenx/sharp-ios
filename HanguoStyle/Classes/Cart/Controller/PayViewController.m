@@ -11,6 +11,7 @@
 #import "MyOrderViewController.h"
 #import "PinDetailViewController.h"
 #import "ChooseTeamViewController.h"
+#import "PinGoodsDetailViewController.h"
 
 #import "WXApi.h"
 #import "WXApiManager.h"
@@ -96,6 +97,9 @@
                         [self.navigationController popToViewController:temp animated:YES];
                         break;
                     }else if ([temp isKindOfClass:[PinDetailViewController class]]){
+                        [self.navigationController popToViewController:temp animated:YES];
+                        break;
+                    }else if ([temp isKindOfClass:[PinGoodsDetailViewController class]]){//当只有一种拼团方式的时候，没有创建选择拼团页面，直接返回拼购商品详情页面
                         [self.navigationController popToViewController:temp animated:YES];
                         break;
                     }

@@ -14,18 +14,20 @@
 //#define SERVERY4 @"http://172.28.3.46:9005"
 
 
-//#define SERVERY1 @"http://172.28.3.18:9003"
-//#define SERVERY2 @"http://172.28.3.18:9001"
-//#define SERVERY3 @"http://172.28.3.18:9004"
-//#define SERVERY4 @"http://172.28.3.18:9005"
-
-
-#define SERVERY1 @"https://shopping.kakaogift.cn"
-#define SERVERY2 @"https://api.kakaogift.cn"
-#define SERVERY3 @"https://id.kakaogift.cn"
-#define SERVERY4 @"https://promotion.kakaogift.cn"
+#define SERVERY1 @"http://172.28.3.18:9003"
+#define SERVERY2 @"http://172.28.3.18:9001"
+#define SERVERY3 @"http://172.28.3.18:9004"
+#define SERVERY4 @"http://172.28.3.18:9005"
 #define SERVERY5 @"https://m.kakaogift.cn"//m端
 #define SERVERY6 @"https://cash.kakaogift.cn"//支付
+
+
+//#define SERVERY1 @"https://shopping.kakaogift.cn"
+//#define SERVERY2 @"https://api.kakaogift.cn"
+//#define SERVERY3 @"https://id.kakaogift.cn"
+//#define SERVERY4 @"https://promotion.kakaogift.cn"
+//#define SERVERY5 @"https://m.kakaogift.cn"//m端
+//#define SERVERY6 @"https://cash.kakaogift.cn"//支付
 
 
 
@@ -44,6 +46,14 @@
 //#define SERVERY6 @"https://cash.kakaogift.cn"//支付
 
 @implementation HSGlobal
+
+//空数据展示可能喜欢的商品列表
++ (NSString *) emptyDataUrl: (NSInteger)flag //1-空购物车 2-空订单 3-空收藏 4-空拼团 5-空优惠券
+{
+    NSString * url = [NSString stringWithFormat:@"%@/comm/recommend/%ld",SERVERY2,(long)flag];
+    
+    return [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 
 //礼品地址
 + (NSString *) giftUrl: (NSInteger)addon

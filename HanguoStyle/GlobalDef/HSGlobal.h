@@ -67,4 +67,5 @@
 +(NSString *)FeeddbackUrl;
 + (NSString *) pinGoodsUrl: (NSInteger)addon;
 + (NSString *) giftUrl: (NSInteger)addon;
++ (NSString *) emptyDataUrl: (NSInteger)flag;
 @end
