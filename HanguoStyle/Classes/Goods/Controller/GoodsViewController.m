@@ -310,7 +310,7 @@
  
         
         int totalloc=4;
-        CGFloat marginW = 10;
+        CGFloat marginW = 0;
         CGFloat appvieww=(SCREEN_WIDTH - (totalloc+1)*marginW)/totalloc;
         CGFloat appviewh=70;
         CGFloat marginH = 10;
@@ -323,7 +323,7 @@
             
             
             
-            KKGbutton * Btn = [[KKGbutton alloc]initWithFrame:CGRectZero fontSize:12 imageAndTitleSpaceing:2 baifenbi:0.6];
+            KKGbutton * Btn = [[KKGbutton alloc]initWithFrame:CGRectZero fontSize:12 imageAndTitleSpaceing:0 baifenbi:0.6];
             
             NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:((SliderNavData *)self.sliderNavData[i]).url]];
            
