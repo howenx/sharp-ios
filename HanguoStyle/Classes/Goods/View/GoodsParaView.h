@@ -9,5 +9,5 @@
 #import "BaseView.h"
 
 @interface GoodsParaView : UIView
--(void)createParaView:(NSDictionary *)dict;
+-(void)createParaView:(NSDictionary *)dict keyArray:(NSMutableArray*) keyArray;
 @end
