@@ -70,7 +70,8 @@
 @property (nonatomic) NSString * onShelvesAt;//商品销售起始时间
 @property (nonatomic) NSString * offShelvesAt;//商品销售终止时间
 @property (nonatomic) NSString  * itemDetailImgs;//商品详细图
-@property (nonatomic) NSDictionary * itemFeatures;//商品属性
+@property (nonatomic) NSMutableDictionary * itemFeatures;//商品属性
+@property (nonatomic) NSMutableArray * itemFeaturesKeyArray;//商品属性Key
 @property (nonatomic) NSString * themeId;//主题ID
 @property (nonatomic) NSString * state;//商品状态
 @property (nonatomic) BOOL       orFreeShip;//是否包邮

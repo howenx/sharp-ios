@@ -51,7 +51,8 @@
 @property (nonatomic) NSString * mainId;//商品ID
 @property (nonatomic) NSString * itemTitle;//商品标题
 @property (nonatomic) NSString  * itemDetailImgs;//商品详细图
-@property (nonatomic) NSDictionary * itemFeatures;//商品属性
+@property (nonatomic) NSMutableDictionary * itemFeatures;//商品属性
+@property (nonatomic) NSMutableArray * itemFeaturesKeyArray;//商品属性Key
 @property (nonatomic) NSString * itemNotice;//商品重要布告
 @property (nonatomic) NSArray * publicity;//包邮等信息
 
