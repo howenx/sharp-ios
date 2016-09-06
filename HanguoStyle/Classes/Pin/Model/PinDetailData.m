@@ -15,7 +15,7 @@
 @end
 
 @implementation PinDetailData
-- (PinDetailData *) initWithJSONactivityDict: (id) node
+- (PinDetailData *) initWithJSONNode: (id) node
 {
     self = [super init];
     if (self) {

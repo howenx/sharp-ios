@@ -149,7 +149,7 @@ static NSString *appId = @"wx578f993da4b29f97";
     UIScrollView *_scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     //设置UIScrollView 的显示内容的尺寸，有n张图要显示，就设置 屏幕宽度*n ，这里假设要显示4张图
-    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 4, GGUISCREENHEIGHT);
+    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 3, GGUISCREENHEIGHT);
     
     _scrollView.tag = 101;
     
@@ -164,7 +164,7 @@ static NSString *appId = @"wx578f993da4b29f97";
     
     
     //在UIScrollView 上加入 UIImageView
-    for (int i = 0 ; i < 4; i ++) {
+    for (int i = 0 ; i < 3; i ++) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH * i , 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
         
@@ -182,7 +182,7 @@ static NSString *appId = @"wx578f993da4b29f97";
             [_scrollView addSubview:jumpImgV];
         }
 
-        if(i == 3){
+        if(i == 2){
             UIImageView * enterImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH * i +(GGUISCREENWIDTH-167)/2, GGUISCREENHEIGHT*0.8, 167, 40)];
             enterImgV.image = [UIImage imageNamed:@"openApp"];
             enterImgV.userInteractionEnabled = YES;

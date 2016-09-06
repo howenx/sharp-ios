@@ -58,16 +58,13 @@
             [self progessIn];
         }
     }
-    agoIsLogin = [PublicMethod checkLogin];
-    
-    self.data = [NSMutableArray array];
-    [self setTableViewDataSource];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationItem.title = @"我的信息";
-    
+    self.data = [NSMutableArray array];
+    [self setTableViewDataSource];
     [self progessIn];
     
 }
@@ -345,11 +342,10 @@
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"expired"];
     //    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"haveLoseTokenOnce"];
     [self backMeFromSetting];
-    [self.navigationController popViewControllerAnimated:YES];
     //修改购物车tabbar的badgeValue
     PublicMethod * pm = [[PublicMethod alloc]init];
     [pm sendCustNum];
-    
+    agoIsLogin = NO;
     
     //删除退出登录按钮
     

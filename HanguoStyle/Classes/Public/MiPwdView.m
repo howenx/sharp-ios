@@ -239,8 +239,7 @@
                     priceLab.text =[NSString stringWithFormat:@"￥ %@",detailData.invPrice];
                     
                 }else if ([detailStr rangeOfString:@"<T>"].location != NSNotFound) {
-                    NSDictionary * dataDict = [dict objectForKey:@"activity"];
-                    PinDetailData * data = [[PinDetailData alloc] initWithJSONNode:dataDict];
+                    PinDetailData * data = [[PinDetailData alloc] initWithJSONNode:dict];
                     [imageView sd_setImageWithURL:[NSURL URLWithString:data.pinImg]];
                     priceLab.text =[NSString stringWithFormat:@"￥ %@",data.pinPrice];
                 }
