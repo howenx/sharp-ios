@@ -90,6 +90,7 @@
             }
             if(totalPageCount<=1){
                 [self.collectionView.footer removeFromSuperview];
+                self.layout.footerReferenceSize = CGSizeMake(SCREEN_WIDTH, 88);
             }
             [self.collectionView reloadData];
         }else{

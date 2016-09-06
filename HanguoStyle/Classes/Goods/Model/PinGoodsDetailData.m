@@ -31,15 +31,17 @@
         self.itemFeatures = [NSMutableDictionary dictionary];
         self.itemFeaturesKeyArray = [NSMutableArray array];
         NSString * itemFeaturesStr = [mainDict objectForKey:@"itemFeatures"];
-        //去掉大括号后在字符串前面加一个空格，保持第一对和后面的键值对格式一致，后面好解析
-        NSArray  * itemFeaturesArray= [[@" " stringByAppendingString:[itemFeaturesStr substringWithRange:NSMakeRange(1,itemFeaturesStr.length-2)]] componentsSeparatedByString:@","];
-        for(NSString * singleStr in itemFeaturesArray){
-            NSArray  * singleArray = [singleStr componentsSeparatedByString:@":"];
-            //去掉前面的空格和单引号，去掉后面单引号
-            NSString * key =  [singleArray[0]substringWithRange:NSMakeRange(2,((NSString *)singleArray[0]).length-3)];
-            [self.itemFeaturesKeyArray addObject:key];
-            NSString * value = [singleArray[1]substringWithRange:NSMakeRange(2,((NSString *)singleArray[1]).length-3)];
-            [self.itemFeatures setObject:value forKey:key];
+        if(![NSString isBlankString:itemFeaturesStr] ){
+            //去掉大括号后在字符串前面加一个空格，保持第一对和后面的键值对格式一致，后面好解析
+            NSArray  * itemFeaturesArray= [[@" " stringByAppendingString:[itemFeaturesStr substringWithRange:NSMakeRange(1,itemFeaturesStr.length-2)]] componentsSeparatedByString:@","];
+            for(NSString * singleStr in itemFeaturesArray){
+                NSArray  * singleArray = [singleStr componentsSeparatedByString:@":"];
+                //去掉前面的空格和单引号，去掉后面单引号
+                NSString * key =  [singleArray[0]substringWithRange:NSMakeRange(2,((NSString *)singleArray[0]).length-3)];
+                [self.itemFeaturesKeyArray addObject:key];
+                NSString * value = [singleArray[1]substringWithRange:NSMakeRange(2,((NSString *)singleArray[1]).length-3)];
+                [self.itemFeatures setObject:value forKey:key];
+            }
         }
         self.itemNotice = [mainDict objectForKey:@"itemNotice"];
         if(![NSString isNSNull:[mainDict objectForKey:@"publicity"]]){

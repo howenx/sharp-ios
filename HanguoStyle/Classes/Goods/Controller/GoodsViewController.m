@@ -77,20 +77,22 @@
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
     self.data = [NSMutableArray array];
     [self queryCustNum];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadRootPage) name:@"ReloadRootPage" object:nil];
 }
+//-(void)headerRefresh{
+//    _addon = 1;
+//    totalPageCount = 0;
+//}
 -(void)ReloadRootPage{
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     _addon = 1;
     totalPageCount = 0;
     self.tableView.contentOffset = CGPointMake(0, 0);
-    
     self.tableView.tableFooterView = nil;
     [self.nothingView removeFromSuperview];
-    
-    
     [self footerRefresh];
 }
 //消息盒子
@@ -221,7 +223,7 @@
         
 
         int totalloc=4;
-        CGFloat marginW = 10;
+        CGFloat marginW = 0;
         CGFloat appvieww=(SCREEN_WIDTH - (totalloc+1)*marginW)/totalloc;
         CGFloat appviewh=70;
         CGFloat marginH = 10;
@@ -457,6 +459,7 @@
     [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
         //为了刷新的时候清理数据
         if(_addon == 2){
             [self.data removeAllObjects];
@@ -506,6 +509,7 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
         [GiFHUD dismiss];
         [PublicMethod printAlert:@"数据加载失败"];
     }];

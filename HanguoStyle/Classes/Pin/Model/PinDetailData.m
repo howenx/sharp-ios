@@ -9,75 +9,76 @@
 #import "PinDetailData.h"
 #import "NSString+GG.h"
 #import <JSONKit.h>
+#import "GoodsShowData.h"
 @implementation PinUsersData
 
 @end
 
 @implementation PinDetailData
-- (PinDetailData *) initWithJSONNode: (id) node
+- (PinDetailData *) initWithJSONactivityDict: (id) node
 {
     self = [super init];
     if (self) {
+        NSDictionary * activityDict = [node objectForKey:@"activity"];
 
+        self.pinUrl = [activityDict objectForKey:@"pinUrl"];
+        if(![NSString isNSNull:[activityDict objectForKey:@"pinActiveId"]]){
+            self.pinActiveId = [[activityDict objectForKey:@"pinActiveId"]longValue];
+        }
+        if(![NSString isNSNull:[activityDict objectForKey:@"pinId"]]){
+            self.pinId = [[activityDict objectForKey:@"pinId"]longValue];
+        }
+        if(![NSString isNSNull:[activityDict objectForKey:@"masterUserId"]]){
+            self.masterUserId = [[activityDict objectForKey:@"masterUserId"]longValue];
+        }
+        if(![NSString isNSNull:[activityDict objectForKey:@"personNum"]]){
+            self.personNum = [[activityDict objectForKey:@"personNum"]integerValue];
+        }
 
-        self.pinUrl = [node objectForKey:@"pinUrl"];
-        if(![NSString isNSNull:[node objectForKey:@"pinActiveId"]]){
-            self.pinActiveId = [[node objectForKey:@"pinActiveId"]longValue];
+        if(![NSString isNSNull:[activityDict objectForKey:@"endCountDown"]]){
+            self.endCountDown = [[activityDict objectForKey:@"endCountDown"]longValue];
         }
-        if(![NSString isNSNull:[node objectForKey:@"pinId"]]){
-            self.pinId = [[node objectForKey:@"pinId"]longValue];
-        }
-        if(![NSString isNSNull:[node objectForKey:@"masterUserId"]]){
-            self.masterUserId = [[node objectForKey:@"masterUserId"]longValue];
-        }
-        if(![NSString isNSNull:[node objectForKey:@"personNum"]]){
-            self.personNum = [[node objectForKey:@"personNum"]integerValue];
-        }
-
-        if(![NSString isNSNull:[node objectForKey:@"endCountDown"]]){
-            self.endCountDown = [[node objectForKey:@"endCountDown"]longValue];
-        }
-        self.pinPrice = [node objectForKey:@"pinPrice"];
-        self.joinPersons = [[node objectForKey:@"joinPersons"]integerValue];
-        self.status = [node objectForKey:@"status"];
-        self.pay = [node objectForKey:@"pay"];
+        self.pinPrice = [activityDict objectForKey:@"pinPrice"];
+        self.joinPersons = [[activityDict objectForKey:@"joinPersons"]integerValue];
+        self.status = [activityDict objectForKey:@"status"];
+        self.pay = [activityDict objectForKey:@"pay"];
         
         
-        self.userType = [node objectForKey:@"userType"];
+        self.userType = [activityDict objectForKey:@"userType"];
 
-        if(![NSString isNSNull:[node objectForKey:@"orJoinActivity"]]){
-            self.orJoinActivity = [[node objectForKey:@"orJoinActivity"]integerValue];
+        if(![NSString isNSNull:[activityDict objectForKey:@"orJoinActivity"]]){
+            self.orJoinActivity = [[activityDict objectForKey:@"orJoinActivity"]integerValue];
         }
         
-        if(![NSString isNSNull:[node objectForKey:@"orMaster"]]){
-            self.orMaster = [[node objectForKey:@"orMaster"]integerValue];
+        if(![NSString isNSNull:[activityDict objectForKey:@"orMaster"]]){
+            self.orMaster = [[activityDict objectForKey:@"orMaster"]integerValue];
         }
-        self.pinImg = [[[node objectForKey:@"pinImg"]objectFromJSONString]objectForKey:@"url"];
-        self.pinSkuUrl = [node objectForKey:@"pinSkuUrl"];
-        self.invArea = [node objectForKey:@"invArea"];
-        self.invCustoms = [node objectForKey:@"invCustoms"];
-        self.invAreaNm = [node objectForKey:@"invAreaNm"];
-        self.postalTaxRate = [node objectForKey:@"postalTaxRate"];
-        self.postalStandard = [node objectForKey:@"postalStandard"];
-        self.pinTitle = [node objectForKey:@"pinTitle"];
+        self.pinImg = [[[activityDict objectForKey:@"pinImg"]objectFromJSONString]objectForKey:@"url"];
+        self.pinSkuUrl = [activityDict objectForKey:@"pinSkuUrl"];
+        self.invArea = [activityDict objectForKey:@"invArea"];
+        self.invCustoms = [activityDict objectForKey:@"invCustoms"];
+        self.invAreaNm = [activityDict objectForKey:@"invAreaNm"];
+        self.postalTaxRate = [activityDict objectForKey:@"postalTaxRate"];
+        self.postalStandard = [activityDict objectForKey:@"postalStandard"];
+        self.pinTitle = [activityDict objectForKey:@"pinTitle"];
 
-        if(![NSString isNSNull:[node objectForKey:@"skuId"]]){
-            self.skuId = [[node objectForKey:@"skuId"]longValue];
+        if(![NSString isNSNull:[activityDict objectForKey:@"skuId"]]){
+            self.skuId = [[activityDict objectForKey:@"skuId"]longValue];
         }
-        self.skuType = [node objectForKey:@"skuType"];
-        if(![NSString isNSNull:[node objectForKey:@"skuTypeId"]]){
-            self.skuTypeId = [[node objectForKey:@"skuTypeId"]integerValue];
+        self.skuType = [activityDict objectForKey:@"skuType"];
+        if(![NSString isNSNull:[activityDict objectForKey:@"skuTypeId"]]){
+            self.skuTypeId = [[activityDict objectForKey:@"skuTypeId"]integerValue];
         }
         
-        if(![NSString isNSNull:[node objectForKey:@"pinTieredPriceId"]]){
-            self.pinTieredPriceId = [[node objectForKey:@"pinTieredPriceId"]longValue];
+        if(![NSString isNSNull:[activityDict objectForKey:@"pinTieredPriceId"]]){
+            self.pinTieredPriceId = [[activityDict objectForKey:@"pinTieredPriceId"]longValue];
         }
         
         
         self.pinUsersArray = [NSMutableArray array];
         
         
-        NSArray * tags = [node objectForKey:@"pinUsers"];
+        NSArray * tags = [activityDict objectForKey:@"pinUsers"];
         for (id tag in tags) {
 
             PinUsersData * detailData = [[PinUsersData alloc]init];
@@ -92,7 +93,15 @@
         }
 
         
-        
+        //推荐商品
+        self.pushArray = [NSMutableArray array];
+        if (![NSString isNSNull:[node objectForKey:@"themeList"]]) {
+            NSArray * pushArray = [node objectForKey:@"themeList"];
+            for(id tag in pushArray){
+                GoodsShowData * data = [[GoodsShowData alloc] initWithJSONNode:tag];
+                [self.pushArray addObject:data];
+            }
+        }
         
     }
     return self;

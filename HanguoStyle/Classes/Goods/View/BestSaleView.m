@@ -106,18 +106,18 @@
             //2016-01-30 17:16:55
             int month= [[showData.endAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[showData.endAt substringWithRange:NSMakeRange(8,2)] intValue];
-            int hour= [[showData.endAt substringWithRange:NSMakeRange(11,2)] intValue];
-            int minute= [[showData.endAt substringWithRange:NSMakeRange(14,2)] intValue];
+            NSString * hour= [showData.endAt substringWithRange:NSMakeRange(11,2)];
+            NSString * minute= [showData.endAt substringWithRange:NSMakeRange(14,2)];
             
-            NSString * strTime = [NSString stringWithFormat:@"截止到%d月%d日 %d:%d",month,day,hour,minute];
+            NSString * strTime = [NSString stringWithFormat:@"%d月%d日%@:%@截止",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
         }else if([@"P" isEqualToString: showData.state]){//预售
             int month= [[showData.startAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[showData.startAt substringWithRange:NSMakeRange(8,2)] intValue];
-            int hour= [[showData.startAt substringWithRange:NSMakeRange(11,2)] intValue];
-            int minute= [[showData.startAt substringWithRange:NSMakeRange(14,2)] intValue];
+            NSString * hour= [showData.startAt substringWithRange:NSMakeRange(11,2)];
+            NSString * minute= [showData.startAt substringWithRange:NSMakeRange(14,2)];
             
-            NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
+            NSString * strTime = [NSString stringWithFormat:@"%d月%d日%@:%@开始",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
             
             
@@ -134,7 +134,7 @@
             
             
         }else{
-            _pinTimeLab.text  = @"此团拼购已结束";
+            _pinTimeLab.text  = @"拼购已结束";
             UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((view.width-66)/2, (view.height-66)/2, 66, 66)];
             _saleOutLab.font = [UIFont systemFontOfSize:13];
             _saleOutLab.textColor = [UIColor whiteColor];
@@ -143,7 +143,12 @@
             _saleOutLab.alpha = 0.7;
             [_saleOutLab.layer setCornerRadius:33];
             [_saleOutLab.layer setMasksToBounds:YES];
-            _saleOutLab.text = @"已结束";
+            _saleOutLab.hidden = NO;
+            if([@"K" isEqualToString: showData.state]){
+                _saleOutLab.text = @"已售罄";
+            }else if([@"D" isEqualToString: showData.state]){
+                _saleOutLab.text = @"已下架";
+            }
             [view addSubview:_saleOutLab];
             
         }
@@ -160,7 +165,7 @@
             [willSaleImageView setImage:[UIImage imageNamed:@"yushou"]];
             [willSaleView addSubview:willSaleImageView];
             
-        }else if(![@"Y" isEqualToString: showData.state]&&![@"P" isEqualToString: showData.state]){// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+        }else if([@"K" isEqualToString: showData.state]){
             UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((view.width-66)/2, (view.height-66)/2, 66, 66)];
             _saleOutLab.font = [UIFont systemFontOfSize:13];
             _saleOutLab.textColor = [UIColor whiteColor];
@@ -169,8 +174,21 @@
             _saleOutLab.alpha = 0.7;
             [_saleOutLab.layer setCornerRadius:33];
             [_saleOutLab.layer setMasksToBounds:YES];
-            _saleOutLab.text = @"已抢光";
+            _saleOutLab.text = @"已售罄";
             [view addSubview:_saleOutLab];
+
+        }else if([@"D" isEqualToString: showData.state]){
+            UILabel * _saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((view.width-66)/2, (view.height-66)/2, 66, 66)];
+            _saleOutLab.font = [UIFont systemFontOfSize:13];
+            _saleOutLab.textColor = [UIColor whiteColor];
+            _saleOutLab.textAlignment = NSTextAlignmentCenter;
+            _saleOutLab.backgroundColor = GGColor(111, 113, 121);
+            _saleOutLab.alpha = 0.7;
+            [_saleOutLab.layer setCornerRadius:33];
+            [_saleOutLab.layer setMasksToBounds:YES];
+            _saleOutLab.text = @"已下架";
+            [view addSubview:_saleOutLab];
+
         }
     }
     return view;

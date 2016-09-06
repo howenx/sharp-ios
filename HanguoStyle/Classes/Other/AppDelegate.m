@@ -105,10 +105,10 @@ static NSString *appId = @"wx578f993da4b29f97";
 
     [self.window makeKeyAndVisible];
         //判断滑动图是否出现过，第一次调用时“isScrollViewAppear” 这个key 对应的值是nil，会进入if中
-//    if (![@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
-//        
-//        [self showScrollView];//显示滑动图
-//    }
+    if (![@"YES" isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"isScrollViewAppear"]]) {
+        
+        [self showScrollView];//显示滑动图
+    }
     
     
     

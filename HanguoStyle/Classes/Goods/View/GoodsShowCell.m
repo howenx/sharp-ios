@@ -67,26 +67,31 @@
             //2016-01-30 17:16:55
             int month= [[data.endAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.endAt substringWithRange:NSMakeRange(8,2)] intValue];
-            int hour= [[data.endAt substringWithRange:NSMakeRange(11,2)] intValue];
-            int minute= [[data.endAt substringWithRange:NSMakeRange(14,2)] intValue];
+            NSString * hour= [data.endAt substringWithRange:NSMakeRange(11,2)];
+            NSString * minute= [data.endAt substringWithRange:NSMakeRange(14,2)];
             
-            NSString * strTime = [NSString stringWithFormat:@"截止到%d月%d日 %d:%d",month,day,hour,minute];
+            NSString * strTime = [NSString stringWithFormat:@"%d月%d日%@:%@截止",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
             _willSaleView.hidden = YES;
         }else if([@"P" isEqualToString: data.state]){//预售
             _saleOutLab.hidden = YES;
             int month= [[data.startAt substringWithRange:NSMakeRange(5,2)] intValue];
             int day= [[data.startAt substringWithRange:NSMakeRange(8,2)] intValue];
-            int hour= [[data.startAt substringWithRange:NSMakeRange(11,2)] intValue];
-            int minute= [[data.startAt substringWithRange:NSMakeRange(14,2)] intValue];
+            NSString * hour= [data.startAt substringWithRange:NSMakeRange(11,2)];
+            NSString * minute= [data.startAt substringWithRange:NSMakeRange(14,2)];
             
-            NSString * strTime = [NSString stringWithFormat:@"开始于%d月%d日 %d:%d",month,day,hour,minute];
+            NSString * strTime = [NSString stringWithFormat:@"%d月%d日%@:%@开始",month,day,hour,minute];
             _pinTimeLab.text  = strTime;
             _willSaleView.hidden = NO;
         }else{
             _saleOutLab.hidden = NO;
-            _saleOutLab.text = @"已结束";
-            NSString * strTime = @"此团拼购已结束";
+            if([@"K" isEqualToString: data.state]){
+                _saleOutLab.text = @"已售罄";
+            }else if([@"D" isEqualToString: data.state]){
+                _saleOutLab.text = @"已下架";
+            }
+            
+            NSString * strTime = @"拼购已结束";
             _pinTimeLab.text  = strTime;
             _willSaleView.hidden = YES;
         }
@@ -105,8 +110,16 @@
             _saleOutLab.hidden = YES;
             _willSaleView.hidden = YES;
         }else if([@"P" isEqualToString: data.state]){
-            _willSaleView.hidden = NO;
             _saleOutLab.hidden = YES;
+            _willSaleView.hidden = NO;
+        }else if([@"K" isEqualToString: data.state]){
+            _saleOutLab.hidden = NO;
+            _saleOutLab.text = @"已售罄";
+            _willSaleView.hidden = YES;
+        }else if([@"D" isEqualToString: data.state]){
+            _saleOutLab.hidden = NO;
+            _saleOutLab.text = @"已下架";
+            _willSaleView.hidden = YES;
         }else{
             _saleOutLab.hidden = NO;
             _saleOutLab.text = @"已抢光";
