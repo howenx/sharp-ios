@@ -30,8 +30,28 @@
 - (void)setData:(PinGoodsDetailData *)data
 
 {
+    if(![data.status isEqualToString:@"Y"]){
 
-
+        UILabel* saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-104)/2, 105, 104, 104)];
+        saleOutLab.textAlignment = NSTextAlignmentCenter;
+        saleOutLab.backgroundColor = UIColorFromRGB(0x000000);
+        saleOutLab.alpha = 0.7;
+        saleOutLab.font = [UIFont systemFontOfSize:17];
+        [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
+        [saleOutLab.layer setMasksToBounds:YES];
+        saleOutLab.layer.cornerRadius = 52;
+        
+        if([data.status isEqualToString:@"P"]){
+            saleOutLab.text = @"预售中";
+        } else if ([data.status isEqualToString:@"K"]){
+            saleOutLab.text = @"已售罄";
+        } else if ([data.status isEqualToString:@"D"]){
+            saleOutLab.text = @"已下架";
+        }
+        [self.contentView addSubview:saleOutLab];
+        
+    }
+    
     _scrollArr = data.itemPreviewImgs;
     self.titleLab.text = data.pinTitle;
     CGSize size  = [PublicMethod getSize:data.pinTitle Font:14 Width:GGUISCREENWIDTH-20 Height:1000];

@@ -57,6 +57,7 @@
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
     self.data = [NSMutableArray array];
 }
 - (void) footerRefresh
@@ -87,6 +88,7 @@
     [GiFHUD show];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self.tableView.footer endRefreshing];
+        [self.tableView.header endRefreshing];
         if(_addon == 2){
             [self.data removeAllObjects];
         }
@@ -192,7 +194,8 @@
     _addon = 1;
     totalPageCount = 0;
     self.tableView.contentOffset = CGPointMake(0, 0);
-    
+    self.tableView.tableFooterView = nil;
+    [self.nothingView removeFromSuperview];
     [self footerRefresh];
 }
 @end

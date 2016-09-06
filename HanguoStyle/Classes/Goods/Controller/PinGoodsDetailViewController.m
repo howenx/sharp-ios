@@ -160,27 +160,24 @@
         _openTeamButton.alpha = 0.4;
         _singleBuyButton.alpha = 0.4;
     }
-    if(![_detailData.status isEqualToString:@"Y"] && ![_detailData.status isEqualToString:@"P"]){
+    if(![_detailData.status isEqualToString:@"Y"]){
         UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - 77-64, GGUISCREENWIDTH, 27) ;
         otherPinGoodsBtn.backgroundColor = UIColorFromRGB(0x49576e);
         
-        [otherPinGoodsBtn setTitle:@"该活动已结束，去看看其他拼购吧" forState:UIControlStateNormal];
+        if([_detailData.status isEqualToString:@"P"]){
+            [otherPinGoodsBtn setTitle:@"该商品预售中，去看看其他拼购吧~" forState:UIControlStateNormal];
+        } else if ([_detailData.status isEqualToString:@"K"]){
+            [otherPinGoodsBtn setTitle:@"该商品已售罄，去看看其他拼购吧~" forState:UIControlStateNormal];
+        } else if ([_detailData.status isEqualToString:@"D"]){
+            [otherPinGoodsBtn setTitle:@"该商品已下架，去看看其他拼购吧~" forState:UIControlStateNormal];
+        }else{
+            [otherPinGoodsBtn setTitle:@"该商品已下架，去看看其他拼购吧~" forState:UIControlStateNormal];
+        }
+
         otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [otherPinGoodsBtn addTarget:self  action:@selector(otherPinGoodsBtnClick)  forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:otherPinGoodsBtn];
-        
-        UILabel* saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-104)/2, 105, 104, 104)];
-        saleOutLab.textAlignment = NSTextAlignmentCenter;
-        saleOutLab.backgroundColor = UIColorFromRGB(0x000000);
-        saleOutLab.alpha = 0.7;
-        saleOutLab.font = [UIFont systemFontOfSize:17];
-        [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
-        saleOutLab.text = @"已抢光";
-        [saleOutLab.layer setMasksToBounds:YES];
-        saleOutLab.layer.cornerRadius = 52;
-        [self.view addSubview:saleOutLab];
-
 
     }
 

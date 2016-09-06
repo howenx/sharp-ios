@@ -47,10 +47,20 @@
 {
     _detailLab.lineBreakMode = NSLineBreakByCharWrapping;
     int itemDiscountCount = 0;
+    
+    
+    //P 状态显示预售中 K 状态显示已售罄  D 状态显示已下架 Y正常状态
+    //当全部非正常状态（Y）的时候，显主sku的商品状态
+    NSString* status = @"other";
+    NSString* mainSkuStatus = @"";
+    
     for(SizeData * sizeData in data.sizeArray){
+        if([sizeData.state isEqualToString:@"Y"]){
+            status = @"Y";
+        }
         if(sizeData.orMasterInv){
             _scrollArr = sizeData.itemPreviewImgs;
-
+            mainSkuStatus = sizeData.state;
             _costPriceLab.text = [NSString stringWithFormat:@"￥%@",sizeData.itemSrcPrice];
             CGSize costPriceSize  = [PublicMethod getSize:_costPriceLab.text Font:12 Width:GGUISCREENWIDTH-100 Height:1000];
             _costPriceConstraint.constant = costPriceSize.width+1;
@@ -109,6 +119,34 @@
   
         }
     }
+    
+    
+    if(![status isEqualToString:@"Y"]){
+        
+        UILabel* saleOutLab = [[UILabel alloc]initWithFrame:CGRectMake((GGUISCREENWIDTH-104)/2, 105, 104, 104)];
+        saleOutLab.textAlignment = NSTextAlignmentCenter;
+        saleOutLab.backgroundColor = UIColorFromRGB(0x000000);
+        saleOutLab.alpha = 0.7;
+        saleOutLab.font = [UIFont systemFontOfSize:17];
+        [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
+        
+        [saleOutLab.layer setMasksToBounds:YES];
+        saleOutLab.layer.cornerRadius = 52;
+        
+        if([mainSkuStatus isEqualToString:@"P"]){
+            saleOutLab.text = @"预售中";
+        } else if ([mainSkuStatus isEqualToString:@"K"]){
+            saleOutLab.text = @"已售罄";
+        } else if ([mainSkuStatus isEqualToString:@"D"]){
+            saleOutLab.text = @"已下架";
+        } 
+        
+        [self.contentView addSubview:saleOutLab];
+
+    }
+
+    
+    
 
     if(_scrollArr.count>1){
         

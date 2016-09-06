@@ -16,6 +16,7 @@
 #import "ChooseTeamViewController.h"
 #import "UIBarButtonItem+GG.h"
 #import "MyPinTeamViewController.h"
+#import "RecommendGoodsView.h"
 @interface PinDetailViewController ()<UIScrollViewDelegate>
 {
     float statusH;//上面拼购状态高度
@@ -300,11 +301,6 @@
     
     
     
-    
-    
-    
-    
-    
     if([_data.status isEqualToString:@"Y"]){
 
         stateImageView.image = [UIImage imageNamed:@"hmm_zutuan"];
@@ -377,12 +373,21 @@
         aboutLab.text = @"对于诸位大侠的相助，团长感激涕零";
         [photoView addSubview:aboutLab];
 
-    }else if([_data.status isEqualToString:@"E"]){
-
-
+    }else if([_data.status isEqualToString:@"E"]){//拼团结束
+        UIButton * otherPinGoodsBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        otherPinGoodsBtn.frame = CGRectMake(0, GGUISCREENHEIGHT - goSeeOtherBtnH -64, GGUISCREENWIDTH, goSeeOtherBtnH) ;
+        otherPinGoodsBtn.backgroundColor = UIColorFromRGB(0x49576e);
+        [otherPinGoodsBtn setTitle:@"该拼团已结束，去看看其他商品吧~" forState:UIControlStateNormal];
+        otherPinGoodsBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [otherPinGoodsBtn addTarget:self  action:@selector(otherPinGoodsBtnClick)  forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:otherPinGoodsBtn];
     }
-    
-
+}
+-(void)otherPinGoodsBtnClick{
+    RecommendGoodsView * reView  = [[RecommendGoodsView alloc]initWithFrame:CGRectMake(0, 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
+    reView.data = _data.pushArray;
+    [reView makeUI];
+    [self.tabBarController.view addSubview:reView];
 }
 - (void) requestData
 {
@@ -406,7 +411,7 @@
         if(code == 200){
             NSDictionary * dataDict = [object objectForKey:@"activity"];
             
-            _data = [[PinDetailData alloc] initWithJSONNode:dataDict];
+            _data = [[PinDetailData alloc] initWithJSONNode:object];
             [self createView];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

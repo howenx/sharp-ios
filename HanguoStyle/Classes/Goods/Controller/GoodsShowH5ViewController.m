@@ -198,7 +198,6 @@
                 _cntLabel.hidden = NO;
                 _cntLabel.text= [NSString stringWithFormat:@"%ld",(long)_cnt];
             }
-            
         }
     }else{
         NSString * url = [HSGlobal queryCustNum];

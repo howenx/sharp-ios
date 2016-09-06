@@ -56,6 +56,8 @@
 @property (nonatomic)  long skuTypeId;
 @property (nonatomic)  long pinTieredPriceId;
 
+@property (nonatomic) NSMutableArray * pushArray;//推荐列表
+
 //@property (nonatomic)  NSString * orderId;
 
 @end
