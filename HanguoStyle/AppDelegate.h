@@ -11,7 +11,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, readonly) UIPageControl *pageControl;
+//@property (nonatomic, readonly) UIPageControl *pageControl;
 
 @end
 
