@@ -9,6 +9,7 @@
 #import "AddressViewController.h"
 #import "AppendAddrViewController.h"
 #import "AddressCell.h"
+#import "HMMRefreshHeader.h"
 
 @interface AddressViewController ()<UITableViewDataSource,UITableViewDelegate,MBProgressHUDDelegate,AddressCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,7 +33,10 @@
     [_tableView registerNib:[UINib nibWithNibName:@"AddressCell" bundle:nil] forCellReuseIdentifier:@"AddressCell"];
     self.data = [NSMutableArray array];
     
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self headerRefresh];
+    } ];
     [self createNoAddressView];
     
     //右上角添加按钮

@@ -351,7 +351,7 @@
     
     
     // 下拉刷新
-    self.collectionView.header= [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.collectionView.mj_header= [HMMRefreshHeader headerWithRefreshingBlock:^{
         
         if ([type isEqualToString:@"0"]) {
             page_count_all =1;

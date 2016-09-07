@@ -37,7 +37,10 @@
     
     self.data  = [NSMutableArray array];
 
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self headerRefresh];
+    } ];
     [self createNoCollectView];
     
     

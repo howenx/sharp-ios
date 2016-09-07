@@ -113,7 +113,11 @@
     [_tableView registerNib:[UINib nibWithNibName:@"CartCell" bundle:nil] forCellReuseIdentifier:@"CartCell"];
     self.data  = [NSMutableArray array];
     [self createNoCartView];
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self headerRefresh];
+    } ];
     selectCount = 0;
     totalAmt = 0;
     realityAmount = 0;

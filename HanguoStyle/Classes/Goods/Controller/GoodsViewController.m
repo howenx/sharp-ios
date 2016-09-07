@@ -22,6 +22,8 @@
 #import "KKGbutton.h"
 #import "UIImage+GG.h"
 #import "NewGoodsShowViewController.h"
+#import "HMMRefreshHeader.h"
+#import "HMMRefreshAutoGifFooter.h"
 #define  BUTTONHigh 180
 
 @interface GoodsViewController ()<UITableViewDataSource,UITableViewDelegate,HeadViewDelegate,MBProgressHUDDelegate>
@@ -57,8 +59,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
 
+//       [self backTopButton];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 40.0f)];//初始化图片视图控件
     imageView.contentMode = UIViewContentModeScaleAspectFit;//设置内容样式,通过保持长宽比缩放内容适应视图的大小,任何剩余的区域的视图的界限是透明的。
@@ -77,7 +79,13 @@
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
+//    self.tableView.mj_footer = [HMMRefreshAutoGifFooter footerWithRefreshingBlock:^{
+//        [self footerRefresh];
+//    }];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self ReloadRootPage];
+    } ];
     self.data = [NSMutableArray array];
     [self queryCustNum];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadRootPage) name:@"ReloadRootPage" object:nil];
@@ -88,6 +96,9 @@
 //}
 -(void)ReloadRootPage{
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+//    self.tableView.mj_footer = [HMMRefreshAutoGifFooter footerWithRefreshingBlock:^{
+//        [self footerRefresh];
+//    }];
     _addon = 1;
     totalPageCount = 0;
     self.tableView.contentOffset = CGPointMake(0, 0);
@@ -189,6 +200,20 @@
     }
 }
 
+
+-(void)backTopButton
+{
+    UIButton * butn = [[UIButton alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-180, 40, 40)];
+    butn.backgroundColor = [UIColor redColor];
+    [butn addTarget:self action:@selector(backTop) forControlEvents:UIControlEventTouchUpInside];
+    
+//    [self.view bringSubviewToFront:butn];
+    [self.view insertSubview:butn atIndex:99];
+}
+-(void)backTop
+{
+    [_tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+}
 
 - (void)createHeadScrollView{
     
