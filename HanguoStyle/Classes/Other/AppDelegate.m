@@ -49,6 +49,12 @@ static NSString *appId = @"wx578f993da4b29f97";
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
     /** 友盟统计 统计 */
 }
+
+//为了在 APP 里支持通用链接
+//-(BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler {
+//    
+//}
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     NSLog(@"返回的url:%@",url);
@@ -149,7 +155,7 @@ static NSString *appId = @"wx578f993da4b29f97";
     UIScrollView *_scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     //设置UIScrollView 的显示内容的尺寸，有n张图要显示，就设置 屏幕宽度*n ，这里假设要显示4张图
-    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 4, GGUISCREENHEIGHT);
+    _scrollView.contentSize = CGSizeMake(GGUISCREENWIDTH * 3, GGUISCREENHEIGHT);
     
     _scrollView.tag = 101;
     
@@ -164,17 +170,17 @@ static NSString *appId = @"wx578f993da4b29f97";
     
     
     //在UIScrollView 上加入 UIImageView
-    for (int i = 0 ; i < 4; i ++) {
+    for (int i = 0 ; i < 3; i ++) {
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(GGUISCREENWIDTH * i , 0, GGUISCREENWIDTH, GGUISCREENHEIGHT)];
         
         //将要加载的图片放入imageView 中
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",i]];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"w_%d",i]];
         imageView.image = image;
         
         [_scrollView addSubview:imageView];
         if(i == 0){
-            UIImageView * jumpImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-69, 18, 51, 51)];
+            UIImageView * jumpImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH-65, 34, 51, 51)];
             jumpImgV.image = [UIImage imageNamed:@"tiaoguo"];
             jumpImgV.alpha = 0.8;
             jumpImgV.userInteractionEnabled = YES;
@@ -182,8 +188,8 @@ static NSString *appId = @"wx578f993da4b29f97";
             [_scrollView addSubview:jumpImgV];
         }
 
-        if(i == 3){
-            UIImageView * enterImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH * i +(GGUISCREENWIDTH-167)/2, GGUISCREENHEIGHT*0.8, 167, 40)];
+        if(i == 2){
+            UIImageView * enterImgV = [[UIImageView alloc]initWithFrame:CGRectMake(GGUISCREENWIDTH * i +(GGUISCREENWIDTH-160)/2, GGUISCREENHEIGHT*0.8, 160, 44)];
             enterImgV.image = [UIImage imageNamed:@"openApp"];
             enterImgV.userInteractionEnabled = YES;
             [enterImgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewDisappear)]];
@@ -193,13 +199,13 @@ static NSString *appId = @"wx578f993da4b29f97";
     [self.window addSubview:_scrollView];
     
     
-    //设置分页
-    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-50, GGUISCREENWIDTH, 40)];
-    _pageControl.userInteractionEnabled = NO;
-    _pageControl.currentPageIndicatorTintColor = GGMainColor;
-    _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-    _pageControl.numberOfPages = 4;
-    [self.window addSubview:_pageControl];
+//    //设置分页
+//    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, GGUISCREENHEIGHT-50, GGUISCREENWIDTH, 40)];
+//    _pageControl.userInteractionEnabled = NO;
+//    _pageControl.currentPageIndicatorTintColor = GGMainColor;
+//    _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+//    _pageControl.numberOfPages = 4;
+//    [self.window addSubview:_pageControl];
 
 }
 
@@ -211,12 +217,12 @@ static NSString *appId = @"wx578f993da4b29f97";
     int current = scrollView.contentOffset.x/GGUISCREENWIDTH;
     
     //根据scrollView 的位置对page 的当前页赋值
-    _pageControl.currentPage = current;
+//    _pageControl.currentPage = current;
 
 }
 
 -(void)scrollViewDisappear{
-    [_pageControl removeFromSuperview];
+//    [_pageControl removeFromSuperview];
     //拿到 view 中的 UIScrollView 和 UIPageControl
     UIScrollView *scrollView = (UIScrollView *)[self.window viewWithTag:101];
     

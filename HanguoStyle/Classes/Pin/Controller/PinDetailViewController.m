@@ -409,7 +409,6 @@
         NSLog(@"message= %@",message);
         
         if(code == 200){
-            NSDictionary * dataDict = [object objectForKey:@"activity"];
             
             _data = [[PinDetailData alloc] initWithJSONNode:object];
             [self createView];
