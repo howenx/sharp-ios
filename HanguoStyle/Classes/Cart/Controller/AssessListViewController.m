@@ -9,6 +9,7 @@
 #import "AssessListViewController.h"
 #import "AssessListData.h"
 #import "AssessListCell.h"
+#import "HMMRefreshHeader.h"
 
 @interface AssessListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -28,7 +29,10 @@
     self.tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"AssessListCell" bundle:nil] forCellReuseIdentifier:@"AssessListCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self headerRefresh];
+    } ];
     self.data = [NSMutableArray array];
     
     

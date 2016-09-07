@@ -45,7 +45,10 @@
     _collectionView.backgroundColor = GGBgColor;
     self.data  = [NSMutableArray array];
     self.hidesBottomBarWhenPushed = YES;
-    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+//    self.collectionView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.collectionView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self headerRefresh];
+    } ];
     [self makeCustNumLab];
 
 }

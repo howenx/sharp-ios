@@ -57,7 +57,11 @@
     [self footerRefresh];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(ReloadRootPage)];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self ReloadRootPage];
+    } ];
+    
     self.data = [NSMutableArray array];
 }
 - (void) footerRefresh

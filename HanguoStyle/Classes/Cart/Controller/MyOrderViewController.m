@@ -60,7 +60,10 @@
     _data = [NSMutableArray array];
     [self createTableView];
 
-    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+//    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(requestData)];
+    self.tableView.mj_header = [HMMRefreshHeader headerWithRefreshingBlock:^{
+        [self requestData];
+    } ];
     [self createNoOrderView];
     
 }
