@@ -75,7 +75,7 @@
     if (_pageNum == 1) {
         
         GoodsParaView * gpv = [[GoodsParaView alloc]init];
-        [gpv createParaView:data.itemFeatures keyArray:data.itemFeaturesKeyArray];
+        [gpv createParaView:data.itemFeatures];
         _scrollView.frame = CGRectMake(0, 0, GGUISCREENWIDTH, gpv.frame.size.height);
         [_scrollView addSubview:gpv];
         _scrollView.contentOffset = CGPointMake(GGUISCREENWIDTH, 0);

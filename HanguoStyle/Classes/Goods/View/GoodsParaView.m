@@ -12,8 +12,9 @@
 #define gap 40
 @implementation GoodsParaView
 
--(void)createParaView:(NSDictionary *)dict keyArray:(NSMutableArray*) keyArray{
-//    NSArray * keyArray = [dict allKeys];
+-(void)createParaView:(NSDictionary *)dict{
+    NSArray * keyArray = [dict allKeys];
+
     CGRect rect = CGRectMake(0, 0, GGUISCREENWIDTH, 0);
     
     for(int i = 0;i < keyArray.count; i++){

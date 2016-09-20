@@ -40,13 +40,17 @@
         [saleOutLab setTextColor:UIColorFromRGB(0xffffff)];
         [saleOutLab.layer setMasksToBounds:YES];
         saleOutLab.layer.cornerRadius = 52;
+        saleOutLab.hidden =YES;
         
         if([data.status isEqualToString:@"P"]){
             saleOutLab.text = @"预售中";
+            saleOutLab.hidden =NO;
         } else if ([data.status isEqualToString:@"K"]){
             saleOutLab.text = @"已售罄";
+            saleOutLab.hidden =NO;
         } else if ([data.status isEqualToString:@"D"]){
             saleOutLab.text = @"已下架";
+            saleOutLab.hidden =NO;
         }
         [self.contentView addSubview:saleOutLab];
         

@@ -30,21 +30,21 @@
             //        self.onShelvesAt = [mainDict objectForKey:@"onShelvesAt"];
             //        self.offShelvesAt = [mainDict objectForKey:@"offShelvesAt"];
             self.itemDetailImgs = [mainDict objectForKey:@"itemDetailImgs"];
-//            self.itemFeatures = [[mainDict objectForKey:@"itemFeatures"] objectFromJSONString];
-            self.itemFeatures = [NSMutableDictionary dictionary];
-            self.itemFeaturesKeyArray = [NSMutableArray array];
-            NSString * itemFeaturesStr = [mainDict objectForKey:@"itemFeatures"];
-            if(![NSString isBlankString:itemFeaturesStr] ){
-                NSArray  * itemFeaturesArray= [[@" " stringByAppendingString:[itemFeaturesStr substringWithRange:NSMakeRange(1,itemFeaturesStr.length-2)]] componentsSeparatedByString:@","];
-                for(NSString * singleStr in itemFeaturesArray){
-                    NSArray  * singleArray = [singleStr componentsSeparatedByString:@":"];
-                    NSString * key =  [singleArray[0]substringWithRange:NSMakeRange(2,((NSString *)singleArray[0]).length-3)];
-                    [self.itemFeaturesKeyArray addObject:key];
-                    NSString * value = [singleArray[1]substringWithRange:NSMakeRange(2,((NSString *)singleArray[1]).length-3)];
-                    [self.itemFeatures setObject:value forKey:key];
-                }
-
-            }
+            self.itemFeatures = [[mainDict objectForKey:@"itemFeatures"] objectFromJSONString];
+//            self.itemFeatures = [NSMutableDictionary dictionary];
+//            self.itemFeaturesKeyArray = [NSMutableArray array];
+//            NSString * itemFeaturesStr = [mainDict objectForKey:@"itemFeatures"];
+//            if(![NSString isBlankString:itemFeaturesStr] ){
+//                NSArray  * itemFeaturesArray= [[@" " stringByAppendingString:[itemFeaturesStr substringWithRange:NSMakeRange(1,itemFeaturesStr.length-2)]] componentsSeparatedByString:@","];
+//                for(NSString * singleStr in itemFeaturesArray){
+//                    NSArray  * singleArray = [singleStr componentsSeparatedByString:@":"];
+//                    NSString * key =  [singleArray[0]substringWithRange:NSMakeRange(2,((NSString *)singleArray[0]).length-3)];
+//                    [self.itemFeaturesKeyArray addObject:key];
+//                    NSString * value = [singleArray[1]substringWithRange:NSMakeRange(2,((NSString *)singleArray[1]).length-3)];
+//                    [self.itemFeatures setObject:value forKey:key];
+//                }
+//
+//            }
            
             //        self.themeId = [mainDict objectForKey:@"themeId"];
             //        self.state = [mainDict objectForKey:@"state"];

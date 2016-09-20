@@ -23,16 +23,15 @@
     [self setImages:idleImages forState:MJRefreshStateIdle];
     
     // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
-    NSMutableArray *refreshingImages = [NSMutableArray array];
-    for (NSUInteger i = 32; i<=0; i--) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Refresh_%zd", i]];
-        [refreshingImages addObject:image];
-    }
-    [self setImages:refreshingImages forState:MJRefreshStatePulling];
+//    NSMutableArray *refreshingImages = [NSMutableArray array];
+//    for (NSUInteger i = 32; i<=0; i--) {
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Refresh_%zd", i]];
+//        [refreshingImages addObject:image];
+//    }
+//    [self setImages:refreshingImages forState:MJRefreshStatePulling];
     
     // 设置正在刷新状态的动画图片
-         [self setImages:refreshingImages forState:MJRefreshStateRefreshing];
-    
+    [self setImages:idleImages forState:MJRefreshStateRefreshing];
     // 隐藏时间
     self.lastUpdatedTimeLabel.hidden = YES;
     // 隐藏状态

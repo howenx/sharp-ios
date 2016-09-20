@@ -55,9 +55,7 @@
    [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:GGNavColor] forBarMetrics:UIBarMetricsDefault];
 }
 
-
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
 
 //       [self backTopButton];
@@ -90,10 +88,7 @@
     [self queryCustNum];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ReloadRootPage) name:@"ReloadRootPage" object:nil];
 }
-//-(void)headerRefresh{
-//    _addon = 1;
-//    totalPageCount = 0;
-//}
+
 -(void)ReloadRootPage{
     self.tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
 //    self.tableView.mj_footer = [HMMRefreshAutoGifFooter footerWithRefreshingBlock:^{
